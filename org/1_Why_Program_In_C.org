@@ -1,0 +1,204 @@
+#+STARTUP: showall
+
+#+TITLE:     1. Why Program in C?
+#+AUTHOR:    Paul Gribble
+#+EMAIL:     paul@gribblelab.org
+#+DATE:      Summer 2012
+
+-----
+[TABLE-OF-CONTENTS]
+-----
+
+* What is C?
+
+C is a high-level programming language that was first developed by
+Dennis Ritchie at Bell Labs in the early 1970s. Unix was one of the
+first operating systems to be written in C. Microsoft Windows, Mac OS
+X, and GNU/Linux are also written in C. Lots of other high-level
+languages like Perl, PHP, Python, R, Matlab, Mathematica, etc, are
+written in C.
+
+Currently (as of July, 2012) C is #1 in popularity according to the
+[[http://www.tiobe.com/index.php/content/paperinfo/tpci/index.html][TIOBE index]].
+
+** Example Code
+
+#+BEGIN_SRC c
+#include <stdio.h>
+
+int main(int argc, char *argv[]) {
+  printf("hello world\n");
+  return 0;
+}
+#+END_SRC
+
+The above is a bare-bones C program that simply writes the string
+"hello world" to the screen. (The line numbers were added by me, they
+aren't a part of the actual C code.) As you can see it's not terribly
+scary looking code. The code that "does the work" here is line 4. All
+the other stuff you can think of as standard "boilerplate" C code that
+you need for any C program.
+
+Line 1 imports one of the standard C libraries, =stdio.h=, (standard
+input/output). Line 3 defines a function called =main()=, which is
+needed for the program to run. The main code is line 4, which prints
+the string "~hello world~" (followed by a newline character ~\n~) to
+the screen. The stuff inside the brackets in =main()= (the =int argc,
+char *argv[]=) is not important for now, and in fact it is optional,
+you could leave it out and your program would still run. Same for line
+5, =return 0;=. I included them here for completeness, and we will
+talk about their role later on.
+
+As a comparison here is a similar program in Python:
+
+#+BEGIN_SRC Python
+print "hello world"
+#+END_SRC
+
+Here it is in R:
+
+#+BEGIN_SRC R
+cat("hello world\n")
+#+END_SRC
+
+and Matlab / Octave:
+
+#+BEGIN_SRC octave
+disp('hello world')
+#+END_SRC
+
+As you can see the difference between the C code and the code in other
+languages is that in C we have to explicitly import the =stdio.h=
+library, and we have to explicitly define the =main()= function. Not
+such a big deal. The other difference is that the name of the standard
+function to write stuff to the screen is different in each
+langauge. In C it is =printf()=, in Python it is =print=, in R it is
+=cat()=, and in Matlab/Octave it is =disp()=. Again, no big deal.
+
+One of the things I want you to take away from this boot camp is that
+with few exceptions, all (procedural) programming languages are
+essentially the same, but:
+
+1. names of standard functions are different
+2. rules of syntax are different
+3. functionality included in standard libraries is different
+4. APIs are different and use different names for things
+
+That's it, really. Once you know how to program in one language, all
+you have to do, really, is learn some different syntactic rules, and
+learn the names of the various functions that you will be using, and
+learn what APIs provide needed functionality. No big deal.
+
+To see hello world in a bunch of other languages, go here:
+[[https://github.com/leachim6/hello-world][hello-world]].
+
+* Virtues and Challenges
+
+** Virtues of C
+
+- fast (it's a compiled language and so is close to the machine hardware)
+- portable (you can compile you program to run on just about any
+  hardware platform out there)
+- the language is small (unlike C++ for example)
+- mature (a long history and lots of resources and experience available)
+- there are many tools for making programming easier (e.g. IDEs like Xcode)
+- you have direct access to memory
+- you have access to low-level system features if needed
+
+** Challenges of using C
+
+- the language is small (but there are many APIs)
+- it's easy to get into trouble, e.g. with direct memory access & pointers
+- the code --- compile --- test (crash) --- debug cycle
+- you must manage memory yourself
+- sometimes code is more verbose than in high-level scripting languages like Python, R, etc
+
+* When should I use C?
+
+My own take on scientific programming, is that I think of C as one of
+many tools in my toolkit for performing computational tasks in my
+scientific work. I wouldn't necessarily suggest *only* programming in
+C. On the other hand, I wouldn't suggest not taking advantage of C
+when the situation calls for it. In our lab, we use Python, R,
+(sometimes Matlab but increasingly less often), and when we feel the
+need, the need for speed, we use C.
+
+For interactive data exploration, like when you want to load in some
+data, plot it in different ways, do some rudimentary calculations,
+plot the results, etc, then C may not be the best choice. For this
+sort of interactive exploratory scripting, a language like Python,
+Matlab, R, etc, may be perfectly sufficient. In particular, these
+other languages make it very easy to quickly generate great-looking
+graphics.
+
+For cases where you need to process a large amount of data, you will
+find that these languages are slow. Even for fairly common statistical
+procedures like bootstrapping (techniques that involve resampling
+thousands or tens of thousands of times), interpreted languages will
+be orders of magnitude slower than C.
+
+This is the situation when C starts to become very attractive. If you
+have a data processing operation, or a simulation, and you know it
+will take a long time to run, then it is often worth it to spend some
+time implementing it in C.
+
+My own personal rule of thumb is that if I have to wait more than
+about 10 seconds to see the result of a calculation or operation,
+then I get annoyed, and I think about implementing it in C.
+
+You might think, who cares if my calculation takes 10 seconds, or 30
+seconds, ot 5 minutes, for that matter? Is 5 minutes so bad? The
+answer is, no, it's not so bad if you only have to do it once... but
+it's almost *never* the case that you only even perform a computation
+on your data once.
+
+** An Example
+
+Imagine you write some Matlab code to read in data from one subject,
+process that data, and write the result to a file, and that operation
+takes *60 seconds*. Is that so bad? Not if you only have to run it
+once. Now let's imagine you have 15 subjects in your group... now 60
+seconds is *15 minutes*. Now let's say you have 4 groups ... now 15
+minutes is *one hour*. You run your program, go have lunch, and come
+back an hour later and you find there was an error. You fix the error
+and re-run ... another hour. Even if you get it right, now imagine
+your supervisor asks you to re-run the analysis 5 different ways,
+varying some parameter of the analysis (maybe filtering the data at a
+different frequency, for example). Now you need *5 hours* to see the
+result. It doesn't take a huge amount of data to run into this sort of
+situation.
+
+If you program your data processing pipeline in C, and you achieve a
+100x speedup (not unusual), now those 5 hours turn into *180 seconds*
+(you could run your analysis twice and it would still take less time
+than listening to Stairway to Heaven).
+
+* The Bottom Line
+
+My own approach is to use interpreted languages like Python, R,
+Octave/Matlab, etc, for prototyping --- that is, for exploring small
+amounts of data, for developing an approach, and algorithms, for
+analysing data, and for generating graphics. When I have a
+computation, or a simulation, or a series of operations that are
+time-consuming, I think about implementing them in C. Interpreted
+languages for *prototyping*, and C for *performance*.
+
+-----
+
+* References
+
+- A classic reference book: [[https://en.wikipedia.org/wiki/The_C_Programming_Language_(book)][The C Programming Language]] by Kernighan & Ritchie
+- [[http://radar.oreilly.com/2012/06/why-learn-c.html][Why learn C?]] ([[http://youtu.be/hHySVnJzADM][YouTube interview]])
+- A good in-depth book: [[http://www.amazon.com/Programming-3rd-Edition-Stephen-Kochan/dp/0672326663][Programming in C (3rd Ed.)]] by Stephen Kochan
+- [[https://en.wikipedia.org/wiki/C_(programming_language)][C on Wikipedia]]
+- [[http://www.nongnu.org/c-prog-book/online/index.html][Learning GNU C]]
+- The GNU C Programming Tutorial ([[http://www.crasseux.com/books/ctutorial/][html]]) ([[http://www.crasseux.com/books/ctut.pdf][pdf]])
+- [[http://shop.oreilly.com/product/0636920015482.do][Head First C]] (very "tutorial" style, slightly annoying)
+- [[http://mortoray.com/2012/06/11/whats-to-love-about-c/][What's to love about C?]]
+- [[http://c.learncodethehardway.org/book/][Learn C The Hard Way]]
+- [[http://en.wikipedia.org/wiki/C_standard_library][C standard library]]
+- A book on doing statistics with C using the [[http://apophenia.sourceforge.net/][Apophenia]] library:
+  [[http://modelingwithdata.org/about_the_book.html][Modeling With Data]] by Ben Klemens (see Chapter 1 for an argument in
+  favour of using C for statistical analyses, and Chapter 2 for a
+  tutorial on programming in C)
+- A tip-a-day on C [[http://modelingwithdata.org/arch/00000049.htm][here]] by Ben Klemens

@@ -1,0 +1,1169 @@
+<?xml version="1.0" encoding="iso-8859-1"?>
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Strict//EN"
+               "http://www.w3.org/TR/xhtml1/DTD/xhtml1-strict.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml" lang="en" xml:lang="en">
+<head>
+<title>A2. Parallel Programming in C</title>
+<meta http-equiv="Content-Type" content="text/html;charset=iso-8859-1"/>
+<meta name="title" content="A2. Parallel Programming in C"/>
+<meta name="generator" content="Org-mode"/>
+<meta name="generated" content="Summer 2012"/>
+<meta name="author" content="Paul Gribble"/>
+<meta name="description" content=""/>
+<meta name="keywords" content=""/>
+<style type="text/css">
+ <!--/*--><![CDATA[/*><!--*/
+  html { font-family: Times, serif; font-size: 12pt; }
+  .title  { text-align: center; }
+  .todo   { color: red; }
+  .done   { color: green; }
+  .tag    { background-color: #add8e6; font-weight:normal }
+  .target { }
+  .timestamp { color: #bebebe; }
+  .timestamp-kwd { color: #5f9ea0; }
+  .right  {margin-left:auto; margin-right:0px;  text-align:right;}
+  .left   {margin-left:0px;  margin-right:auto; text-align:left;}
+  .center {margin-left:auto; margin-right:auto; text-align:center;}
+  p.verse { margin-left: 3% }
+  pre {
+	border: 1pt solid #AEBDCC;
+	background-color: #F3F5F7;
+	padding: 5pt;
+	font-family: courier, monospace;
+        font-size: 90%;
+        overflow:auto;
+  }
+  table { border-collapse: collapse; }
+  td, th { vertical-align: top;  }
+  th.right  { text-align:center;  }
+  th.left   { text-align:center;   }
+  th.center { text-align:center; }
+  td.right  { text-align:right;  }
+  td.left   { text-align:left;   }
+  td.center { text-align:center; }
+  dt { font-weight: bold; }
+  div.figure { padding: 0.5em; }
+  div.figure p { text-align: center; }
+  div.inlinetask {
+    padding:10px;
+    border:2px solid gray;
+    margin:10px;
+    background: #ffffcc;
+  }
+  textarea { overflow-x: auto; }
+  .linenr { font-size:smaller }
+  .code-highlighted {background-color:#ffff00;}
+  .org-info-js_info-navigation { border-style:none; }
+  #org-info-js_console-label { font-size:10px; font-weight:bold;
+                               white-space:nowrap; }
+  .org-info-js_search-highlight {background-color:#ffff00; color:#000000;
+                                 font-weight:bold; }
+  /*]]>*/-->
+</style><link rel="stylesheet" type="text/css" href="mystyle.css" />
+<script type="text/javascript">
+<!--/*--><![CDATA[/*><!--*/
+ function CodeHighlightOn(elem, id)
+ {
+   var target = document.getElementById(id);
+   if(null != target) {
+     elem.cacheClassElem = elem.className;
+     elem.cacheClassTarget = target.className;
+     target.className = "code-highlighted";
+     elem.className   = "code-highlighted";
+   }
+ }
+ function CodeHighlightOff(elem, id)
+ {
+   var target = document.getElementById(id);
+   if(elem.cacheClassElem)
+     elem.className = elem.cacheClassElem;
+   if(elem.cacheClassTarget)
+     target.className = elem.cacheClassTarget;
+ }
+/*]]>*///-->
+</script>
+<script type="text/javascript" src="http://orgmode.org/mathjax/MathJax.js">
+<!--/*--><![CDATA[/*><!--*/
+    MathJax.Hub.Config({
+        // Only one of the two following lines, depending on user settings
+        // First allows browser-native MathML display, second forces HTML/CSS
+        //  config: ["MMLorHTML.js"], jax: ["input/TeX"],
+            jax: ["input/TeX", "output/HTML-CSS"],
+        extensions: ["tex2jax.js","TeX/AMSmath.js","TeX/AMSsymbols.js",
+                     "TeX/noUndefined.js"],
+        tex2jax: {
+            inlineMath: [ ["\\(","\\)"] ],
+            displayMath: [ ['$$','$$'], ["\\[","\\]"], ["\\begin{displaymath}","\\end{displaymath}"] ],
+            skipTags: ["script","noscript","style","textarea","pre","code"],
+            ignoreClass: "tex2jax_ignore",
+            processEscapes: false,
+            processEnvironments: true,
+            preview: "TeX"
+        },
+        showProcessingMessages: true,
+        displayAlign: "center",
+        displayIndent: "2em",
+
+        "HTML-CSS": {
+             scale: 100,
+             availableFonts: ["STIX","TeX"],
+             preferredFont: "TeX",
+             webFont: "TeX",
+             imageFont: "TeX",
+             showMathMenu: true,
+        },
+        MMLorHTML: {
+             prefer: {
+                 MSIE:    "MML",
+                 Firefox: "MML",
+                 Opera:   "HTML",
+                 other:   "HTML"
+             }
+        }
+    });
+/*]]>*///-->
+</script>
+</head>
+<body>
+<div id="org-div-home-and-up" style="text-align:right;font-size:70%;white-space:nowrap;">
+ <a accesskey="h" href="index.html"> UP </a>
+ |
+ <a accesskey="H" href="index.html"> HOME </a>
+</div>
+
+<div id="preamble">
+
+</div>
+
+<div id="content">
+<h1 class="title">A2. Parallel Programming in C</h1>
+
+
+
+<hr/>
+<div id="table-of-contents">
+<h2>Table of Contents</h2>
+<div id="text-table-of-contents">
+<ul>
+<li><a href="#sec-1">Why Parallel Programming?</a></li>
+<li><a href="#sec-2">Kinds of Parallel Programming</a>
+<ul>
+<li><a href="#sec-2-1">Types of parallel tasks</a>
+<ul>
+<li><a href="#sec-2-1-1">Embarrassingly parallel problems</a></li>
+<li><a href="#sec-2-1-2">Serial problems</a></li>
+<li><a href="#sec-2-1-3">Mixtures</a></li>
+</ul></li>
+</ul>
+</li>
+<li><a href="#sec-3">Tools for Parallel Programming</a>
+<ul>
+<li><a href="#sec-3-1">POSIX Threads (Pthreads)</a></li>
+<li><a href="#sec-3-2">OpenMP</a>
+<ul>
+<li><a href="#sec-3-2-1">Private vs Shared variables</a></li>
+<li><a href="#sec-3-2-2">Parallelizing for loops with OpenMP</a></li>
+<li><a href="#sec-3-2-3">Critical Code</a></li>
+<li><a href="#sec-3-2-4">Reduction</a></li>
+<li><a href="#sec-3-2-5">Other OpenMP directives</a></li>
+</ul>
+</li>
+<li><a href="#sec-3-3">MPI</a>
+<ul>
+<li><a href="#sec-3-3-1">MPI_Reduce</a></li>
+<li><a href="#sec-3-3-2">An Example: Estimating pi using dartboard algorithm</a></li>
+</ul></li>
+</ul>
+</li>
+<li><a href="#sec-4">GPU Computing</a></li>
+<li><a href="#sec-5">Links</a></li>
+<li><a href="#sec-6">Exercises</a>
+<ul>
+<li><a href="#sec-6-1">Solutions</a></li>
+</ul>
+</li>
+</ul>
+</div>
+</div>
+
+<hr/>
+
+
+<div id="outline-container-1" class="outline-2">
+<h2 id="sec-1">Why Parallel Programming?</h2>
+<div class="outline-text-2" id="text-1">
+
+
+<p>
+Simply put, because it may speed up your code. Unlike 10 years ago,
+today, your computer (and probably even your smartphone) have one or
+more CPUs that have <b>multiple processing cores</b> (<a href="http://en.wikipedia.org/wiki/Multi-core_(computing)">Multi-core processor</a>). This helps with desktop computing tasks like multitasking
+(running multiple programs, plus the operating system,
+simultaneously). For scientific computing, this means you have the
+ability in principle of splitting up your computations into groups and
+running each group on its own processor.
+</p>
+<p>
+Most operating systems have a utility that allows you to visualize
+processor usage in real-time. Mac OSX has "Activity Monitor",
+Gnome/GNU Linux has "gnome-system-monitor" and Windows has &hellip; well
+actually I have no idea, you're on your own with that one. Fire it up,
+and run a computationally intensive program you have written, and what
+you will probably see is that you have a lot of computational power
+that is sleeping. Parallel programming allows you in principle to take
+advantage of all that dormant power.
+</p>
+</div>
+
+</div>
+
+<div id="outline-container-2" class="outline-2">
+<h2 id="sec-2">Kinds of Parallel Programming</h2>
+<div class="outline-text-2" id="text-2">
+
+
+<p>
+There are many flavours of parallel programming, some that are general
+and can be run on any hardware, and others that are specific to
+particular hardware architectures.
+</p>
+<p>
+Two main paradigms we can talk about here are <b>shared memory</b> versus
+<b>distributed memory</b> models. In shared memory models, multiple
+processing units all have access to the same, shared memory
+space. This is the case on your desktop or laptop with multiple CPU
+cores. In a distributed memory model, multiple processing units each
+have their own memory store, and information is passed between
+them. This is the model that a networked <b>cluster</b> of computers
+operates with. A <a href="http://en.wikipedia.org/wiki/Computer_cluster">computer cluster</a> is a collection of standalone
+computers that are connected to each other over a network, and are
+used together as a single system. We won't be talking about clusters
+here, but some of the tools we'll talk about (e.g. MPI) are easily
+used with clusters.
+</p>
+
+</div>
+
+<div id="outline-container-2-1" class="outline-3">
+<h3 id="sec-2-1">Types of parallel tasks</h3>
+<div class="outline-text-3" id="text-2-1">
+
+
+<p>
+Broadly speaking we can separate a computation into two camps
+depending on how it can be parallelized. A so-called <a href="http://en.wikipedia.org/wiki/Embarrassingly_parallel">embarrassingly parallel</a> problem is one for which it is dead easy to separate it into
+some number of <b>independent</b> tasks that then may be run in
+parallel. 
+</p>
+
+</div>
+
+<div id="outline-container-2-1-1" class="outline-4">
+<h4 id="sec-2-1-1">Embarrassingly parallel problems</h4>
+<div class="outline-text-4" id="text-2-1-1">
+
+
+<p>
+Embarrassingly parallel computational problems are the easiest to
+parallelize and you can achieve impressive speedups if you have a
+computer with many cores. Even if you have just two cores, you can get
+close to a two-times speedup. An example of an embarrassingly parallel
+problem is when you need to run a preprocessing pipeline on datasets
+collected for 15 subjects. Each subject's data can be processed
+<b>independently</b> of the others. In other words, the computations
+involved in processing one subject's data do not in any way depend on
+the results of the computations for processing some other subject's
+data.
+</p>
+<p>
+As an example, a grad student in my lab (Heather) figured out how to
+distribute her FSL preprocessing pipeline for 24 fMRI subjects across
+multiple cores on her Mac Pro desktop (it has 8) and as a result what
+used to take about 48 hours to run, now takes "just" over 6 hours.
+</p>
+</div>
+
+</div>
+
+<div id="outline-container-2-1-2" class="outline-4">
+<h4 id="sec-2-1-2">Serial problems</h4>
+<div class="outline-text-4" id="text-2-1-2">
+
+
+<p>
+In contrast to embarrassingly parallel problems, there is a class of
+problems that cannot be split into independent sub-problems, we can
+call them <b>inherently sequential</b> or <b>serial</b> problems. For these
+types of problems, the computation at one stage <b>does</b> depend on the
+results of a computation at an earlier stage, and so it is not so easy
+to parallelize across independent processing units. In these kinds of
+problems, there is a need for some communication or coordination
+between sub-tasks.
+</p>
+<p>
+An example of a serial problem is a simulation of an arm movement. We
+run simulations of arm movements like reaching, that use detailed
+mathematical models of muscle mechanics, activation dynamics,
+musculoskeletal dynamics and spinal reflexes. Differential equations
+govern the relationship between muscle stimulation (the input) and the
+resulting arm movement (the output). These equations are "unwrapped"
+in time by a differential equation integrator, that takes small steps
+(like 1 millisecond at a time) to generate a simulation of a whole
+movement (e.g. 1 second of simulated time). On each step the current
+state of the system depends on both the current input (muscle command)
+<b>and</b> on the previous state of the system. With a 1 ms step, it takes
+(at least) 1000 computations to simulate a 1 sec arm movement &hellip; but
+we cannot simply split up those 1000 computations and distribute them
+to a set of independent processing units. This is an inherently serial
+problem where the current computation cannot be carried out without
+the results of the previous computation.
+</p>
+<p>
+As an aside, the way to take advantage of parallelism even with a
+serial problem, is to parallelize meta-computations. So for example,
+we typically want to run "sensitivity analyses" where we vary some
+parameter(s) of the arm model and re-run the simulation. If we have
+100 such simulations to run, even though each one of them is a serial
+problem on its own, they are independent of each other, and so we can
+parallelize the sensitivity analysis by distributing those 100
+simulations to multiple processing units.
+</p>
+</div>
+
+</div>
+
+<div id="outline-container-2-1-3" class="outline-4">
+<h4 id="sec-2-1-3">Mixtures</h4>
+<div class="outline-text-4" id="text-2-1-3">
+
+
+<p>
+A good example of a problem that has both embarrassingly parallel
+properties as well as serial dependency properties, is the
+computations involved in training and running an <a href="http://en.wikipedia.org/wiki/Neural_network">artificial neural network</a> (ANN). An ANN is made up of several layers of neuron-like
+processing units, each layer having many (even hundreds or thousands)
+of these units. If the ANN is a pure feedforward architecture, then
+computations within each layer are embarrassingly parallel, while
+computations between layers are serial.
+</p>
+
+</div>
+</div>
+</div>
+
+</div>
+
+<div id="outline-container-3" class="outline-2">
+<h2 id="sec-3">Tools for Parallel Programming</h2>
+<div class="outline-text-2" id="text-3">
+
+
+<p>
+The <b>threads model</b> of parallel programming is one in which a single
+process (a single program) can spawn multiple, concurrent "threads"
+(sub-programs). Each thread runs independently of the others, although
+they can all access the same shared memory space (and hence they can
+communicate with each other if necessary). Threads can be spawned and
+killed as required, by the main program.
+</p>
+<p>
+A challenge of using threads is the issue of collisions and <a href="http://en.wikipedia.org/wiki/Race_condition">race conditions</a>, which can be addressed using <a href="http://en.wikipedia.org/wiki/Synchronization_(computer_science)">synchronization</a>. If multiple
+threads write to (and depend upon) a shared memory variable, then care
+must be taken to make sure that multiple threads don't try to write to
+the same location simultaneously. The wikipedia page for <a href="http://en.wikipedia.org/wiki/Race_condition">race condition</a> has a nice description (an an example) of how this can be a
+problem. There are mechanisms when using threads to implement
+synchronization, and to implement mutual exclusivity (mutex variables)
+so that shared variables can be locked by one thread and then
+released, preventing collisions by other threads. These mechanisms
+ensure threads must "take turns" when accessing protected data.
+</p>
+
+</div>
+
+<div id="outline-container-3-1" class="outline-3">
+<h3 id="sec-3-1">POSIX Threads (Pthreads)</h3>
+<div class="outline-text-3" id="text-3-1">
+
+
+<p>
+<a href="http://en.wikipedia.org/wiki/POSIX">POSIX</a> <a href="http://en.wikipedia.org/wiki/Thread_(computing)">Threads</a> (<a href="http://en.wikipedia.org/wiki/POSIX_Threads">Pthreads</a> for short) is a standard for programming with
+threads, and defines a set of C types, functions and constants.
+</p>
+<p>
+More generally, <a href="http://en.wikipedia.org/wiki/Thread_(computer_science)">threads</a> are a way that a program can spawn concurrent
+units of processing that can then be delegated by the operating system
+to multiple processing cores. Clearly the advantage of a multithreaded
+program (one that uses multiple threads that are assigned to multiple
+processing cores) is that you can achieve big speedups, as all cores
+of your CPU (and all CPUs if you have more than one) are used at the
+same time.
+</p>
+<p>
+Here is a simple example program that spawns 5 threads, where each one
+runs the <code>myFun()</code> function:
+</p>
+
+
+
+<pre class="src src-c"><span style="color: #875f87;">#include</span> <span style="color: #87005f;">&lt;stdio.h&gt;</span>
+<span style="color: #875f87;">#include</span> <span style="color: #87005f;">&lt;stdlib.h&gt;</span>
+<span style="color: #875f87;">#include</span> <span style="color: #87005f;">&lt;pthread.h&gt;</span>
+
+<span style="color: #875f87;">#define</span> <span style="color: #af5f00;">NTHREADS</span> 5
+
+<span style="color: #008700;">void</span> *<span style="color: #0000ff;">myFun</span>(<span style="color: #008700;">void</span> *<span style="color: #af5f00;">x</span>)
+{
+  <span style="color: #008700;">int</span> <span style="color: #af5f00;">tid</span>;
+  tid = *((<span style="color: #008700;">int</span> *) x);
+  printf(<span style="color: #87005f;">"Hi from thread %d!\n"</span>, tid);
+  <span style="color: #af00ff;">return</span> <span style="color: #008787;">NULL</span>;
+}
+
+<span style="color: #008700;">int</span> <span style="color: #0000ff;">main</span>(<span style="color: #008700;">int</span> <span style="color: #af5f00;">argc</span>, <span style="color: #008700;">char</span> *<span style="color: #af5f00;">argv</span>[])
+{
+  <span style="color: #008700;">pthread_t</span> <span style="color: #af5f00;">threads</span>[NTHREADS];
+  <span style="color: #008700;">int</span> <span style="color: #af5f00;">thread_args</span>[NTHREADS];
+  <span style="color: #008700;">int</span> <span style="color: #af5f00;">rc</span>, <span style="color: #af5f00;">i</span>;
+
+  <span style="color: #af0000;">/* </span><span style="color: #af0000;">spawn the threads </span><span style="color: #af0000;">*/</span>
+  <span style="color: #af00ff;">for</span> (i=0; i&lt;NTHREADS; ++i)
+    {
+      thread_args[i] = i;
+      printf(<span style="color: #87005f;">"spawning thread %d\n"</span>, i);
+      rc = pthread_create(&amp;threads[i], <span style="color: #008787;">NULL</span>, myFun, (<span style="color: #008700;">void</span> *) &amp;thread_args[i]);
+    }
+
+  <span style="color: #af0000;">/* </span><span style="color: #af0000;">wait for threads to finish </span><span style="color: #af0000;">*/</span>
+  <span style="color: #af00ff;">for</span> (i=0; i&lt;NTHREADS; ++i) {
+    rc = pthread_join(threads[i], <span style="color: #008787;">NULL</span>);
+  }
+
+  <span style="color: #af00ff;">return</span> 1;
+}
+
+</pre>
+
+
+
+<pre class="example">plg@wildebeest:~/Desktop$ gcc -o go go.c -lpthread
+plg@wildebeest:~/Desktop$ ./go
+spawning thread 0
+spawning thread 1
+Hi from thread 0!
+spawning thread 2
+Hi from thread 1!
+spawning thread 3
+Hi from thread 2!
+spawning thread 4
+Hi from thread 3!
+Hi from thread 4!
+</pre>
+
+
+<p>
+For more information about collisions, synchronization, mutexes, etc,
+check out one of the many sources of documentation about Pthreads,
+e.g. here: <a href="https://computing.llnl.gov/tutorials/pthreads/#Mutex">Mutex Variables</a>.
+</p>
+
+</div>
+
+</div>
+
+<div id="outline-container-3-2" class="outline-3">
+<h3 id="sec-3-2">OpenMP</h3>
+<div class="outline-text-3" id="text-3-2">
+
+
+<p>
+<a href="http://openmp.org/wp/">OpenMP</a> is an API that implements a multi-threaded, shared memory form
+of parallelism. It uses a set of compiler directives (statements that
+you add to your C code) that are incorporated at compile-time to
+generate a multi-threaded version of your code. You can think of
+Pthreads (above) as doing multi-threaded programming "by hand", and
+OpenMP as a slightly more automated, higher-level API to make your
+program multithreaded. OpenMP takes care of many of the low-level
+details that you would normally have to implement yourself, if you
+were using Pthreads from the ground up.
+</p>
+<p>
+Here is the general code structure of an OpenMP program:
+</p>
+
+
+
+<pre class="src src-c"><span style="color: #875f87;">#include</span> <span style="color: #87005f;">&lt;omp.h&gt;</span>
+
+<span style="color: #0000ff;">main</span> ()  {
+
+<span style="color: #008700;">int</span> <span style="color: #af5f00;">var1</span>, <span style="color: #af5f00;">var2</span>, <span style="color: #af5f00;">var3</span>;
+
+<span style="color: #008700;">Serial</span> <span style="color: #af5f00;">code</span> 
+      .
+      .
+      .
+
+Beginning of parallel section. Fork a team of threads.
+Specify variable scoping 
+
+<span style="color: #875f87;">#pragma</span> omp parallel private(var1, var2) shared(var3)
+  {
+
+  Parallel section executed by <span style="color: #008700;">all</span> <span style="color: #af5f00;">threads</span> 
+        .
+        .
+        .
+
+  All threads join master thread and disband 
+
+  }  
+
+Resume <span style="color: #008700;">serial</span> <span style="color: #af5f00;">code</span> 
+      .
+      .
+      .
+
+}
+</pre>
+
+
+
+</div>
+
+<div id="outline-container-3-2-1" class="outline-4">
+<h4 id="sec-3-2-1">Private vs Shared variables</h4>
+<div class="outline-text-4" id="text-3-2-1">
+
+
+<p>
+By using the <code>private()</code> and <code>shared()</code> directives, you can specify
+variables within the parallel region as being <b>shared</b>, i.e. visible
+and accessible by all threads simultaneously, or <b>private</b>,
+i.e. private to each thread, meaning each thread will have its own
+local copy. In the code example below for parallelizing a for loop,
+you can see that we specify the <code>thread_id</code> and <code>nloops</code> variables as
+<code>private</code>.
+</p>
+
+</div>
+
+</div>
+
+<div id="outline-container-3-2-2" class="outline-4">
+<h4 id="sec-3-2-2">Parallelizing for loops with OpenMP</h4>
+<div class="outline-text-4" id="text-3-2-2">
+
+
+<p>
+Parallelizing for loops is really simple (see code below). By default,
+loop iteration counters in OpenMP loop constructs (in this case the
+<code>i</code> variable) in the for loop are set to <code>private</code> variables.
+</p>
+
+
+
+<pre class="src src-c"><span style="color: #af0000;">// </span><span style="color: #af0000;">gcc -fopenmp -o go go.c</span>
+<span style="color: #af0000;">// </span><span style="color: #af0000;">./go</span>
+
+<span style="color: #875f87;">#include</span> <span style="color: #87005f;">&lt;stdio.h&gt;</span>
+<span style="color: #875f87;">#include</span> <span style="color: #87005f;">&lt;omp.h&gt;</span>
+
+<span style="color: #008700;">int</span> <span style="color: #0000ff;">main</span>(<span style="color: #008700;">int</span> <span style="color: #af5f00;">argc</span>, <span style="color: #008700;">char</span> **<span style="color: #af5f00;">argv</span>)
+{
+  <span style="color: #008700;">int</span> <span style="color: #af5f00;">i</span>, <span style="color: #af5f00;">thread_id</span>, <span style="color: #af5f00;">nloops</span>;
+
+<span style="color: #875f87;">#pragma</span> omp parallel private(thread_id, nloops)
+  {
+    nloops = 0;
+
+<span style="color: #875f87;">#pragma</span> omp <span style="color: #af00ff;">for</span>
+    <span style="color: #af00ff;">for</span> (i=0; i&lt;1000; ++i)
+      {
+        ++nloops;
+      }
+
+    thread_id = omp_get_thread_num();
+
+    printf(<span style="color: #87005f;">"Thread %d performed %d iterations of the loop.\n"</span>,
+           thread_id, nloops );
+  }
+
+  <span style="color: #af00ff;">return</span> 0;
+}
+</pre>
+
+
+
+<pre class="example">plg@wildebeest:~/Desktop$ gcc -fopenmp -o go go.c
+plg@wildebeest:~/Desktop$ ./go
+Thread 4 performed 125 iterations of the loop.
+Thread 7 performed 125 iterations of the loop.
+Thread 2 performed 125 iterations of the loop.
+Thread 6 performed 125 iterations of the loop.
+Thread 5 performed 125 iterations of the loop.
+Thread 0 performed 125 iterations of the loop.
+Thread 3 performed 125 iterations of the loop.
+Thread 1 performed 125 iterations of the loop.
+</pre>
+
+
+</div>
+
+</div>
+
+<div id="outline-container-3-2-3" class="outline-4">
+<h4 id="sec-3-2-3">Critical Code</h4>
+<div class="outline-text-4" id="text-3-2-3">
+
+
+<p>
+Using OpenMP you can specify something called a "critical" section of
+code. This is code that is performed by all threads, but is only
+performed <b>one thread at a time</b> (i.e. in serial). This provides a
+convenient way of letting you do things like updating a global
+variable with local results from each thread, and you don't have to
+worry about things like other threads writing to that global variable
+at the same time (a collision).
+</p>
+
+
+
+<pre class="src src-c"><span style="color: #875f87;">#include</span> <span style="color: #87005f;">&lt;stdio.h&gt;</span>
+<span style="color: #875f87;">#include</span> <span style="color: #87005f;">&lt;omp.h&gt;</span>
+
+<span style="color: #008700;">int</span> <span style="color: #0000ff;">main</span>(<span style="color: #008700;">int</span> <span style="color: #af5f00;">argc</span>, <span style="color: #008700;">char</span> *<span style="color: #af5f00;">argv</span>[])
+{
+    <span style="color: #008700;">int</span> <span style="color: #af5f00;">i</span>, <span style="color: #af5f00;">thread_id</span>;
+    <span style="color: #008700;">int</span> <span style="color: #af5f00;">glob_nloops</span>, <span style="color: #af5f00;">priv_nloops</span>;
+    glob_nloops = 0;
+
+    <span style="color: #af0000;">// </span><span style="color: #af0000;">parallelize this chunk of code</span>
+<span style="color: #875f87;">    #pragma</span> omp parallel private(priv_nloops, thread_id)
+    {
+        priv_nloops = 0;
+        thread_id = omp_get_thread_num();
+
+        <span style="color: #af0000;">// </span><span style="color: #af0000;">parallelize this for loop</span>
+<span style="color: #875f87;">        #pragma</span> omp <span style="color: #af00ff;">for</span>
+        <span style="color: #af00ff;">for</span> (i=0; i&lt;100000; ++i)
+        {
+            ++priv_nloops;
+        }
+
+        <span style="color: #af0000;">// </span><span style="color: #af0000;">make this a "critical" code section</span>
+<span style="color: #875f87;">        #pragma</span> omp critical
+        {
+            printf(<span style="color: #87005f;">"Thread %d is adding its iterations (%d) to sum (%d), "</span>,
+                   thread_id, priv_nloops, glob_nloops);
+            glob_nloops += priv_nloops;
+            printf(<span style="color: #87005f;">" total nloops is now %d.\n"</span>, glob_nloops);
+        }
+    }
+    printf(<span style="color: #87005f;">"Total # loop iterations is %d\n"</span>,
+           glob_nloops);
+    <span style="color: #af00ff;">return</span> 0;
+}
+</pre>
+
+
+
+<pre class="example">plg@wildebeest:~/Desktop$ gcc -fopenmp -o go go.c
+plg@wildebeest:~/Desktop$ ./go
+Thread 1 is adding its iterations (12500) to sum (0),  total nloops is now 12500.
+Thread 4 is adding its iterations (12500) to sum (12500),  total nloops is now 25000.
+Thread 0 is adding its iterations (12500) to sum (25000),  total nloops is now 37500.
+Thread 5 is adding its iterations (12500) to sum (37500),  total nloops is now 50000.
+Thread 3 is adding its iterations (12500) to sum (50000),  total nloops is now 62500.
+Thread 6 is adding its iterations (12500) to sum (62500),  total nloops is now 75000.
+Thread 2 is adding its iterations (12500) to sum (75000),  total nloops is now 87500.
+Thread 7 is adding its iterations (12500) to sum (87500),  total nloops is now 100000.
+Total # loop iterations is 100000
+</pre>
+
+
+</div>
+
+</div>
+
+<div id="outline-container-3-2-4" class="outline-4">
+<h4 id="sec-3-2-4">Reduction</h4>
+<div class="outline-text-4" id="text-3-2-4">
+
+
+<p>
+Reduction refers to the process of combining the results of several
+sub-calculations into a final result. This is a very common paradigm
+(and indeed the so-called "map-reduce" framework used by Google and
+others is very popular). Indeed we used this paradigm in the code
+example above, where we used the "critical code" directive to
+accomplish this. The map-reduce paradigm is so common that OpenMP has
+a specific directive that allows you to more easily implement this.
+</p>
+
+
+
+<pre class="src src-c"><span style="color: #875f87;">#include</span> <span style="color: #87005f;">&lt;stdio.h&gt;</span>
+<span style="color: #875f87;">#include</span> <span style="color: #87005f;">&lt;omp.h&gt;</span>
+
+<span style="color: #008700;">int</span> <span style="color: #0000ff;">main</span>(<span style="color: #008700;">int</span> <span style="color: #af5f00;">argc</span>, <span style="color: #008700;">char</span> *<span style="color: #af5f00;">argv</span>[])
+{
+    <span style="color: #008700;">int</span> <span style="color: #af5f00;">i</span>, <span style="color: #af5f00;">thread_id</span>;
+    <span style="color: #008700;">int</span> <span style="color: #af5f00;">glob_nloops</span>, <span style="color: #af5f00;">priv_nloops</span>;
+    glob_nloops = 0;
+
+    <span style="color: #af0000;">// </span><span style="color: #af0000;">parallelize this chunk of code</span>
+<span style="color: #875f87;">    #pragma</span> omp parallel private(priv_nloops, thread_id) reduction(+:glob_nloops)
+    {
+        priv_nloops = 0;
+        thread_id = omp_get_thread_num();
+
+        <span style="color: #af0000;">// </span><span style="color: #af0000;">parallelize this for loop</span>
+<span style="color: #875f87;">        #pragma</span> omp <span style="color: #af00ff;">for</span>
+        <span style="color: #af00ff;">for</span> (i=0; i&lt;100000; ++i)
+        {
+            ++priv_nloops;
+        }
+        glob_nloops += priv_nloops;
+    }
+    printf(<span style="color: #87005f;">"Total # loop iterations is %d\n"</span>,
+           glob_nloops);
+    <span style="color: #af00ff;">return</span> 0;
+}
+</pre>
+
+
+
+<pre class="example">plg@wildebeest:~/Desktop$ gcc -fopenmp -o go go.c
+plg@wildebeest:~/Desktop$ ./go
+Total # loop iterations is 100000
+</pre>
+
+
+</div>
+
+</div>
+
+<div id="outline-container-3-2-5" class="outline-4">
+<h4 id="sec-3-2-5">Other OpenMP directives</h4>
+<div class="outline-text-4" id="text-3-2-5">
+
+
+<p>
+There are a host of other directives you can issue using OpenMP, see
+<a href="http://en.wikipedia.org/wiki/OpenMP#OpenMP_clauses">here</a> for a list (wikipedia). Some other clauses of interest are:
+</p>
+<ul>
+<li><code>barrier</code>: each thread will wait until all threads have reached this
+  point in the code, before proceeding
+</li>
+<li><code>nowait</code>: threads will not wait until everybody is finished
+</li>
+<li><code>schedule(type, chunk)</code> allows you to specify how tasks are spawned
+  out to threads in a for loop. There are three types of scheduling
+  you can specify
+</li>
+<li><code>if</code>: allows you to parallelize only if a certain condition is met
+</li>
+<li>&hellip; and a host of others
+</li>
+</ul>
+
+
+
+</div>
+</div>
+
+</div>
+
+<div id="outline-container-3-3" class="outline-3">
+<h3 id="sec-3-3">MPI</h3>
+<div class="outline-text-3" id="text-3-3">
+
+
+<p>
+The <a href="http://en.wikipedia.org/wiki/Message_Passing_Interface">Message Passing Interface</a> (MPI) is a standard defining core syntax
+and semantics of library routines that can be used to implement
+parallel programming in C (and in other languages as well). There are
+several implementations of MPI such as <a href="http://www.open-mpi.org/">Open MPI</a>, <a href="http://www.mcs.anl.gov/research/projects/mpich2/">MPICH2</a> and <a href="http://www.lam-mpi.org/">LAM/MPI</a>.
+</p>
+<p>
+In the context of this tutorial, you can think of MPI, in terms of its
+complexity, scope and control, as sitting in between programming with
+Pthreads, and using a high-level API such as OpenMP.
+</p>
+<p>
+The MPI interface allows you to manage allocation, communication, and
+synchronization of a set of processes that are mapped onto multiple
+nodes, where each node can be a core within a single CPU, or CPUs
+within a single machine, or even across multiple machines (as long as
+they are networked together).
+</p>
+<p>
+One context where MPI shines in particular is the ability to easily
+take advantage not just of multiple cores on a single machine, but to
+run programs on clusters of several machines. Even if you don't have a
+dedicated cluster, you could still write a program using MPI that
+could run your program in parallel, across any collection of
+computers, as long as they are networked together. Just make sure to
+ask permission before you load up your lab-mate's computer's CPU(s)
+with your computational tasks!
+</p>
+<p>
+Here is a basic MPI program that simply writes a message to the screen
+indicating which node is running.
+</p>
+
+
+
+<pre class="src src-c"><span style="color: #af0000;">// </span><span style="color: #af0000;">mpicc go_mpi.c -o go_mpi</span>
+<span style="color: #af0000;">// </span><span style="color: #af0000;">mpirun -n 4 go_mpi</span>
+
+<span style="color: #875f87;">#include</span> <span style="color: #87005f;">&lt;stdio.h&gt;</span>
+<span style="color: #875f87;">#include</span> <span style="color: #87005f;">&lt;mpi.h&gt;</span>
+
+<span style="color: #008700;">int</span> <span style="color: #0000ff;">main</span>(<span style="color: #008700;">int</span> <span style="color: #af5f00;">argc</span>, <span style="color: #008700;">char</span> *<span style="color: #af5f00;">argv</span>[]) 
+{
+  <span style="color: #008700;">int</span> <span style="color: #af5f00;">myrank</span>, <span style="color: #af5f00;">nprocs</span>;
+
+  MPI_Init(&amp;argc, &amp;argv);
+  MPI_Comm_size(MPI_COMM_WORLD, &amp;nprocs);
+  MPI_Comm_rank(MPI_COMM_WORLD, &amp;myrank);
+
+  printf(<span style="color: #87005f;">"I am node %d of %d\n"</span>, myrank, nprocs);
+
+  MPI_Finalize();
+  <span style="color: #af00ff;">return</span> 0;
+}
+</pre>
+
+
+
+<pre class="example">plg@wildebeest:~/Desktop$ mpicc go_mpi.c -o go_mpi
+plg@wildebeest:~/Desktop$ mpirun -n 4 go_mpi
+I am node 0 of 4
+I am node 2 of 4
+I am node 1 of 4
+I am node 3 of 4
+</pre>
+
+
+<p>
+The basic design pattern of an MPI program is that the <b>same code</b> is
+sent to all nodes for execution. It's by using the <code>MPI_Comm_rank()</code>
+function that you can determine which node is running, and (if needed)
+act differently. The <code>MPI_Comm_size()</code> function will tell you how many
+nodes there are in total.
+</p>
+<p>
+MPI programs need to be compiled using <code>mpicc</code>, and need to be run
+using <code>mpirun</code> with a flag indicating the number of processors to
+spawn (4, in the above example).
+</p>
+
+</div>
+
+<div id="outline-container-3-3-1" class="outline-4">
+<h4 id="sec-3-3-1">MPI_Reduce</h4>
+<div class="outline-text-4" id="text-3-3-1">
+
+
+<p>
+We saw with OpenMP that we can use a <b>reduce</b> directive to sum values
+across all threads. A similar function exists in MPI called
+<code>MPI_Reduce()</code>. 
+</p>
+</div>
+
+</div>
+
+<div id="outline-container-3-3-2" class="outline-4">
+<h4 id="sec-3-3-2">An Example: Estimating pi using dartboard algorithm</h4>
+<div class="outline-text-4" id="text-3-3-2">
+
+
+
+
+
+<pre class="src src-c"><span style="color: #af0000;">// </span><span style="color: #af0000;">Estimating pi using the dartboard algorithm</span>
+<span style="color: #af0000;">// </span><span style="color: #af0000;">All processes contribute to the calculation, with the</span>
+<span style="color: #af0000;">// </span><span style="color: #af0000;">master process averaging the values for pi.</span>
+<span style="color: #af0000;">// </span><span style="color: #af0000;">We then use mpc_reduce to collect the results</span>
+<span style="color: #af0000;">//</span>
+<span style="color: #af0000;">// </span><span style="color: #af0000;">mpicc -o go mpi_pi_reduce.c</span>
+<span style="color: #af0000;">// </span><span style="color: #af0000;">mpirun -n 8 go</span>
+
+<span style="color: #875f87;">#include</span> <span style="color: #87005f;">&lt;stdio.h&gt;</span>
+<span style="color: #875f87;">#include</span> <span style="color: #87005f;">&lt;stdlib.h&gt;</span>
+<span style="color: #875f87;">#include</span> <span style="color: #87005f;">&lt;mpi.h&gt;</span>
+
+<span style="color: #875f87;">#define</span> <span style="color: #af5f00;">MASTER</span> 0         <span style="color: #af0000;">// </span><span style="color: #af0000;">task ID of master task</span>
+<span style="color: #875f87;">#define</span> <span style="color: #af5f00;">NDARTS</span> 1000      <span style="color: #af0000;">// </span><span style="color: #af0000;"># dart throws per round</span>
+<span style="color: #875f87;">#define</span> <span style="color: #af5f00;">NROUNDS</span> 10     <span style="color: #af0000;">// </span><span style="color: #af0000;"># of rounds of dart throwing</span>
+
+<span style="color: #af0000;">// </span><span style="color: #af0000;">our function for throwing darts and estimating pi</span>
+<span style="color: #008700;">double</span> <span style="color: #0000ff;">dartboard</span>(<span style="color: #008700;">int</span> <span style="color: #af5f00;">ndarts</span>)
+{
+  <span style="color: #008700;">double</span> <span style="color: #af5f00;">x</span>, <span style="color: #af5f00;">y</span>, <span style="color: #af5f00;">r</span>, <span style="color: #af5f00;">pi</span>; 
+  <span style="color: #008700;">int</span> <span style="color: #af5f00;">n</span>, <span style="color: #af5f00;">hits</span>;
+  hits = 0;
+
+  <span style="color: #af0000;">// </span><span style="color: #af0000;">throw darts</span>
+  <span style="color: #af00ff;">for</span> (n = 1; n &lt;= ndarts; n++)  {
+    <span style="color: #af0000;">// </span><span style="color: #af0000;">(x,y) are random between -1 and 1</span>
+    r = (<span style="color: #008700;">double</span>)random()/RAND_MAX;
+    x = (2.0 * r) - 1.0;
+    r = (<span style="color: #008700;">double</span>)random()/RAND_MAX;
+    y = (2.0 * r) - 1.0;
+    <span style="color: #af0000;">// </span><span style="color: #af0000;">if our random dart landed inside the unit circle, increment the score</span>
+    <span style="color: #af00ff;">if</span> (((x*x) + (y*y)) &lt;= 1.0) {
+      hits++;
+    }
+  }
+
+  <span style="color: #af0000;">// </span><span style="color: #af0000;">estimate pi</span>
+  pi = 4.0 * (<span style="color: #008700;">double</span>)hits / (<span style="color: #008700;">double</span>)ndarts;
+  <span style="color: #af00ff;">return</span>(pi);
+} 
+
+<span style="color: #af0000;">// </span><span style="color: #af0000;">the main program</span>
+<span style="color: #008700;">int</span> <span style="color: #0000ff;">main</span> (<span style="color: #008700;">int</span> <span style="color: #af5f00;">argc</span>, <span style="color: #008700;">char</span> *<span style="color: #af5f00;">argv</span>[])
+{
+  <span style="color: #008700;">double</span> <span style="color: #af5f00;">my_pi</span>, <span style="color: #af5f00;">pi_sum</span>, <span style="color: #af5f00;">pi_est</span>, <span style="color: #af5f00;">mean_pi</span>, <span style="color: #af5f00;">err</span>;
+  <span style="color: #008700;">int</span> <span style="color: #af5f00;">task_id</span>, <span style="color: #af5f00;">n_tasks</span>, <span style="color: #af5f00;">rc</span>, <span style="color: #af5f00;">i</span>;
+  <span style="color: #008700;">MPI_Status</span> <span style="color: #af5f00;">status</span>;
+
+  <span style="color: #af0000;">// </span><span style="color: #af0000;">Obtain number of tasks and task ID</span>
+  MPI_Init(&amp;argc,&amp;argv);
+  MPI_Comm_size(MPI_COMM_WORLD,&amp;n_tasks);
+  MPI_Comm_rank(MPI_COMM_WORLD,&amp;task_id);
+  <span style="color: #af0000;">//  </span><span style="color: #af0000;">printf ("task %d of %d reporting for duty...\n", task_id, n_tasks);</span>
+
+  <span style="color: #af0000;">// </span><span style="color: #af0000;">different seed for random number generator for each task</span>
+  srandom (task_id);
+
+  mean_pi = 0.0;
+  <span style="color: #af00ff;">for</span> (i=0; i&lt;NROUNDS; i++) {
+    <span style="color: #af0000;">// </span><span style="color: #af0000;">all tasks will execute dartboard() to calculate their own estimate of pi</span>
+    my_pi = dartboard(NDARTS);
+
+    <span style="color: #af0000;">// </span><span style="color: #af0000;">now we use MPI_Reduce() to sum values of my_pi across all tasks</span>
+    <span style="color: #af0000;">// </span><span style="color: #af0000;">the master process (id=MASTER) will store the accumulated value</span>
+    <span style="color: #af0000;">// </span><span style="color: #af0000;">in pi_sum. We tell MPI_Reduce() to sum by passing it</span>
+    <span style="color: #af0000;">// </span><span style="color: #af0000;">the MPI_SUM value (define in mpi.h)</span>
+    rc = MPI_Reduce(&amp;my_pi, &amp;pi_sum, 1, MPI_DOUBLE, MPI_SUM,
+                    MASTER, MPI_COMM_WORLD);
+
+    <span style="color: #af0000;">// </span><span style="color: #af0000;">now, IF WE ARE THE MASTER process, we will compute the mean</span>
+    <span style="color: #af00ff;">if</span> (task_id == MASTER) {
+      pi_est = pi_sum / n_tasks;
+      mean_pi = ( (mean_pi * i) + pi_est ) / (i + 1); <span style="color: #af0000;">// </span><span style="color: #af0000;">running average</span>
+      err = mean_pi - 3.14159265358979323846;
+      printf(<span style="color: #87005f;">"%d throws: mean_pi %.12f: error %.12f\n"</span>,
+             (NDARTS * (i + 1)), mean_pi, err);
+    }
+  }
+  <span style="color: #af00ff;">if</span> (task_id == MASTER) 
+    printf (<span style="color: #87005f;">"PS, the real value of pi is about 3.14159265358979323846\n"</span>);
+
+  MPI_Finalize();
+  <span style="color: #af00ff;">return</span> 0;
+}
+
+</pre>
+
+
+<p>
+Here we run it with just one parallel process:
+</p>
+
+
+
+<pre class="example">plg@wildebeest:~/Desktop/mpi$ time mpirun -n 1 go
+1000 throws: mean_pi 3.088000000000: error -0.053592653590
+2000 throws: mean_pi 3.104000000000: error -0.037592653590
+3000 throws: mean_pi 3.101333333333: error -0.040259320256
+4000 throws: mean_pi 3.120000000000: error -0.021592653590
+5000 throws: mean_pi 3.124800000000: error -0.016792653590
+6000 throws: mean_pi 3.127333333333: error -0.014259320256
+7000 throws: mean_pi 3.134285714286: error -0.007306939304
+8000 throws: mean_pi 3.128500000000: error -0.013092653590
+9000 throws: mean_pi 3.132444444444: error -0.009148209145
+10000 throws: mean_pi 3.119600000000: error -0.021992653590
+PS, the real value of pi is about 3.14159265358979323846
+
+real    0m0.032s
+user    0m0.020s
+sys     0m0.012s
+</pre>
+
+
+<p>
+Now let's run it with 4:
+</p>
+
+
+
+<pre class="example">plg@wildebeest:~/Desktop/mpi$ time mpirun -n 4 go
+1000 throws: mean_pi 3.105000000000: error -0.036592653590
+2000 throws: mean_pi 3.122500000000: error -0.019092653590
+3000 throws: mean_pi 3.122000000000: error -0.019592653590
+4000 throws: mean_pi 3.137750000000: error -0.003842653590
+5000 throws: mean_pi 3.143600000000: error 0.002007346410
+6000 throws: mean_pi 3.140166666667: error -0.001425986923
+7000 throws: mean_pi 3.142000000000: error 0.000407346410
+8000 throws: mean_pi 3.140250000000: error -0.001342653590
+9000 throws: mean_pi 3.136666666667: error -0.004925986923
+10000 throws: mean_pi 3.135000000000: error -0.006592653590
+PS, the real value of pi is about 3.14159265358979323846
+
+real    0m0.034s
+user    0m0.044s
+sys     0m0.024s
+</pre>
+
+
+<p>
+We see the final error is much reduced. Each of the 4 processes (which
+are parallelized across the cores of my CPU) contributes an estimate
+of pi, which are then averaged by the master process to come up with
+the final estimate of pi.
+</p>
+
+</div>
+</div>
+</div>
+
+</div>
+
+<div id="outline-container-4" class="outline-2">
+<h2 id="sec-4">GPU Computing</h2>
+<div class="outline-text-2" id="text-4">
+
+
+<p>
+x
+</p>
+
+</div>
+
+</div>
+
+<div id="outline-container-5" class="outline-2">
+<h2 id="sec-5">Links</h2>
+<div class="outline-text-2" id="text-5">
+
+
+<ul>
+<li><a href="https://computing.llnl.gov/tutorials/parallel_comp/">Introduction to Parallel Computing</a>
+</li>
+<li><a href="https://computing.llnl.gov/tutorials/openMP/">OpenMP Tutorial</a>
+</li>
+<li><a href="http://en.wikipedia.org/wiki/OpenMP">OpenMP</a> (Wikipedia)
+</li>
+<li><a href="http://www.gnu.org/software/pth/">GNU Portable Threads</a>
+</li>
+<li><a href="https://computing.llnl.gov/tutorials/mpi/">MPI Tutorial</a>
+</li>
+<li><a href="http://heather.cs.ucdavis.edu/parprocbook">Programming on Parallel Machines: GPU, Multicore, Clusters and More</a>
+  by Norm Matloff (UC Davis)
+</li>
+</ul>
+
+
+</div>
+
+</div>
+
+<div id="outline-container-6" class="outline-2">
+<h2 id="sec-6">Exercises</h2>
+<div class="outline-text-2" id="text-6">
+
+
+<p>
+Here is a <a href="code/exercises/A2_1_data.csv">data file</a> containing two columns of comma-separated data.
+</p>
+
+
+
+<pre class="example">100,111
+93,103
+115,119
+97,117
+106,116
+111,116
+111,119
+100,103
+126,118
+93,119
+</pre>
+
+
+<ul>
+<li>1 Write a program to read in the data file into one or more data
+  structures, and print the values out to the screen. You can assume
+  in your program that you know the number of rows of data (10).
+
+</li>
+<li>2 Rewrite your program above assuming you don't know in advance how
+  many rows of data you have.
+
+</li>
+<li>3 Add to your program a function that computes the value of a t
+  statistic for the difference between means of the two columns of
+  data. Assume it's an unpaired t-test and you can compute t using the
+  following equation:
+
+<p>
+  \begin{equation}
+    t = \frac{\bar{X}_{2} - \bar{X}_{1}}{\sqrt{\frac{s_{1}^{2}}{n1}+\frac{s_{2}^{2}}{n2}}}
+  \end{equation}
+
+</p></li>
+<li>4 Implement a bootstrapping test of the t statistic you get
+  above. Iterate <code>nboot</code> times, each time taking a random sample (with
+  replacement) from the set of 20 observations, and assigning them to
+  each group, then re-do the t-test. Count up how many times out of
+  <code>nboot</code> you get a t value as large or larger as the one you computed
+  above (so this is a one-tailed test). Set <code>nboot</code> to 1 million and
+  report execution time. If you have a fast machine set <code>nboot</code> to 10
+  million so you have some dynamic range. If you have a slow machine
+  set <code>nboot</code> to 1e5 (or 1e4 if it's really slow).
+
+</li>
+<li>5 Parallelize the bootstrap loop to make use of multiple CPU
+  cores. Report execution time.
+</li>
+</ul>
+
+
+
+</div>
+
+<div id="outline-container-6-1" class="outline-3">
+<h3 id="sec-6-1">Solutions</h3>
+<div class="outline-text-3" id="text-6-1">
+
+
+<ul>
+<li><a href="code/exercises/A2_1.c">1</a>
+</li>
+<li><a href="code/examples/A2_2.c">2</a>
+</li>
+<li><a href="code/examples/A2_3.c">3</a>
+</li>
+<li><a href="code/exercises/A2_4.c">4</a>
+</li>
+<li><a href="code/exercises/A2_5.c">5</a>
+</li>
+</ul>
+
+</div>
+</div>
+</div>
+</div>
+
+<div id="postamble">
+<hr />Paul Gribble | Summer 2012<br>This <span xmlns:dct="http://purl.org/dc/terms/" href="http://purl.org/dc/dcmitype/Text" rel="dct:type">work</span> is licensed under a <a rel="license" href="http://creativecommons.org/licenses/by-nc-sa/3.0/">Creative Commons Attribution-NonCommercial-ShareAlike 3.0 Unported License</a><br><a rel="license" href="http://creativecommons.org/licenses/by-nc-sa/3.0/"><img alt="Creative Commons License" style="border-width:0" src="http://i.creativecommons.org/l/by-nc-sa/3.0/80x15.png" /></a><br />
+</div>
+</body>
+</html>

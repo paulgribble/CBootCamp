@@ -1,0 +1,129 @@
+#+STARTUP: showall
+
+#+TITLE:     11. Macros and the C Preprocessor
+#+AUTHOR:    Paul Gribble
+#+EMAIL:     paul@gribblelab.org
+#+DATE:      Summer 2012
+
+-----
+[TABLE-OF-CONTENTS]
+-----
+
+The C Preprocessor is a part of the C compilation process that
+recognizes special statements, analyses them (before compilation) and
+acts on them as required. The preprocessor can be used to make
+programs more efficient, more readable, and more portable to multiple
+systems.
+
+* The =#define= statement
+
+You can use =#define= statements to assign symbolic names to program
+constants. For example:
+
+#+BEGIN_SRC c
+#define YES 1
+#define PI 3.14
+#define MYNAME "paul"
+#+END_SRC
+
+These are all valid uses of =#define=. These statements are not like
+variable assignment ... no memory is allocated. Remember, the
+preprocessor acts *before* compilation. What is actually happening
+here, is quite simply, the preprocessor is going through the C code
+that follows, and simply substituting each instance of the symbolic
+name (e.g. =PI=) with the value that it's associated with in the
+=#define= statement (e.g. =3.14=). It's like a search-and-replace,
+basically.
+
+The =#define= statments can appear anywhere in the program, although a
+common convention is to put them at the top of source code files.
+
+* Macros
+
+You can use =#define= statements in more advanced ways, which are
+sometimes called *macros* (a macro is typically used to define
+something that takes one or more arguments).
+
+For example, you could define a macro to perform the square of a
+number like this:
+
+#+BEGIN_SRC c
+#define SQUARE(n) n*n
+#+END_SRC
+
+Then you could use it in your code like this:
+
+#+BEGIN_SRC c
+int x = 3;
+int y = SQUARE(x);
+#+END_SRC
+
+Another common example of macros is to define a macro to return the maximum value of two arguments:
+
+#+BEGIN_SRC c
+#define MAX(a,b) ( ((a) > (b)) ? (a) : (b) )
+#+END_SRC
+
+Another one is to determine if a character is lower-case:
+
+#+BEGIN_SRC c
+#define IS_LOWER_CASE(x) ( ((x) >= 'a') && ((x) <= 'z') )
+#+END_SRC
+
+** Variadic Macros
+
+A Variadic macro is one with a variable number of arguments (one can
+also write variadic functions in C). Here is an example:
+
+#+BEGIN_SRC c
+#define debugPrintf(...) printf("DEBUG: " __VA_ARGS__);
+#+END_SRC
+
+Now we could use this in the following way, either with one argument:
+
+#+BEGIN_SRC c
+debugPrintf("Hello World!\n");
+#+END_SRC
+
+#+BEGIN_EXAMPLE
+DEBUG: Hello World!
+#+END_EXAMPLE
+
+or with multiple arguments:
+
+#+BEGIN_SRC c
+int x=12;
+int y=13;
+debugPrintf("x=%d, y=%d\n", x, y);
+#+END_SRC
+
+#+BEGIN_EXAMPLE
+DEBUG: x=12, y=13
+#+END_EXAMPLE
+
+
+There are countless other examples of cool things you can do with
+macros. Here is a link to some examples: [[http://gcc.gnu.org/onlinedocs/cpp/Macros.html][Macros]].
+
+* The =#include= statement
+
+We will be looking at this later, even though it is part of the
+preprocessor, when we talk about working with multiple files, and
+linking to libraries, etc.
+
+* Conditional compilation
+
+One can use =#ifdef=, =#endif=, =#else= and =#ifndef= statments to
+achieve conditional compilation, for example to create one program
+that can be compiled and run on different computer systems. Similarly,
+one can use =#if=, =#elif= preprocessor statements to define macros
+differently depending on the value of other =#define= values. We won't
+get into that stuff here, but if you're interested in this you can
+look at some examples [[http://gcc.gnu.org/onlinedocs/gcc-3.0.1/cpp_4.html][here]].
+
+* Links
+
+- [[http://en.wikipedia.org/wiki/C_preprocessor][C preprocessor]]
+- [[http://gcc.gnu.org/onlinedocs/cpp/Macros.html][Macros]]
+
+

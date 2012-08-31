@@ -1,0 +1,465 @@
+<?xml version="1.0" encoding="iso-8859-1"?>
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Strict//EN"
+               "http://www.w3.org/TR/xhtml1/DTD/xhtml1-strict.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml" lang="en" xml:lang="en">
+<head>
+<title>1. Why Program in C?</title>
+<meta http-equiv="Content-Type" content="text/html;charset=iso-8859-1"/>
+<meta name="title" content="1. Why Program in C?"/>
+<meta name="generator" content="Org-mode"/>
+<meta name="generated" content="Summer 2012"/>
+<meta name="author" content="Paul Gribble"/>
+<meta name="description" content=""/>
+<meta name="keywords" content=""/>
+<style type="text/css">
+ <!--/*--><![CDATA[/*><!--*/
+  html { font-family: Times, serif; font-size: 12pt; }
+  .title  { text-align: center; }
+  .todo   { color: red; }
+  .done   { color: green; }
+  .tag    { background-color: #add8e6; font-weight:normal }
+  .target { }
+  .timestamp { color: #bebebe; }
+  .timestamp-kwd { color: #5f9ea0; }
+  .right  {margin-left:auto; margin-right:0px;  text-align:right;}
+  .left   {margin-left:0px;  margin-right:auto; text-align:left;}
+  .center {margin-left:auto; margin-right:auto; text-align:center;}
+  p.verse { margin-left: 3% }
+  pre {
+	border: 1pt solid #AEBDCC;
+	background-color: #F3F5F7;
+	padding: 5pt;
+	font-family: courier, monospace;
+        font-size: 90%;
+        overflow:auto;
+  }
+  table { border-collapse: collapse; }
+  td, th { vertical-align: top;  }
+  th.right  { text-align:center;  }
+  th.left   { text-align:center;   }
+  th.center { text-align:center; }
+  td.right  { text-align:right;  }
+  td.left   { text-align:left;   }
+  td.center { text-align:center; }
+  dt { font-weight: bold; }
+  div.figure { padding: 0.5em; }
+  div.figure p { text-align: center; }
+  div.inlinetask {
+    padding:10px;
+    border:2px solid gray;
+    margin:10px;
+    background: #ffffcc;
+  }
+  textarea { overflow-x: auto; }
+  .linenr { font-size:smaller }
+  .code-highlighted {background-color:#ffff00;}
+  .org-info-js_info-navigation { border-style:none; }
+  #org-info-js_console-label { font-size:10px; font-weight:bold;
+                               white-space:nowrap; }
+  .org-info-js_search-highlight {background-color:#ffff00; color:#000000;
+                                 font-weight:bold; }
+  /*]]>*/-->
+</style><link rel="stylesheet" type="text/css" href="mystyle.css" />
+<script type="text/javascript">
+<!--/*--><![CDATA[/*><!--*/
+ function CodeHighlightOn(elem, id)
+ {
+   var target = document.getElementById(id);
+   if(null != target) {
+     elem.cacheClassElem = elem.className;
+     elem.cacheClassTarget = target.className;
+     target.className = "code-highlighted";
+     elem.className   = "code-highlighted";
+   }
+ }
+ function CodeHighlightOff(elem, id)
+ {
+   var target = document.getElementById(id);
+   if(elem.cacheClassElem)
+     elem.className = elem.cacheClassElem;
+   if(elem.cacheClassTarget)
+     target.className = elem.cacheClassTarget;
+ }
+/*]]>*///-->
+</script>
+
+</head>
+<body>
+<div id="org-div-home-and-up" style="text-align:right;font-size:70%;white-space:nowrap;">
+ <a accesskey="h" href="index.html"> UP </a>
+ |
+ <a accesskey="H" href="index.html"> HOME </a>
+</div>
+
+<div id="preamble">
+
+</div>
+
+<div id="content">
+<h1 class="title">1. Why Program in C?</h1>
+
+
+
+<hr/>
+<div id="table-of-contents">
+<h2>Table of Contents</h2>
+<div id="text-table-of-contents">
+<ul>
+<li><a href="#sec-1">What is C?</a>
+<ul>
+<li><a href="#sec-1-1">Example Code</a></li>
+</ul>
+</li>
+<li><a href="#sec-2">Virtues and Challenges</a>
+<ul>
+<li><a href="#sec-2-1">Virtues of C</a></li>
+<li><a href="#sec-2-2">Challenges of using C</a></li>
+</ul>
+</li>
+<li><a href="#sec-3">When should I use C?</a>
+<ul>
+<li><a href="#sec-3-1">An Example</a></li>
+</ul>
+</li>
+<li><a href="#sec-4">The Bottom Line</a></li>
+<li><a href="#sec-5">References</a></li>
+</ul>
+</div>
+</div>
+
+<hr/>
+
+
+<div id="outline-container-1" class="outline-2">
+<h2 id="sec-1">What is C?</h2>
+<div class="outline-text-2" id="text-1">
+
+
+<p>
+C is a high-level programming language that was first developed by
+Dennis Ritchie at Bell Labs in the early 1970s. Unix was one of the
+first operating systems to be written in C. Microsoft Windows, Mac OS
+X, and GNU/Linux are also written in C. Lots of other high-level
+languages like Perl, PHP, Python, R, Matlab, Mathematica, etc, are
+written in C.
+</p>
+<p>
+Currently (as of July, 2012) C is #1 in popularity according to the
+<a href="http://www.tiobe.com/index.php/content/paperinfo/tpci/index.html">TIOBE index</a>.
+</p>
+
+</div>
+
+<div id="outline-container-1-1" class="outline-3">
+<h3 id="sec-1-1">Example Code</h3>
+<div class="outline-text-3" id="text-1-1">
+
+
+
+
+
+<pre class="src src-c"><span style="color: #875f87;">#include</span> <span style="color: #87005f;">&lt;stdio.h&gt;</span>
+
+<span style="color: #008700;">int</span> <span style="color: #0000ff;">main</span>(<span style="color: #008700;">int</span> <span style="color: #af5f00;">argc</span>, <span style="color: #008700;">char</span> *<span style="color: #af5f00;">argv</span>[]) {
+  printf(<span style="color: #87005f;">"hello world\n"</span>);
+  <span style="color: #af00ff;">return</span> 0;
+}
+</pre>
+
+
+<p>
+The above is a bare-bones C program that simply writes the string
+"hello world" to the screen. (The line numbers were added by me, they
+aren't a part of the actual C code.) As you can see it's not terribly
+scary looking code. The code that "does the work" here is line 4. All
+the other stuff you can think of as standard "boilerplate" C code that
+you need for any C program.
+</p>
+<p>
+Line 1 imports one of the standard C libraries, <code>stdio.h</code>, (standard
+input/output). Line 3 defines a function called <code>main()</code>, which is
+needed for the program to run. The main code is line 4, which prints
+the string "<code>hello world</code>" (followed by a newline character <code>\n</code>) to
+the screen. The stuff inside the brackets in <code>main()</code> (the <code>int argc, char *argv[]</code>) is not important for now, and in fact it is optional,
+you could leave it out and your program would still run. Same for line
+5, <code>return 0;</code>. I included them here for completeness, and we will
+talk about their role later on.
+</p>
+<p>
+As a comparison here is a similar program in Python:
+</p>
+
+
+
+<pre class="src src-Python">print <span style="color: #87005f;">"hello world"</span>
+</pre>
+
+
+<p>
+Here it is in R:
+</p>
+
+
+
+<pre class="src src-R">cat(<span style="color: #87005f;">"hello world\n"</span>)
+</pre>
+
+
+<p>
+and Matlab / Octave:
+</p>
+
+
+
+<pre class="src src-octave">disp('hello world')
+</pre>
+
+
+<p>
+As you can see the difference between the C code and the code in other
+languages is that in C we have to explicitly import the <code>stdio.h</code>
+library, and we have to explicitly define the <code>main()</code> function. Not
+such a big deal. The other difference is that the name of the standard
+function to write stuff to the screen is different in each
+langauge. In C it is <code>printf()</code>, in Python it is <code>print</code>, in R it is
+<code>cat()</code>, and in Matlab/Octave it is <code>disp()</code>. Again, no big deal.
+</p>
+<p>
+One of the things I want you to take away from this boot camp is that
+with few exceptions, all (procedural) programming languages are
+essentially the same, but:
+</p>
+<ol>
+<li>names of standard functions are different
+</li>
+<li>rules of syntax are different
+</li>
+<li>functionality included in standard libraries is different
+</li>
+<li>APIs are different and use different names for things
+</li>
+</ol>
+
+
+<p>
+That's it, really. Once you know how to program in one language, all
+you have to do, really, is learn some different syntactic rules, and
+learn the names of the various functions that you will be using, and
+learn what APIs provide needed functionality. No big deal.
+</p>
+<p>
+To see hello world in a bunch of other languages, go here:
+<a href="https://github.com/leachim6/hello-world">hello-world</a>.
+</p>
+</div>
+</div>
+
+</div>
+
+<div id="outline-container-2" class="outline-2">
+<h2 id="sec-2">Virtues and Challenges</h2>
+<div class="outline-text-2" id="text-2">
+
+
+
+</div>
+
+<div id="outline-container-2-1" class="outline-3">
+<h3 id="sec-2-1">Virtues of C</h3>
+<div class="outline-text-3" id="text-2-1">
+
+
+<ul>
+<li>fast (it's a compiled language and so is close to the machine hardware)
+</li>
+<li>portable (you can compile you program to run on just about any
+  hardware platform out there)
+</li>
+<li>the language is small (unlike C++ for example)
+</li>
+<li>mature (a long history and lots of resources and experience available)
+</li>
+<li>there are many tools for making programming easier (e.g. IDEs like Xcode)
+</li>
+<li>you have direct access to memory
+</li>
+<li>you have access to low-level system features if needed
+</li>
+</ul>
+
+
+</div>
+
+</div>
+
+<div id="outline-container-2-2" class="outline-3">
+<h3 id="sec-2-2">Challenges of using C</h3>
+<div class="outline-text-3" id="text-2-2">
+
+
+<ul>
+<li>the language is small (but there are many APIs)
+</li>
+<li>it's easy to get into trouble, e.g. with direct memory access &amp; pointers
+</li>
+<li>the code &mdash; compile &mdash; test (crash) &mdash; debug cycle
+</li>
+<li>you must manage memory yourself
+</li>
+<li>sometimes code is more verbose than in high-level scripting languages like Python, R, etc
+</li>
+</ul>
+
+
+</div>
+</div>
+
+</div>
+
+<div id="outline-container-3" class="outline-2">
+<h2 id="sec-3">When should I use C?</h2>
+<div class="outline-text-2" id="text-3">
+
+
+<p>
+My own take on scientific programming, is that I think of C as one of
+many tools in my toolkit for performing computational tasks in my
+scientific work. I wouldn't necessarily suggest <b>only</b> programming in
+C. On the other hand, I wouldn't suggest not taking advantage of C
+when the situation calls for it. In our lab, we use Python, R,
+(sometimes Matlab but increasingly less often), and when we feel the
+need, the need for speed, we use C.
+</p>
+<p>
+For interactive data exploration, like when you want to load in some
+data, plot it in different ways, do some rudimentary calculations,
+plot the results, etc, then C may not be the best choice. For this
+sort of interactive exploratory scripting, a language like Python,
+Matlab, R, etc, may be perfectly sufficient. In particular, these
+other languages make it very easy to quickly generate great-looking
+graphics.
+</p>
+<p>
+For cases where you need to process a large amount of data, you will
+find that these languages are slow. Even for fairly common statistical
+procedures like bootstrapping (techniques that involve resampling
+thousands or tens of thousands of times), interpreted languages will
+be orders of magnitude slower than C.
+</p>
+<p>
+This is the situation when C starts to become very attractive. If you
+have a data processing operation, or a simulation, and you know it
+will take a long time to run, then it is often worth it to spend some
+time implementing it in C.
+</p>
+<p>
+My own personal rule of thumb is that if I have to wait more than
+about 10 seconds to see the result of a calculation or operation,
+then I get annoyed, and I think about implementing it in C.
+</p>
+<p>
+You might think, who cares if my calculation takes 10 seconds, or 30
+seconds, ot 5 minutes, for that matter? Is 5 minutes so bad? The
+answer is, no, it's not so bad if you only have to do it once&hellip; but
+it's almost <b>never</b> the case that you only even perform a computation
+on your data once.
+</p>
+
+</div>
+
+<div id="outline-container-3-1" class="outline-3">
+<h3 id="sec-3-1">An Example</h3>
+<div class="outline-text-3" id="text-3-1">
+
+
+<p>
+Imagine you write some Matlab code to read in data from one subject,
+process that data, and write the result to a file, and that operation
+takes <b>60 seconds</b>. Is that so bad? Not if you only have to run it
+once. Now let's imagine you have 15 subjects in your group&hellip; now 60
+seconds is <b>15 minutes</b>. Now let's say you have 4 groups &hellip; now 15
+minutes is <b>one hour</b>. You run your program, go have lunch, and come
+back an hour later and you find there was an error. You fix the error
+and re-run &hellip; another hour. Even if you get it right, now imagine
+your supervisor asks you to re-run the analysis 5 different ways,
+varying some parameter of the analysis (maybe filtering the data at a
+different frequency, for example). Now you need <b>5 hours</b> to see the
+result. It doesn't take a huge amount of data to run into this sort of
+situation.
+</p>
+<p>
+If you program your data processing pipeline in C, and you achieve a
+100x speedup (not unusual), now those 5 hours turn into <b>180 seconds</b>
+(you could run your analysis twice and it would still take less time
+than listening to Stairway to Heaven).
+</p>
+</div>
+</div>
+
+</div>
+
+<div id="outline-container-4" class="outline-2">
+<h2 id="sec-4">The Bottom Line</h2>
+<div class="outline-text-2" id="text-4">
+
+
+<p>
+My own approach is to use interpreted languages like Python, R,
+Octave/Matlab, etc, for prototyping &mdash; that is, for exploring small
+amounts of data, for developing an approach, and algorithms, for
+analysing data, and for generating graphics. When I have a
+computation, or a simulation, or a series of operations that are
+time-consuming, I think about implementing them in C. Interpreted
+languages for <b>prototyping</b>, and C for <b>performance</b>.
+</p>
+
+<hr/>
+
+</div>
+
+</div>
+
+<div id="outline-container-5" class="outline-2">
+<h2 id="sec-5">References</h2>
+<div class="outline-text-2" id="text-5">
+
+
+<ul>
+<li>A classic reference book: <a href="https://en.wikipedia.org/wiki/The_C_Programming_Language_(book)">The C Programming Language</a> by Kernighan &amp; Ritchie
+</li>
+<li><a href="http://radar.oreilly.com/2012/06/why-learn-c.html">Why learn C?</a> (<a href="http://youtu.be/hHySVnJzADM">YouTube interview</a>)
+</li>
+<li>A good in-depth book: <a href="http://www.amazon.com/Programming-3rd-Edition-Stephen-Kochan/dp/0672326663">Programming in C (3rd Ed.)</a> by Stephen Kochan
+</li>
+<li><a href="https://en.wikipedia.org/wiki/C_(programming_language)">C on Wikipedia</a>
+</li>
+<li><a href="http://www.nongnu.org/c-prog-book/online/index.html">Learning GNU C</a>
+</li>
+<li>The GNU C Programming Tutorial (<a href="http://www.crasseux.com/books/ctutorial/">html</a>) (<a href="http://www.crasseux.com/books/ctut.pdf">pdf</a>)
+</li>
+<li><a href="http://shop.oreilly.com/product/0636920015482.do">Head First C</a> (very "tutorial" style, slightly annoying)
+</li>
+<li><a href="http://mortoray.com/2012/06/11/whats-to-love-about-c/">What's to love about C?</a>
+</li>
+<li><a href="http://c.learncodethehardway.org/book/">Learn C The Hard Way</a>
+</li>
+<li><a href="http://en.wikipedia.org/wiki/C_standard_library">C standard library</a>
+</li>
+<li>A book on doing statistics with C using the <a href="http://apophenia.sourceforge.net/">Apophenia</a> library:
+  <a href="http://modelingwithdata.org/about_the_book.html">Modeling With Data</a> by Ben Klemens (see Chapter 1 for an argument in
+  favour of using C for statistical analyses, and Chapter 2 for a
+  tutorial on programming in C)
+</li>
+<li>A tip-a-day on C <a href="http://modelingwithdata.org/arch/00000049.htm">here</a> by Ben Klemens
+</li>
+</ul>
+
+</div>
+</div>
+</div>
+
+<div id="postamble">
+<hr />Paul Gribble | Summer 2012<br>This <span xmlns:dct="http://purl.org/dc/terms/" href="http://purl.org/dc/dcmitype/Text" rel="dct:type">work</span> is licensed under a <a rel="license" href="http://creativecommons.org/licenses/by-nc-sa/3.0/">Creative Commons Attribution-NonCommercial-ShareAlike 3.0 Unported License</a><br><a rel="license" href="http://creativecommons.org/licenses/by-nc-sa/3.0/"><img alt="Creative Commons License" style="border-width:0" src="http://i.creativecommons.org/l/by-nc-sa/3.0/80x15.png" /></a><br />
+</div>
+</body>
+</html>

@@ -1,0 +1,723 @@
+<?xml version="1.0" encoding="iso-8859-1"?>
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Strict//EN"
+               "http://www.w3.org/TR/xhtml1/DTD/xhtml1-strict.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml" lang="en" xml:lang="en">
+<head>
+<title>10. Input and Output</title>
+<meta http-equiv="Content-Type" content="text/html;charset=iso-8859-1"/>
+<meta name="title" content="10. Input and Output"/>
+<meta name="generator" content="Org-mode"/>
+<meta name="generated" content="Summer 2012"/>
+<meta name="author" content="Paul Gribble"/>
+<meta name="description" content=""/>
+<meta name="keywords" content=""/>
+<style type="text/css">
+ <!--/*--><![CDATA[/*><!--*/
+  html { font-family: Times, serif; font-size: 12pt; }
+  .title  { text-align: center; }
+  .todo   { color: red; }
+  .done   { color: green; }
+  .tag    { background-color: #add8e6; font-weight:normal }
+  .target { }
+  .timestamp { color: #bebebe; }
+  .timestamp-kwd { color: #5f9ea0; }
+  .right  {margin-left:auto; margin-right:0px;  text-align:right;}
+  .left   {margin-left:0px;  margin-right:auto; text-align:left;}
+  .center {margin-left:auto; margin-right:auto; text-align:center;}
+  p.verse { margin-left: 3% }
+  pre {
+	border: 1pt solid #AEBDCC;
+	background-color: #F3F5F7;
+	padding: 5pt;
+	font-family: courier, monospace;
+        font-size: 90%;
+        overflow:auto;
+  }
+  table { border-collapse: collapse; }
+  td, th { vertical-align: top;  }
+  th.right  { text-align:center;  }
+  th.left   { text-align:center;   }
+  th.center { text-align:center; }
+  td.right  { text-align:right;  }
+  td.left   { text-align:left;   }
+  td.center { text-align:center; }
+  dt { font-weight: bold; }
+  div.figure { padding: 0.5em; }
+  div.figure p { text-align: center; }
+  div.inlinetask {
+    padding:10px;
+    border:2px solid gray;
+    margin:10px;
+    background: #ffffcc;
+  }
+  textarea { overflow-x: auto; }
+  .linenr { font-size:smaller }
+  .code-highlighted {background-color:#ffff00;}
+  .org-info-js_info-navigation { border-style:none; }
+  #org-info-js_console-label { font-size:10px; font-weight:bold;
+                               white-space:nowrap; }
+  .org-info-js_search-highlight {background-color:#ffff00; color:#000000;
+                                 font-weight:bold; }
+  /*]]>*/-->
+</style><link rel="stylesheet" type="text/css" href="mystyle.css" />
+<script type="text/javascript">
+<!--/*--><![CDATA[/*><!--*/
+ function CodeHighlightOn(elem, id)
+ {
+   var target = document.getElementById(id);
+   if(null != target) {
+     elem.cacheClassElem = elem.className;
+     elem.cacheClassTarget = target.className;
+     target.className = "code-highlighted";
+     elem.className   = "code-highlighted";
+   }
+ }
+ function CodeHighlightOff(elem, id)
+ {
+   var target = document.getElementById(id);
+   if(elem.cacheClassElem)
+     elem.className = elem.cacheClassElem;
+   if(elem.cacheClassTarget)
+     target.className = elem.cacheClassTarget;
+ }
+/*]]>*///-->
+</script>
+
+</head>
+<body>
+<div id="org-div-home-and-up" style="text-align:right;font-size:70%;white-space:nowrap;">
+ <a accesskey="h" href="index.html"> UP </a>
+ |
+ <a accesskey="H" href="index.html"> HOME </a>
+</div>
+
+<div id="preamble">
+
+</div>
+
+<div id="content">
+<h1 class="title">10. Input and Output</h1>
+
+
+
+<hr/>
+<div id="table-of-contents">
+<h2>Table of Contents</h2>
+<div id="text-table-of-contents">
+<ul>
+<li><a href="#sec-1">I/O Streams</a>
+<ul>
+<li><a href="#sec-1-1">Character I/O: <code>getchar()</code> and <code>putchar()</code></a></li>
+<li><a href="#sec-1-2">Formatted I/O: <code>printf()</code> and <code>scanf()</code></a>
+<ul>
+<li><a href="#sec-1-2-1">The <code>printf()</code> function</a></li>
+<li><a href="#sec-1-2-2">The <code>scanf()</code> function</a></li>
+</ul></li>
+</ul>
+</li>
+<li><a href="#sec-2">Input and Output with Files</a>
+<ul>
+<li><a href="#sec-2-1">Opening and Closing files with <code>fopen()</code> and <code>fclose()</code></a></li>
+<li><a href="#sec-2-2">Reading and Writing to files</a>
+<ul>
+<li><a href="#sec-2-2-1">Ascii Files (plain text)</a></li>
+<li><a href="#sec-2-2-2">Binary Files (raw bytes)</a></li>
+</ul></li>
+</ul>
+</li>
+<li><a href="#sec-3">Links</a></li>
+<li><a href="#sec-4">Exercises</a>
+<ul>
+<li><a href="#sec-4-1">Solutions</a></li>
+</ul>
+</li>
+</ul>
+</div>
+</div>
+
+<hr/>
+
+
+<div id="outline-container-1" class="outline-2">
+<h2 id="sec-1">I/O Streams</h2>
+<div class="outline-text-2" id="text-1">
+
+
+<p>
+The standard C library (linked to using <code>#include &lt;stdio.h&gt;</code>)
+includes a handful of functions for performing input and output in C.
+</p>
+<p>
+C and UNIX make use of a concept called <b>streams</b> in which data can be
+sent and received between programs, devices, and the operating
+system. We can distinguish between two types of streams: text and
+binary.
+</p>
+<p>
+Text streams are made up of lines, where each line has zero or more
+characters, and is terminated by a new-line character <code>\n</code>. Binary
+streams are more "raw" and consist of a stream of any number of bytes.
+</p>
+<p>
+C programs all have three streams "built-in": <b>standard input</b>,
+<b>standard output</b>, and <b>standard error</b>. When you interact with a C
+program in a terminal, and you type values in, you are using standard
+input.
+</p>
+<p>
+UNIX has a concept called <b>pipes</b> (e.g. see <a href="http://en.wikipedia.org/wiki/Pipeline_(Unix)">here</a>) whereby you can
+redirect any stream (e.g. output from some program or device) as input
+to another process (e.g. your program). When you redirect a stream to
+your program, which takes it in as input, you are using the standard
+input stream.
+</p>
+<p>
+When your program uses <code>printf()</code> (see below) to print to the screen, you are using <b>standard output</b>.
+</p>
+<p>
+Files (e.g. data files) are also associated with streams, and we will see below how to read from them and write to them.
+</p>
+<p>
+We won't talk about <b>standard error</b> here. Refer to a UNIX reference,
+a C book, or <a href="http://www.acm.uiuc.edu/webmonkeys/book/c_guide/2.12.html#streams\">Streams and Files</a> for more details.
+</p>
+
+</div>
+
+<div id="outline-container-1-1" class="outline-3">
+<h3 id="sec-1-1">Character I/O: <code>getchar()</code> and <code>putchar()</code></h3>
+<div class="outline-text-3" id="text-1-1">
+
+
+<p>
+When you want to read data a single character at a time, you can use
+<code>getchar()</code>. The output function <code>putchar()</code> will write out one
+character at a time to standard output.
+</p>
+
+
+
+<pre class="src src-C"><span style="color: #875f87;">#include</span> <span style="color: #87005f;">&lt;stdio.h&gt;</span>
+
+<span style="color: #008700;">void</span> <span style="color: #0000ff;">main</span>() {
+  <span style="color: #008700;">char</span> <span style="color: #af5f00;">c</span> = getchar();
+  putchar(c);
+  putchar(<span style="color: #87005f;">'\n'</span>);
+  <span style="color: #af00ff;">return</span> 0;
+}
+</pre>
+
+
+
+<pre class="example">x
+x
+</pre>
+
+
+</div>
+
+</div>
+
+<div id="outline-container-1-2" class="outline-3">
+<h3 id="sec-1-2">Formatted I/O: <code>printf()</code> and <code>scanf()</code></h3>
+<div class="outline-text-3" id="text-1-2">
+
+
+
+</div>
+
+<div id="outline-container-1-2-1" class="outline-4">
+<h4 id="sec-1-2-1">The <code>printf()</code> function</h4>
+<div class="outline-text-4" id="text-1-2-1">
+
+
+<p>
+We have seen in many of the example code snippets, the use of the
+<code>printf()</code> function to write formatted output to the screen. In
+general the <code>printf()</code> function takes two arguments: first, a string
+argument that indicates what to write to the screen, including
+formats, and second, a list of variables that provide the data to the
+various elements in the formatting string.
+</p>
+<p>
+Here is an example where we print a sentence that contains a formatted integer, a floating-point number, and a string:
+</p>
+
+
+
+<pre class="src src-c"><span style="color: #875f87;">#include</span> <span style="color: #87005f;">&lt;stdio.h&gt;</span>
+
+<span style="color: #008700;">int</span> <span style="color: #0000ff;">main</span>() {
+  <span style="color: #008700;">int</span> <span style="color: #af5f00;">i</span> = 42;
+  <span style="color: #008700;">char</span> <span style="color: #af5f00;">str</span>[] = <span style="color: #87005f;">"the meaning of life"</span>;
+  <span style="color: #008700;">double</span> <span style="color: #af5f00;">p</span> = 3.14159265;
+  printf(<span style="color: #87005f;">"pi is about %12.8f and %s is %d\n"</span>, p, str, i);
+}
+</pre>
+
+
+
+<pre class="example">pi is about   3.14159265 and the meaning of life is 42
+</pre>
+
+
+<p>
+Let's unpack the <code>printf()</code> statement above on line 7. The format
+string includes three numeric format codes. The first, <code>%12.8f</code>, says
+that we want to print a floating-point number (<code>f</code>), we want to print
+it to 8 decimal places (<code>.8</code>), and we want to provide 12 columns of
+space for it (<code>12</code>). The second format argument is <code>%s</code> which
+corresponds to a string. The third format argument is <code>%d</code> which
+corresponds to an integer.
+</p>
+<p>
+Consult a reference manual (or a website like <a href="http://www.acm.uiuc.edu/webmonkeys/book/c_guide/2.12.html#printf">this</a> for full details).
+</p>
+</div>
+
+</div>
+
+<div id="outline-container-1-2-2" class="outline-4">
+<h4 id="sec-1-2-2">The <code>scanf()</code> function</h4>
+<div class="outline-text-4" id="text-1-2-2">
+
+
+<p>
+To read formatted data in from standard input we can use the
+<code>fscanf()</code> function. Just like <code>printf()</code>, it takes as a first
+argument a format string, followed by other arguments specifying the
+destination of each argument. Unlike <code>printf()</code>, the <code>scanf()</code>
+function requires that these destination arguments be <b>addresses</b> of
+the relevant locations in memory (we can feed it a pointer, for
+example).
+</p>
+<p>
+Here is a simple example in which we read from standard input a date,
+which we expect to be in the following format:
+</p>
+
+
+
+<pre class="example">25 Dec 2012
+</pre>
+
+
+
+<pre class="src src-c"><span style="color: #875f87;">#include</span> <span style="color: #87005f;">&lt;stdio.h&gt;</span>
+
+<span style="color: #008700;">int</span> <span style="color: #0000ff;">main</span>() {
+  <span style="color: #008700;">int</span> <span style="color: #af5f00;">day</span>, <span style="color: #af5f00;">year</span>;
+  <span style="color: #008700;">char</span> <span style="color: #af5f00;">monthname</span>[20];
+  scanf(<span style="color: #87005f;">"%d %s %d"</span>, &amp;day, monthname, &amp;year);
+  printf(<span style="color: #87005f;">"the date is %s %d, %d\n"</span>, monthname, day, year);
+  <span style="color: #af00ff;">return</span> 0;
+}
+</pre>
+
+
+
+<pre class="example">25 Dec 2012
+the date is Dec 25, 2012
+</pre>
+
+
+<p>
+Note how on line 6, we pass the <b>address</b> of <code>day</code> and <code>year</code> using
+the ampersand (<code>&amp;</code>) operator. On line 4 we declare <code>day</code> and <code>year</code> as
+<code>int</code>. Using the ampersand notation, we can write <code>&amp;day</code> and <code>&amp;year</code>,
+which correspond to <b>pointers</b> to the <b>address</b> of <code>day</code> and <code>year</code>.
+</p>
+<p>
+The <code>scanf()</code> function ignores blanks and tabs in the format string,
+and it skips over white space (blanks, tabs, newlines, etc) as it
+looks for input values.
+</p>
+</div>
+</div>
+</div>
+
+</div>
+
+<div id="outline-container-2" class="outline-2">
+<h2 id="sec-2">Input and Output with Files</h2>
+<div class="outline-text-2" id="text-2">
+
+
+
+</div>
+
+<div id="outline-container-2-1" class="outline-3">
+<h3 id="sec-2-1">Opening and Closing files with <code>fopen()</code> and <code>fclose()</code></h3>
+<div class="outline-text-3" id="text-2-1">
+
+
+<p>
+Before a file can be read or written to, it has to be <b>opened</b> using
+the <code>fopen()</code> function, which takes as arguments a string
+corresponding to the filename, and a second argument (also a string)
+corresponding to the <b>mode</b>. The mode is read ("r"), write ("w") or
+append ("a"). The <code>fopen()</code> function then returns a pointer to the
+(open) file. After reading and/or writing to your file, you will need
+to <b>close</b> it using the <code>fclose()</code> function.
+</p>
+</div>
+
+</div>
+
+<div id="outline-container-2-2" class="outline-3">
+<h3 id="sec-2-2">Reading and Writing to files</h3>
+<div class="outline-text-3" id="text-2-2">
+
+
+<p>
+There are many functions in <code>stdio.h</code> for reading from and writing to
+files. There is a collection of functions for reading and writing ascii (text) data, and there are functions for dealing with binary data.
+</p>
+
+</div>
+
+<div id="outline-container-2-2-1" class="outline-4">
+<h4 id="sec-2-2-1">Ascii Files (plain text)</h4>
+<div class="outline-text-4" id="text-2-2-1">
+
+
+<p>
+There are functions to read single characters at a time (<code>getc()</code> and
+<code>putc()</code>), there are functions to read and write formatted output
+(<code>fscanf()</code> and <code>fprintf()</code>), and there are functions to read and
+write single lines at a time (<code>fgets()</code> and <code>fputs()</code>).
+</p>
+<p>
+Here is an example program that outputs a table of temperature values in Fahrenheit and Celsius to an ascii file.
+</p>
+
+
+
+<pre class="src src-c"><span style="color: #875f87;">#include</span> <span style="color: #87005f;">&lt;stdio.h&gt;</span>
+
+<span style="color: #008700;">int</span> <span style="color: #0000ff;">main</span>(<span style="color: #008700;">int</span> <span style="color: #af5f00;">argc</span>, <span style="color: #008700;">char</span> *<span style="color: #af5f00;">argv</span>[]) {
+
+  <span style="color: #008700;">FILE</span> *<span style="color: #af5f00;">fp</span>;
+  <span style="color: #008700;">double</span> <span style="color: #af5f00;">tmpC</span>[11] = {-10.0, -8.0, -6.0,
+                      -4.0, -2.0,  0.0,  2.0,
+                       4.0,  6.0,  8.0, 10.0};
+  <span style="color: #008700;">double</span> <span style="color: #af5f00;">tmpF</span>;
+  <span style="color: #008700;">int</span> <span style="color: #af5f00;">i</span>;
+
+  fp = fopen(<span style="color: #87005f;">"outfile.txt"</span>, <span style="color: #87005f;">"w"</span>);
+  <span style="color: #af00ff;">if</span> (fp == <span style="color: #008787;">NULL</span>) {
+    printf(<span style="color: #87005f;">"sorry can't open outfile.txt\n"</span>);
+    <span style="color: #af00ff;">return</span> 1;
+  }
+  <span style="color: #af00ff;">else</span> {
+    <span style="color: #af0000;">// </span><span style="color: #af0000;">print a table header</span>
+    fprintf(fp, <span style="color: #87005f;">"%10s %10s\n"</span>, <span style="color: #87005f;">"Celsius"</span>, <span style="color: #87005f;">"Fahrenheit"</span>);
+    <span style="color: #af00ff;">for</span> (i=0; i&lt;11; i++) {
+      tmpF = ((tmpC[i] * (9.0/5.0)) + 32.0);
+      fprintf(fp, <span style="color: #87005f;">"%10.2f %10.2f\n"</span>, tmpC[i], tmpF);
+    }
+    fclose(fp);
+  }
+
+  <span style="color: #af00ff;">return</span> 0;
+}
+</pre>
+
+
+
+<pre class="example">plg@wildebeest:~/Desktop$ more outfile.txt 
+   Celsius Fahrenheit
+    -10.00      14.00
+     -8.00      17.60
+     -6.00      21.20
+     -4.00      24.80
+     -2.00      28.40
+      0.00      32.00
+      2.00      35.60
+      4.00      39.20
+      6.00      42.80
+      8.00      46.40
+     10.00      50.00
+</pre>
+
+
+<p>
+A couple of things are worth noting about the code above. On line 13,
+we check the value of the file pointer <code>fp</code>, and if it is equal to
+<code>NULL</code> (which means there was an error opening the file), we write a
+message to the screen and we <code>return 1</code> (which exits the <code>main()</code>
+function and thus exits our program). A convention in UNIX is that
+programs which execute successfully return <code>0</code> and non-zero values are
+returned when there was an error encountered.
+</p>
+<p>
+On lines 19 and 22 we use the <code>fprintf()</code> function to write to the
+file. This is just like the <code>printf()</code> function that we have seen
+before, to write formatted output to standard output. This time we're
+writing to a file instead.
+</p>
+<p>
+To illustrate reading from ascii files, here's an example program that
+will read in the file produced by the previous code example, and do
+some arithmetic on them.
+</p>
+
+
+
+<pre class="src src-c"><span style="color: #875f87;">#include</span> <span style="color: #87005f;">&lt;stdio.h&gt;</span>
+
+<span style="color: #008700;">int</span> <span style="color: #0000ff;">main</span>(<span style="color: #008700;">int</span> <span style="color: #af5f00;">argc</span>, <span style="color: #008700;">char</span> *<span style="color: #af5f00;">argv</span>[]) {
+
+  <span style="color: #008700;">FILE</span> *<span style="color: #af5f00;">fp</span>;
+  <span style="color: #008700;">char</span> <span style="color: #af5f00;">buffer</span>[256];
+  <span style="color: #008700;">double</span> <span style="color: #af5f00;">tempC</span>, <span style="color: #af5f00;">tempF</span>;
+  <span style="color: #008700;">double</span> <span style="color: #af5f00;">sumC</span> = 0.0;
+  <span style="color: #008700;">double</span> <span style="color: #af5f00;">sumF</span> = 0.0;
+  <span style="color: #008700;">int</span> <span style="color: #af5f00;">numread</span> = 0;
+
+  fp = fopen(<span style="color: #87005f;">"outfile.txt"</span>, <span style="color: #87005f;">"r"</span>);
+  <span style="color: #af00ff;">if</span> (fp == <span style="color: #008787;">NULL</span>) {
+    printf(<span style="color: #87005f;">"there was an error opening outfile.txt\n"</span>);
+    <span style="color: #af00ff;">return</span> 1;
+  }
+  <span style="color: #af00ff;">else</span> {
+    <span style="color: #af0000;">// </span><span style="color: #af0000;">read in the header line first</span>
+    fgets(buffer, 256, fp);
+    <span style="color: #af00ff;">while</span> (!feof(fp)) {
+      fscanf(fp, <span style="color: #87005f;">"%lf %lf\n"</span>, &amp;tempC, &amp;tempF);
+      printf(<span style="color: #87005f;">"tempC=%.2f, tempF=%.2f\n"</span>, tempC, tempF);
+      sumC += tempC;
+      sumF += tempF;
+      numread++;
+    }
+    fclose(fp);
+    printf(<span style="color: #87005f;">"%d values read, sumC=%.2f and sumF=%.2f\n"</span>, numread, sumC, sumF);
+  }
+
+  <span style="color: #af00ff;">return</span> 0;
+}
+</pre>
+
+
+
+<pre class="example">tempC=-10.00, tempF=14.00
+tempC=-8.00, tempF=17.60
+tempC=-6.00, tempF=21.20
+tempC=-4.00, tempF=24.80
+tempC=-2.00, tempF=28.40
+tempC=0.00, tempF=32.00
+tempC=2.00, tempF=35.60
+tempC=4.00, tempF=39.20
+tempC=6.00, tempF=42.80
+tempC=8.00, tempF=46.40
+tempC=10.00, tempF=50.00
+11 values read, sumC=0.00 and sumF=352.00
+</pre>
+
+
+<p>
+Some comments about the above code example: on line 19 we use the
+<code>fgets()</code> function to read in the first line of the file to a
+character string (<code>buffer</code>) that we declared above. The <code>fgets()</code>
+function requires as its second argument the maximum number of
+characters to read. Since we know we don't expect many here, we
+indicate a maximum of 256. After reading in the first line, we now
+enter a <b>while loop</b>, using <code>fscanf()</code> to read in each pair of
+floating-point values. The while loop terminates when <code>!feof(fp)</code> is
+false. The <code>feof()</code> function returns TRUE if we are at the end of the
+file, and FALSE otherwise.
+</p>
+</div>
+
+</div>
+
+<div id="outline-container-2-2-2" class="outline-4">
+<h4 id="sec-2-2-2">Binary Files (raw bytes)</h4>
+<div class="outline-text-4" id="text-2-2-2">
+
+
+<p>
+There are many circumstances in which you may want to read from and
+write to binary files. Binary files are not plain text (ascii) files
+where each chunk of bytes represents an ascii character. In binary
+files, you store raw bytes, in whatever format you want. For example
+Optotrak stores its data files as binary files: a header of a given
+length (number of bytes) followed by data, in a specific byte format.
+</p>
+<p>
+Advantages of binary files over ascii files is that they are typically
+smaller in size, and they can be read from and written to faster (no
+need to convert between raw bytes and ascii characters). Disadvantages
+of binary files are that they are not human readable (you can't open
+in them in a text editor and "look" at them).
+</p>
+<p>
+The <code>fread()</code> and <code>fwrite()</code> functions are used to read and write
+binary data (raw bytes) from and to binary files. Here is an example
+of writing some data to a binary file. We first write a 16 byte header
+containing the date (4 + 4 + 4 = 12 bytes) and the number of data
+points (4 bytes). We then write out the data array, 4 bytes per
+element. In this example the data are integer values.
+</p>
+
+
+
+<pre class="src src-c"><span style="color: #875f87;">#include</span> <span style="color: #87005f;">&lt;stdio.h&gt;</span>
+
+<span style="color: #008700;">int</span> <span style="color: #0000ff;">main</span>(<span style="color: #008700;">int</span> <span style="color: #af5f00;">argc</span>, <span style="color: #008700;">char</span> *<span style="color: #af5f00;">argv</span>[]) {
+
+  <span style="color: #008700;">FILE</span> *<span style="color: #af5f00;">fp</span>;
+  <span style="color: #008700;">int</span> <span style="color: #af5f00;">year</span> = 2012;
+  <span style="color: #008700;">int</span> <span style="color: #af5f00;">month</span> = 8;
+  <span style="color: #008700;">int</span> <span style="color: #af5f00;">day</span> = 26;
+  <span style="color: #008700;">int</span> <span style="color: #af5f00;">mydata</span>[5] = {2, 4, 6, 8, 10};
+
+  fp = fopen(<span style="color: #87005f;">"data.bin"</span>, <span style="color: #87005f;">"w"</span>);
+  <span style="color: #af00ff;">if</span> (fp == <span style="color: #008787;">NULL</span>) {
+    printf(<span style="color: #87005f;">"error opening data.bin\n"</span>);
+    <span style="color: #af00ff;">return</span> 1;
+  }
+  <span style="color: #af00ff;">else</span> {
+    <span style="color: #af0000;">// </span><span style="color: #af0000;">write out the header</span>
+    <span style="color: #008700;">int</span> <span style="color: #af5f00;">bytesout</span>;
+    bytesout = fwrite(&amp;year, <span style="color: #af00ff;">sizeof</span>(year), 1, fp);
+    bytesout = fwrite(&amp;month, <span style="color: #af00ff;">sizeof</span>(month), 1, fp);
+    bytesout = fwrite(&amp;day, <span style="color: #af00ff;">sizeof</span>(day), 1, fp);
+    <span style="color: #af0000;">// </span><span style="color: #af0000;">write the data</span>
+    bytesout = fwrite(mydata, <span style="color: #af00ff;">sizeof</span>(<span style="color: #008700;">int</span>), 5, fp);
+    fclose(fp);
+  }
+
+  <span style="color: #af00ff;">return</span> 0;
+}
+</pre>
+
+
+<p>
+Here is an example program to read from the binary data file:
+</p>
+
+
+
+<pre class="src src-c"><span style="color: #875f87;">#include</span> <span style="color: #87005f;">&lt;stdio.h&gt;</span>
+
+<span style="color: #008700;">int</span> <span style="color: #0000ff;">main</span>(<span style="color: #008700;">int</span> <span style="color: #af5f00;">argc</span>, <span style="color: #008700;">char</span> *<span style="color: #af5f00;">argv</span>[]) {
+
+  <span style="color: #008700;">FILE</span> *<span style="color: #af5f00;">fp</span>;
+  <span style="color: #008700;">int</span> <span style="color: #af5f00;">bytesread</span>;
+  <span style="color: #008700;">int</span> <span style="color: #af5f00;">yy</span>, <span style="color: #af5f00;">mm</span>, <span style="color: #af5f00;">dd</span>;
+  <span style="color: #008700;">int</span> <span style="color: #af5f00;">thedata</span>[5];
+
+  fp = fopen(<span style="color: #87005f;">"data.bin"</span>, <span style="color: #87005f;">"r"</span>);
+  <span style="color: #af00ff;">if</span> (fp == <span style="color: #008787;">NULL</span>) {
+    printf(<span style="color: #87005f;">"error opening data.bin\n"</span>);
+    <span style="color: #af00ff;">return</span> 1;
+  }
+  <span style="color: #af00ff;">else</span> {
+    <span style="color: #af0000;">// </span><span style="color: #af0000;">read the header</span>
+    bytesread = fread(&amp;yy, <span style="color: #af00ff;">sizeof</span>(<span style="color: #008700;">int</span>), 1, fp);
+    bytesread = fread(&amp;mm, <span style="color: #af00ff;">sizeof</span>(<span style="color: #008700;">int</span>), 1, fp);
+    bytesread = fread(&amp;dd, <span style="color: #af00ff;">sizeof</span>(<span style="color: #008700;">int</span>), 1, fp);
+    printf(<span style="color: #87005f;">"year=%d, month=%d, day=%d\n"</span>, yy, mm, dd);
+    <span style="color: #af0000;">// </span><span style="color: #af0000;">read the data</span>
+    bytesread = fread(thedata, <span style="color: #af00ff;">sizeof</span>(<span style="color: #008700;">int</span>), 5, fp);
+    printf(<span style="color: #87005f;">"data = [%d,%d,%d,%d,%d]\n"</span>,
+           thedata[0], thedata[1],thedata[2],thedata[3],thedata[4]); 
+    fclose(fp);
+  }
+
+  <span style="color: #af00ff;">return</span> 0;
+}
+</pre>
+
+
+
+<pre class="example">year=2012, month=8, day=26
+data = [2,4,6,8,10]
+</pre>
+
+
+<p>
+The bottom line is, as long as you know what the binary <b>format</b> is
+(that is, how many bytes represent each value) then you can read and
+write them in "raw" binary using <code>fread()</code> and <code>fwrite()</code>.
+</p>
+</div>
+</div>
+</div>
+
+</div>
+
+<div id="outline-container-3" class="outline-2">
+<h2 id="sec-3">Links</h2>
+<div class="outline-text-2" id="text-3">
+
+
+<ul>
+<li><a href="http://www.acm.uiuc.edu/webmonkeys/book/c_guide/index.html">The C Library Reference Guide</a>
+</li>
+<li><a href="http://en.wikipedia.org/wiki/C_file_input/output">C file input/output</a>
+</li>
+</ul>
+
+
+
+</div>
+
+</div>
+
+<div id="outline-container-4" class="outline-2">
+<h2 id="sec-4">Exercises</h2>
+<div class="outline-text-2" id="text-4">
+
+
+<ul>
+<li>1 Write a program that asks the user to enter three strings. After
+  they have entered all three strings, print the strings out using all
+  uppercase letters.
+
+</li>
+<li>2 Alter the program so that it prints out the all-caps strings in reverse.
+
+</li>
+<li>3 Alter the program again so that it writes the all-caps reversed
+  strings to a plaintext file.
+
+</li>
+<li>4 Write a program that reads three strings from a plaintext file,
+  reverses each string, and prints them out to the screen.
+</li>
+</ul>
+
+
+
+
+</div>
+
+<div id="outline-container-4-1" class="outline-3">
+<h3 id="sec-4-1">Solutions</h3>
+<div class="outline-text-3" id="text-4-1">
+
+
+<ul>
+<li>x
+</li>
+<li>x
+</li>
+<li>x
+</li>
+<li>x
+</li>
+</ul>
+
+
+</div>
+</div>
+</div>
+</div>
+
+<div id="postamble">
+<hr />Paul Gribble | Summer 2012<br>This <span xmlns:dct="http://purl.org/dc/terms/" href="http://purl.org/dc/dcmitype/Text" rel="dct:type">work</span> is licensed under a <a rel="license" href="http://creativecommons.org/licenses/by-nc-sa/3.0/">Creative Commons Attribution-NonCommercial-ShareAlike 3.0 Unported License</a><br><a rel="license" href="http://creativecommons.org/licenses/by-nc-sa/3.0/"><img alt="Creative Commons License" style="border-width:0" src="http://i.creativecommons.org/l/by-nc-sa/3.0/80x15.png" /></a><br />
+</div>
+</body>
+</html>

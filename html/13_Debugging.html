@@ -1,0 +1,926 @@
+<?xml version="1.0" encoding="iso-8859-1"?>
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Strict//EN"
+               "http://www.w3.org/TR/xhtml1/DTD/xhtml1-strict.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml" lang="en" xml:lang="en">
+<head>
+<title>13. Debugging</title>
+<meta http-equiv="Content-Type" content="text/html;charset=iso-8859-1"/>
+<meta name="title" content="13. Debugging"/>
+<meta name="generator" content="Org-mode"/>
+<meta name="generated" content="Summer 2012"/>
+<meta name="author" content="Paul Gribble"/>
+<meta name="description" content=""/>
+<meta name="keywords" content=""/>
+<style type="text/css">
+ <!--/*--><![CDATA[/*><!--*/
+  html { font-family: Times, serif; font-size: 12pt; }
+  .title  { text-align: center; }
+  .todo   { color: red; }
+  .done   { color: green; }
+  .tag    { background-color: #add8e6; font-weight:normal }
+  .target { }
+  .timestamp { color: #bebebe; }
+  .timestamp-kwd { color: #5f9ea0; }
+  .right  {margin-left:auto; margin-right:0px;  text-align:right;}
+  .left   {margin-left:0px;  margin-right:auto; text-align:left;}
+  .center {margin-left:auto; margin-right:auto; text-align:center;}
+  p.verse { margin-left: 3% }
+  pre {
+	border: 1pt solid #AEBDCC;
+	background-color: #F3F5F7;
+	padding: 5pt;
+	font-family: courier, monospace;
+        font-size: 90%;
+        overflow:auto;
+  }
+  table { border-collapse: collapse; }
+  td, th { vertical-align: top;  }
+  th.right  { text-align:center;  }
+  th.left   { text-align:center;   }
+  th.center { text-align:center; }
+  td.right  { text-align:right;  }
+  td.left   { text-align:left;   }
+  td.center { text-align:center; }
+  dt { font-weight: bold; }
+  div.figure { padding: 0.5em; }
+  div.figure p { text-align: center; }
+  div.inlinetask {
+    padding:10px;
+    border:2px solid gray;
+    margin:10px;
+    background: #ffffcc;
+  }
+  textarea { overflow-x: auto; }
+  .linenr { font-size:smaller }
+  .code-highlighted {background-color:#ffff00;}
+  .org-info-js_info-navigation { border-style:none; }
+  #org-info-js_console-label { font-size:10px; font-weight:bold;
+                               white-space:nowrap; }
+  .org-info-js_search-highlight {background-color:#ffff00; color:#000000;
+                                 font-weight:bold; }
+  /*]]>*/-->
+</style><link rel="stylesheet" type="text/css" href="mystyle.css" />
+<script type="text/javascript">
+<!--/*--><![CDATA[/*><!--*/
+ function CodeHighlightOn(elem, id)
+ {
+   var target = document.getElementById(id);
+   if(null != target) {
+     elem.cacheClassElem = elem.className;
+     elem.cacheClassTarget = target.className;
+     target.className = "code-highlighted";
+     elem.className   = "code-highlighted";
+   }
+ }
+ function CodeHighlightOff(elem, id)
+ {
+   var target = document.getElementById(id);
+   if(elem.cacheClassElem)
+     elem.className = elem.cacheClassElem;
+   if(elem.cacheClassTarget)
+     target.className = elem.cacheClassTarget;
+ }
+/*]]>*///-->
+</script>
+
+</head>
+<body>
+<div id="org-div-home-and-up" style="text-align:right;font-size:70%;white-space:nowrap;">
+ <a accesskey="h" href="index.html"> UP </a>
+ |
+ <a accesskey="H" href="index.html"> HOME </a>
+</div>
+
+<div id="preamble">
+
+</div>
+
+<div id="content">
+<h1 class="title">13. Debugging</h1>
+
+
+
+<hr/>
+<div id="table-of-contents">
+<h2>Table of Contents</h2>
+<div id="text-table-of-contents">
+<ul>
+<li><a href="#sec-1">the GNU Project Debugger gdb</a>
+<ul>
+<li><a href="#sec-1-1">What is a symbolic debugger?</a>
+<ul>
+<li><a href="#sec-1-1-1">Why not use printf()?</a></li>
+</ul>
+</li>
+<li><a href="#sec-1-2">Compiling your program for gdb</a></li>
+<li><a href="#sec-1-3">Stack frames</a>
+<ul>
+<li><a href="#sec-1-3-1">Inspecting the stack using gdb</a></li>
+</ul>
+</li>
+<li><a href="#sec-1-4">Breakpoints</a></li>
+<li><a href="#sec-1-5">Inspecting a variable with the gdb print command</a></li>
+<li><a href="#sec-1-6">Stepping</a></li>
+<li><a href="#sec-1-7">More breakpoints</a></li>
+</ul>
+</li>
+<li><a href="#sec-2">Gotchas</a>
+<ul>
+<li><a href="#sec-2-1">Integer Math</a></li>
+<li><a href="#sec-2-2">Floating-point Math</a></li>
+<li><a href="#sec-2-3">Out of Bounds Array Indexing</a></li>
+</ul>
+</li>
+<li><a href="#sec-3">Tricky Code</a></li>
+<li><a href="#sec-4">Links</a></li>
+</ul>
+</div>
+</div>
+
+<hr/>
+
+
+<div id="outline-container-1" class="outline-2">
+<h2 id="sec-1">the GNU Project Debugger gdb</h2>
+<div class="outline-text-2" id="text-1">
+
+
+
+</div>
+
+<div id="outline-container-1-1" class="outline-3">
+<h3 id="sec-1-1">What is a symbolic debugger?</h3>
+<div class="outline-text-3" id="text-1-1">
+
+
+<p>
+A debugger is a program that runs other programs, and provides the
+ability to control the execution of that program, for example stepping
+through one line at a time, and inspecting variables as the program is
+running. When your program crashes, and UNIX gives you a vague error
+message, a debugger will help you figure out where it is crashing, and
+(with the assistance of your brain) why it is crashing.
+</p>
+
+</div>
+
+<div id="outline-container-1-1-1" class="outline-4">
+<h4 id="sec-1-1-1">Why not use printf()?</h4>
+<div class="outline-text-4" id="text-1-1-1">
+
+
+<p>
+A quick and easy method of debugging that doesn't require a separate
+debugger program, is to sprinkle your code with <code>printf()</code> statements
+that writes to the screen, the values of various variables that you
+think are relevant and related to a crash (or other error). Some
+people call this adding "trace code" to your program.
+</p>
+<p>
+Disadvantages of debugging using trace code are that you may need
+<b>many</b> <code>printf()</code> statements all over your program, and it becomes a
+nuisance to put them in, take them out, etc. Moreover a symbolic
+debugger can do a lot more stuff than simple trace code. It can halt a
+program, allow you to inspect variable values, jump to an arbitray
+line of code, evaluate expressions, and restart from where you left
+off. You just get more fine-grained control by using a
+debugger. Finally, you can use the gdb debugger on a program that has
+already crashed, without having to re-start the program (you will see
+the state of the program, and its variables, at the time of the crash,
+allowing you to inspect the values of the variables, the location in
+the program of the crash, etc).
+</p>
+</div>
+</div>
+
+</div>
+
+<div id="outline-container-1-2" class="outline-3">
+<h3 id="sec-1-2">Compiling your program for gdb</h3>
+<div class="outline-text-3" id="text-1-2">
+
+
+<p>
+To allow gdb to run your program, you must compile your program with a
+special compiler flag, <code>-g</code>. Here is a simple example of a program we
+will use to illustrate the gdb debugger, you can download it here:
+<a href="code/debug/go.c">go.c</a>:
+</p>
+
+
+
+<pre class="src src-c"><span style="color: #875f87;">#include</span> <span style="color: #87005f;">&lt;stdio.h&gt;</span>
+<span style="color: #875f87;">#include</span> <span style="color: #87005f;">&lt;stdlib.h&gt;</span>
+
+<span style="color: #008700;">char</span> *<span style="color: #0000ff;">getWord</span>(<span style="color: #008700;">int</span> <span style="color: #af5f00;">maxsize</span>)
+{
+  <span style="color: #008700;">char</span> *<span style="color: #af5f00;">s</span>;
+  s = calloc(<span style="color: #af00ff;">sizeof</span>(<span style="color: #008700;">char</span>), maxsize);
+  printf(<span style="color: #87005f;">"enter a string (max %d chars): "</span>, maxsize);
+  scanf(<span style="color: #87005f;">"%s"</span>, s);
+  <span style="color: #af00ff;">return</span> s;
+}
+
+<span style="color: #008700;">void</span> <span style="color: #0000ff;">repeatWord</span>(<span style="color: #008700;">char</span> *<span style="color: #af5f00;">s</span>, <span style="color: #008700;">int</span> <span style="color: #af5f00;">n</span>)
+{
+  <span style="color: #008700;">int</span> <span style="color: #af5f00;">i</span>;
+  <span style="color: #af00ff;">for</span> (i=0; i&lt;n; i++) {
+    printf(<span style="color: #87005f;">"%s\n"</span>, s);
+  }
+}
+
+<span style="color: #008700;">int</span> *<span style="color: #0000ff;">getVec</span>(<span style="color: #008700;">int</span> <span style="color: #af5f00;">vecsize</span>)
+{
+  <span style="color: #008700;">int</span> *<span style="color: #af5f00;">vec</span> = malloc(<span style="color: #af00ff;">sizeof</span>(<span style="color: #008700;">int</span>)*vecsize);
+  <span style="color: #008700;">int</span> <span style="color: #af5f00;">i</span>;
+  <span style="color: #af00ff;">for</span> (i=0; i&lt;vecsize; i++) {
+    printf(<span style="color: #87005f;">"enter value of vec[%d]:"</span>, i);
+    scanf(<span style="color: #87005f;">"%d"</span>, &amp;vec[i]);
+  }
+  <span style="color: #af00ff;">return</span> vec;
+}
+
+<span style="color: #008700;">void</span> <span style="color: #0000ff;">printVec</span>(<span style="color: #008700;">int</span> *<span style="color: #af5f00;">vec</span>, <span style="color: #008700;">int</span> <span style="color: #af5f00;">size</span>)
+{
+  <span style="color: #008700;">int</span> <span style="color: #af5f00;">i</span>;
+  printf(<span style="color: #87005f;">"vec = {"</span>);
+  <span style="color: #af00ff;">for</span> (i=0; i&lt;size-1; i++) {
+    printf(<span style="color: #87005f;">"%d,"</span>, vec[i]);
+  }
+  printf(<span style="color: #87005f;">"%d}\n"</span>, vec[size-1]);
+}
+
+<span style="color: #008700;">int</span> <span style="color: #0000ff;">main</span>(<span style="color: #008700;">int</span> <span style="color: #af5f00;">argc</span>, <span style="color: #008700;">char</span> *<span style="color: #af5f00;">argv</span>[])
+{  
+  <span style="color: #008700;">char</span> *<span style="color: #af5f00;">myWord</span> = getWord(256);
+  repeatWord(myWord, 3);
+
+  <span style="color: #008700;">int</span> *<span style="color: #af5f00;">myVec</span> = getVec(5);
+  printVec(myVec, 5);
+
+  free(myWord);
+  free(myVec);
+
+  <span style="color: #af00ff;">return</span> 0;
+}
+</pre>
+
+
+<p>
+Here is an example of what it does:
+</p>
+
+
+
+<pre class="example">plg@wildebeest:~/Desktop/CBootCamp/code/debug$ gcc -g -o go go.c
+plg@wildebeest:~/Desktop/CBootCamp/code/debug$ ./go
+enter a string (max 256 chars): TheDude
+TheDude
+TheDude
+TheDude
+enter value of vec[0]:3
+enter value of vec[1]:1
+enter value of vec[2]:4
+enter value of vec[3]:1
+enter value of vec[4]:5
+vec = {3,1,4,1,5}
+</pre>
+
+
+<p>
+Note that we compiled this using the <code>-g</code> compiler flag. This prepares
+it to be used by the <code>gdb</code> debugger.
+</p>
+
+</div>
+
+</div>
+
+<div id="outline-container-1-3" class="outline-3">
+<h3 id="sec-1-3">Stack frames</h3>
+<div class="outline-text-3" id="text-1-3">
+
+
+<p>
+We've already talked about the <b>stack</b> when we talked about how
+variables can be allocated in C. This concept comes into play again,
+together with a concept called a <b>frame</b>, now. There is a detailed
+tutorial-style explanation of these concepts <a href="http://www.dirac.org/linux/gdb/02a-Memory_Layout_And_The_Stack.php#wherearewegoingtogo">here</a>. For now, we will go
+over the highlights and the main concept.
+</p>
+<p>
+The stack (which we learned about already) is actually made up of
+<b>stack frames</b>. Each frame represents a function call. So as you call
+functions in your program, the number of stack frames increases, as
+the stack grows in size. As functions return (and exit), the stack
+shrinks as the stack frames are popped off of the stack. Wikipedia has
+a very thorough description of how this works <a href="http://en.wikipedia.org/wiki/Stack_frame#Structure">here</a>.
+</p>
+<p>
+Whenever a function is called in your program, an area of memory in
+the stack is set aside for that function (its stack frame). This
+memory chunk holds information like the storage space for variables
+declared in that function, the line number of the function that called
+the present function, and inputs arguments for the function. We can
+inspect these things in gdb.
+</p>
+<p>
+In particular, when your program crashes, you can ask gdb to tell you
+where it crashed, and you can ask for a <b>stack trace</b>, which is a list
+of what stack frames are on the stack.
+</p>
+
+</div>
+
+<div id="outline-container-1-3-1" class="outline-4">
+<h4 id="sec-1-3-1">Inspecting the stack using gdb</h4>
+<div class="outline-text-4" id="text-1-3-1">
+
+
+<p>
+As an example, let's change the code above to introduce a bug that causes the program to crash. Let's comment out line 7:
+</p>
+
+
+
+<pre class="src src-c"><span style="color: #af0000;">//  </span><span style="color: #af0000;">s = calloc(sizeof(char), maxsize);</span>
+</pre>
+
+
+<p>
+Now when we run our program this happens:
+</p>
+
+
+
+<pre class="example">plg@wildebeest:~/Desktop/CBootCamp/code/debug$ gcc -g -o go go.c
+plg@wildebeest:~/Desktop/CBootCamp/code/debug$ ./go
+enter a string (max 256 chars): TheDudeAbides
+Segmentation fault (core dumped)
+</pre>
+
+
+<p>
+So let's run the code from <code>gdb</code> now:
+</p>
+
+
+
+<pre class="example">plg@wildebeest:~/Desktop/CBootCamp/code/debug$ gdb go
+GNU gdb (Ubuntu/Linaro 7.4-2012.04-0ubuntu2) 7.4-2012.04
+Copyright (C) 2012 Free Software Foundation, Inc.
+License GPLv3+: GNU GPL version 3 or later &lt;http://gnu.org/licenses/gpl.html&gt;
+This is free software: you are free to change and redistribute it.
+There is NO WARRANTY, to the extent permitted by law.  Type "show copying"
+and "show warranty" for details.
+This GDB was configured as "x86_64-linux-gnu".
+For bug reporting instructions, please see:
+&lt;http://bugs.launchpad.net/gdb-linaro/&gt;...
+Reading symbols from /home/plg/Desktop/CBootCamp/code/debug/go...done.
+(gdb) run
+Starting program: /home/plg/Desktop/CBootCamp/code/debug/go 
+enter a string (max 256 chars): TheDudeAbides
+
+Program received signal SIGSEGV, Segmentation fault.
+_IO_vfscanf_internal (s=&lt;optimized out&gt;, format=&lt;optimized out&gt;, 
+    argptr=0x7fffffffe048, errp=0x0) at vfscanf.c:1095
+1095    vfscanf.c: No such file or directory.
+(gdb) 
+</pre>
+
+
+<p>
+We launch with <code>gdb go</code>, and then we type the <code>gdb</code> command <code>run</code> to
+run the program from within <code>gdb</code>. As before, it crashes, with a
+slightly obscure error message. We can type the command <code>backtrace</code> to
+get a list of the stack frames:
+</p>
+
+
+
+<pre class="example">(gdb) backtrace
+#0  _IO_vfscanf_internal (s=&lt;optimized out&gt;, format=&lt;optimized out&gt;, 
+    argptr=0x7fffffffe048, errp=0x0) at vfscanf.c:1095
+#1  0x00007ffff7a79fdd in __isoc99_scanf (format=&lt;optimized out&gt;)
+    at isoc99_scanf.c:37
+#2  0x000000000040067f in getWord (maxsize=256) at go.c:9
+#3  0x00000000004007cc in main (argc=1, argv=0x7fffffffe258) at go.c:44
+(gdb) 
+</pre>
+
+
+<p>
+What we see is a numbered list of stack frames. The one labeled <code>#3</code>
+corresponds to the <code>main()</code> function, the one labeled <code>#2</code> the
+<code>getWord()</code> function, and the one labeled <code>#1</code> the <code>scanf()</code>
+function. The one labeled <code>#0</code> corresponds to some internal function
+used by <code>scanf()</code>.
+</p>
+<p>
+This list of stack frames give you a picture of where you are in your
+program, and what functions have called what. Note that each stack
+frame entry provides both the name of the source file and the line
+number. This is very useful. We know for example that the crash
+occured at <b>line 9</b> of the <b>go.c</b> file (see the end of the entry
+labeled <code>#2</code>, that shows <code>at go.c:9</code>. We know from the entry labeled
+<code>#1</code> that the offending function call was to <code>scanf()</code>.
+</p>
+<p>
+Now we can look at our code listing and try to figure out why
+<code>scanf()</code> failed. We've only given it two arguments, a format string,
+and a pointer to a buffer to hold the data. The format string looks
+fine ("%s") and so what we can do now is inspect the buffer using the <code>gdb</code> <code>print</code> command.
+</p>
+</div>
+</div>
+
+</div>
+
+<div id="outline-container-1-4" class="outline-3">
+<h3 id="sec-1-4">Breakpoints</h3>
+<div class="outline-text-3" id="text-1-4">
+
+
+<p>
+The <code>print</code> command will print out the value of a variable that is
+defined in the current stack. Let's try to print the <code>s</code> variable
+(which is supposed to be a character buffer). Let's first however
+define a breakpoint. A <b>breakpoint</b> is a flag that will stop the
+program at a specific line of code. Let's insert a breakpoint on line
+9 of our code. This means the program will stop before executing that
+line of code and leave us in the gdb debugger. We use the <code>gdb</code>
+command <code>break</code> to insert a breakpoint, and then the <code>run</code> command to
+run the program:
+</p>
+
+
+
+<pre class="example">plg@wildebeest:~/Desktop/CBootCamp/code/debug$ gdb go
+GNU gdb (Ubuntu/Linaro 7.4-2012.04-0ubuntu2) 7.4-2012.04
+Copyright (C) 2012 Free Software Foundation, Inc.
+License GPLv3+: GNU GPL version 3 or later &lt;http://gnu.org/licenses/gpl.html&gt;
+This is free software: you are free to change and redistribute it.
+There is NO WARRANTY, to the extent permitted by law.  Type "show copying"
+and "show warranty" for details.
+This GDB was configured as "x86_64-linux-gnu".
+For bug reporting instructions, please see:
+&lt;http://bugs.launchpad.net/gdb-linaro/&gt;...
+Reading symbols from /home/plg/Desktop/CBootCamp/code/debug/go...done.
+(gdb) break 9
+Breakpoint 1 at 0x400666: file go.c, line 9.
+(gdb) run
+Starting program: /home/plg/Desktop/CBootCamp/code/debug/go 
+
+Breakpoint 1, getWord (maxsize=256) at go.c:9
+9         scanf("%s", s);
+(gdb) 
+</pre>
+
+
+<p>
+Now <code>gdb</code> is waiting for input, and we are stopped just short of
+line 9. We can now inspect the value of some variables, specifically
+let's look at our character buffer <code>s</code>.
+</p>
+</div>
+
+</div>
+
+<div id="outline-container-1-5" class="outline-3">
+<h3 id="sec-1-5">Inspecting a variable with the gdb print command</h3>
+<div class="outline-text-3" id="text-1-5">
+
+
+<p>
+We can use the <code>gdb</code> <code>print</code> command to inspect the value of a variable on the stack:
+</p>
+
+
+
+<pre class="example">(gdb) print s
+$1 = 0x400865 "H\205\355t\034\061\333\017\037@"
+(gdb) 
+</pre>
+
+
+<p>
+What we see is a little bizarre, what we see in quotes is a bunch of
+random looking stuff. It's instructive to ask, what did we expect to
+see here? Well, the <code>s</code> variable ought to be an empty string, not
+something filled with junk. Why is it not empty? The reason is,
+because although we have declared the pointer <code>char *s</code>, we have not
+actually allocated any memory. So when we ask <code>gdb</code> to <code>print s</code>, it
+is going to whatever the (uninitialized) pointer <code>s</code> points to (junk)
+and printing that out.
+</p>
+<p>
+Let's fix our bug and re-run the program and see how it
+differs. Un-comment out the line that you commented out above, so
+<code>calloc()</code> is used to allocate memory. Now let's re-run using <code>gdb</code>, insert a breakpoint again, and see what the value of <code>s</code> is:
+</p>
+
+
+
+<pre class="example">plg@wildebeest:~/Desktop/CBootCamp/code/debug$ gcc -g -o go go.c
+plg@wildebeest:~/Desktop/CBootCamp/code/debug$ gdb go
+GNU gdb (Ubuntu/Linaro 7.4-2012.04-0ubuntu2) 7.4-2012.04
+Copyright (C) 2012 Free Software Foundation, Inc.
+License GPLv3+: GNU GPL version 3 or later &lt;http://gnu.org/licenses/gpl.html&gt;
+This is free software: you are free to change and redistribute it.
+There is NO WARRANTY, to the extent permitted by law.  Type "show copying"
+and "show warranty" for details.
+This GDB was configured as "x86_64-linux-gnu".
+For bug reporting instructions, please see:
+&lt;http://bugs.launchpad.net/gdb-linaro/&gt;...
+Reading symbols from /home/plg/Desktop/CBootCamp/code/debug/go...done.
+(gdb) break 9
+Breakpoint 1 at 0x4006bc: file go.c, line 9.
+(gdb) run
+Starting program: /home/plg/Desktop/CBootCamp/code/debug/go 
+
+Breakpoint 1, getWord (maxsize=256) at go.c:9
+9         scanf("%s", s);
+(gdb) print s
+$1 = 0x602010 ""
+(gdb) 
+</pre>
+
+
+<p>
+Now we see what we expected, <code>s</code> is an empty string "". Let's now put another breakpoint at line 10, so that we can verify that once we enter a string, it's actually in there:
+</p>
+
+
+
+<pre class="example">(gdb) break 10
+Breakpoint 2 at 0x4006d5: file go.c, line 10.
+(gdb) continue
+Continuing.
+enter a string (max 256 chars): TheDudeAbides
+
+Breakpoint 2, getWord (maxsize=256) at go.c:10
+10        return s;
+(gdb) print s
+$2 = 0x602010 "TheDudeAbides"
+(gdb) 
+</pre>
+
+
+<p>
+We insert a new breakpoint at line 10, we issue the <code>continue</code>
+command, we enter a string, the breakpoint is hit, and now we ask to
+see the value of the <code>s</code> variable again, and indeed, it contains our
+string. Good.
+</p>
+</div>
+
+</div>
+
+<div id="outline-container-1-6" class="outline-3">
+<h3 id="sec-1-6">Stepping</h3>
+<div class="outline-text-3" id="text-1-6">
+
+
+<p>
+Above we used the <code>continue</code> command to continue execution of our
+program. One can also take individual steps, line by line, using the
+<code>step</code> command in <code>gdb</code>.
+</p>
+</div>
+
+</div>
+
+<div id="outline-container-1-7" class="outline-3">
+<h3 id="sec-1-7">More breakpoints</h3>
+<div class="outline-text-3" id="text-1-7">
+
+
+<p>
+We can list the current breakpoints with the <code>info breakpoints</code> command. Here's what we get if we do that with the code that we have been working with above:
+</p>
+
+
+
+<pre class="example">(gdb) info breakpoints
+Num     Type           Disp Enb Address            What
+1       breakpoint     keep y   0x00000000004006bc in getWord at go.c:9
+        breakpoint already hit 1 time
+2       breakpoint     keep y   0x00000000004006d5 in getWord at go.c:10
+        breakpoint already hit 1 time
+(gdb) 
+</pre>
+
+
+<p>
+We can use the <code>disable</code> command to disable individual
+breakpoints. They are named by the <code>Num</code> column in the info
+listing. So to disable the breakpoint on line 9 above we would issue
+the command <code>disable 1</code>.
+</p>
+<p>
+We can delete breakpoints altogether using the <code>delete</code> or <code>clear</code>
+commands. We can issue the command <code>delete 2</code> to delete the line 10
+breakpoint above. We can also use the <code>clear</code> command to delete
+breakpoints by location like this: <code>clear go.c:10</code>
+</p>
+
+</div>
+</div>
+
+</div>
+
+<div id="outline-container-2" class="outline-2">
+<h2 id="sec-2">Gotchas</h2>
+<div class="outline-text-2" id="text-2">
+
+
+<p>
+There are a number of classic <b>gotchas</b> in C to watch out for when
+trying to figure out why your program is not running as expected (or
+not running at all). Check for these first when debugging, they are
+common.
+</p>
+
+</div>
+
+<div id="outline-container-2-1" class="outline-3">
+<h3 id="sec-2-1">Integer Math</h3>
+<div class="outline-text-3" id="text-2-1">
+
+
+<p>
+Like Python, in C when you write mathematical expressions, be sure to
+<b>include decimal places for all numbers</b> (that is, unless you actually
+want to do integer math). What I mean is this. What do you think the
+following code will print to the screen?
+</p>
+
+
+
+<pre class="src src-C"><span style="color: #875f87;">#include</span> <span style="color: #87005f;">&lt;stdio.h&gt;</span>
+
+<span style="color: #008700;">int</span> <span style="color: #0000ff;">main</span> ()
+{
+  <span style="color: #008700;">double</span> <span style="color: #af5f00;">mass</span> = 2.5;
+  <span style="color: #008700;">double</span> <span style="color: #af5f00;">velocity</span> = 4.5;
+  <span style="color: #008700;">double</span> <span style="color: #af5f00;">kinetic_energy</span> = (1/2) * mass * velocity * velocity;
+  printf(<span style="color: #87005f;">"kinetic energy = %.3f\n"</span>, kinetic_energy);
+  <span style="color: #af00ff;">return</span> 0;
+}
+</pre>
+
+
+<p>
+If you guessed this, you are correct:
+</p>
+
+
+
+<pre class="example">kinetic energy = 0.000
+</pre>
+
+
+<p>
+Why is this? It's because the C expression <code>(1/2)</code> in line 7 of the
+code is evaluated as the <b>integer</b> <code>1</code> divided by the <b>integer</b> 2,
+which is the <b>integer</b> <code>0</code>. If we want an expression to represent a
+floating-point value, then we have to <b>use floating-point syntax for all numbers</b>:
+</p>
+
+
+
+<pre class="src src-C"><span style="color: #875f87;">#include</span> <span style="color: #87005f;">&lt;stdio.h&gt;</span>
+
+<span style="color: #008700;">int</span> <span style="color: #0000ff;">main</span> ()
+{
+  <span style="color: #008700;">double</span> <span style="color: #af5f00;">mass</span> = 2.5;
+  <span style="color: #008700;">double</span> <span style="color: #af5f00;">velocity</span> = 4.5;
+  <span style="color: #008700;">double</span> <span style="color: #af5f00;">kinetic_energy</span> = (1.0/2.0) * mass * velocity * velocity;
+  printf(<span style="color: #87005f;">"kinetic energy = %.3f\n"</span>, kinetic_energy);
+  <span style="color: #af00ff;">return</span> 0;
+}
+</pre>
+
+
+
+<pre class="example">kinetic energy = 25.312
+</pre>
+
+
+<p>
+As a general rule, I always put <b>.0</b> at the end of all numbers in my C
+code.
+</p>
+</div>
+
+</div>
+
+<div id="outline-container-2-2" class="outline-3">
+<h3 id="sec-2-2">Floating-point Math</h3>
+<div class="outline-text-3" id="text-2-2">
+
+
+<p>
+Computers use bits (0s and 1s) to represent data, including
+floating-point numbers. This means numbers that we typically represent
+using base-10 must be represented in base-2 in the computer.
+</p>
+<p>
+There are numbers we can express in one way (like the fraction 1/3) that we cannot express precisely in base-10
+floating-point. We would have to write <code>1.333333</code> and keep going ad
+infinitum with the <code>.3333</code>. Similarly, there are numbers that we can
+express easily in base-10 that cannot be precisely represented in
+base-2 (one gets infinitely repeating sequences).
+</p>
+<p>
+Why am I telling you this? The reason is, that when using
+floating-point representations like <code>float</code> and <code>double</code> in C (and the
+same is true in other languages), there is always some amount of
+<b>rounding error</b> involve in the representation of numbers. There are
+also a host of other issues one encounters when doing so-called
+<b>floating-point arithmetic</b>, there is an excellent summary of all the
+issues here: <a href="http://docs.oracle.com/cd/E19957-01/806-3568/ncg_goldberg.html">What Every Computer Scientist Should Know About Floating-Point Arithmetic</a>. There is a slightly less intimidating
+explanation (in the context of Python) here: <a href="http://docs.python.org/tutorial/floatingpoint.html">Floating Point Arithmetic: Issues and Limitations</a>.
+</p>
+<p>
+The bottom line is, one must always be aware of the limitations of
+floating-point representation, and precision issues like rounding
+error. One example: *never use boolean operators like <code>==</code> or <code>&lt;</code> or
+<code>&gt;</code> or <code>!=</code> to test for equality, etc, of floating-point variables or
+expressions. Here is an example of how you might be led astray. What is the output of this program?
+</p>
+
+
+
+<pre class="src src-C"><span style="color: #875f87;">#include</span> <span style="color: #87005f;">&lt;stdio.h&gt;</span>
+
+<span style="color: #008700;">int</span> <span style="color: #0000ff;">main</span> () {
+  <span style="color: #008700;">double</span> <span style="color: #af5f00;">x</span> = 0.1;
+  <span style="color: #008700;">double</span> <span style="color: #af5f00;">y</span> = 0.2;
+  <span style="color: #af00ff;">if</span> ((x + y) == 0.3) printf(<span style="color: #87005f;">"TRUE\n"</span>); <span style="color: #af00ff;">else</span> printf(<span style="color: #87005f;">"FALSE\n"</span>);
+  printf(<span style="color: #87005f;">"x + y = %.20f\n"</span>, x+y);
+  <span style="color: #af00ff;">return</span> 0;
+}
+</pre>
+
+
+<p>
+If you guessed <code>FALSE</code> then you are correct. Here is the output:
+</p>
+
+
+
+<pre class="example">FALSE
+x + y = 0.30000000000000004441
+</pre>
+
+
+<p>
+You can see the rounding error here.
+</p>
+<p>
+One option is when you need to compare two values to see if they are
+"equal", instead check to see if their difference is below some
+minimum threshold you decide in advance is "equal enough". If you are
+dealing with small expected differences in your work however, this may
+not be a suitable solution.
+</p>
+<p>
+Another option is to use a library for arbitrary-precision math such as <a href="http://gmplib.org">GMP</a> that allows for arbitrary precision representation of numbers. The drawback however is relatively slow speed.
+</p>
+<p>
+Another web page discussing a floating-point test suite: <a href="http://www.tybor.com/">here</a>
+</p>
+<p>
+The <a href="https://en.wikipedia.org/wiki/C99">C99</a> standard introduced support for the <a href="https://en.wikipedia.org/wiki/IEEE_floating_point">IEEE 754</a> floating-point
+standard. The IEEE 754 standard specifies things like arithmetic
+formats (binary and decimal floating-point data), rounding rules,
+arithmetic operations and exception handling. If floating-point math
+is a concern in your code, you should look into compiling your code
+with the <code>-std=c99</code> flag.
+</p>
+<p>
+Here is a blog post that proposes (and shows sample code) for an
+explicit test of whether different rounding options in the IEEE 754
+standard result in significant changes in your computation (and hence
+whether you need to worry): <a href="http://www.scinethpc.ca/2011/11/testing-roundoff/">Testing Roundoff</a>.
+</p>
+<p>
+Here is another description of floating-point roundoff error, and some
+real-world examples involving a stock market, a rocket, and a missle:
+<a href="http://mathworld.wolfram.com/RoundoffError.html">Roundoff Error</a>.
+</p>
+</div>
+
+</div>
+
+<div id="outline-container-2-3" class="outline-3">
+<h3 id="sec-2-3">Out of Bounds Array Indexing</h3>
+<div class="outline-text-3" id="text-2-3">
+
+
+<p>
+x
+</p>
+
+</div>
+</div>
+
+</div>
+
+<div id="outline-container-3" class="outline-2">
+<h2 id="sec-3">Tricky Code</h2>
+<div class="outline-text-2" id="text-3">
+
+
+<p>
+As a general rule I prefer explicit code to using "tricks" to make
+code extremely short. There is a trade-off, of course. Short, tricky
+code is less code, but the tradeoff is that it may be more difficult
+to understand by others, and even by yourself, when you return to the
+code after some period of time. Finding the optimal tradeoff between
+concise and clear is something you should be thinking about, and
+something that will be different for everyone.
+</p>
+<p>
+If you want to see some examples of ridiculously "tricky" code, there
+is a competition called <a href="http://www.ioccc.org">The International Obfuscated C Code Contest</a>. Here is an example, from the <a href="http://www.ioccc.org/years.html#2011">2011 IOCCC Competition</a>, the
+entry called <a href="http://www.ioccc.org/years.html#2011_eastman">eastman</a> by Peter Eastman:
+</p>
+
+
+
+<pre class="src src-c"><span style="color: #875f87;">#include</span> <span style="color: #87005f;">&lt;stdio.h&gt;</span>
+<span style="color: #875f87;">#include</span> <span style="color: #87005f;">&lt;math.h&gt;</span>
+<span style="color: #875f87;">#include</span> <span style="color: #87005f;">&lt;unistd.h&gt;</span>
+<span style="color: #875f87;">#include</span> <span style="color: #87005f;">&lt;sys/ioctl.h&gt;</span>
+             <span style="color: #0000ff;">main</span>() {
+         <span style="color: #008700;">short</span> <span style="color: #af5f00;">a</span>[4];ioctl
+      (0,TIOCGWINSZ,&amp;a);<span style="color: #008700;">int</span>
+    <span style="color: #af5f00;">b</span>,<span style="color: #af5f00;">c</span>,<span style="color: #af5f00;">d</span>=*a,<span style="color: #af5f00;">e</span>=a[1];<span style="color: #008700;">float</span> <span style="color: #af5f00;">f</span>,<span style="color: #af5f00;">g</span>,
+  <span style="color: #af5f00;">h</span>,<span style="color: #af5f00;">i</span>=d/2+d%2+1,<span style="color: #af5f00;">j</span>=d/5-1,<span style="color: #af5f00;">k</span>=0,<span style="color: #af5f00;">l</span>=e/
+ 2,<span style="color: #af5f00;">m</span>=d/4,<span style="color: #af5f00;">n</span>=.01*e,<span style="color: #af5f00;">o</span>=0,<span style="color: #af5f00;">p</span>=.1;<span style="color: #af00ff;">while</span> (
+printf(<span style="color: #87005f;">"\x1b[H\x1B[?25l"</span>),!usleep(
+79383)){<span style="color: #af00ff;">for</span> (b=c=0;h=2*(m-c)/i,f=-
+.3*(g=(l-b)/i)+.954*h,c&lt;d;c+=(b=++
+b%e)==0)printf(<span style="color: #87005f;">"\x1B[%dm "</span>,g*g&gt;1-h
+*h?c&gt;d-j?b&lt;d-c||d-c&gt;e-b?40:100:b&lt;j
+||b&gt;e-j?40:g*(g+.6)+.09+h*h&lt;1?100:
+ 47:((<span style="color: #008700;">int</span>)(9-k+(.954*g+.3*h)/sqrt
+  (1-f*f))+(<span style="color: #008700;">int</span>)(2+f*2))%2==0?107
+    :101);k+=p,m+=o,o=m&gt;d-2*j?
+      -.04*d:o+.002*d;n=(l+=
+         n)&lt;i||l&gt;e-i?p=-p
+             ,-n:n;}}
+</pre>
+
+
+<p>
+You can compile and run it with the following two commands:
+</p>
+
+
+
+<pre class="example">gcc -lm eastman.c -o eastman
+./eastman
+</pre>
+
+
+
+</div>
+
+</div>
+
+<div id="outline-container-4" class="outline-2">
+<h2 id="sec-4">Links</h2>
+<div class="outline-text-2" id="text-4">
+
+
+<ul>
+<li><a href="http://www.unknownroad.com/rtfm/gdbtut/gdbtoc.html">RMS's gdb Debugger Tutorial</a>
+</li>
+<li><a href="http://www.dirac.org/linux/gdb/">Using GNU's GDB Debugger</a>
+</li>
+<li><a href="http://www.cs.vassar.edu/~cs331/gdbtutorial.html">GDB Tutorial</a>
+</li>
+<li><a href="http://www.csee.umbc.edu/courses/undergraduate/313/spring12/Resources/UnixProgrammingTools.pdf">UNIX Programming Tools</a>
+</li>
+<li><a href="http://users.ece.utexas.edu/~adnan/gdb-refcard.pdf">gdb reference card</a>
+</li>
+<li><a href="https://www.hackerschool.com/blog/5-learning-c-with-gdb">learning C with gdb</a>
+</li>
+<li><a href="http://courses.cs.vt.edu/~cs3214/fall2011/projects/esh3-debugging.php">debugging tips using gdb and valgrind</a>
+</li>
+</ul>
+
+
+
+</div>
+</div>
+</div>
+
+<div id="postamble">
+<hr />Paul Gribble | Summer 2012<br>This <span xmlns:dct="http://purl.org/dc/terms/" href="http://purl.org/dc/dcmitype/Text" rel="dct:type">work</span> is licensed under a <a rel="license" href="http://creativecommons.org/licenses/by-nc-sa/3.0/">Creative Commons Attribution-NonCommercial-ShareAlike 3.0 Unported License</a><br><a rel="license" href="http://creativecommons.org/licenses/by-nc-sa/3.0/"><img alt="Creative Commons License" style="border-width:0" src="http://i.creativecommons.org/l/by-nc-sa/3.0/80x15.png" /></a><br />
+</div>
+</body>
+</html>

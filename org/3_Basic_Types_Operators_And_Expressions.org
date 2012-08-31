@@ -1,0 +1,627 @@
+#+STARTUP: showall
+
+#+TITLE:     3. Basic Types, Operators and Expressions
+#+AUTHOR:    Paul Gribble
+#+EMAIL:     paul@gribblelab.org
+#+DATE:      Summer 2012
+
+-----
+[TABLE-OF-CONTENTS]
+-----
+
+* Variables
+
+Like in other high-level programming languages, in C, we can assign
+symbolic names, known as *variables*, for storing information in
+memory. Then we can refer to those pieces of information in memory by
+using the symbolic variable name, instead of having to use the raw
+address in memory. Variables can be used to store floating-point
+numbers, characters, and even pointers to other locations in memory.
+
+** Variable names
+
+There are some restrictions on the names of variables in C. Names are
+made up of letters and digits, but the first character must be a
+letter (not a digit). The underscore "_" counts as a letter. Also
+remember in unix, uppercase and lowercase letters are distinct and so
+=Age= is distinct from =age=.
+
+Here is a list of *reserved keywords* in C that cannot be used as
+variable names:
+
+|---------------+-----------+------------+------------+---------|
+| =\_Bool=      | =default= | =if=       | =sizeof=   | =while= |
+| =\_Complex=   | =do=      | =inline=   | =static=   |         |
+| =\_Imaginary= | =double=  | =int=      | =struct=   |         |
+| =auto=        | =else=    | =long=     | =switch=   |         |
+| =break=       | =enum=    | =register= | =typedef=  |         |
+| =case=        | =extern=  | =restrict= | =union=    |         |
+| =char=        | =float=   | =return=   | =unsigned= |         |
+| =const=       | =for=     | =short=    | =void=     |         |
+| =continue=    | =goto=    | =signed=   | =volatile= |         |
+|---------------+-----------+------------+------------+---------|
+
+* Data Types and Sizes
+
+There are four basic data types in C, their meaning, and their size
+(on my MacBook Pro 15-inch, Mid 2010):
+
+| Type     | Meaning                                         | Size (bytes) | Size (bits) |
+|----------+-------------------------------------------------+--------------+-------------|
+| =char=   | a single byte, capable of holding one character | 1 byte       | 8 bits      |
+| =int=    | an integer                                      | 4 bytes      | 32 bits     |
+| =float=  | single-precision floating point number          | 4 bytes      | 32 bits     |
+| =double= | double-precision floating point number          | 8 bytes      | 64 bits     |
+|----------+-------------------------------------------------+--------------+-------------|
+
+** Binary representation
+
+There are also qualifiers =short=, =long=, =signed= and =unsigned=,
+that can be applied to these basic types.
+
+| Qualifier     | Size (bytes)       | Size (bits) |
+|---------------+--------------------+-------------|
+| =short int=   | 2 bytes            | 16 bits     |
+| =long int=    | 8 bytes            | 64 bits     |
+| =long double= | 16 bytes           | 128 bits    |
+|               |                    |             |
+|---------------+--------------------+-------------|
+
+We have been talking about variable types and how many *bytes* they
+take up in memory. An important quantity to know about is that one
+*byte* is made up of 8 *bits*. One *bit* can take on two possible
+values: 0 or 1. An *unsigned* 8-bit variable can take on values
+between 0 and (2^{8})-1 = 255. A *signed* 8-bit variable can take on
+values between -127 and +127.
+
+So when a variable is *signed*, it can take on negative values, and
+half of it's total range is spread below zero, and the other half
+above zero.
+
+A signed =int= can take on values between -2,147,483,648 and
++2,147,483,648. If we want to be able to represent integers larger
+than +2,147,483,648 then we can either use more bits (e.g. by using a
+=long int=), or by forcing all 32 bits of our =int= to be used on the
+positive side of zero. An =unsigned int= (4 bytes or 32 bits) can take
+on values between 0 and 4,294,967,295.
+
+** How many bytes on your machine?
+
+Here is a small C program that will print out the size of some basic C
+types on your machine. Enter it into your source code editor, and save
+it to a file called [[file:my_types.c][=my\_types.c=]]
+
+#+BEGIN_SRC c
+#include <stdio.h>
+
+int main(int argc, char *argv[]) {
+	printf("a char is %ld bytes\n", sizeof(char));
+	printf("an int is %ld bytes\n", sizeof(int));
+	printf("an float is %ld bytes\n", sizeof(float));
+	printf("a double is %ld bytes\n", sizeof(double));
+	printf("a short int is %ld bytes\n", sizeof(short int));
+	printf("a long int is %ld bytes\n", sizeof(long int));
+	printf("a long double is %ld bytes\n", sizeof(long double));
+	return 0;
+}
+#+END_SRC
+
+Then compile and run using the following commands:
+
+#+BEGIN_EXAMPLE
+gcc -o my_types my_types.c
+./my_types
+#+END_EXAMPLE
+
+and you should see something like the following output:
+
+#+BEGIN_EXAMPLE
+a char is 1 bytes
+an int is 4 bytes
+an float is 4 bytes
+a double is 8 bytes
+a short int is 2 bytes
+a long int is 8 bytes
+a long double is 16 bytes
+#+END_EXAMPLE
+
+* Constants
+
+Constants are values that that do not change after they have been
+defined.
+
+** Numeric Constants
+
+An example of an =int= constant is the number =1234=. An example of a
+floating-point constant (by default typed as a =double=) is =123.4=
+and =1e-2=. We can write numbers in octal or hexadecimal instead of
+decimal: octal by using a leading zero (0) and hexadecimal by using a
+leading zero-x (0x). Decimal 31 can be written as 037 in octal and
+0x1f or 0X1F in hexadecimal. Here are some examples of defining
+numeric constants:
+
+#+BEGIN_SRC c
+int year = 1984;       // integer constant 1984
+int octalYear = 03700; // 1984 in octal
+int hexYear = 0x7c0;   // 1984 in hexadecimal
+#+END_SRC
+
+Here is some code to show how to print integers in various
+representations. Type it into your source code editor, and save it as
+[[file:numerics.c][=numerics.c=]].
+
+#+BEGIN_SRC c
+#include <stdio.h>
+
+int main() {
+  printf("1984 in decimal is %d\n", 1984);
+  printf("1984 in octal is 0%o\n", 1984);
+  printf("1984 in hexadecimal is 0x%x\n", 1984);
+  printf("0123 is octal for %d\n", 0123);
+  printf("0x12f is hexadecimal for %d\n", 0x12f);
+  return 0;
+}
+#+END_SRC
+
+#+BEGIN_EXAMPLE
+gcc -o numerics numerics.c
+./numerics
+1984 in decimal is 1984
+1984 in octal is 03700
+1984 in hexadecimal is 0x7c0
+0123 is octal for 83
+0x12f is hexadecimal for 303
+#+END_EXAMPLE
+
+** Character Constants
+
+A character constant is written between *single quotes*, for example,
+'=x='. Characters in C are represented using *integer* values, from
+the *ASCII character set*. ASCII codes range between 0 and 255. The
+upper-case alphabet starts at 65 (=A=) and ends at 90 (=Z=); the
+lowercase alphabet starts at 97 (=a=) and ends at 122 (=z=). Other
+symbols such as =(=, =!=, tab, carriage return, etc, are also
+represented in the ASCII table. See [[https://en.wikipedia.org/wiki/ASCII][ASCII (wikipedia)]] and [[http://www.asciitable.com/][AsciiTable]]
+for the mapping between characters and integer ascii codes.
+
+An important character constant to know about is the constant '=\0='
+which represents the character with value zero, sometimes called the
+=NULL= character. We will see later when we talk about string handling
+in C that '=\0=' is used to terminate variable-length strings.
+
+** String Constants
+
+String constants can be specified using a sequence of zero or more
+characters enclosed within *double quotes*, e.g. "=C is fun=". A
+string constant is technically an array of characters that is
+terminated by a null character '=\0=' at the end. This means that the
+storage required to represent a string of length =n= is actually
+=n+1=. Thus we can store strings of arbitrary length in memory as long
+as they are terminated by a null character (so we know when they
+stop). We will talk about arrays later.
+
+** Enumeration Constants
+
+An enumeration constant is a list of constant integer values, that you
+can assign to arbitrary labels. They provide a convenient way to
+associate constant values with names. For example you could store the
+months of the year like this:
+
+#+BEGIN_SRC c
+enum months { JAN=1, FEB, MAR, APR, MAY, JUN,
+              JUL, AUG, SEP, OCT, NOV, DEC };
+#+END_SRC
+
+Now you have defined a new enumerated constant data type called
+=months=. Now a variable of type =months= can only take on values as
+defined above. You can use the symbolic names (e.g. =JAN=) in place of
+their integer counterparts, for example like this:
+
+#+BEGIN_SRC c
+months the_month;
+...
+if (the_month == JAN) {
+  printf("it's January\n");
+}
+#+END_SRC
+
+Why not just use strings to represent months? One reason is that in C
+strings are slightly clunky to work with, especially compared to
+interpreted languages like Python, R, etc. Comparing two strings in C
+is not as easy as typing ~if (the_month == "JAN")~ ... it requires a
+call to a function in =string.h= called =strcmp()=.
+
+Another reason is that because =enum= data types are represted as
+integers, you can do integer operations (comparisons, arithmetic, etc)
+on them... so for example you could do something clever like:
+
+#+BEGIN_SRC c
+if ((the_month > APR) && (the_month < SEP)) {
+  printf("it's summer!\");
+}
+#+END_SRC
+
+* Declarations
+
+Unlike in languages like Python, R, Octave/Matlab, etc, which are
+[[https://en.wikipedia.org/wiki/Type_system#Dynamic_typing][*dynamically typed*]] languages, the C language is a [[https://en.wikipedia.org/wiki/Type_system#Static_typing][*statically typed*]]
+language. From a practical point of view, this means in C, we have to
+declare, up front, the *type* of every variable we use. In languages
+like Python we can do crazy stuff like this:
+
+#+BEGIN_SRC Python
+a = 123.456
+b = 50.2
+c = 100.0
+d = [a, b, c]
+print a, b, c, d
+#+END_SRC
+
+#+BEGIN_EXAMPLE
+123.456 50.2 100.0 [123.456, 50.2, 100.0]
+#+END_EXAMPLE
+
+The Python interpreter will figure out what type to assign to =a=,
+=b=, =c= and =d= based on evaluating the right-hand side of each
+declaration. In C, we have to explicitly declare the type of each
+variable like this:
+
+#+BEGIN_SRC c
+#include <stdio.h>
+
+int main() {
+	double a = 123.456;
+	double b = 50.2;
+	double c = 100.0;
+	double d[] = {a, b, c};
+	printf("a=%.3f, b=%.3f, c=%.3f, d=[%.3f, %.3f, %.3f]\n", 
+                a, b, c, d[0], d[1], d[2]);
+	return 0;
+}
+
+#+END_SRC
+
+#+BEGIN_EXAMPLE
+a=123.456, b=50.200, c=100.000, d=[123.456, 50.200, 100.000]
+#+END_EXAMPLE
+
+We haven't talked about arrays yet but we will later in the tutorial.
+
+* Expressions
+
+Like in any other programming language, in C, there are a number of
+arithmetic relational and logical *operators* we can use to write
+*expressions* that are made up of simpler basic types.
+
+** Arithmetic Operators
+
+The following binary arithmetic operators can be used in C: ~+~, ~-~,
+~*~, ~/~ and the modulus operator ~%~. When writing arithmetic
+expressions we must always be aware of *operator precedence*, which is
+the order in which operators are applied when evaluating an
+expression.
+
+For example =4+5*6= evaluates to =34=, because the ~*~ operator has
+precedence over the ~+~ operator, and so the expression is evaluated
+as =4 + (5*6)=, *not* =(4+5)*6=. My own strategy to deal with this is
+to always use brackets to explicitly denote desired precedence in
+arithmetic expressions. So instead of writing:
+
+#+BEGIN_SRC c
+double q = a*x*x+b*x+c;
+#+END_SRC
+
+which is a perfectly accurate expression of the quadratic equation:
+
+\begin{equation}
+ax^{2} + bx + c
+\end{equation}
+
+I would rather code it like this:
+
+#+BEGIN_SRC c
+double q = (a*x*x) + (b*x) + c;
+#+END_SRC
+
+Another illustration of operator precedence: What are the values of
+the =result1=, =result2= and =result3= variables in the following
+code?
+
+#+BEGIN_SRC c
+#include <stdio.h>
+int main() {
+  int a=100, b=2, c=25, d=4;
+  int result1, result2, result3;
+  result1 = a * b + c * d;
+  result2 = (a * b) + (c * d);
+  result3 = a * (b + c) * d;
+  printf("result1=%d, result2=%d, result3=%d\n",
+         result1, result2, result3);
+  return 0;
+}
+#+END_SRC
+
+Always using brackets will avoid cases where operator precedence
+messes up your calculations. These errors are very hard to debug.
+
+Wikipedia provides a chart showing [[https://en.wikipedia.org/wiki/Operators_in_C_and_C%2B%2B#Operator_precedence][*operator precedence*]].
+
+** Relational and Logical Operators
+
+The relational operators are ~>~, ~>=~, ~<~ and ~<=~, which all have
+equal precedence. There are also two equality operators: ~==~ and
+~!=~.
+
+A very common *gotcha* in C programming is to erroneously use the
+assignment operator ~=~ when you mean to use the equality operator
+~==~, for example:
+
+#+BEGIN_SRC c
+if (grade = 49) grade = grade + 1; // INCORRECT !!!
+if (grade == 49) grade = grade + 1; // CORRECT
+#+END_SRC
+
+In line 1 above, the expression =grade=49= doesn't *test* for the
+equality of the variable =grade= and the constant =49=, it *assigns*
+the value =49= to the variable grade. What we really want is in line 2
+where we use the equality operator ~==~ to test if =grade==49=. This
+bug is a tough one to spot when it happens.
+
+There are two *logical operators* =&&= (logical AND) and =||= (logical
+OR).
+
+By default in C, the results of relational and logical operators are
+evaluated to integer values: =0= for FALSE and =1= for TRUE.
+
+** Increment and Decrement Operators
+
+You may come across two unusual-looking operators that may be used as
+a shorthand for incrementing and decrementing variables. The =++= and
+=--= operators add =1= and subtract =1=, respectively, from their
+operands. For example in the following code snippet, we increment the
+=int= variable =a= and we decrement the =int= variable =b=:
+
+#+BEGIN_SRC c
+#include <stdio.h>
+
+int main(int argc, char *argv[]) {
+
+	int a = 0;
+	int b = 0;
+
+	printf("a=%d, b=%d\n", a, b);
+
+	a++;
+	b--;
+
+	printf("a=%d, b=%d\n", a, b);
+
+	return 0;
+}
+#+END_SRC
+
+#+BEGIN_EXAMPLE
+a=0, b=0
+a=1, b=-1
+#+END_EXAMPLE
+
+A note of caution, you can also use these two operators in a different
+way, by putting the operator before the operand, e.g. =++a= and
+=--b=. When the operand is used *before* the operand this is called a
+*prefix operator*, and when it is used after the operand it is called
+a *postfix operator*. When using =++= and =--= as a prefix operator,
+the increment (or decrement) happens *before* its value is used. As
+postfix operators, the increment (or decrement) happens *after* its
+value has been used. Here is a concrete example:
+
+#+BEGIN_SRC c
+#include <stdio.h>
+
+int main(int argc, char *argv[]) {
+
+	int n, x;
+	
+	n = 3;
+	x = 0;
+	printf("n=%d, x=%d\n", n, x);
+	x = n++;
+	printf("n=%d, x=%d\n\n", n, x);
+
+	n = 3;
+	x = 0;
+	printf("n=%d, x=%d\n", n, x);
+	x = ++n;
+	printf("n=%d, x=%d\n", n, x);
+	
+	return 0;
+}
+#+END_SRC
+
+#+BEGIN_EXAMPLE
+n=3, x=0
+n=4, x=3
+
+n=3, x=0
+n=4, x=4
+#+END_EXAMPLE
+
+In lines 7 to 11, =x= is set to =3= (the value of =n=), and *then* =n=
+is incremented by =1=. In lines 13 to 17, =n= is incremented first and
+becomes =4=, and *then* =x= is set to the resulting value (also =4=).
+
+If you think this is all a bit unnecessarily confusing, then you agree
+with me. I typically don't use these operators because of the risk of
+mis-using them, and so when I want to increment or decrement a value
+by 1, I just write it out explicitly:
+
+#+BEGIN_SRC c
+int x;
+x = x + 1;
+#+END_SRC
+
+* Type Conversions
+
+There are two kinds of type conversion we need to talk about:
+automatic or *implicit* type conversion and *explicit* type
+conversion.
+
+** Implicit Type Conversion
+
+The operators we have looked at can deal with different types. For
+example we can apply the addition operator =+= to an =int= as well as
+a =double=. It is important to understand how operators deal with
+different types that appear in the same expression. There are rules in
+C that govern how operators convert different types, to evaluate the
+results of expressions.
+
+For example, when a floating-point number is assigned to an integer
+value in C, the decimal portion of the number gets truncated. On the
+other hand, when an integer value is assigned to a floating-point
+variable, the decimal is assumed as =.0=.
+
+This sort of implicit or automatic conversion can produce nasty bugs
+that are difficult to find, especially for example when performing
+multiplication or division using mixed types, e.g. integer and
+floating-point values. Here is some example code illustrating some of
+these effects:
+
+#+BEGIN_SRC c
+#include <stdio.h>
+int main() {
+	int a = 2;
+	double b = 3.5;
+	double c = a * b;
+	double d = a / b;
+	int e = a * b;
+	int f = a / b;
+	printf("a=%d, b=%.3f, c=%.3f, d=%.3f, e=%d, f=%d\n",
+	        a, b, c, d, e, f);
+	return 0;
+}
+#+END_SRC
+
+** Explicit Type Conversion
+
+*** Type Casting
+
+There is a mechanism in C to perform *type casting*, that is to force
+an expression to be converted to a particular type of our choosing. We
+surround the desired type in brackets and place that just before the
+expression to be coerced. Look at the following example code:
+
+#+BEGIN_SRC c
+#include <stdio.h>
+#include <stdio.h>
+int main() {
+	int a = 2;
+	int b = 3;
+	printf("a / b = %.3f\n", a/b);
+	printf("a / b = %.3f\n", (double) a/b);
+	return 0;
+}
+#+END_SRC
+
+*** String Conversion Library Functions
+
+There are some built-in library functions in C to perform some basic
+conversions between strings and numeric types. Two useful functions to
+know about convert ascii strings to numeric types: =atoi()= (ascii to
+integer) and =atof()= (ascii to floating-point). We need to =#include=
+the library =stdlib.h= in order to use these functions.
+
+To convert from numeric types to strings things are a bit more
+difficult. First we have to allocate space in memory to store the
+string. Then we use the =sprintf()= built-in function to "print" the
+numeric type into our string.
+
+Here is some example code ([[file:typeConvert.c][=typeConvert.c=]]) illustrating conversion of
+strings to numerics, and vice-versa:
+
+#+BEGIN_SRC c
+#include <stdio.h>
+#include <stdlib.h>
+
+int main() {
+	char intString[] = "1234";
+	char floatString[] = "328.4";
+	int myInt = atoi(intString);
+	double myDouble = atof(floatString);
+	printf("intString=%s, floatString=%s\n", intString, floatString);
+	printf("myInt=%d, myDouble=%.1f\n\n", myInt, myDouble);
+
+	int a = 2;
+	double b = 3.14;
+	char myString1[64], myString2[64];
+	sprintf(myString1, "%d", a);
+	sprintf(myString2, "%.2f", b);
+	printf("a=%d, b=%.2f\n", a, b);
+	printf("myString1=%s, myString2=%s", myString1, myString2);
+	return 0;
+}
+#+END_SRC
+
+#+BEGIN_EXAMPLE
+intString=1234, floatString=328.4
+myInt=1234, myDouble=328.4
+
+a=2, b=3.14
+myString1=2, myString2=3.14
+#+END_EXAMPLE
+
+* Defining your own type names using typedef
+
+In C you can assign an alternate name to a data type, any name you
+want. The =typedef= statement allows you to do this. 
+
+For example we can use typedef to define a type called "Counter" which
+is an alternate name for an integer, like this:
+
+#+BEGIN_SRC c
+typedef int Counter;
+#+END_SRC
+
+Now we can declare variables to be of type "Counter":
+
+#+BEGIN_SRC c
+typedef int Counter;
+Counter i, j, k;
+#+END_SRC
+
+Typedef isn't used particularly often in most basic C code, but you
+may come across it in applications requiring a high degree of
+portability. New types may be defined for basic variables and typedef
+may be used in header files to tailor the program to the target
+machine.
+
+One place you may see typedef used more often is to simplify the
+declaration of compound types such as the =struct= type (which we will
+see later).
+
+
+* Exercises
+
+- 1 Write a program that converts 27^{\deg} from degrees Fahrenheit (F)
+   to degrees Celsius (C) using the following formula, and write the
+   result to the screen:
+  
+\begin{equation}
+   C =  \frac{(F-32)}{1.8}
+  \end{equation}
+   
+- 2 Write a program that computes the (two) roots of the quadratic
+   equation:
+
+  \begin{equation}
+  a x^{2} + bx + c = 0
+  \end{equation}
+   where
+   $a=1.2$, $b=2.3$ and $c=-3.4$.
+
+  You can hard-code values of $a$, $b$ and $c$ and then compute and
+   print the two solutions for $x$, to 5 decimal places. You can use
+   [[http://www.wolframalpha.com/input/?i%3D1.2*x*x%2B%252B%2B%2B2.3*x%2B%2B%2B-3.4%2B%253D%2B0][WolframAlpha]] to check your arithmetic.
+
+** Solutions
+
+-  [[file:code/exercises/3_1.c][1]]
+-  [[file:code/exercises/3_2.c][2]] 

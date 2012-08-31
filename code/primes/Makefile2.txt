@@ -1,0 +1,10 @@
+CC = gcc
+CFLAGS = -Wall
+DEPS = primes.h
+OBJ = go.o primes.o
+
+%.o: %.c $(DEPS)
+	$(CC) $(CFLAGS) -c -o $@ $<
+
+go: $(OBJ)
+	gcc $(CFLAGS) -o $@ $^

@@ -1,0 +1,416 @@
+#+STARTUP: showall
+
+#+TITLE:     4. Control Flow
+#+AUTHOR:    Paul Gribble
+#+EMAIL:     paul@gribblelab.org
+#+DATE:      Summer 2012
+
+-----
+[TABLE-OF-CONTENTS]
+-----
+
+* Loops
+
+One of the most useful properties of progammable computers is that you
+can ask them to repeat a calculation and/or operation many many times,
+and they will not (usually) complain. The looping constructs in ~C~
+allow us to repeatedly execute a block of code many times, without
+having to manually re-type or re-list the code by hand.
+
+As a simple example, let's say we want to compute the cumulative sum
+of integers between 1 and 100. We could write code like the following:
+
+#+BEGIN_SRC c
+int cumsum = 0;
+cumsum = cumsum + 1;
+cumsum = cumsum + 2;
+cumsum = cumsum + 3;
+...
+cumsum = cumsum + 100;
+#+END_SRC
+
+As you can see, not very efficient. As a general rule of programming,
+any time you find yourself copying and pasting code bits many times
+over, you should be thinking to yourself, there must be a better way,
+there must be a way to specify this code more abstractly so that it's
+more compact and reusable. Here, we can use a for-loop to achieve what
+we need.
+
+** For Loop
+
+A generic for-loop looks like this:
+
+#+BEGIN_SRC c
+for (init_expression; loop_condition; loop_expression) {
+  program_statements
+}
+#+END_SRC
+
+The three expressions inside the round brackets set up the environment
+for the loop. The =init_expression= is executed before the loop starts
+and is typically where you define some initial value that will change
+each time through the loop. The =loop_condition= is an expression that
+determines whether the loop should continue, or stop. Of course if you
+don't specify a condition under which the loop should stop, it never
+will, and you will have an *endless loop* and your program will never
+terminate. The =loop_expression= specifies code that is executed each
+time through the loop, *after* the body of the loop is executed. This
+is all very abstract, so let's see a concrete example, by coding a
+loop to implement the cumulative sum as above.
+
+#+BEGIN_SRC c
+#include <stdio.h>
+
+int main() {
+	int cumsum = 0;
+	int i;
+	for (i=1; i<=100; i++) {
+		cumsum = cumsum + i;
+	}
+	printf("the cumulative sum up to 100 is %d\n", cumsum);
+}
+#+END_SRC
+
+#+BEGIN_EXAMPLE
+the cumulative sum up to 100 is 5050
+#+END_EXAMPLE
+
+Let's go through the code for the for-loop and understand what is
+happening. On lines 4 and 5 we declare the integer variables =cumsum=
+and =i=, and we initialize the value of =cumsum= to =0=. On line 6 we
+declare the for-loop. The first expression in the round brackets is a
+statement which initializes the value of the =i= variable to be
+=1=. This is executed before the loop starts. The next expression is a
+conditional which is =TRUE= if =i= is less than or equal to =100= and
+is =FALSE= otherwise. This expression is evaluated prior to each
+iteration of the loop. When this expression is =FALSE= the loop
+terminates, otherwise the loop iterates again. Finally the third
+expression in the round brackets, =i++= is executed *after* each
+iteration of the loop. In this case, we increment the =i= variable by
+one.
+
+On line 7 is the code block that forms the body of the loop. This is
+code that is executed on each iteration of the loop. In this case we
+add the current value of =i= (which changes each time through the
+loop) to the =cumsum= variable. On line 8 the closing bracket =}=
+specifies the end of the body of the loop. On line 9 we print to the
+screen the value of the =cumsum= variable.
+
+As you can see, the use of a for-loop enables us to write the code for
+incrementing the =cumsum= variable just *once*, and place it inside a
+loop, that is constructed so that it executes that code 100 times, and
+each time, uses a different value of =i=.
+
+** While Loop
+
+The while-loop is another looping construct that you might find more
+appropriate than a for-loop under some circumstances. A while-loop
+looks like this:
+
+#+BEGIN_SRC c
+while (conditional_expression) {
+   program_statements;
+}
+#+END_SRC
+
+The while-loop will first check the value of the
+=conditional_expression=, and if it is *not FALSE* (i.e. if the
+expression returns a *non-zero* (non-FALSE) result, the
+=program_statement= (or multiple statements) will be executed
+once. Afterwards the =conditional_expression= will be evaluated again,
+and if it returns a non-zero result, the =program_statment= (or
+multiple statements) will be executed again, and so on. The while-loop
+will stop *only* when the =conditional_expression= returns *zero*.
+
+Here is a simple program that demonstrates the use of a while-loop:
+
+#+BEGIN_SRC c
+#include <stdio.h>
+
+int main() {
+	int number = 0;
+	while(number != 999) {
+		printf("Enter an integer or 999 to stop: ");
+		scanf ("%i", &number);
+		printf("%d x 10 = %d\n", number, number*10);
+	}
+}
+#+END_SRC
+
+The program asks the user to enter an integer, and then the program
+prints to the screen the value of the integer multiplied by 10. If the
+user enters ~999~ then the program terminates. Enter it into your code
+editor and compile and run it, to see how it works.
+
+** Do-While Loop
+
+There is another version of a while-loop that is essentially the same
+as a while-loop but it reverses the order of the =program_statement=
+and =conditional_expression=:
+
+#+BEGIN_SRC c
+#include <stdio.h>
+
+int main() {
+	int number = 0;
+	do {
+		printf("Enter an integer or 999 to stop: ");
+		scanf ("%i", &number);
+		printf("%d x 10 = %d\n", number, number*10);
+	}
+	while (number != 999);
+}
+#+END_SRC
+
+The choice of a for-loop, a while-loop, or a do-while-loop, is up to
+you and the best one to use may differ depending on circumstance.
+
+* Conditionals
+
+One of the most important constructs in programming is the ability to
+execute (or not execute) pieces of code, or execute different pieces
+of code, depending on the outcome of some decision or question about
+data. The if-else construct lets us to this in C.
+
+** If Statement
+
+The basic if statement looks like this:
+
+#+BEGIN_SRC c
+if (conditional_expression) {
+   program_statements;
+}
+#+END_SRC
+
+The =program_statements= are *only* executed if the
+=conditional_expression= returns a non-zero value, i.e. if it returns
+a value that is *not FALSE* (FALSE = zero).
+
+For example, here is a simple program that loops through the integers
+between 1 and 10 and prints to the screen the integers that are odd
+(that are not divisible by 2 with zero remainder):
+
+#+BEGIN_SRC c
+#include <stdio.h>
+
+int main() {
+  int i;
+  for (i=1; i<=10; i++) {
+    if ((i % 2) != 0) {
+      printf("%d is odd\n", i);
+    }
+  }
+}
+#+END_SRC
+
+#+BEGIN_EXAMPLE
+1 is odd
+3 is odd
+5 is odd
+7 is odd
+9 is odd
+#+END_EXAMPLE
+
+** Else
+
+We can add an *else* to our if statement, to execute a different code
+block if the value of the =conditional_expression= is zero:
+
+#+BEGIN_SRC c
+#include <stdio.h>
+
+int main() {
+  int i;
+  for (i=1; i<=10; i++) {
+    if ((i % 2) != 0) {
+      printf("%d is odd\n", i);
+    }
+    else {
+      printf("%d is even\n", i);
+    }
+  }
+}
+#+END_SRC
+
+#+BEGIN_EXAMPLE
+1 is odd
+2 is even
+3 is odd
+4 is even
+5 is odd
+6 is even
+7 is odd
+8 is even
+9 is odd
+10 is even
+#+END_EXAMPLE
+
+** Else If
+
+You can string together several conditional tests and execute
+different pieces of code by using the =else if= construct. Here is a
+simple program that asks the user to enter an integer, and prints to
+the screen whether that integer is positive, negative, or zero:
+
+#+BEGIN_SRC c
+#include <stdio.h>
+
+int main() {
+	int number;
+	printf("enter an integer: ");
+	scanf ("%i", &number);
+	if (number < 0) {
+		printf("the integer %d is negative\n", number);
+	}
+	else if (number > 0) {
+		printf("the integer %d is positive\n", number);
+	}
+	else if (number == 0) {
+		printf("the integer %d is zero\n", number);
+	}
+	else {
+		printf("this statement should never be executed!\n");
+	}
+}
+#+END_SRC
+
+#+BEGIN_EXAMPLE
+enter an integer: 123
+the integer 123 is positive
+#+END_EXAMPLE
+
+
+** The Conditional Operator
+
+There is a convenient shorthand for simple if-else constructs, using
+the so-called *conditional operator*:
+
+#+BEGIN_SRC c
+condition ? expression1 : expression2
+#+END_SRC
+
+It enables you to shorten your code a bit, but that's all. It doesn't
+give you any additional functionality, it's just a shorthand:
+
+#+BEGIN_SRC c
+#include <stdio.h>
+
+int main() {
+  int i;
+  for (i=1; i<=10; i++) {
+	(i % 2) ? printf("%d is odd\n", i) : printf("%d is even\n", i);
+  }
+}
+#+END_SRC
+
+#+BEGIN_EXAMPLE
+1 is odd
+2 is even
+3 is odd
+4 is even
+5 is odd
+6 is even
+7 is odd
+8 is even
+9 is odd
+10 is even
+#+END_EXAMPLE
+
+* Switch
+
+The case of multiple if-else statements strung together to test for
+different values, and execute different code, is common enough that
+there is a special construct called the *switch statment* that is
+provided for this case:
+
+#+BEGIN_SRC c
+switch (expression)
+{
+   case value1:
+              program statement;
+              program statement;
+              ...
+              break;
+   case value2:
+              program statement;
+              program statement;
+              ...
+              break;
+   case value3:
+              program statement;
+              program statement;
+              ...
+              break;
+   default:
+              program statement;
+              program statement;
+              ...
+              break;
+}
+#+END_SRC
+
+This is equivalent to the following series of if-else statements:
+
+#+BEGIN_SRC c
+if (expression == value1) {
+   program statement;
+   program statement;
+   ...
+}
+else if (expression == value2) {
+   program statement;
+   program statement;
+   ...
+}
+else if (expression == value3) {
+   program statement;
+   program statement;
+   ...
+}
+else {
+   program statement;
+   program statement;
+   ...
+}
+#+END_SRC
+
+From my point of view the decision to use a switch statement versus a
+series of if-else statements is purely stylistic and is up to
+you. They accomplish the same thing.
+
+* Break & Continue
+
+There is a special statement in C called =break= that allows you to
+exit from a loop other than by testing at the top or bottom. As we saw
+above in switch statements we also use =break= to exit from each case.
+
+The =continue= statement is not used very often. It causes the next
+iteration of a loop to begin. You can think of it as a sort of a
+statement to "do nothing, just continue".
+
+* Exercises
+
+- 1 [[http://imranontech.com/2007/01/24/using-fizzbuzz-to-find-developers-who-grok-coding/][FizzBuzz]] : Write a program that prints the numbers from 1
+  to 100. For multiples of three print "Fizz" instead of the number
+  and for the multiples of five print "Buzz". For numbers which are
+  multiples of both three and five print "FizzBuzz".
+
+- 2 Write a program to estimate the square root of 612 using [[http://en.wikipedia.org/wiki/Newton%27s_method#Square_root_of_a_number][Newton's method]], using 5 iterations.
+
+- 3 Write a program that displays a triangle with height $n$ and width $2n-1$. The output for $n=6$ would be:
+
+#+BEGIN_EXAMPLE
+     *
+    ***
+   *****
+  *******
+ *********
+***********
+#+END_EXAMPLE
+
+
+** Solutions
+
+- [[file:code/exercises/4_1.c][1]]
+- [[file:code/exercises/4_2.c][2]]
+- [[file:code/exercises/4_3.c][3]]

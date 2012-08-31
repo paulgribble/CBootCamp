@@ -1,0 +1,313 @@
+#+STARTUP: showall
+
+#+TITLE:     12. Compiling, linking, Makefile, header files
+#+AUTHOR:    Paul Gribble
+#+EMAIL:     paul@gribblelab.org
+#+DATE:      Summer 2012
+
+-----
+[TABLE-OF-CONTENTS]
+-----
+
+* Splitting your program into multiple files
+
+The programs we have seen so far have all been stored in a single
+source file. As your programs become larger, and as you start to deal
+with other people's code (e.g. other C libraries) you will have to
+deal with code that resides in multiple files. Indeed you may build up
+your own library of C functions and data structures, that you can
+re-use in your own scientific programming and data analysis. Here we
+will see how to place C functions and data structures in their own
+file(s) and how to incorporate them into a new program.
+
+We saw in the section on functions, that one way of including
+custom-written functions in your C code, is to simply place them in
+your main source file, above the declaration of the =main()=
+function. A better way to re-use functions that you commonly
+incorporate into your C programs is to place them in their own file,
+and to include a statement above =main()= to *include* that file. When
+compiled, it's just like copying and pasting the code above =main()=,
+but for the purpose of editing and writing your code, this allows you
+to keep things in separate files. It also means that if you ever
+decide to *change* one of those re-usable functions (for example if
+you find and fix an error) that you only have to change it in *one
+place*, and you don't have to go searching through all of your
+programs and change each one.
+
+** Header files
+
+A common convention in C programs is to write a header file (with *.h*
+suffix) for each source file (*.c* suffix) that you link to your main
+source code. The logic is that the .c source file contains all of the code and the header file contains the function *prototypes*, that is, just a declaration of which functions can be found in the source file.
+
+This is done for libraries that are provided by others, sometimes only
+as compiled binary "blobs" (i.e. you can't look at the source
+code). Pairing them with plain-text header files allows you see what
+functions are defined, and what arguments they take (and return).
+
+** An example
+
+Here is a program that computes the preferred direction of a neuron
+recorded in primary motor cortex of rhesus macaques, during a
+whole-arm reaching task (e.g. from [[http://www.gribblelab.org/publications/2001_Nature_scott.pdf][Gribble & Scott, 2002]]). The monkey
+moved his hand from a central start target to one of 8 peripheral
+targets around the circumference of a circle. Movements to each of the
+8 targets were repeated 5 times for a total of 40 movements. The order
+of target directions was randomized.
+
+The data for each neuron are represented by two sets of values: first,
+an array of 40 values that indicate for each movement, the *direction*
+of the movement (specifically, the direction, in radians of the
+velocity vector at peak hand velocity), and second, another array of
+40 values that indicate for each movement, the mean number of *spikes*
+per second averaged over a window starting 150ms before movement onset
+and ending at peak hand velocity.
+
+For each neuron, the goal is to compute a *preferred direction*. That
+is, the direction of movement for which the neuron fires most
+enthusiastically (most spikes per second). The details of how these
+computations are done are not so important to consider here, but
+imagine for the moment that we have already written (or someone has
+provided us with) a C function called =compute_PD()= that performs
+this calculation, and that the code is stored in a file called
+[[file:code/neurons/neuron.c][neuron.c]], with a header file [[file:code/neurons/neuron.h][neuron.h]].
+
+Here is our main program which is called [[file:code/neurons/go.c][go.c]]:
+
+#+INCLUDE: "~/Desktop/CBootCamp/code/neurons/go.c" src c
+
+What we can see is that on line 6, we use an =#include= statement to
+include the neuron.h header file (shown below). This is a way of
+essentially telling the compiler, that these functions (in neurons.h)
+will be described fully later ... and for now, "trust" that they are
+defined, and in this particular way (inputs and outputs).
+
+On line 1 (commented out) I show the gcc command to compile this
+program, and you can see that we simple add neuron.c to the list of
+files to send to the compiler. This is where the compiler actually
+integrates the code in neuron.c into our program. We also need the
+=-lm= flag, to instruct the compiler to load the standard C math
+library (since the =#include <math.h>= directive appears in
+=neuron.h=).
+
+Here is the header file [[file:code/neurons/neuron.h][neuron.h]]:
+
+#+INCLUDE: "~/Desktop/CBootCamp/code/neurons/neuron.h" src c
+
+What you can see is that this is simply a listing of the functions
+that are defined in neuron.c, and we simply list the function
+prototypes, not the "meat" of the functions themselves. When we write
+the #include "neuron.h" statement at the top of go.c (line 6), these
+function prototypes are loaded in, so that the code in the main
+program "knows about" these functions. Note that there are some
+functions in here that we do not use in the =go.c= code above.
+
+An important point to remember is that as long as we can look at the
+header file, we have all the information about what functions are
+defined in the source file, and how they are used (what their input
+arguments are and what output arguments, if any, they return). If we
+want to look "inside" those functions, we can look at the source
+file. The header file then can be thought of as an *interface* between
+the source code and the programmer.
+
+To summarize then, in order to include external code in your C program
+(code that is located in a separate file), you need to make sure two things happen:
+
+1. The external C source code is passed to the compiler at compile time
+
+2. Your own C program has access to the function prototypes associated with the external code
+
+** Another example
+
+Another small example: let's say you want to write a program that
+takes at the command-line one integer input, and determines whether
+that integer is a prime number or not. Now let's say that you don't
+want to write your own code for determining primality, so you ask your
+friend, who you know has written such a function already. She sends
+you a pair of files ([[file:code/primes/primes.h][primes.h]] and [[file:code/primes/primes.c][primes.c]]). Her header file
+([[file:code/primes/primes.h][primes.h]]) looks like this:
+
+#+INCLUDE: "~/Desktop/CBootCamp/code/primes/primes.h" src c
+
+So we know a couple of things from this header file. First, it
+requires the =math.h= standard C library, so we will need to add the
+=-lm= compiler flag to the command we use to compile our
+program. Second, it declares a function prototype for =isPrime()=. We
+can see this function takes a single integer as an input argument, and
+returns an integer value: 0 if the input value is a prime number, and
+0 if it is not. Now we know all we need to know in order to use this
+function (without even looking at the function's source code, which
+resides in =primes.c=).
+
+Here is what the [[file:code/primes/primes.c][primes.c]] file look like:
+
+#+INCLUDE: "~/Desktop/CBootCamp/code/primes/primes.c" src c
+
+Here is what our program [[file:code/primes/go.c][go.c]] looks like:
+
+#+INCLUDE: "~/Desktop/CBootCamp/code/primes/go.c" src c
+
+Here is the result of running the program on a small selection of
+input values:
+
+#+BEGIN_EXAMPLE
+plg@wildebeest:~/Desktop$ gcc -o go go.c primes.c
+plg@wildebeest:~/Desktop$ ./go 1
+isPrime(1) = 0
+plg@wildebeest:~/Desktop$ ./go 2
+isPrime(2) = 1
+plg@wildebeest:~/Desktop$ ./go 3
+isPrime(3) = 1
+plg@wildebeest:~/Desktop$ ./go 63
+isPrime(63) = 0
+plg@wildebeest:~/Desktop$ ./go 67
+isPrime(67) = 1
+plg@wildebeest:~/Desktop$ ./go 12347
+isPrime(12347) = 1
+#+END_EXAMPLE
+
+** Search path
+
+The compiler will look in several places for header files that you
+include with the =#include= directive, depending on how you use it. If
+you use include with the angled brackets (e.g. =#include <stdio.h>=)
+then the compiler will look in a series of "default" system-wide
+locations (see [[http://gcc.gnu.org/onlinedocs/cpp/Search-Path.html#Search-Path][Search Path]] for details). If you use double-quotes
+(e.g. #include "neuron.h") then the compiler will look in the
+directory containing the current file. It's possible to add other
+directories to the search path by using the =-Idir= compiler option,
+where =dir= is the other directory. You might have to do this if you
+link your code to an external C library that is not part of the
+standard C library, and does not reside in the usual "system" default
+locations.
+
+** External variables
+
+Just as we can include external code in our C programs, we can make a
+declaration in our C program that a variable exists and has been
+declared elsewhere (e.g. in some other source file). This is done
+using the =extern= keyword. See [[http://en.wikipedia.org/wiki/External_variable][here]] for more details.
+
+
+* The GNU =make= utility and Makefiles
+
+There is a UNIX tool called =make= that is commonly used to compile C
+programs that are made up of several files, and (sometimes) involve
+several compilation steps. There is a lot of power in the =make= tool,
+but what I want to introduce here is a simple use of it, which lets
+you avoid having to remember a long, complicated compile command
+(e.g. in line 1 of the output from the prime number program above).
+
+The =make= utility uses a special plain-text file that you write that
+has to reside in the same directory as your program, and has to be
+called =Makefile=. You can think of a Makefile as a *recipe* for
+making your program (i.e. linking and compiling).
+
+A simple Makefile ([[file:code/primes/Makefile1.txt][Makefile1.txt]]) for our prime number program above
+might look like this:
+
+#+INCLUDE: "~/Desktop/CBootCamp/code/primes/Makefile1.txt" src sh
+
+The first word and colon ~go:~ on line 1 represents the *name* of a
+recipe called *go*. The list of files after the colon (~go.c
+primes.c~) represent all of the things that go *depends upon*. On the
+next line, there is a ~TAB~ (not spaces) followed by a compile
+command. This represents the step (there could be more lines for more
+steps if there were any) that are required to "make" the "go"
+recipe. Here we simply have put our compile command.
+
+Now all we have to do from the command-line is type ~make~, and make
+will "make" the recipe for "go". (Running ~make~ with no arguments
+executes the first rule (recipe) in the Makefile). The ~make~ program
+knows that the "go" rule needs to be executed if any of the files that
+it depends upon, (because they follow the colon on line 1) changes.
+
+Here is what it looks like when we run =make= using [[file:code/primes/Makefile1.txt][Makefile1.txt]]:
+
+#+BEGIN_EXAMPLE
+plg@wildebeest:~/Desktop/CBootCamp/code/primes$ cp Makefile1.txt Makefile
+plg@wildebeest:~/Desktop/CBootCamp/code/primes$ make
+gcc -o go go.c primes.c -lm 
+#+END_EXAMPLE
+
+You can see the command (line 3) that ends up being executed by
+=make=.
+
+** Introducing more generalization to the Makefile
+
+There are a number of features of a Makefile we can utilize to make
+the whole idea more useful. We can introduce "macros" (like a
+variable) to generalize the name of the C compiler to use, the flags
+to pass the compiler, the location of any library files, etc etc. Here
+is what a more generalized Makefile ([[file:code/primes/Makefile2.txt][Makefile2.txt]]) might look like for
+our primes example from above:
+
+#+INCLUDE: "~/Desktop/CBootCamp/code/primes/Makefile2.txt" src sh
+
+You can see we have moved all the specific details (filenames,
+compiler flags, etc) into the macros on the top, and what remains
+below in the rules themselves, is expressed only in terms of those
+macros. There's nothing wrong with using a Makefile that is simple (as
+in [[file:code/primes/Makefile1.txt][Makefile1.txt]], it is a choice for you about how fancy to get. The one
+limitation of [[file:code/primes/Makefile1.txt][Makefile1.txt]] is that the header file =primes.h= doesn't
+appear anywhere ... this means if that file changes, then =make= will
+not think it has to recompile anything (because nothing in the rule
+"go" depends on =primes.h=). In [[file:code/primes/Makefile2.txt][Makefile2.txt]], we introduce a dependency
+of =.o= files (on line 6) on =$(DEPS)=, which is defined above on line
+3, and includes the header file =primes.h=.
+
+Note that we have term in the ~CFLAGS~ macro that looks like this:
+~-Wall~. This is a flag to the compiler to turn on all [[http://gcc.gnu.org/onlinedocs/gcc/Warning-Options.html][Warnings]]. There
+are many warnings that the compiler will tell you about, like
+variables that are never used, uninitialized variables, etc. Consult
+the documentation for full details.
+
+Here is what it looks like when we run =make= using [[file:code/primes/Makefile2.txt][Makefile2.txt]]:
+
+#+BEGIN_EXAMPLE
+plg@wildebeest:~/Desktop/CBootCamp/code/primes$ cp Makefile2.txt Makefile
+plg@wildebeest:~/Desktop/CBootCamp/code/primes$ make
+gcc -c -o go.o go.c -lm
+gcc -c -o primes.o primes.c -lm
+gcc -o go go.o primes.o -lm
+#+END_EXAMPLE
+
+You can see that in this case, three commands end up being run (lines
+3-5).
+
+Now the neat thing is, if we type =make= again (without changing anything) we get this:
+
+#+BEGIN_EXAMPLE
+plg@wildebeest:~/Desktop/CBootCamp/code/primes$ make
+make: `go' is up to date.
+#+END_EXAMPLE
+
+We are told that the "go" rule is "up to date". The =make= program
+checks to see which files have changed since the last make, and only
+executes the step in the rule(s) (if any) that need to be done (it
+figures this out based on the dependencies that you set up in the
+rules).
+
+In the long run, using Makefiles is a good idea, because:
+
+- it's faster to recompile things (less typing, and it only recompiles
+  based on what's changed and leaves the rest)
+- it organizes all the "steps" in a (potentially complex) compilation
+  into one place (the Makefile), which makes it easier for other
+  people to compile your code
+
+See the links below for more details and more examples of how GNU make
+can be used to your advantage.
+
+
+* Links
+
+- [[http://gcc.gnu.org/onlinedocs/cpp/Header-Files.html][GNU C Compiler (gcc): Header Files]]
+- [[http://gcc.gnu.org/onlinedocs/cpp/Search-Path.html#Search-Path][Wikipedia: Header Files]]
+- [[http://www.gnu.org/software/make/][GNU Make]] and [[http://www.gnu.org/software/make/manual/make.html][GNU make manual]]
+- [[http://en.wikipedia.org/wiki/Make_(software)][Wikipedia: Make]]
+- [[http://www.cs.colby.edu/maxwell/courses/tutorials/maketutor/][A Simple Makefile Tutorial]]
+- [[http://www.linuxforu.com/2012/06/gnu-make-in-detail-for-beginners/][GNU Make in detail for beginners]]
+- [[http://www.csee.umbc.edu/courses/undergraduate/313/spring12/Resources/UnixProgrammingTools.pdf][UNIX Programming Tools]]
+
+

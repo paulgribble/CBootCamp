@@ -1,0 +1,513 @@
+#+STARTUP: showall
+
+#+TITLE:     13. Debugging
+#+AUTHOR:    Paul Gribble
+#+EMAIL:     paul@gribblelab.org
+#+DATE:      Summer 2012
+
+-----
+[TABLE-OF-CONTENTS]
+-----
+
+* the GNU Project Debugger gdb
+
+** What is a symbolic debugger?
+
+A debugger is a program that runs other programs, and provides the
+ability to control the execution of that program, for example stepping
+through one line at a time, and inspecting variables as the program is
+running. When your program crashes, and UNIX gives you a vague error
+message, a debugger will help you figure out where it is crashing, and
+(with the assistance of your brain) why it is crashing.
+
+*** Why not use printf()?
+
+A quick and easy method of debugging that doesn't require a separate
+debugger program, is to sprinkle your code with =printf()= statements
+that writes to the screen, the values of various variables that you
+think are relevant and related to a crash (or other error). Some
+people call this adding "trace code" to your program.
+
+Disadvantages of debugging using trace code are that you may need
+*many* =printf()= statements all over your program, and it becomes a
+nuisance to put them in, take them out, etc. Moreover a symbolic
+debugger can do a lot more stuff than simple trace code. It can halt a
+program, allow you to inspect variable values, jump to an arbitray
+line of code, evaluate expressions, and restart from where you left
+off. You just get more fine-grained control by using a
+debugger. Finally, you can use the gdb debugger on a program that has
+already crashed, without having to re-start the program (you will see
+the state of the program, and its variables, at the time of the crash,
+allowing you to inspect the values of the variables, the location in
+the program of the crash, etc).
+
+** Compiling your program for gdb
+
+To allow gdb to run your program, you must compile your program with a
+special compiler flag, =-g=. Here is a simple example of a program we
+will use to illustrate the gdb debugger, you can download it here:
+[[file:code/debug/go.c][go.c]]:
+
+#+INCLUDE: "~/Desktop/CBootCamp/code/debug/go.c" src c
+
+Here is an example of what it does:
+
+#+BEGIN_EXAMPLE
+plg@wildebeest:~/Desktop/CBootCamp/code/debug$ gcc -g -o go go.c
+plg@wildebeest:~/Desktop/CBootCamp/code/debug$ ./go
+enter a string (max 256 chars): TheDude
+TheDude
+TheDude
+TheDude
+enter value of vec[0]:3
+enter value of vec[1]:1
+enter value of vec[2]:4
+enter value of vec[3]:1
+enter value of vec[4]:5
+vec = {3,1,4,1,5}
+#+END_EXAMPLE
+
+Note that we compiled this using the =-g= compiler flag. This prepares
+it to be used by the =gdb= debugger.
+
+
+** Stack frames
+
+We've already talked about the *stack* when we talked about how
+variables can be allocated in C. This concept comes into play again,
+together with a concept called a *frame*, now. There is a detailed
+tutorial-style explanation of these concepts [[http://www.dirac.org/linux/gdb/02a-Memory_Layout_And_The_Stack.php#wherearewegoingtogo][here]]. For now, we will go
+over the highlights and the main concept.
+
+The stack (which we learned about already) is actually made up of
+*stack frames*. Each frame represents a function call. So as you call
+functions in your program, the number of stack frames increases, as
+the stack grows in size. As functions return (and exit), the stack
+shrinks as the stack frames are popped off of the stack. Wikipedia has
+a very thorough description of how this works [[http://en.wikipedia.org/wiki/Stack_frame#Structure][here]].
+
+Whenever a function is called in your program, an area of memory in
+the stack is set aside for that function (its stack frame). This
+memory chunk holds information like the storage space for variables
+declared in that function, the line number of the function that called
+the present function, and inputs arguments for the function. We can
+inspect these things in gdb.
+
+In particular, when your program crashes, you can ask gdb to tell you
+where it crashed, and you can ask for a *stack trace*, which is a list
+of what stack frames are on the stack.
+
+*** Inspecting the stack using gdb
+
+As an example, let's change the code above to introduce a bug that causes the program to crash. Let's comment out line 7:
+
+#+BEGIN_SRC c
+//  s = calloc(sizeof(char), maxsize);
+#+END_SRC
+
+Now when we run our program this happens:
+
+#+BEGIN_EXAMPLE
+plg@wildebeest:~/Desktop/CBootCamp/code/debug$ gcc -g -o go go.c
+plg@wildebeest:~/Desktop/CBootCamp/code/debug$ ./go
+enter a string (max 256 chars): TheDudeAbides
+Segmentation fault (core dumped)
+#+END_EXAMPLE
+
+So let's run the code from =gdb= now:
+
+#+BEGIN_EXAMPLE
+plg@wildebeest:~/Desktop/CBootCamp/code/debug$ gdb go
+GNU gdb (Ubuntu/Linaro 7.4-2012.04-0ubuntu2) 7.4-2012.04
+Copyright (C) 2012 Free Software Foundation, Inc.
+License GPLv3+: GNU GPL version 3 or later <http://gnu.org/licenses/gpl.html>
+This is free software: you are free to change and redistribute it.
+There is NO WARRANTY, to the extent permitted by law.  Type "show copying"
+and "show warranty" for details.
+This GDB was configured as "x86_64-linux-gnu".
+For bug reporting instructions, please see:
+<http://bugs.launchpad.net/gdb-linaro/>...
+Reading symbols from /home/plg/Desktop/CBootCamp/code/debug/go...done.
+(gdb) run
+Starting program: /home/plg/Desktop/CBootCamp/code/debug/go 
+enter a string (max 256 chars): TheDudeAbides
+
+Program received signal SIGSEGV, Segmentation fault.
+_IO_vfscanf_internal (s=<optimized out>, format=<optimized out>, 
+    argptr=0x7fffffffe048, errp=0x0) at vfscanf.c:1095
+1095	vfscanf.c: No such file or directory.
+(gdb) 
+#+END_EXAMPLE
+
+We launch with ~gdb go~, and then we type the ~gdb~ command ~run~ to
+run the program from within ~gdb~. As before, it crashes, with a
+slightly obscure error message. We can type the command ~backtrace~ to
+get a list of the stack frames:
+
+#+BEGIN_EXAMPLE
+(gdb) backtrace
+#0  _IO_vfscanf_internal (s=<optimized out>, format=<optimized out>, 
+    argptr=0x7fffffffe048, errp=0x0) at vfscanf.c:1095
+#1  0x00007ffff7a79fdd in __isoc99_scanf (format=<optimized out>)
+    at isoc99_scanf.c:37
+#2  0x000000000040067f in getWord (maxsize=256) at go.c:9
+#3  0x00000000004007cc in main (argc=1, argv=0x7fffffffe258) at go.c:44
+(gdb) 
+#+END_EXAMPLE
+
+What we see is a numbered list of stack frames. The one labeled ~#3~
+corresponds to the =main()= function, the one labeled ~#2~ the
+=getWord()= function, and the one labeled ~#1~ the =scanf()=
+function. The one labeled ~#0~ corresponds to some internal function
+used by =scanf()=.
+
+This list of stack frames give you a picture of where you are in your
+program, and what functions have called what. Note that each stack
+frame entry provides both the name of the source file and the line
+number. This is very useful. We know for example that the crash
+occured at *line 9* of the *go.c* file (see the end of the entry
+labeled ~#2~, that shows ~at go.c:9~. We know from the entry labeled
+~#1~ that the offending function call was to =scanf()=.
+
+Now we can look at our code listing and try to figure out why
+=scanf()= failed. We've only given it two arguments, a format string,
+and a pointer to a buffer to hold the data. The format string looks
+fine ("%s") and so what we can do now is inspect the buffer using the ~gdb~ =print= command.
+
+** Breakpoints
+
+The =print= command will print out the value of a variable that is
+defined in the current stack. Let's try to print the ~s~ variable
+(which is supposed to be a character buffer). Let's first however
+define a breakpoint. A *breakpoint* is a flag that will stop the
+program at a specific line of code. Let's insert a breakpoint on line
+9 of our code. This means the program will stop before executing that
+line of code and leave us in the gdb debugger. We use the ~gdb~
+command =break= to insert a breakpoint, and then the =run= command to
+run the program:
+
+#+BEGIN_EXAMPLE
+plg@wildebeest:~/Desktop/CBootCamp/code/debug$ gdb go
+GNU gdb (Ubuntu/Linaro 7.4-2012.04-0ubuntu2) 7.4-2012.04
+Copyright (C) 2012 Free Software Foundation, Inc.
+License GPLv3+: GNU GPL version 3 or later <http://gnu.org/licenses/gpl.html>
+This is free software: you are free to change and redistribute it.
+There is NO WARRANTY, to the extent permitted by law.  Type "show copying"
+and "show warranty" for details.
+This GDB was configured as "x86_64-linux-gnu".
+For bug reporting instructions, please see:
+<http://bugs.launchpad.net/gdb-linaro/>...
+Reading symbols from /home/plg/Desktop/CBootCamp/code/debug/go...done.
+(gdb) break 9
+Breakpoint 1 at 0x400666: file go.c, line 9.
+(gdb) run
+Starting program: /home/plg/Desktop/CBootCamp/code/debug/go 
+
+Breakpoint 1, getWord (maxsize=256) at go.c:9
+9	  scanf("%s", s);
+(gdb) 
+#+END_EXAMPLE
+
+Now ~gdb~ is waiting for input, and we are stopped just short of
+line 9. We can now inspect the value of some variables, specifically
+let's look at our character buffer =s=.
+
+** Inspecting a variable with the gdb print command
+
+We can use the ~gdb~ =print= command to inspect the value of a variable on the stack:
+
+#+BEGIN_EXAMPLE
+(gdb) print s
+$1 = 0x400865 "H\205\355t\034\061\333\017\037@"
+(gdb) 
+#+END_EXAMPLE
+
+What we see is a little bizarre, what we see in quotes is a bunch of
+random looking stuff. It's instructive to ask, what did we expect to
+see here? Well, the =s= variable ought to be an empty string, not
+something filled with junk. Why is it not empty? The reason is,
+because although we have declared the pointer =char *s=, we have not
+actually allocated any memory. So when we ask =gdb= to =print s=, it
+is going to whatever the (uninitialized) pointer =s= points to (junk)
+and printing that out.
+
+Let's fix our bug and re-run the program and see how it
+differs. Un-comment out the line that you commented out above, so
+=calloc()= is used to allocate memory. Now let's re-run using ~gdb~, insert a breakpoint again, and see what the value of =s= is:
+
+#+BEGIN_EXAMPLE
+plg@wildebeest:~/Desktop/CBootCamp/code/debug$ gcc -g -o go go.c
+plg@wildebeest:~/Desktop/CBootCamp/code/debug$ gdb go
+GNU gdb (Ubuntu/Linaro 7.4-2012.04-0ubuntu2) 7.4-2012.04
+Copyright (C) 2012 Free Software Foundation, Inc.
+License GPLv3+: GNU GPL version 3 or later <http://gnu.org/licenses/gpl.html>
+This is free software: you are free to change and redistribute it.
+There is NO WARRANTY, to the extent permitted by law.  Type "show copying"
+and "show warranty" for details.
+This GDB was configured as "x86_64-linux-gnu".
+For bug reporting instructions, please see:
+<http://bugs.launchpad.net/gdb-linaro/>...
+Reading symbols from /home/plg/Desktop/CBootCamp/code/debug/go...done.
+(gdb) break 9
+Breakpoint 1 at 0x4006bc: file go.c, line 9.
+(gdb) run
+Starting program: /home/plg/Desktop/CBootCamp/code/debug/go 
+
+Breakpoint 1, getWord (maxsize=256) at go.c:9
+9	  scanf("%s", s);
+(gdb) print s
+$1 = 0x602010 ""
+(gdb) 
+#+END_EXAMPLE
+
+Now we see what we expected, =s= is an empty string "". Let's now put another breakpoint at line 10, so that we can verify that once we enter a string, it's actually in there:
+
+#+BEGIN_EXAMPLE
+(gdb) break 10
+Breakpoint 2 at 0x4006d5: file go.c, line 10.
+(gdb) continue
+Continuing.
+enter a string (max 256 chars): TheDudeAbides
+
+Breakpoint 2, getWord (maxsize=256) at go.c:10
+10	  return s;
+(gdb) print s
+$2 = 0x602010 "TheDudeAbides"
+(gdb) 
+#+END_EXAMPLE
+
+We insert a new breakpoint at line 10, we issue the =continue=
+command, we enter a string, the breakpoint is hit, and now we ask to
+see the value of the =s= variable again, and indeed, it contains our
+string. Good.
+
+** Stepping
+
+Above we used the =continue= command to continue execution of our
+program. One can also take individual steps, line by line, using the
+=step= command in ~gdb~.
+
+** More breakpoints
+
+We can list the current breakpoints with the =info breakpoints= command. Here's what we get if we do that with the code that we have been working with above:
+
+#+BEGIN_EXAMPLE
+(gdb) info breakpoints
+Num     Type           Disp Enb Address            What
+1       breakpoint     keep y   0x00000000004006bc in getWord at go.c:9
+	breakpoint already hit 1 time
+2       breakpoint     keep y   0x00000000004006d5 in getWord at go.c:10
+	breakpoint already hit 1 time
+(gdb) 
+#+END_EXAMPLE
+
+We can use the =disable= command to disable individual
+breakpoints. They are named by the ~Num~ column in the info
+listing. So to disable the breakpoint on line 9 above we would issue
+the command =disable 1=.
+
+We can delete breakpoints altogether using the =delete= or =clear=
+commands. We can issue the command =delete 2= to delete the line 10
+breakpoint above. We can also use the =clear= command to delete
+breakpoints by location like this: =clear go.c:10=
+
+
+* Gotchas
+
+There are a number of classic *gotchas* in C to watch out for when
+trying to figure out why your program is not running as expected (or
+not running at all). Check for these first when debugging, they are
+common.
+
+** Integer Math
+
+Like Python, in C when you write mathematical expressions, be sure to
+*include decimal places for all numbers* (that is, unless you actually
+want to do integer math). What I mean is this. What do you think the
+following code will print to the screen?
+
+#+BEGIN_SRC C
+#include <stdio.h>
+
+int main ()
+{
+  double mass = 2.5;
+  double velocity = 4.5;
+  double kinetic_energy = (1/2) * mass * velocity * velocity;
+  printf("kinetic energy = %.3f\n", kinetic_energy);
+  return 0;
+}
+#+END_SRC
+
+If you guessed this, you are correct:
+
+#+BEGIN_EXAMPLE
+kinetic energy = 0.000
+#+END_EXAMPLE
+
+Why is this? It's because the C expression =(1/2)= in line 7 of the
+code is evaluated as the *integer* =1= divided by the *integer* 2,
+which is the *integer* =0=. If we want an expression to represent a
+floating-point value, then we have to *use floating-point syntax for
+all numbers*:
+
+#+BEGIN_SRC C
+#include <stdio.h>
+
+int main ()
+{
+  double mass = 2.5;
+  double velocity = 4.5;
+  double kinetic_energy = (1.0/2.0) * mass * velocity * velocity;
+  printf("kinetic energy = %.3f\n", kinetic_energy);
+  return 0;
+}
+#+END_SRC
+
+#+BEGIN_EXAMPLE
+kinetic energy = 25.312
+#+END_EXAMPLE
+
+As a general rule, I always put *.0* at the end of all numbers in my C
+code.
+
+** Floating-point Math
+
+Computers use bits (0s and 1s) to represent data, including
+floating-point numbers. This means numbers that we typically represent
+using base-10 must be represented in base-2 in the computer.
+
+There are numbers we can express in one way (like the fraction 1/3) that we cannot express precisely in base-10
+floating-point. We would have to write =1.333333= and keep going ad
+infinitum with the =.3333=. Similarly, there are numbers that we can
+express easily in base-10 that cannot be precisely represented in
+base-2 (one gets infinitely repeating sequences).
+
+Why am I telling you this? The reason is, that when using
+floating-point representations like =float= and =double= in C (and the
+same is true in other languages), there is always some amount of
+*rounding error* involve in the representation of numbers. There are
+also a host of other issues one encounters when doing so-called
+*floating-point arithmetic*, there is an excellent summary of all the
+issues here: [[http://docs.oracle.com/cd/E19957-01/806-3568/ncg_goldberg.html][What Every Computer Scientist Should Know About
+Floating-Point Arithmetic]]. There is a slightly less intimidating
+explanation (in the context of Python) here: [[http://docs.python.org/tutorial/floatingpoint.html][Floating Point
+Arithmetic: Issues and Limitations]].
+
+The bottom line is, one must always be aware of the limitations of
+floating-point representation, and precision issues like rounding
+error. One example: *never use boolean operators like ~==~ or ~<~ or
+~>~ or ~!=~ to test for equality, etc, of floating-point variables or
+expressions. Here is an example of how you might be led astray. What is the output of this program?
+
+#+BEGIN_SRC C
+#include <stdio.h>
+
+int main () {
+  double x = 0.1;
+  double y = 0.2;
+  if ((x + y) == 0.3) printf("TRUE\n"); else printf("FALSE\n");
+  printf("x + y = %.20f\n", x+y);
+  return 0;
+}
+#+END_SRC
+
+If you guessed ~FALSE~ then you are correct. Here is the output:
+
+#+BEGIN_EXAMPLE
+FALSE
+x + y = 0.30000000000000004441
+#+END_EXAMPLE
+
+You can see the rounding error here.
+
+One option is when you need to compare two values to see if they are
+"equal", instead check to see if their difference is below some
+minimum threshold you decide in advance is "equal enough". If you are
+dealing with small expected differences in your work however, this may
+not be a suitable solution.
+
+Another option is to use a library for arbitrary-precision math such as [[http://gmplib.org][GMP]] that allows for arbitrary precision representation of numbers. The drawback however is relatively slow speed.
+
+Another web page discussing a floating-point test suite: [[http://www.tybor.com/][here]]
+
+The [[https://en.wikipedia.org/wiki/C99][C99]] standard introduced support for the [[https://en.wikipedia.org/wiki/IEEE_floating_point][IEEE 754]] floating-point
+standard. The IEEE 754 standard specifies things like arithmetic
+formats (binary and decimal floating-point data), rounding rules,
+arithmetic operations and exception handling. If floating-point math
+is a concern in your code, you should look into compiling your code
+with the =-std=c99= flag.
+
+Here is a blog post that proposes (and shows sample code) for an
+explicit test of whether different rounding options in the IEEE 754
+standard result in significant changes in your computation (and hence
+whether you need to worry): [[http://www.scinethpc.ca/2011/11/testing-roundoff/][Testing Roundoff]].
+
+Here is another description of floating-point roundoff error, and some
+real-world examples involving a stock market, a rocket, and a missle:
+[[http://mathworld.wolfram.com/RoundoffError.html][Roundoff Error]].
+
+** Out of Bounds Array Indexing
+
+x
+
+
+* Tricky Code
+
+As a general rule I prefer explicit code to using "tricks" to make
+code extremely short. There is a trade-off, of course. Short, tricky
+code is less code, but the tradeoff is that it may be more difficult
+to understand by others, and even by yourself, when you return to the
+code after some period of time. Finding the optimal tradeoff between
+concise and clear is something you should be thinking about, and
+something that will be different for everyone.
+
+If you want to see some examples of ridiculously "tricky" code, there
+is a competition called [[http://www.ioccc.org][The International Obfuscated C Code
+Contest]]. Here is an example, from the [[http://www.ioccc.org/years.html#2011][2011 IOCCC Competition]], the
+entry called [[http://www.ioccc.org/years.html#2011_eastman][eastman]] by Peter Eastman:
+
+#+BEGIN_SRC c
+#include <stdio.h>
+#include <math.h>
+#include <unistd.h>
+#include <sys/ioctl.h>
+             main() {
+         short a[4];ioctl
+      (0,TIOCGWINSZ,&a);int
+    b,c,d=*a,e=a[1];float f,g,
+  h,i=d/2+d%2+1,j=d/5-1,k=0,l=e/
+ 2,m=d/4,n=.01*e,o=0,p=.1;while (
+printf("\x1b[H\x1B[?25l"),!usleep(
+79383)){for (b=c=0;h=2*(m-c)/i,f=-
+.3*(g=(l-b)/i)+.954*h,c<d;c+=(b=++
+b%e)==0)printf("\x1B[%dm ",g*g>1-h
+*h?c>d-j?b<d-c||d-c>e-b?40:100:b<j
+||b>e-j?40:g*(g+.6)+.09+h*h<1?100:
+ 47:((int)(9-k+(.954*g+.3*h)/sqrt
+  (1-f*f))+(int)(2+f*2))%2==0?107
+    :101);k+=p,m+=o,o=m>d-2*j?
+      -.04*d:o+.002*d;n=(l+=
+         n)<i||l>e-i?p=-p
+             ,-n:n;}}
+#+END_SRC
+
+You can compile and run it with the following two commands:
+
+#+BEGIN_EXAMPLE
+gcc -lm eastman.c -o eastman
+./eastman
+#+END_EXAMPLE
+
+
+* Links
+
+- [[http://www.unknownroad.com/rtfm/gdbtut/gdbtoc.html][RMS's gdb Debugger Tutorial]]
+- [[http://www.dirac.org/linux/gdb/][Using GNU's GDB Debugger]]
+- [[http://www.cs.vassar.edu/~cs331/gdbtutorial.html][GDB Tutorial]]
+- [[http://www.csee.umbc.edu/courses/undergraduate/313/spring12/Resources/UnixProgrammingTools.pdf][UNIX Programming Tools]]
+- [[http://users.ece.utexas.edu/~adnan/gdb-refcard.pdf][gdb reference card]]
+- [[https://www.hackerschool.com/blog/5-learning-c-with-gdb][learning C with gdb]]
+- [[http://courses.cs.vt.edu/~cs3214/fall2011/projects/esh3-debugging.php][debugging tips using gdb and valgrind]]
+
+

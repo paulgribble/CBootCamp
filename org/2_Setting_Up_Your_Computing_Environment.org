@@ -1,0 +1,186 @@
+#+STARTUP: showall
+
+#+TITLE:     2. Setting Up Your Computing Environment
+#+AUTHOR:    Paul Gribble
+#+EMAIL:     paul@gribblelab.org
+#+DATE:      Summer 2012
+
+-----
+[TABLE-OF-CONTENTS]
+-----
+
+* Install some basic tools
+
+No matter which operating system you are using (GNU/Linux, Mac,
+Windows), you will need at least two things:
+
+1. A way to edit source code files
+2. A C compiler (& debugger)
+
+** GNU/Linux
+
+You have it easy. Most GNU/Linux distributions include a *package
+manager* that allows you to quickly and easily install software from
+centralized, up-to-date repositories.
+
+*** Compiler
+
+If you are using [[http://www.ubuntu.com][Ubuntu]], just open up a [[https://help.ubuntu.com/community/UsingTheTerminal][Terminal]] and type
+the following command to install the tools you will need:
+
+#+BEGIN_EXAMPLE
+sudo apt-get install build-essential
+#+END_EXAMPLE
+
+That's it! Now you have a C compiler ([[http://gcc.gnu.org/][=gcc=]]) and a bunch of other
+developer tools including a debugger ([[http://sources.redhat.com/gdb/][=gdb=]]). You can verify you have
+=gcc= installed by typing:
+
+#+BEGIN_EXAMPLE
+gcc --version
+#+END_EXAMPLE
+
+*** Source code editors
+
+When you write C source code, you save it in one or more plain ascii
+[[https://en.wikipedia.org/wiki/Text_file][text files]]. Any editor that is capable of reading and writing plain
+text files, can be used to work with C code.
+
+For example, Ubuntu comes with a relatively nice GUI-based editor
+called [[https://help.ubuntu.com/community/gedit][=gedit=]]. It has multiple tabs, it has [[https://en.wikipedia.org/wiki/Syntax_highlighting][syntax highlighting]] for
+source code (not only for C but other languages as well) and it has
+various plugins for adding other functionality.
+
+Some other classic editors include [[https://en.wikipedia.org/wiki/Emacs][GNU Emacs]] and [[https://en.wikipedia.org/wiki/Vi][Vi]] / [[https://en.wikipedia.org/wiki/Vim_(text_editor)][Vim]]. We won't
+get into an [[https://en.wikipedia.org/wiki/Editor_war][editor war]] here, but suffice it to say that both are
+powerful and useful, and both have relatively steep learning curves.
+
+For the purposes of these tutorials, you can use any editor you
+want. If you don't know what to choose, then I suggest starting with
+=gedit=.
+
+There's a pretty good cross-platform (linux, Mac OS X, Windows)
+source-code oriented editor called [[http://www.sublimetext.com/][Sublime Text 2]] that I can also
+recommend. It has a lot of neat functionality that's particularly
+oriented towards source code editing (in many languages, not just
+C). Check it out.
+
+** Mac OS X
+
+*** Compiler
+
+One the Mac, the standard way of obtaining the required developer
+tools is to download Apple's [[https://developer.apple.com/xcode/][Xcode]] software. You can either download
+the entire *Xcode* package, which includes a GUI-based IDE and Apple's
+extensive Cocoa and iOS frameworks for programming on the Mac and on
+iOS devices, or you can install only the *Command Line Tools for OS
+X*. For this tutorial the command line tools will suffice.
+
+Unfortunately Apple forces you to [[http://developer.apple.com/programs/register/][register]] for an Apple Developer ID
+first and give them all sorts of personal information. The Apple
+website makes it look like you have to pay money but in fact you
+don't.
+
+Just like in GNU/Linux, you can verify that you have the compiler
+installed by opening up a [[https://en.wikipedia.org/wiki/Terminal_(OS_X)][Terminal]] (located in
+/Applications/Utilities/) and typing:
+
+#+BEGIN_EXAMPLE
+gcc --version
+#+END_EXAMPLE
+
+*** Source code editors
+
+On the mac there are a host of editors to choose from. OS X comes with
+[[https://en.wikipedia.org/wiki/TextEdit][TextEdit]], which can read/write rich-text format (rtf) as well as plain
+text. A better idea however is to use an editor that has
+syntax-highlighting and other features that are developer-friendly.
+
+If you downloaded the full Xcode IDE then you can edit source code in
+Xcode. Note that Xcode is a gigantic and complex development
+environment, and so unless you already know how to use it, or are
+prepared to put the time in to learn how it works, I would suggest
+using a simpler editor. We won't have time to go through how to use
+Xcode in this series of tutorials.
+
+Good choices are [[http://macromates.com/][TextMate]] and [[http://www.barebones.com/products/bbedit/][BBEdit]]. You can of course also install
+and Vim ([[https://code.google.com/p/macvim/][macvim]]) and GNU Emacs ([[http://aquamacs.org/][Aquamacs Emacs]] or [[http://emacsformacosx.com/][Pure Emacs]]) on the
+mac if you prefer. [[http://www.sublimetext.com/][Sublime Text 2]] also works on the mac.
+
+There is another choice on the Mac which is called [[http://krillapps.com/coderunner/][CodeRunner]], which
+is a sort of very lightweight and simple IDE. It knows about a large
+number of languages besides C, and has a built-in console, which means
+that one can program in a slightly more interactive way than the usual
+edit -> compile -> run workflow.
+
+** Windows
+
+If you are using Windows, one option is to install and use [[http://cygwin.com/][Cygwin]],
+which is a collection of tools that provide unix-like funcionality
+within Windows. Another option is to install and use an IDE
+(e.g. [[http://www.eclipse.org/][Eclipse]] that will let you edit, compile and run C code.
+
+Please note that I know very little about Windows and so unfortunately
+I won't be much help with doing things in Windows.
+
+A final option is to install Ubuntu (or some other GNU/Linux
+distribution) on your Windows machine, either in a dual-boot
+configuration ([[http://www.ubuntu.com/download/help/install-ubuntu-with-windows][Ubuntu instructions here]], or within a software virtual
+machine using something like VMware ([[http://www.vmware.com/products/fusion/overview.html][Mac]], [[http://www.vmware.com/products/workstation/overview.html][Windows]]) or [[https://www.virtualbox.org/][VirtualBox]]. This
+may be the fastest and easiest option to get up and running for this
+tutorial, which will be run using examples in GNU/Linux.
+
+** A note about IDEs
+
+IDEs ([[https://en.wikipedia.org/wiki/Integrated_development_environment][Integrated Development Environments]]) are programs that combine
+several development tools together into one unified environment. IDEs
+typically include components such as a source code editor, automated
+build and compile tools, a debugger, extensive language and framework
+documentation, and sometimes other components such as GUI-based
+interface design tools, performance measurement tools, version control
+systems, Object-Oriented Programming tools (e.g. class browsers and
+object inspectors), and others. Examples of IDEs are [[https://developer.apple.com/technologies/tools/features.html][Xcode]] (Mac) and
+[[http://www.eclipse.org/][Eclipse]] (GNU/Linux, Windows, Mac). There is a host of others as well,
+here is a Wikipedia page that lists many of them: [[https://en.wikipedia.org/wiki/Comparison_of_integrated_development_environments][A Comparison of
+IDEs]].
+
+The benefits of using an IDE start to show when your project involves
+a large amount of code spread over a large number of files, and/or
+when you make use of complex and extensive external libraries and
+frameworks, etc. For the purposes of these tutorials, I wouldn't
+suggest using an IDE unless you are already familiar with one.
+
+* Exercises
+
+- 1 Test your environment
+
+Open up your source code editor, enter the following code, and save it
+to a file called =hello.c=:
+
+#+BEGIN_SRC c
+#include <stdio.h>
+
+int main() {
+  printf("hello world!\n");
+  return 0;
+}
+#+END_SRC
+
+Now in a terminal, enter the following command to compile the code:
+
+#+BEGIN_EXAMPLE
+gcc -o hello hello.c
+#+END_EXAMPLE
+
+Now enter the following command to run the program:
+
+#+BEGIN_EXAMPLE
+./hello
+#+END_EXAMPLE
+
+and you should see the following output:
+
+#+BEGIN_EXAMPLE
+hello world!
+#+END_EXAMPLE
+

@@ -1,0 +1,224 @@
+#+STARTUP: showall
+
+#+TITLE:     A1. A Brief Tour of Some Other Useful C Libraries
+#+AUTHOR:    Paul Gribble
+#+EMAIL:     paul@gribblelab.org
+#+DATE:      Summer 2012
+
+-----
+[TABLE-OF-CONTENTS]
+-----
+
+* Introduction
+
+Since C is such a "small" language, you must typically rely on
+libraries and APIs for complex tasks (unless you code them up
+yourself). Here is a short list of some common libraries that you
+might find useful.
+
+
+* GNU C Library (glibc)
+
+[[http://www.gnu.org/software/libc/][glibc]]
+
+The GNU C Library contains many useful functions (a list is
+[[http://www.gnu.org/software/libc/manual/html_node/index.html#Top][here]]). There are some that will probably be more generally useful to
+you than others:
+
+** String and Array Utilities
+
+There are a number of functions related to handling and manipulating
+strings and arrays (a list is [[http://www.gnu.org/software/libc/manual/html_node/String-and-Array-Utilities.html#String-and-Array-Utilities][here]]). In particular routines for
+searching strings and copying and concatenation, will likely be useful
+to you. Dig deeper on your own to find out more.
+
+** Others
+
+Other useful ones include [[http://www.gnu.org/software/libc/manual/html_node/Searching-and-Sorting.html#Searching-and-Sorting][Searching and Sorting]] and [[http://www.gnu.org/software/libc/manual/html_node/Date-and-Time.html#Date-and-Time][Date and Time]]
+functions. I suggest you have a look at the full list and familiarize
+yourself with what's available.
+
+** Linking to glibc
+
+Depending on which function(s) you want to use in your program, you
+will probably have to use the =#include= directive to include the
+appropriate header file(s). For example to use the =strlen()= function
+(which returns the length of a string) you will have to include the
+=string.h= header file. Unlike other external libraries, for glibc
+there is no need to pass an extra parameter at compile time to link to
+the glibc library, the gcc compiler already knows to look for it.
+
+#+BEGIN_SRC c
+// gcc -o go go.c
+#include <stdio.h>
+#include <string.h>
+
+int main(int argc, char *argv[])
+ {                                                                             
+   char mystring[] = "the dude";
+   printf("%s is %ld characters long\n", mystring, strlen(mystring));
+   return 0;                                                                   
+}
+#+END_SRC
+
+#+BEGIN_EXAMPLE
+the dude is 8 characters long
+#+END_EXAMPLE
+
+* GNU Scientific Library (GSL)
+
+[[http://www.gnu.org/software/gsl/][gsl]]
+
+The GNU Scientific Library provides a broad range of numerical and
+mathematical functions. If you want to do something in C that you have
+been doing in MATLAB, or Python/NumPy/SciPy, or R, then probably you
+will need to look at something like GSL for functions you need (or
+code them up yourself).
+
+There is a list of main categories [[http://www.gnu.org/software/gsl/manual/html_node/][here]]. Things you might be
+interested are:
+
+- [[http://www.gnu.org/software/gsl/manual/html_node/Vectors-and-Matrices.html][Vectors and Matrices]]
+- [[http://www.gnu.org/software/gsl/manual/html_node/Linear-Algebra.html][Linear Algebra]]
+- [[http://www.gnu.org/software/gsl/manual/html_node/Fast-Fourier-Transforms.html][FFTs]]
+- [[http://www.gnu.org/software/gsl/manual/html_node/Random-Number-Generation.html][Random Number Generation]] & [[http://www.gnu.org/software/gsl/manual/html_node/Random-Number-Distributions.html][Random Number Distributions]]
+- [[http://www.gnu.org/software/gsl/manual/html_node/Statistics.html][Statistics]]
+- [[http://www.gnu.org/software/gsl/manual/html_node/Ordinary-Differential-Equations.html][ODEs]]
+- [[http://www.gnu.org/software/gsl/manual/html_node/Interpolation.html][Interpolation]]
+- [[http://www.gnu.org/software/gsl/manual/html_node/Numerical-Differentiation.html][Numerical Differentiation]]
+- [[http://www.gnu.org/software/gsl/manual/html_node/Least_002dSquares-Fitting.html][Least-Squares Fitting]]
+- [[http://www.gnu.org/software/gsl/manual/html_node/Nonlinear-Least_002dSquares-Fitting.html][Nonlinear Least-Squares Fitting]]
+- [[http://www.gnu.org/software/gsl/manual/html_node/Multidimensional-Minimization.html][Multidimensional Minimization]]
+
+
+** Linking to gsl
+
+Of course before you can link to the gsl library, you have to make
+sure it is installed on your computer. See the gsl documentation for
+how to install it.
+
+To link your code to the gsl you will have to do two things. First you
+will have to use the =#include= directive to include the relevant
+header files. In the gsl documentation for each function, it tells you
+which header file(s) you will need. Second, you will have to use a
+flag when compiling to tell the compiler to include the library files
+themselves. Here is an example program [[http://www.gnu.org/software/gsl/manual/html_node/Linear-Algebra-Examples.html][from the gsl documentation]] that
+uses linear algebra routines to solve a linear system $Ax=b$:
+
+#+BEGIN_EXAMPLE
+[ 0.18 0.60 0.57 0.96 ] [x0]   [1.0]
+[ 0.41 0.24 0.99 0.58 ] [x1] = [2.0]
+[ 0.14 0.30 0.97 0.66 ] [x2]   [3.0]
+[ 0.51 0.13 0.19 0.85 ] [x3]   [4.0]
+#+END_EXAMPLE
+
+#+BEGIN_SRC c
+// gcc -o go go.c -lgsl -lgslcblas
+
+#include <stdio.h>
+#include <gsl/gsl_linalg.h>
+     
+int main (void)
+{
+  double a_data[] = { 0.18, 0.60, 0.57, 0.96,
+		      0.41, 0.24, 0.99, 0.58,
+		      0.14, 0.30, 0.97, 0.66,
+		      0.51, 0.13, 0.19, 0.85 };
+     
+  double b_data[] = { 1.0, 2.0, 3.0, 4.0 };
+     
+  gsl_matrix_view m 
+    = gsl_matrix_view_array (a_data, 4, 4);
+     
+  gsl_vector_view b
+    = gsl_vector_view_array (b_data, 4);
+     
+  gsl_vector *x = gsl_vector_alloc (4);
+       
+  int s;
+     
+  gsl_permutation * p = gsl_permutation_alloc (4);
+     
+  gsl_linalg_LU_decomp (&m.matrix, p, &s);
+     
+  gsl_linalg_LU_solve (&m.matrix, p, &b.vector, x);
+     
+  printf ("x = \n");
+  gsl_vector_fprintf (stdout, x, "%g");
+     
+  gsl_permutation_free (p);
+  gsl_vector_free (x);
+  return 0;
+}
+#+END_SRC
+
+#+BEGIN_EXAMPLE
+plg@wildebeest:~$ gcc -o go go.c -lgsl -lgslcblas
+plg@wildebeest:~$ ./go
+x = 
+-4.05205
+-12.6056
+1.66091
+8.69377
+#+END_EXAMPLE
+
+
+* BLAS / LAPACK
+
+The [[http://www.netlib.org/blas/][blas]] and [[http://www.netlib.org/lapack/][lapack]] libraries are high-performance libraries for
+linear algebra. If you are dealing with large matrices and you have
+the need for speed, then probably you should look into using BLAS /
+LAPACK, it will probably be faster than GSL.
+
+
+* Apophenia
+
+The [[http://apophenia.sourceforge.net/][Apophenia]] library is an open source library for working with data
+sets, statistics, and statistical models.
+
+The Apophenia library provides functions for dealing with data
+(reading it in, storing it in convenient data structures, and writing
+it to files). It also provides functions for dealing with data using
+the SQL database language. This allows you to perform searches on
+data, extract subsets of data, etc.
+
+Apophenia has lots of functions to fit data to statistical models such
+as OLS models (ordinary least squares), it provides for statistical
+tests like t-tests, F-tests, and it includes models like logit,
+probit, and multinomial models. It also includes maximum likelihood
+methods, Bayesian updating, and resampling methods like bootstrapping.
+
+There is extensive online documentation and example code on the
+Apophenia website [[http://apophenia.sourceforge.net/][here]]. I suggest you dive deeper on your own if you
+want to explore it in more detail.
+
+** Modeling with Data (book)
+
+Apophenia is maintained by Ben Klemens, who also wrote a book [[http://modelingwithdata.org/about_the_book.html][Modeling
+With Data]] that makes use of Apophenia. You can buy the book or you can
+download it for free, the author makes it available on the website
+[[http://ben.klemens.org/pdfs/gsl_stats.pdf][here]].
+
+I highly recommend the book not only as a guide to using the Apophenia
+library, but more generally as a guide to how to use C on a daily
+basis for data analysis and modeling. Ben argues that really, C is not
+*that* much more of a pain in the neck than "higher-level" languages
+like Python and R, but C is *way* faster (in terms of execution
+speed). It's worth a read.
+
+
+* GNUplot
+
+[[http://www.gnuplot.info/][GNUplot]]
+
+GNUplot is not an external C library but in fact is a standalone
+program for making graphs and figures. I include it here because it is
+a popular UNIX tool that you will likely see in your C travels. The
+[[http://apophenia.sourceforge.net/][Apophenia]] library and the accompanying book [[http://modelingwithdata.org/about_the_book.html][Modeling With Data]] include
+lots of examples of using GNUplot to graphically visualize data, and
+fitted statistical models.
+
+There is also good online [[http://www.gnuplot.info/documentation.html][documentation]], [[http://www.gnuplot.info/help.html][tutorials and help]] and [[http://www.gnuplot.info/screenshots/index.html#demos][demos]]
+of GNUplot functionality. Anything you can do with Matlab,
+Python/Matplotlib, R, etc you can likely also do in GNUplot.
+

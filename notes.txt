@@ -1,0 +1,42 @@
+C Programming (WikiBooks)
+https://en.wikibooks.org/wiki/C_Programming
+
+Learning GNU C
+http://www.faqs.org/docs/learnc/index.html
+
+K&R answers to exercises
+http://users.powernet.co.uk/eton/kandr2/
+
+Programming in C AD Marshall
+http://www.cs.cf.ac.uk/Dave/C/
+
+The International Obfuscated C Code Contest
+http://www.ioccc.org/
+
+C Language Tutorial
+http://www.physics.drexel.edu/courses/Comp_Phys/General/C_basics/
+
+C Programming Tutorial
+http://www.iu.hio.no/~mark/CTutorial/CTutorial.html
+
+C Programming
+http://www2.its.strath.ac.uk/courses/c/
+
+Ask Mark Daley to come in and speak about BLAS/LAPACK and perhaps
+other high-performance-computing topics
+
+programming examples:
+
+- loading in data files and computing simple measures on each (e.g. Alvin's data)
+- single cell bootstrapping for directional tuning (my postdoc data)
+
+Python: scipy.weave, cython, etc
+http://technicaldiscovery.blogspot.ca/2011/06/speeding-up-python-numpy-cython-and.html
+
+gdb debugger tutorials:
+
+http://www3.sympatico.ca/rsquared/gdb/
+http://sourceware.org/gdb/current/onlinedocs/gdb.html
+http://www.unknownroad.com/rtfm/gdbtut/gdbtoc.html
+
+

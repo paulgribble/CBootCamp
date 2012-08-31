@@ -1,0 +1,458 @@
+#+STARTUP: showall
+
+#+TITLE:     5. Functions
+#+AUTHOR:    Paul Gribble
+#+EMAIL:     paul@gribblelab.org
+#+DATE:      Summer 2012
+
+-----
+[TABLE-OF-CONTENTS]
+-----
+
+* Rationale
+
+Breaking your code down into discrete functions allows you to re-use
+code in intelligent ways, and to make your code more efficient
+overall. You can use functions written by other people (by linking
+them to your own programs) and avoid having to write everything from
+scratch yourself.
+
+Writing functions to perform common tasks means that you can
+essentially write your own meta-language. For example *if* you have
+functions already written to perform these tasks, your C program might
+look like this:
+
+#+BEGIN_SRC c
+#include <stdio.h>
+
+int main() {
+     loadSubjects();
+     excludeSubject(12);
+     lowpassFilterData();
+     collectMeansWithBinSize(8);
+     pval = performANOVA();
+     printf("my hypothesis is correct, p < %.3f\n", pval);
+     return 0;
+}
+#+END_SRC
+
+The idea is that once we know what sorts of operations on our data we
+will wish to do, we can write a set of functions (sometimes called
+subroutines), to *abstract* away the details, and provide us with a
+sort of high-level meta-language that we can use to carry out the
+steps we wish to.
+
+** Abstraction
+
+Using functions to abstract away the details also means that as long
+as the function inputs and outputs are known, then the user doesn't
+really need to know the details of how the function performs its
+task. Another way to think about this: let's imagine you wrote a
+function =lowpassFilterData()=, and it worked well. Let's say your
+friend came along one day and noticed that it was taking a long time
+to process your data, and he suggested you use a different algorithm
+for low-pass filtering, and he gave you a file containing the code. As
+long as the inputs and outputs are the same (or you could write your
+own "wrapper" function to ensure this), then you can simply switch out
+your function for the new one, and all functionality should be the
+same. You can think of functions as "black boxes" with input and
+output wires. As long as the wires are labelled the same, and there
+are the same number, you can replace one box with a newer box, and
+perhaps get faster (or more accurate, for example) functionality
+*without changing your main program*.
+
+* Defining a Function
+
+A function must be defined in the following way:
+
+#+BEGIN_SRC c
+returnType functionName (arg1Type arg1Name, arg1Type arg2Name) {
+   function_statement;
+   function_statement;
+   return returnVar;
+}
+#+END_SRC
+
+This seems rather abstract, but we will see a concrete example in a
+moment. On the first line, we have to begin by declaring what data
+*type* the function will return once it finishes. You can define a
+function that doesn't return anything by using =void=. The next item
+is the name of the function, which you get to choose. Next, in round
+brackets, is a list of input arguments that the function expects to
+see when it is called. Each argument is delared by listing first the
+*type* of the argument, followed by its name. Then in the body of the
+function is code, which does whatever you want the function to
+do. Finally we have to *return* a value (if the return type is
+non-void).
+
+Here is a more concrete example. Let's say we want to write a function
+that writes a message to the screen, "Hello, Paul":
+
+#+BEGIN_SRC c
+void writeMessage(void) {
+   printf("Hello, Paul\n");
+}
+#+END_SRC
+
+Here the return type is =void= since the function doesn't return a
+value, and the input argument list is also =void=, since it doesn't
+expect any inputs. We can call the function in a program like this:
+
+#+BEGIN_SRC c
+#include <stdio.h>
+
+void writeMessage(void) {
+   printf("Hello, Paul\n");
+}
+
+int main() {
+	writeMessage();
+        return 0;
+}
+#+END_SRC
+
+#+BEGIN_EXAMPLE
+Hello, Paul
+#+END_EXAMPLE
+
+* Input Arguments
+
+Now let's modify our function so that it accepts one input argument,
+which is a string containing the name we want to say hello to. So for
+example we could call the function with =writeMessage("Dave")= and it
+would print to the screen ~Hello, Dave~, or we could call it with
+=writeMessage("Victoria")= and it would write to the screen ~Hello,
+Victoria~, etc:
+
+#+BEGIN_SRC C
+#include <stdio.h>
+
+void writeMessage(char name[]) {
+   printf("Hello, %s\n", name);
+}
+
+int main() {
+	writeMessage("Dave");
+	writeMessage("Victoria");
+        return 0;
+}
+#+END_SRC
+
+#+BEGIN_EXAMPLE
+Hello, Dave
+Hello, Victoria
+#+END_EXAMPLE
+
+For the moment don't worry about the =char[]= type, it is a character
+array, and we will talk about arrays in the next section.
+
+Let's give our function two input arguments now, just to see how this is done:
+
+#+BEGIN_SRC C
+#include <stdio.h>
+
+void writeMessage(char name[], int n) {
+   printf("Hello, %s %d\n", name, n);
+}
+
+int main() {
+	writeMessage("Dave", 123);
+	writeMessage("Victoria", 444);
+        return 0;
+}
+#+END_SRC
+
+#+BEGIN_EXAMPLE
+Hello, Dave 123
+Hello, Victoria 444
+#+END_EXAMPLE
+
+* Return Value
+
+Let's consider another example, one where we want our function to
+return a value. Let's write a function to compute Fibonacci numbers
+([[https://en.wikipedia.org/wiki/Fibonacci_number][Wikipedia]]). Fibonacci numbers are defined as:
+
+\begin{equation}
+F_{n} = F_{n-1} + F_{n-2}
+\end{equation}
+
+where $F_{0}=0$ and $F_{1}=1$.
+
+#+BEGIN_SRC c
+#include <stdio.h>
+
+int Fibonacci(int n) {
+	if (n==0) return 0;
+	else if (n==1) return 1;
+	else return Fibonacci(n-1) + Fibonacci(n-2);
+}
+
+int main() {
+	int n = 10;
+	int Fn = Fibonacci(n);
+	printf("Fibonacci(%d) = %d\n", n, Fn);
+    return 0;
+}
+#+END_SRC
+
+#+BEGIN_EXAMPLE
+Fibonacci(10) = 55
+#+END_EXAMPLE
+
+Here we define the return type as =int=, as we want our function to
+return an integer. We define one input argument, called =n=, which is
+also an =int= type. Then in the body of the function, we do our
+calculations.
+
+Unlike in some languages such as Python, Matlab, and R, in C,
+functions can only return a single value. There is a way to achieve
+the same result however, which is to return a *pointer* to a complex
+data type such as an array, or a structure. We will talk about complex
+data types in the next section.
+
+** Recursion
+
+Note in the Fibonacci example above, that in the body of our function,
+if the value of the input argument =n= is not =0= or =1=, then the
+function ends up calling itself (on line 6 of the code listing). When
+a function calls itself, this is called *recursion*, or a *recursive
+function call*. Recursion allows for very compact code, and for
+intuitive definitions. You may see recursion used in mathematical
+functions, and also in algorithms like sorting and searching. The cost
+of recursion is that sometimes the overhead involved in the computer
+repeatedly calling functions over and over again, can be costly, but
+this really depends on the nature of the algorithm. For Fibonacci
+numbers, recursion is OK for small =n= but once =n= becomes large, it
+is really slow. As an exercise, you could try to re-code the Fibonacci
+function using a loop instead of recursion. Another thing to try is
+*memoization* (look it up, I didn't mis-spell it).
+
+* Argument Checking
+
+Note that if we pass an argument of the wrong type to a function, the
+program may still compile, and even run, and it will simply spit out
+crazy values. Sometimes we will get a compiler warning, but sometimes
+not. Be very careful that the input values you pass to functions, and
+the output values you receive from functions, are what is expected.
+
+* Variable Scope
+
+Any variables declared inside a function, are *local to that
+function*, and are not accessible outside of the function. Similarly,
+code within a function doesn't have access to variables that have been
+declared outside of that function (for example in another function, or
+in =main()=). If you want this functionality, then you can specify
+that a variable be *global*. Any variable declared outside of *any*
+function (it also has to be outside of =main()=) is global, and can be
+seen by every function. In C, global variables are known as *external*
+variables (they are external to any function).
+
+For example in the following code, the varibale =myGlob= is declared
+outside of =main()= and outside of =myFunc()= and thus can be access
+by code within both. The variable =myInt= is declared within the
+function =myFunc()= and is thus *local* to =myFunc()= and cannot be
+accessed outside of =myFunc()= (for example within
+=main()=). Similarly, the variable =myChar= is declared within
+=main()= and so cannot be seen within =myFunc()=.
+
+#+BEGIN_SRC c
+#include <stdio.h>
+
+float myGlob = 3.14;
+
+void myFunc(void) {
+	int myInt = 8;
+	printf("my favourite number is %d\n", myInt);
+	printf("my favourite float is %.2f\n", myGlob);
+//	printf("my favourite letter is $c\n", myChar); // THIS WOULD NOT WORK
+}
+
+int main() {
+	char myChar = 'x';
+	printf("my favourite letter is %c\n", myChar);
+	myFunc();
+	printf("my favourite float is %.2f\n", myGlob);
+//	printf("my favourite number is %d", myInt); // THIS WOULD NOT WORK
+	return 0;
+}
+#+END_SRC
+
+#+BEGIN_EXAMPLE
+my favourite letter is x
+my favourite number is 8
+my favourite float is 3.14
+my favourite float is 3.14
+#+END_EXAMPLE
+
+* Automatic vs Static Variables
+
+We talked about variable *scope* and the idea that variables declared
+within a function are *local* to that function. What actually happens
+is that each time a function is called by another piece of code, all
+the variables declared within the function are created (that is,
+memory is allocated to hold them). When a function is finished, all of
+that local memory storage is de-allocated, and those variables
+essentially disappear. This is known as *automatic* local variables
+(they are automatically created and then destroyed as the function is
+called, and then finishes).
+
+If you want local variables to persist, you can declare them as
+*static* local variables. You simply insert the word =static= in front
+of the variable type when you declare it inside your function. When
+declared in this way, the variable will *not be destroyed* when the
+function exits, but it (and its value) will persist. Next time the
+function is called, the value will have retained the value from the
+previous function call. It's a sort of global variable, but one that
+is still only accessible within the function in which it's declared.
+
+Here's an example program that maintains a running count of the number
+of times the function =myFun()= has been called.
+
+#+BEGIN_SRC c
+#include <stdio.h>
+
+void myFunc(void) {
+	static int num = 0;
+	num++;
+	printf("myFunc() has been called %d times so far\n", num);
+}
+
+int main() {
+	myFunc();
+	myFunc();
+	myFunc();
+//	printf("num = %d\n", num);  // THIS WOULD NOT WORK
+	return 0;
+}
+#+END_SRC
+
+#+BEGIN_EXAMPLE
+myFunc() has been called 1 times so far
+myFunc() has been called 2 times so far
+myFunc() has been called 3 times so far
+#+END_EXAMPLE
+
+When would you want to use *static* variables? One general case, like
+above, is when you want to keep track of the number of times a
+function has been called. Another reason has to do with
+efficiency... if for example your function declares a *large* local
+variable whose values don't change from one function call to the next,
+it may be more efficient to declare it as static, so that it is
+created and initialized only once.
+
+* Variadic Functions
+
+A [[http://en.wikipedia.org/wiki/Variadic_function][variadic function]] is one which accepts a variable number of input
+arguments. In C we can write functions that are variadic. Sometimes
+this may be useful.
+
+Here is a simple example of how one would do this, taken from
+[[http://www.gnu.org/software/libc/manual/html_node/Variadic-Example.html#Variadic-Example][here]]. See [[http://www.gnu.org/software/libc/manual/html_node/Variadic-Functions.html#Variadic-Functions][this]] page for more details.
+
+#+BEGIN_SRC c
+#include <stdarg.h>
+#include <stdio.h>
+
+int
+add_em_up (int count,...)
+{
+  va_list ap;
+  int i, sum;
+
+  va_start (ap, count);         /* Initialize the argument list. */
+
+  sum = 0;
+  for (i = 0; i < count; i++)
+    sum += va_arg (ap, int);    /* Get the next argument value. */
+       
+  va_end (ap);                  /* Clean up. */
+  return sum;
+}
+       
+int
+main (void)
+{
+  /* This call prints 16. */
+  printf ("%d\n", add_em_up (3, 5, 5, 6));
+       
+  /* This call prints 55. */
+  printf ("%d\n", add_em_up (10, 1, 2, 3, 4, 5, 6, 7, 8, 9, 10));
+       
+  return 0;
+}
+#+END_SRC
+
+#+BEGIN_EXAMPLE
+16
+55
+#+END_EXAMPLE
+
+Note we have to =#include <stdarg.h>= in order to use the handful of
+functions necessary to work with the argument list.
+
+Note we have already seen a sort of variadic function, which is the
+=main()= function, which as we know can accept a variable number of
+input arguments when the program is started at the command line.
+
+
+* Exercises
+
+- 1 Write a function that computes the nth [[http://en.wikipedia.org/wiki/Fibonacci_number][Fibonacci number]]. Your
+function should be called =fib= and should take as input a single
+integer value =n=, and should return an integer value representing the
+nth Fibonacci number.
+
+The code example in the notes uses recursion to accomplish this. Write
+your own function that doesn't use recursion, but uses a loop instead.
+
+I should be able to paste your function at the bottom of this C
+program [ [[file:code/exercises/5_1_go.c][code]] ] and it should run:
+
+#+INCLUDE: "~/Desktop/CBootCamp/code/exercises/5_1_go.c" src c
+
+#+BEGIN_EXAMPLE
+$ gcc -o go 5_1_go.c
+$ ./go
+fib(10)=55
+#+END_EXAMPLE
+
+- 2 Write a function that determines whether an integer is [[http://en.wikipedia.org/wiki/Prime_number][prime]]. The
+function should take as input a single integer, and return a 1 if the
+input is prime, and a 0 if it is not.
+
+I should be able to paste your function at the bottom of this C
+program [ [[file:code/exercises/5_2_go.c][code]] ] and it should run:
+
+#+INCLUDE: "~/Desktop/CBootCamp/code/exercises/5_2_go.c" src c
+
+#+BEGIN_EXAMPLE
+$ gcc -o go 5_2_go.c
+$ ./go
+isprime(12)=0
+isprime(17)=1
+#+END_EXAMPLE
+
+- 3 Write a program that prints out the first 1000 prime numbers. You
+can find a list to verify the correctness of your program [[http://primes.utm.edu/lists/small/1000.txt][here]].
+
+#+BEGIN_EXAMPLE
+1: 2
+2: 3
+3: 5
+4: 7
+5: 11
+... (deleted for brevity) ...
+996: 7879
+997: 7883
+998: 7901
+999: 7907
+1000: 7919
+#+END_EXAMPLE
+
+** Solutions
+
+- [[file:code/exercises/5_1.c][1]]
+- [[file:code/exercises/5_2.c][2]]
+- [[file:code/exercises/5_3.c][3]]
+

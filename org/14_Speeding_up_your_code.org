@@ -1,0 +1,218 @@
+#+STARTUP: showall
+
+#+TITLE:     14. Speeding up your code
+#+AUTHOR:    Paul Gribble
+#+EMAIL:     paul@gribblelab.org
+#+DATE:      Summer 2012
+
+-----
+[TABLE-OF-CONTENTS]
+-----
+
+* Profiling your code using =gprof=
+
+There is a unix utility program called ~gprof~ ([[http://www.cs.utah.edu/dept/old/texinfo/as/gprof.html][GNU profiler]]) that can
+help you determine which parts of your program are taking most
+execution time.
+
+The basic steps are:
+
+1. compile your program with profiling enabled (using the ~-pg~
+   compiler flag)
+2. execute your program once to generate a profile data file
+3. run ~gprof~ to analyse the profile data
+
+Here is an example program that we wish to profile:
+
+#+BEGIN_SRC c
+#include <stdio.h>
+#include <math.h>
+
+#define MAXLOOP 1e7
+
+double myFun1(double x) {
+  double a = sin(x);
+  return a;
+}
+
+double myFun2(double x) {
+  double a = pow(x,3);
+  return a;
+}
+
+double myFun3(double x) {
+  double a = sqrt(x);
+  return a;
+}
+
+int main(int argc, char *argv[]) {
+  int i;
+  double x;
+  double xsum = 0.0;
+  for (i=1; i<MAXLOOP; i++) {
+    x = myFun1(i) + myFun2(i) + myFun3(i);
+    xsum += x;
+  }
+  printf("xsum = %.6f\n", xsum);
+  return 0;
+}
+#+END_SRC
+
+#+BEGIN_EXAMPLE
+plg@wildebeest:~/Desktop$ gcc -o go go.c -lm
+plg@wildebeest:~/Desktop$ time ./go
+xsum = 2499999499999934350004060160.000000
+
+real	0m1.576s
+user	0m1.572s
+sys	0m0.000s
+#+END_EXAMPLE
+
+Now let's recompile the program for the profiler, execute it once, and
+then run ~gprof~ to look at the profile data:
+
+#+BEGIN_EXAMPLE
+plg@wildebeest:~/Desktop$ gcc -o go go.c -lm -pg
+plg@wildebeest:~/Desktop$ ./go
+xsum = 2499999499999934350004060160.000000
+plg@wildebeest:~/Desktop$ gprof go -p
+Flat profile:
+
+Each sample counts as 0.01 seconds.
+  %   cumulative   self              self     total           
+ time   seconds   seconds    calls  ns/call  ns/call  name    
+ 40.35      0.12     0.12  9999999    12.11    12.11  myFun3
+ 40.35      0.24     0.12                             main
+ 13.45      0.28     0.04  9999999     4.04     4.04  myFun2
+  3.36      0.29     0.01  9999999     1.01     1.01  myFun1
+  3.36      0.30     0.01                             frame_dummy
+
+ %         the percentage of the total running time of the
+time       program used by this function.
+
+cumulative a running sum of the number of seconds accounted
+ seconds   for by this function and those listed above it.
+
+ self      the number of seconds accounted for by this
+seconds    function alone.  This is the major sort for this
+           listing.
+
+calls      the number of times this function was invoked, if
+           this function is profiled, else blank.
+ 
+ self      the average number of milliseconds spent in this
+ms/call    function per call, if this function is profiled,
+	   else blank.
+
+ total     the average number of milliseconds spent in this
+ms/call    function and its descendents per call, if this 
+	   function is profiled, else blank.
+
+name       the name of the function.  This is the minor sort
+           for this listing. The index shows the location of
+	   the function in the gprof listing. If the index is
+	   in parenthesis it shows where it would appear in
+	   the gprof listing if it were to be printed.
+#+END_EXAMPLE
+
+** Examining gprof data
+
+The very first section of the ~gprof~ output gives us important
+information. It's telling us that we are spending ~40.35%~ of our time
+in ~myFun3()~ compared with only ~13.45%~ and ~3.36%~ in ~myFun2()~
+and ~myFun3()~. The obvious thing to try to do now is to speed up
+~myFun3()~.
+
+
+* Known slugs
+
+There are some C functions that are known to be slow.
+
+** Slow math functions
+
+=pow()=, =sqrt()=, and trigonometric functions (e.g. =sin()=, =cos()=,
+=tan()=, etc.
+
+When using =pow()= with integers, just use basic operators instead. For example instead of this:
+
+#+BEGIN_SRC c
+double y = 3.14;
+double x = pow(y, 3);
+#+END_SRC
+
+Use the =*= operator instead:
+
+#+BEGIN_SRC c
+double y = 3.14;
+double x = y*y*y;
+#+END_SRC
+
+You can sometimes get around having to compute =sqrt()=, e.g. by
+squaring instead (but not using =pow()=). For example, let's say we're testing whether the distance of a point (x1,y1) from another point (x2,y2) is less than some minimum (mindist). Instead of computing the actual distance like this:
+
+#+BEGIN_SRC c
+double the_dist = sqrt( pow(x2-x1,2) + pow(y2-y1,2) );
+if (the_dist < mindist) {
+  printf("it is less\n");
+}
+#+END_SRC
+
+You can test the squared distance against the squared mindist:
+
+#+BEGIN_SRC c
+double xdif = x2-x1;
+double ydif = y2-y1;
+double the_dist_squared = (xdif*xdif) + (ydif*ydif);
+if (the_dist_squared < (mindist*mindist)) {
+  printf("it is less\n");
+}
+#+END_SRC
+
+Note how we have also replaced =pow()=, and we have made temporary
+variables =xdif= and =ydif= so we only compute each difference once.
+
+In our lab, we got rid of a bunch of =pow()= function calls in a C
+function that represented a muscle model in an arm model simulation,
+and we sped up the code by a factor of about two (twice as fast).
+
+* Using the Optimizer compiler flags
+
+There are a number of levels of "optimization" that you can request of
+the ~gcc~ compiler at compile time. You can read about them
+[[http://gcc.gnu.org/onlinedocs/gcc/Optimize-Options.html][here]]. Turning on the optimizer flags asks the compiler to attempt to
+improve the performance (speed) of the code, typically at the expense
+of compilation time, (sometimes code size), and (usually) debugging
+ease.
+
+If you type this:
+
+#+BEGIN_SRC sh
+gcc -Q --help=optimizers
+#+END_SRC
+
+You will get a long list of all of the various optimization options
+that are possible. Typically they are grouped into several "levels" of
+optimization which can be requested with a flag like ~-On~ where ~n~
+is 1, 2, 3, etc.
+
+See the gcc [[http://gcc.gnu.org/onlinedocs/gcc/Optimize-Options.html][Optimize-Options]] for a full listing of what's turned on when you request ~-O~, ~-O1~, ~-O2~, ~-O3~, etc.
+
+** Effects on debugging
+
+As a general rule, in fact, you should *not* use optimization flags
+when you are still debugging your code with ~gdb~. When your code is
+compiled with optimization flags, strange things can happen, for
+example, variables you have defined may no longer be present, some
+statements may be executed in different places than where they are
+coded (and sometimes not at all), etc.
+
+Sometimes you can get impressive speedups with optimization, simply by
+compiling with an optimizer flag, you might get a speedup even of
+twice as fast.
+
+* Links
+
+- [[http://www.ibm.com/developerworks/library/l-gnuprof.html][Speed your code with the GNU profiler]]
+- [[http://www.linuxjournal.com/article/7269][Optimization in GCC]]
+
+

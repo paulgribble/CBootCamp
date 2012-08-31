@@ -1,0 +1,21 @@
+html {
+	font-family: verdana, georgia, helvetica, sans-serif;
+	font-size: 10pt;
+	height: 100%;
+	width: 100%;
+	margin: 0;
+	padding: 0;
+}
+
+body {
+	text-align: justify;
+	padding-left: 8%;
+	padding-right: 8%;
+	padding-bottom: 5%;
+	padding-top: 2%;
+}
+
+body a{
+	color: #2580a2;
+	text-decoration: none;
+}

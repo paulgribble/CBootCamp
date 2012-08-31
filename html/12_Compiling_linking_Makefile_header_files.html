@@ -1,0 +1,722 @@
+<?xml version="1.0" encoding="iso-8859-1"?>
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Strict//EN"
+               "http://www.w3.org/TR/xhtml1/DTD/xhtml1-strict.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml" lang="en" xml:lang="en">
+<head>
+<title>12. Compiling, linking, Makefile, header files</title>
+<meta http-equiv="Content-Type" content="text/html;charset=iso-8859-1"/>
+<meta name="title" content="12. Compiling, linking, Makefile, header files"/>
+<meta name="generator" content="Org-mode"/>
+<meta name="generated" content="Summer 2012"/>
+<meta name="author" content="Paul Gribble"/>
+<meta name="description" content=""/>
+<meta name="keywords" content=""/>
+<style type="text/css">
+ <!--/*--><![CDATA[/*><!--*/
+  html { font-family: Times, serif; font-size: 12pt; }
+  .title  { text-align: center; }
+  .todo   { color: red; }
+  .done   { color: green; }
+  .tag    { background-color: #add8e6; font-weight:normal }
+  .target { }
+  .timestamp { color: #bebebe; }
+  .timestamp-kwd { color: #5f9ea0; }
+  .right  {margin-left:auto; margin-right:0px;  text-align:right;}
+  .left   {margin-left:0px;  margin-right:auto; text-align:left;}
+  .center {margin-left:auto; margin-right:auto; text-align:center;}
+  p.verse { margin-left: 3% }
+  pre {
+	border: 1pt solid #AEBDCC;
+	background-color: #F3F5F7;
+	padding: 5pt;
+	font-family: courier, monospace;
+        font-size: 90%;
+        overflow:auto;
+  }
+  table { border-collapse: collapse; }
+  td, th { vertical-align: top;  }
+  th.right  { text-align:center;  }
+  th.left   { text-align:center;   }
+  th.center { text-align:center; }
+  td.right  { text-align:right;  }
+  td.left   { text-align:left;   }
+  td.center { text-align:center; }
+  dt { font-weight: bold; }
+  div.figure { padding: 0.5em; }
+  div.figure p { text-align: center; }
+  div.inlinetask {
+    padding:10px;
+    border:2px solid gray;
+    margin:10px;
+    background: #ffffcc;
+  }
+  textarea { overflow-x: auto; }
+  .linenr { font-size:smaller }
+  .code-highlighted {background-color:#ffff00;}
+  .org-info-js_info-navigation { border-style:none; }
+  #org-info-js_console-label { font-size:10px; font-weight:bold;
+                               white-space:nowrap; }
+  .org-info-js_search-highlight {background-color:#ffff00; color:#000000;
+                                 font-weight:bold; }
+  /*]]>*/-->
+</style><link rel="stylesheet" type="text/css" href="mystyle.css" />
+<script type="text/javascript">
+<!--/*--><![CDATA[/*><!--*/
+ function CodeHighlightOn(elem, id)
+ {
+   var target = document.getElementById(id);
+   if(null != target) {
+     elem.cacheClassElem = elem.className;
+     elem.cacheClassTarget = target.className;
+     target.className = "code-highlighted";
+     elem.className   = "code-highlighted";
+   }
+ }
+ function CodeHighlightOff(elem, id)
+ {
+   var target = document.getElementById(id);
+   if(elem.cacheClassElem)
+     elem.className = elem.cacheClassElem;
+   if(elem.cacheClassTarget)
+     target.className = elem.cacheClassTarget;
+ }
+/*]]>*///-->
+</script>
+
+</head>
+<body>
+<div id="org-div-home-and-up" style="text-align:right;font-size:70%;white-space:nowrap;">
+ <a accesskey="h" href="index.html"> UP </a>
+ |
+ <a accesskey="H" href="index.html"> HOME </a>
+</div>
+
+<div id="preamble">
+
+</div>
+
+<div id="content">
+<h1 class="title">12. Compiling, linking, Makefile, header files</h1>
+
+
+
+<hr/>
+<div id="table-of-contents">
+<h2>Table of Contents</h2>
+<div id="text-table-of-contents">
+<ul>
+<li><a href="#sec-1">Splitting your program into multiple files</a>
+<ul>
+<li><a href="#sec-1-1">Header files</a></li>
+<li><a href="#sec-1-2">An example</a></li>
+<li><a href="#sec-1-3">Another example</a></li>
+<li><a href="#sec-1-4">Search path</a></li>
+<li><a href="#sec-1-5">External variables</a></li>
+</ul>
+</li>
+<li><a href="#sec-2">The GNU <code>make</code> utility and Makefiles</a>
+<ul>
+<li><a href="#sec-2-1">Introducing more generalization to the Makefile</a></li>
+</ul>
+</li>
+<li><a href="#sec-3">Links</a></li>
+</ul>
+</div>
+</div>
+
+<hr/>
+
+
+<div id="outline-container-1" class="outline-2">
+<h2 id="sec-1">Splitting your program into multiple files</h2>
+<div class="outline-text-2" id="text-1">
+
+
+<p>
+The programs we have seen so far have all been stored in a single
+source file. As your programs become larger, and as you start to deal
+with other people's code (e.g. other C libraries) you will have to
+deal with code that resides in multiple files. Indeed you may build up
+your own library of C functions and data structures, that you can
+re-use in your own scientific programming and data analysis. Here we
+will see how to place C functions and data structures in their own
+file(s) and how to incorporate them into a new program.
+</p>
+<p>
+We saw in the section on functions, that one way of including
+custom-written functions in your C code, is to simply place them in
+your main source file, above the declaration of the <code>main()</code>
+function. A better way to re-use functions that you commonly
+incorporate into your C programs is to place them in their own file,
+and to include a statement above <code>main()</code> to <b>include</b> that file. When
+compiled, it's just like copying and pasting the code above <code>main()</code>,
+but for the purpose of editing and writing your code, this allows you
+to keep things in separate files. It also means that if you ever
+decide to <b>change</b> one of those re-usable functions (for example if
+you find and fix an error) that you only have to change it in <b>one place</b>, and you don't have to go searching through all of your
+programs and change each one.
+</p>
+
+</div>
+
+<div id="outline-container-1-1" class="outline-3">
+<h3 id="sec-1-1">Header files</h3>
+<div class="outline-text-3" id="text-1-1">
+
+
+<p>
+A common convention in C programs is to write a header file (with <b>.h</b>
+suffix) for each source file (<b>.c</b> suffix) that you link to your main
+source code. The logic is that the .c source file contains all of the code and the header file contains the function <b>prototypes</b>, that is, just a declaration of which functions can be found in the source file.
+</p>
+<p>
+This is done for libraries that are provided by others, sometimes only
+as compiled binary "blobs" (i.e. you can't look at the source
+code). Pairing them with plain-text header files allows you see what
+functions are defined, and what arguments they take (and return).
+</p>
+</div>
+
+</div>
+
+<div id="outline-container-1-2" class="outline-3">
+<h3 id="sec-1-2">An example</h3>
+<div class="outline-text-3" id="text-1-2">
+
+
+<p>
+Here is a program that computes the preferred direction of a neuron
+recorded in primary motor cortex of rhesus macaques, during a
+whole-arm reaching task (e.g. from <a href="http://www.gribblelab.org/publications/2001_Nature_scott.pdf">Gribble &amp; Scott, 2002</a>). The monkey
+moved his hand from a central start target to one of 8 peripheral
+targets around the circumference of a circle. Movements to each of the
+8 targets were repeated 5 times for a total of 40 movements. The order
+of target directions was randomized.
+</p>
+<p>
+The data for each neuron are represented by two sets of values: first,
+an array of 40 values that indicate for each movement, the <b>direction</b>
+of the movement (specifically, the direction, in radians of the
+velocity vector at peak hand velocity), and second, another array of
+40 values that indicate for each movement, the mean number of <b>spikes</b>
+per second averaged over a window starting 150ms before movement onset
+and ending at peak hand velocity.
+</p>
+<p>
+For each neuron, the goal is to compute a <b>preferred direction</b>. That
+is, the direction of movement for which the neuron fires most
+enthusiastically (most spikes per second). The details of how these
+computations are done are not so important to consider here, but
+imagine for the moment that we have already written (or someone has
+provided us with) a C function called <code>compute_PD()</code> that performs
+this calculation, and that the code is stored in a file called
+<a href="code/neurons/neuron.c">neuron.c</a>, with a header file <a href="code/neurons/neuron.h">neuron.h</a>.
+</p>
+<p>
+Here is our main program which is called <a href="code/neurons/go.c">go.c</a>:
+</p>
+
+
+
+<pre class="src src-c"><span style="color: #af0000;">// </span><span style="color: #af0000;">gcc -std=c99 -o go go.c neuron.c -lm</span>
+
+<span style="color: #875f87;">#include</span> <span style="color: #87005f;">&lt;stdio.h&gt;</span>
+<span style="color: #875f87;">#include</span> <span style="color: #87005f;">&lt;stdlib.h&gt;</span>
+<span style="color: #875f87;">#include</span> <span style="color: #87005f;">&lt;string.h&gt;</span>
+<span style="color: #875f87;">#include</span> <span style="color: #87005f;">"neuron.h"</span>
+
+<span style="color: #008700;">int</span> <span style="color: #0000ff;">main</span>(<span style="color: #008700;">int</span> <span style="color: #af5f00;">argc</span>, <span style="color: #008700;">char</span> *<span style="color: #af5f00;">argv</span>[]) {
+
+  <span style="color: #008700;">int</span> <span style="color: #af5f00;">ncells</span> = 100;                     <span style="color: #af0000;">// </span><span style="color: #af0000;"># cells to process</span>
+  <span style="color: #008700;">char</span> <span style="color: #af5f00;">fnum</span>[4], <span style="color: #af5f00;">fname</span>[128];              <span style="color: #af0000;">// </span><span style="color: #af0000;">filename strings</span>
+  <span style="color: #008700;">double</span> <span style="color: #af5f00;">celldirs</span>[40], <span style="color: #af5f00;">cellspks</span>[40];    <span style="color: #af0000;">// </span><span style="color: #af0000;">data for each cell</span>
+  <span style="color: #008700;">double</span> <span style="color: #af5f00;">PD</span>[ncells], <span style="color: #af5f00;">plate_out</span>[9];      <span style="color: #af0000;">// </span><span style="color: #af0000;">store cell PDs</span>
+
+  <span style="color: #af0000;">// </span><span style="color: #af0000;">loop to process each cell</span>
+  <span style="color: #008700;">int</span> <span style="color: #af5f00;">i</span>;
+  <span style="color: #af00ff;">for</span> (i=1; i&lt;=ncells; i++) {
+
+    <span style="color: #af0000;">// </span><span style="color: #af0000;">construct the numeric part of the filename</span>
+    <span style="color: #af00ff;">if</span> (i&lt;10) sprintf(fnum, <span style="color: #87005f;">"00%d"</span>, i);
+    <span style="color: #af00ff;">else</span> <span style="color: #af00ff;">if</span> (i&lt;100) sprintf(fnum, <span style="color: #87005f;">"0%d"</span>, i);
+    <span style="color: #af00ff;">else</span> sprintf(fnum, <span style="color: #87005f;">"%d"</span>, i);
+
+    <span style="color: #af0000;">// </span><span style="color: #af0000;">read in a dirs data file</span>
+    sprintf(fname, <span style="color: #87005f;">"data/cell_dirs_%s.txt"</span>, fnum);
+    readcell(fname, celldirs, 40, 0);
+
+    <span style="color: #af0000;">// </span><span style="color: #af0000;">read in a spks data file</span>
+    sprintf(fname, <span style="color: #87005f;">"data/cell_spks_%s.txt"</span>, fnum);
+    readcell(fname, cellspks, 40, 0);
+
+    <span style="color: #af0000;">// </span><span style="color: #af0000;">compute PD</span>
+    PD[i-1] = compute_PD(celldirs, cellspks, 40);
+  }
+
+  <span style="color: #af0000;">// </span><span style="color: #af0000;">print vector of PDs to screen and write to a file</span>
+  show_double_vec(PD, ncells);
+  write_double_vec(PD, ncells, <span style="color: #87005f;">"PDs.txt"</span>);
+
+  <span style="color: #af00ff;">return</span> 0;
+}
+
+
+</pre>
+
+
+<p>
+What we can see is that on line 6, we use an <code>#include</code> statement to
+include the neuron.h header file (shown below). This is a way of
+essentially telling the compiler, that these functions (in neurons.h)
+will be described fully later &hellip; and for now, "trust" that they are
+defined, and in this particular way (inputs and outputs).
+</p>
+<p>
+On line 1 (commented out) I show the gcc command to compile this
+program, and you can see that we simple add neuron.c to the list of
+files to send to the compiler. This is where the compiler actually
+integrates the code in neuron.c into our program. We also need the
+<code>-lm</code> flag, to instruct the compiler to load the standard C math
+library (since the <code>#include &lt;math.h&gt;</code> directive appears in
+<code>neuron.h</code>).
+</p>
+<p>
+Here is the header file <a href="code/neurons/neuron.h">neuron.h</a>:
+</p>
+
+
+
+<pre class="src src-c"><span style="color: #875f87;">#include</span> <span style="color: #87005f;">&lt;stdlib.h&gt;</span>
+<span style="color: #875f87;">#include</span> <span style="color: #87005f;">&lt;stdio.h&gt;</span>
+<span style="color: #875f87;">#include</span> <span style="color: #87005f;">&lt;math.h&gt;</span>
+
+<span style="color: #875f87;">#if</span><span style="color: #875f87;">n</span><span style="color: #875f87;">def</span> M_PI
+<span style="color: #875f87;">#define</span> <span style="color: #af5f00;">M_PI</span> 3.1415926535897932384626433832795
+<span style="color: #875f87;">#endif</span>
+
+<span style="color: #008700;">void</span> <span style="color: #0000ff;">show_int_vec</span>(<span style="color: #008700;">int</span> <span style="color: #af5f00;">vec</span>[], <span style="color: #008700;">int</span> <span style="color: #af5f00;">n</span>);
+
+<span style="color: #008700;">void</span> <span style="color: #0000ff;">show_double_vec</span>(<span style="color: #008700;">double</span> <span style="color: #af5f00;">vec</span>[], <span style="color: #008700;">int</span> <span style="color: #af5f00;">n</span>);
+
+<span style="color: #008700;">void</span> <span style="color: #0000ff;">write_double_vec</span>(<span style="color: #008700;">double</span> <span style="color: #af5f00;">vec</span>[], <span style="color: #008700;">int</span> <span style="color: #af5f00;">n</span>, <span style="color: #008700;">char</span> <span style="color: #af5f00;">fname</span>[]);
+
+<span style="color: #008700;">void</span> <span style="color: #0000ff;">showmat</span>(<span style="color: #008700;">double</span> <span style="color: #af5f00;">mat</span>[], <span style="color: #008700;">int</span> <span style="color: #af5f00;">nrows</span>, <span style="color: #008700;">int</span> <span style="color: #af5f00;">ncols</span>);
+
+<span style="color: #008700;">void</span> <span style="color: #0000ff;">readcell</span>(<span style="color: #008700;">char</span> <span style="color: #af5f00;">fname</span>[], <span style="color: #008700;">double</span> <span style="color: #af5f00;">data</span>[], <span style="color: #008700;">int</span> <span style="color: #af5f00;">n</span>, <span style="color: #008700;">int</span> <span style="color: #af5f00;">msg</span>);
+
+<span style="color: #008700;">void</span> <span style="color: #0000ff;">oneplate</span>(<span style="color: #008700;">double</span> <span style="color: #af5f00;">r1</span>, <span style="color: #008700;">double</span> <span style="color: #af5f00;">r2</span>, <span style="color: #008700;">double</span> <span style="color: #af5f00;">a1</span>, <span style="color: #008700;">double</span> <span style="color: #af5f00;">a2</span>, <span style="color: #008700;">double</span> <span style="color: #af5f00;">output</span>[6]);
+
+<span style="color: #008700;">void</span> <span style="color: #0000ff;">platemethod</span>(<span style="color: #008700;">double</span> <span style="color: #af5f00;">a</span>[], <span style="color: #008700;">double</span> <span style="color: #af5f00;">r</span>[], <span style="color: #008700;">int</span> <span style="color: #af5f00;">n</span>, <span style="color: #008700;">double</span> <span style="color: #af5f00;">output</span>[9]);
+
+<span style="color: #008700;">int</span> <span style="color: #0000ff;">mycomp</span>(<span style="color: #af00ff;">const</span> <span style="color: #008700;">void</span> *<span style="color: #af5f00;">a</span>, <span style="color: #af00ff;">const</span> <span style="color: #008700;">void</span> *<span style="color: #af5f00;">b</span>);
+
+<span style="color: #008700;">double</span> <span style="color: #0000ff;">getangle</span>(<span style="color: #008700;">double</span> <span style="color: #af5f00;">x</span>, <span style="color: #008700;">double</span> <span style="color: #af5f00;">y</span>);
+
+<span style="color: #008700;">int</span> <span style="color: #0000ff;">mycomp_struct</span>(<span style="color: #af00ff;">const</span> <span style="color: #008700;">void</span> *<span style="color: #af5f00;">a</span>, <span style="color: #af00ff;">const</span> <span style="color: #008700;">void</span> *<span style="color: #af5f00;">b</span>);
+
+<span style="color: #008700;">double</span> <span style="color: #0000ff;">compute_PDr</span>(<span style="color: #008700;">double</span> <span style="color: #af5f00;">celldirs</span>[], <span style="color: #008700;">double</span> <span style="color: #af5f00;">cellspks</span>[], <span style="color: #008700;">int</span> <span style="color: #af5f00;">ntrials</span>, <span style="color: #008700;">int</span> <span style="color: #af5f00;">ndirs</span>);
+
+<span style="color: #008700;">double</span> <span style="color: #0000ff;">compute_PD</span>(<span style="color: #008700;">double</span> <span style="color: #af5f00;">celldirs</span>[], <span style="color: #008700;">double</span> <span style="color: #af5f00;">cellspks</span>[], <span style="color: #008700;">int</span> <span style="color: #af5f00;">ntrials</span>);
+</pre>
+
+
+<p>
+What you can see is that this is simply a listing of the functions
+that are defined in neuron.c, and we simply list the function
+prototypes, not the "meat" of the functions themselves. When we write
+the #include "neuron.h" statement at the top of go.c (line 6), these
+function prototypes are loaded in, so that the code in the main
+program "knows about" these functions. Note that there are some
+functions in here that we do not use in the <code>go.c</code> code above.
+</p>
+<p>
+An important point to remember is that as long as we can look at the
+header file, we have all the information about what functions are
+defined in the source file, and how they are used (what their input
+arguments are and what output arguments, if any, they return). If we
+want to look "inside" those functions, we can look at the source
+file. The header file then can be thought of as an <b>interface</b> between
+the source code and the programmer.
+</p>
+<p>
+To summarize then, in order to include external code in your C program
+(code that is located in a separate file), you need to make sure two things happen:
+</p>
+<ol>
+<li>The external C source code is passed to the compiler at compile time
+
+</li>
+<li>Your own C program has access to the function prototypes associated with the external code
+</li>
+</ol>
+
+
+</div>
+
+</div>
+
+<div id="outline-container-1-3" class="outline-3">
+<h3 id="sec-1-3">Another example</h3>
+<div class="outline-text-3" id="text-1-3">
+
+
+<p>
+Another small example: let's say you want to write a program that
+takes at the command-line one integer input, and determines whether
+that integer is a prime number or not. Now let's say that you don't
+want to write your own code for determining primality, so you ask your
+friend, who you know has written such a function already. She sends
+you a pair of files (<a href="code/primes/primes.h">primes.h</a> and <a href="code/primes/primes.c">primes.c</a>). Her header file
+(<a href="code/primes/primes.h">primes.h</a>) looks like this:
+</p>
+
+
+
+<pre class="src src-c"><span style="color: #008700;">int</span> <span style="color: #0000ff;">isPrime</span>(<span style="color: #008700;">int</span> <span style="color: #af5f00;">n</span>); <span style="color: #af0000;">// </span><span style="color: #af0000;">returns 0 if n is not prime, 1 if n is prime</span>
+
+</pre>
+
+
+<p>
+So we know a couple of things from this header file. First, it
+requires the <code>math.h</code> standard C library, so we will need to add the
+<code>-lm</code> compiler flag to the command we use to compile our
+program. Second, it declares a function prototype for <code>isPrime()</code>. We
+can see this function takes a single integer as an input argument, and
+returns an integer value: 0 if the input value is a prime number, and
+0 if it is not. Now we know all we need to know in order to use this
+function (without even looking at the function's source code, which
+resides in <code>primes.c</code>).
+</p>
+<p>
+Here is what the <a href="code/primes/primes.c">primes.c</a> file look like:
+</p>
+
+
+
+<pre class="src src-c"><span style="color: #008700;">int</span> <span style="color: #0000ff;">isPrime</span>(<span style="color: #008700;">int</span> <span style="color: #af5f00;">n</span>) {
+
+  <span style="color: #af0000;">// </span><span style="color: #af0000;">returns 0 if not prime, 1 if prime</span>
+
+  <span style="color: #af00ff;">if</span> (n&lt;2) <span style="color: #af00ff;">return</span> 0;         <span style="color: #af0000;">// </span><span style="color: #af0000;">first prime number is 2</span>
+  <span style="color: #af00ff;">if</span> (n==2) <span style="color: #af00ff;">return</span> 1;        <span style="color: #af0000;">// </span><span style="color: #af0000;">ensure 2 is identified as a prime</span>
+  <span style="color: #af00ff;">if</span> ((n % 2)==0) <span style="color: #af00ff;">return</span> 0;  <span style="color: #af0000;">// </span><span style="color: #af0000;">all even numbers above 2 are not prime</span>
+
+  <span style="color: #008700;">int</span> <span style="color: #af5f00;">i</span>;
+  <span style="color: #af00ff;">for</span> (i=3; i*i &lt; n; i++) {  <span style="color: #af0000;">// </span><span style="color: #af0000;">test divisibility up to sqrt(n)</span>
+    <span style="color: #af00ff;">if</span> ((n % i) == 0) {
+      <span style="color: #af00ff;">return</span> 0;
+    }
+  }
+  <span style="color: #af00ff;">return</span> 1;
+}
+</pre>
+
+
+<p>
+Here is what our program <a href="code/primes/go.c">go.c</a> looks like:
+</p>
+
+
+
+<pre class="src src-c"><span style="color: #af0000;">/* </span><span style="color: #af0000;">go.c</span>
+<span style="color: #af0000;">   Takes one input argument from the command line, an integer,</span>
+<span style="color: #af0000;">   and returns 1 if the number is prime, and 0 if it is not.</span>
+
+<span style="color: #af0000;">   Compile with: gcc -o go go.c primes.c </span>
+<span style="color: #af0000;">*/</span>
+
+<span style="color: #875f87;">#include</span> <span style="color: #87005f;">&lt;stdio.h&gt;</span>
+<span style="color: #875f87;">#include</span> <span style="color: #87005f;">&lt;stdlib.h&gt;</span>
+<span style="color: #875f87;">#include</span> <span style="color: #87005f;">"primes.h"</span>
+
+<span style="color: #008700;">int</span> <span style="color: #0000ff;">main</span>(<span style="color: #008700;">int</span> <span style="color: #af5f00;">argc</span>, <span style="color: #008700;">char</span> *<span style="color: #af5f00;">argv</span>[]) {
+  <span style="color: #af00ff;">if</span> (argc &lt; 2) {
+    printf(<span style="color: #87005f;">"error: must provide a single integer value to test\n"</span>);
+    <span style="color: #af00ff;">return</span> 1;
+  }
+  <span style="color: #af00ff;">else</span> {
+    <span style="color: #008700;">int</span> <span style="color: #af5f00;">n</span> = atoi(argv[1]);
+    <span style="color: #008700;">int</span> <span style="color: #af5f00;">prime</span> = isPrime(n);
+    printf(<span style="color: #87005f;">"isPrime(%d) = %d\n"</span>, n, prime);
+    <span style="color: #af00ff;">return</span> 0;
+  }
+}
+
+</pre>
+
+
+<p>
+Here is the result of running the program on a small selection of
+input values:
+</p>
+
+
+
+<pre class="example">plg@wildebeest:~/Desktop$ gcc -o go go.c primes.c
+plg@wildebeest:~/Desktop$ ./go 1
+isPrime(1) = 0
+plg@wildebeest:~/Desktop$ ./go 2
+isPrime(2) = 1
+plg@wildebeest:~/Desktop$ ./go 3
+isPrime(3) = 1
+plg@wildebeest:~/Desktop$ ./go 63
+isPrime(63) = 0
+plg@wildebeest:~/Desktop$ ./go 67
+isPrime(67) = 1
+plg@wildebeest:~/Desktop$ ./go 12347
+isPrime(12347) = 1
+</pre>
+
+
+</div>
+
+</div>
+
+<div id="outline-container-1-4" class="outline-3">
+<h3 id="sec-1-4">Search path</h3>
+<div class="outline-text-3" id="text-1-4">
+
+
+<p>
+The compiler will look in several places for header files that you
+include with the <code>#include</code> directive, depending on how you use it. If
+you use include with the angled brackets (e.g. <code>#include &lt;stdio.h&gt;</code>)
+then the compiler will look in a series of "default" system-wide
+locations (see <a href="http://gcc.gnu.org/onlinedocs/cpp/Search-Path.html#Search-Path">Search Path</a> for details). If you use double-quotes
+(e.g. #include "neuron.h") then the compiler will look in the
+directory containing the current file. It's possible to add other
+directories to the search path by using the <code>-Idir</code> compiler option,
+where <code>dir</code> is the other directory. You might have to do this if you
+link your code to an external C library that is not part of the
+standard C library, and does not reside in the usual "system" default
+locations.
+</p>
+</div>
+
+</div>
+
+<div id="outline-container-1-5" class="outline-3">
+<h3 id="sec-1-5">External variables</h3>
+<div class="outline-text-3" id="text-1-5">
+
+
+<p>
+Just as we can include external code in our C programs, we can make a
+declaration in our C program that a variable exists and has been
+declared elsewhere (e.g. in some other source file). This is done
+using the <code>extern</code> keyword. See <a href="http://en.wikipedia.org/wiki/External_variable">here</a> for more details.
+</p>
+
+</div>
+</div>
+
+</div>
+
+<div id="outline-container-2" class="outline-2">
+<h2 id="sec-2">The GNU <code>make</code> utility and Makefiles</h2>
+<div class="outline-text-2" id="text-2">
+
+
+<p>
+There is a UNIX tool called <code>make</code> that is commonly used to compile C
+programs that are made up of several files, and (sometimes) involve
+several compilation steps. There is a lot of power in the <code>make</code> tool,
+but what I want to introduce here is a simple use of it, which lets
+you avoid having to remember a long, complicated compile command
+(e.g. in line 1 of the output from the prime number program above).
+</p>
+<p>
+The <code>make</code> utility uses a special plain-text file that you write that
+has to reside in the same directory as your program, and has to be
+called <code>Makefile</code>. You can think of a Makefile as a <b>recipe</b> for
+making your program (i.e. linking and compiling).
+</p>
+<p>
+A simple Makefile (<a href="code/primes/Makefile1.txt">Makefile1.txt</a>) for our prime number program above
+might look like this:
+</p>
+
+
+
+<pre class="src src-sh">go: go.c primes.c
+        gcc -o go go.c primes.c 
+</pre>
+
+
+<p>
+The first word and colon <code>go:</code> on line 1 represents the <b>name</b> of a
+recipe called <b>go</b>. The list of files after the colon (<code>go.c primes.c</code>) represent all of the things that go <b>depends upon</b>. On the
+next line, there is a <code>TAB</code> (not spaces) followed by a compile
+command. This represents the step (there could be more lines for more
+steps if there were any) that are required to "make" the "go"
+recipe. Here we simply have put our compile command.
+</p>
+<p>
+Now all we have to do from the command-line is type <code>make</code>, and make
+will "make" the recipe for "go". (Running <code>make</code> with no arguments
+executes the first rule (recipe) in the Makefile). The <code>make</code> program
+knows that the "go" rule needs to be executed if any of the files that
+it depends upon, (because they follow the colon on line 1) changes.
+</p>
+<p>
+Here is what it looks like when we run <code>make</code> using <a href="code/primes/Makefile1.txt">Makefile1.txt</a>:
+</p>
+
+
+
+<pre class="example">plg@wildebeest:~/Desktop/CBootCamp/code/primes$ cp Makefile1.txt Makefile
+plg@wildebeest:~/Desktop/CBootCamp/code/primes$ make
+gcc -o go go.c primes.c -lm 
+</pre>
+
+
+<p>
+You can see the command (line 3) that ends up being executed by
+<code>make</code>.
+</p>
+
+</div>
+
+<div id="outline-container-2-1" class="outline-3">
+<h3 id="sec-2-1">Introducing more generalization to the Makefile</h3>
+<div class="outline-text-3" id="text-2-1">
+
+
+<p>
+There are a number of features of a Makefile we can utilize to make
+the whole idea more useful. We can introduce "macros" (like a
+variable) to generalize the name of the C compiler to use, the flags
+to pass the compiler, the location of any library files, etc etc. Here
+is what a more generalized Makefile (<a href="code/primes/Makefile2.txt">Makefile2.txt</a>) might look like for
+our primes example from above:
+</p>
+
+
+
+<pre class="src src-sh">CC = gcc
+CFLAGS = -Wall
+DEPS = primes.h
+OBJ = go.o primes.o
+
+%.o: %.c $(<span style="color: #cd00cd;">DEPS</span>)
+        $(<span style="color: #cd00cd;">CC</span>) $(<span style="color: #cd00cd;">CFLAGS</span>) -c -o $@ $&lt;
+
+go: $(<span style="color: #cd00cd;">OBJ</span>)
+        gcc $(<span style="color: #cd00cd;">CFLAGS</span>) -o $@ $^
+</pre>
+
+
+<p>
+You can see we have moved all the specific details (filenames,
+compiler flags, etc) into the macros on the top, and what remains
+below in the rules themselves, is expressed only in terms of those
+macros. There's nothing wrong with using a Makefile that is simple (as
+in <a href="code/primes/Makefile1.txt">Makefile1.txt</a>, it is a choice for you about how fancy to get. The one
+limitation of <a href="code/primes/Makefile1.txt">Makefile1.txt</a> is that the header file <code>primes.h</code> doesn't
+appear anywhere &hellip; this means if that file changes, then <code>make</code> will
+not think it has to recompile anything (because nothing in the rule
+"go" depends on <code>primes.h</code>). In <a href="code/primes/Makefile2.txt">Makefile2.txt</a>, we introduce a dependency
+of <code>.o</code> files (on line 6) on <code>$(DEPS)</code>, which is defined above on line
+3, and includes the header file <code>primes.h</code>.
+</p>
+<p>
+Note that we have term in the <code>CFLAGS</code> macro that looks like this:
+<code>-Wall</code>. This is a flag to the compiler to turn on all <a href="http://gcc.gnu.org/onlinedocs/gcc/Warning-Options.html">Warnings</a>. There
+are many warnings that the compiler will tell you about, like
+variables that are never used, uninitialized variables, etc. Consult
+the documentation for full details.
+</p>
+<p>
+Here is what it looks like when we run <code>make</code> using <a href="code/primes/Makefile2.txt">Makefile2.txt</a>:
+</p>
+
+
+
+<pre class="example">plg@wildebeest:~/Desktop/CBootCamp/code/primes$ cp Makefile2.txt Makefile
+plg@wildebeest:~/Desktop/CBootCamp/code/primes$ make
+gcc -c -o go.o go.c -lm
+gcc -c -o primes.o primes.c -lm
+gcc -o go go.o primes.o -lm
+</pre>
+
+
+<p>
+You can see that in this case, three commands end up being run (lines
+3-5).
+</p>
+<p>
+Now the neat thing is, if we type <code>make</code> again (without changing anything) we get this:
+</p>
+
+
+
+<pre class="example">plg@wildebeest:~/Desktop/CBootCamp/code/primes$ make
+make: `go' is up to date.
+</pre>
+
+
+<p>
+We are told that the "go" rule is "up to date". The <code>make</code> program
+checks to see which files have changed since the last make, and only
+executes the step in the rule(s) (if any) that need to be done (it
+figures this out based on the dependencies that you set up in the
+rules).
+</p>
+<p>
+In the long run, using Makefiles is a good idea, because:
+</p>
+<ul>
+<li>it's faster to recompile things (less typing, and it only recompiles
+  based on what's changed and leaves the rest)
+</li>
+<li>it organizes all the "steps" in a (potentially complex) compilation
+  into one place (the Makefile), which makes it easier for other
+  people to compile your code
+</li>
+</ul>
+
+
+<p>
+See the links below for more details and more examples of how GNU make
+can be used to your advantage.
+</p>
+
+</div>
+</div>
+
+</div>
+
+<div id="outline-container-3" class="outline-2">
+<h2 id="sec-3">Links</h2>
+<div class="outline-text-2" id="text-3">
+
+
+<ul>
+<li><a href="http://gcc.gnu.org/onlinedocs/cpp/Header-Files.html">GNU C Compiler (gcc): Header Files</a>
+</li>
+<li><a href="http://gcc.gnu.org/onlinedocs/cpp/Search-Path.html#Search-Path">Wikipedia: Header Files</a>
+</li>
+<li><a href="http://www.gnu.org/software/make/">GNU Make</a> and <a href="http://www.gnu.org/software/make/manual/make.html">GNU make manual</a>
+</li>
+<li><a href="http://en.wikipedia.org/wiki/Make_(software)">Wikipedia: Make</a>
+</li>
+<li><a href="http://www.cs.colby.edu/maxwell/courses/tutorials/maketutor/">A Simple Makefile Tutorial</a>
+</li>
+<li><a href="http://www.linuxforu.com/2012/06/gnu-make-in-detail-for-beginners/">GNU Make in detail for beginners</a>
+</li>
+<li><a href="http://www.csee.umbc.edu/courses/undergraduate/313/spring12/Resources/UnixProgrammingTools.pdf">UNIX Programming Tools</a>
+</li>
+</ul>
+
+
+
+</div>
+</div>
+</div>
+
+<div id="postamble">
+<hr />Paul Gribble | Summer 2012<br>This <span xmlns:dct="http://purl.org/dc/terms/" href="http://purl.org/dc/dcmitype/Text" rel="dct:type">work</span> is licensed under a <a rel="license" href="http://creativecommons.org/licenses/by-nc-sa/3.0/">Creative Commons Attribution-NonCommercial-ShareAlike 3.0 Unported License</a><br><a rel="license" href="http://creativecommons.org/licenses/by-nc-sa/3.0/"><img alt="Creative Commons License" style="border-width:0" src="http://i.creativecommons.org/l/by-nc-sa/3.0/80x15.png" /></a><br />
+</div>
+</body>
+</html>

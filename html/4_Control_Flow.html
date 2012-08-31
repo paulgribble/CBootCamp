@@ -1,0 +1,766 @@
+<?xml version="1.0" encoding="iso-8859-1"?>
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Strict//EN"
+               "http://www.w3.org/TR/xhtml1/DTD/xhtml1-strict.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml" lang="en" xml:lang="en">
+<head>
+<title>4. Control Flow</title>
+<meta http-equiv="Content-Type" content="text/html;charset=iso-8859-1"/>
+<meta name="title" content="4. Control Flow"/>
+<meta name="generator" content="Org-mode"/>
+<meta name="generated" content="Summer 2012"/>
+<meta name="author" content="Paul Gribble"/>
+<meta name="description" content=""/>
+<meta name="keywords" content=""/>
+<style type="text/css">
+ <!--/*--><![CDATA[/*><!--*/
+  html { font-family: Times, serif; font-size: 12pt; }
+  .title  { text-align: center; }
+  .todo   { color: red; }
+  .done   { color: green; }
+  .tag    { background-color: #add8e6; font-weight:normal }
+  .target { }
+  .timestamp { color: #bebebe; }
+  .timestamp-kwd { color: #5f9ea0; }
+  .right  {margin-left:auto; margin-right:0px;  text-align:right;}
+  .left   {margin-left:0px;  margin-right:auto; text-align:left;}
+  .center {margin-left:auto; margin-right:auto; text-align:center;}
+  p.verse { margin-left: 3% }
+  pre {
+	border: 1pt solid #AEBDCC;
+	background-color: #F3F5F7;
+	padding: 5pt;
+	font-family: courier, monospace;
+        font-size: 90%;
+        overflow:auto;
+  }
+  table { border-collapse: collapse; }
+  td, th { vertical-align: top;  }
+  th.right  { text-align:center;  }
+  th.left   { text-align:center;   }
+  th.center { text-align:center; }
+  td.right  { text-align:right;  }
+  td.left   { text-align:left;   }
+  td.center { text-align:center; }
+  dt { font-weight: bold; }
+  div.figure { padding: 0.5em; }
+  div.figure p { text-align: center; }
+  div.inlinetask {
+    padding:10px;
+    border:2px solid gray;
+    margin:10px;
+    background: #ffffcc;
+  }
+  textarea { overflow-x: auto; }
+  .linenr { font-size:smaller }
+  .code-highlighted {background-color:#ffff00;}
+  .org-info-js_info-navigation { border-style:none; }
+  #org-info-js_console-label { font-size:10px; font-weight:bold;
+                               white-space:nowrap; }
+  .org-info-js_search-highlight {background-color:#ffff00; color:#000000;
+                                 font-weight:bold; }
+  /*]]>*/-->
+</style><link rel="stylesheet" type="text/css" href="mystyle.css" />
+<script type="text/javascript">
+<!--/*--><![CDATA[/*><!--*/
+ function CodeHighlightOn(elem, id)
+ {
+   var target = document.getElementById(id);
+   if(null != target) {
+     elem.cacheClassElem = elem.className;
+     elem.cacheClassTarget = target.className;
+     target.className = "code-highlighted";
+     elem.className   = "code-highlighted";
+   }
+ }
+ function CodeHighlightOff(elem, id)
+ {
+   var target = document.getElementById(id);
+   if(elem.cacheClassElem)
+     elem.className = elem.cacheClassElem;
+   if(elem.cacheClassTarget)
+     target.className = elem.cacheClassTarget;
+ }
+/*]]>*///-->
+</script>
+<script type="text/javascript" src="http://orgmode.org/mathjax/MathJax.js">
+<!--/*--><![CDATA[/*><!--*/
+    MathJax.Hub.Config({
+        // Only one of the two following lines, depending on user settings
+        // First allows browser-native MathML display, second forces HTML/CSS
+        //  config: ["MMLorHTML.js"], jax: ["input/TeX"],
+            jax: ["input/TeX", "output/HTML-CSS"],
+        extensions: ["tex2jax.js","TeX/AMSmath.js","TeX/AMSsymbols.js",
+                     "TeX/noUndefined.js"],
+        tex2jax: {
+            inlineMath: [ ["\\(","\\)"] ],
+            displayMath: [ ['$$','$$'], ["\\[","\\]"], ["\\begin{displaymath}","\\end{displaymath}"] ],
+            skipTags: ["script","noscript","style","textarea","pre","code"],
+            ignoreClass: "tex2jax_ignore",
+            processEscapes: false,
+            processEnvironments: true,
+            preview: "TeX"
+        },
+        showProcessingMessages: true,
+        displayAlign: "center",
+        displayIndent: "2em",
+
+        "HTML-CSS": {
+             scale: 100,
+             availableFonts: ["STIX","TeX"],
+             preferredFont: "TeX",
+             webFont: "TeX",
+             imageFont: "TeX",
+             showMathMenu: true,
+        },
+        MMLorHTML: {
+             prefer: {
+                 MSIE:    "MML",
+                 Firefox: "MML",
+                 Opera:   "HTML",
+                 other:   "HTML"
+             }
+        }
+    });
+/*]]>*///-->
+</script>
+</head>
+<body>
+<div id="org-div-home-and-up" style="text-align:right;font-size:70%;white-space:nowrap;">
+ <a accesskey="h" href="index.html"> UP </a>
+ |
+ <a accesskey="H" href="index.html"> HOME </a>
+</div>
+
+<div id="preamble">
+
+</div>
+
+<div id="content">
+<h1 class="title">4. Control Flow</h1>
+
+
+
+<hr/>
+<div id="table-of-contents">
+<h2>Table of Contents</h2>
+<div id="text-table-of-contents">
+<ul>
+<li><a href="#sec-1">Loops</a>
+<ul>
+<li><a href="#sec-1-1">For Loop</a></li>
+<li><a href="#sec-1-2">While Loop</a></li>
+<li><a href="#sec-1-3">Do-While Loop</a></li>
+</ul>
+</li>
+<li><a href="#sec-2">Conditionals</a>
+<ul>
+<li><a href="#sec-2-1">If Statement</a></li>
+<li><a href="#sec-2-2">Else</a></li>
+<li><a href="#sec-2-3">Else If</a></li>
+<li><a href="#sec-2-4">The Conditional Operator</a></li>
+</ul>
+</li>
+<li><a href="#sec-3">Switch</a></li>
+<li><a href="#sec-4">Break &amp; Continue</a></li>
+<li><a href="#sec-5">Exercises</a>
+<ul>
+<li><a href="#sec-5-1">Solutions</a></li>
+</ul>
+</li>
+</ul>
+</div>
+</div>
+
+<hr/>
+
+
+<div id="outline-container-1" class="outline-2">
+<h2 id="sec-1">Loops</h2>
+<div class="outline-text-2" id="text-1">
+
+
+<p>
+One of the most useful properties of progammable computers is that you
+can ask them to repeat a calculation and/or operation many many times,
+and they will not (usually) complain. The looping constructs in <code>C</code>
+allow us to repeatedly execute a block of code many times, without
+having to manually re-type or re-list the code by hand.
+</p>
+<p>
+As a simple example, let's say we want to compute the cumulative sum
+of integers between 1 and 100. We could write code like the following:
+</p>
+
+
+
+<pre class="src src-c"><span style="color: #008700;">int</span> <span style="color: #af5f00;">cumsum</span> = 0;
+cumsum = cumsum + 1;
+cumsum = cumsum + 2;
+cumsum = cumsum + 3;
+...
+cumsum = cumsum + 100;
+</pre>
+
+
+<p>
+As you can see, not very efficient. As a general rule of programming,
+any time you find yourself copying and pasting code bits many times
+over, you should be thinking to yourself, there must be a better way,
+there must be a way to specify this code more abstractly so that it's
+more compact and reusable. Here, we can use a for-loop to achieve what
+we need.
+</p>
+
+</div>
+
+<div id="outline-container-1-1" class="outline-3">
+<h3 id="sec-1-1">For Loop</h3>
+<div class="outline-text-3" id="text-1-1">
+
+
+<p>
+A generic for-loop looks like this:
+</p>
+
+
+
+<pre class="src src-c"><span style="color: #af00ff;">for</span> (init_expression; loop_condition; loop_expression) {
+  program_statements
+}
+</pre>
+
+
+<p>
+The three expressions inside the round brackets set up the environment
+for the loop. The <code>init_expression</code> is executed before the loop starts
+and is typically where you define some initial value that will change
+each time through the loop. The <code>loop_condition</code> is an expression that
+determines whether the loop should continue, or stop. Of course if you
+don't specify a condition under which the loop should stop, it never
+will, and you will have an <b>endless loop</b> and your program will never
+terminate. The <code>loop_expression</code> specifies code that is executed each
+time through the loop, <b>after</b> the body of the loop is executed. This
+is all very abstract, so let's see a concrete example, by coding a
+loop to implement the cumulative sum as above.
+</p>
+
+
+
+<pre class="src src-c"><span style="color: #875f87;">#include</span> <span style="color: #87005f;">&lt;stdio.h&gt;</span>
+
+<span style="color: #008700;">int</span> <span style="color: #0000ff;">main</span>() {
+        <span style="color: #008700;">int</span> <span style="color: #af5f00;">cumsum</span> = 0;
+        <span style="color: #008700;">int</span> <span style="color: #af5f00;">i</span>;
+        <span style="color: #af00ff;">for</span> (i=1; i&lt;=100; i++) {
+                cumsum = cumsum + i;
+        }
+        printf(<span style="color: #87005f;">"the cumulative sum up to 100 is %d\n"</span>, cumsum);
+}
+</pre>
+
+
+
+<pre class="example">the cumulative sum up to 100 is 5050
+</pre>
+
+
+<p>
+Let's go through the code for the for-loop and understand what is
+happening. On lines 4 and 5 we declare the integer variables <code>cumsum</code>
+and <code>i</code>, and we initialize the value of <code>cumsum</code> to <code>0</code>. On line 6 we
+declare the for-loop. The first expression in the round brackets is a
+statement which initializes the value of the <code>i</code> variable to be
+<code>1</code>. This is executed before the loop starts. The next expression is a
+conditional which is <code>TRUE</code> if <code>i</code> is less than or equal to <code>100</code> and
+is <code>FALSE</code> otherwise. This expression is evaluated prior to each
+iteration of the loop. When this expression is <code>FALSE</code> the loop
+terminates, otherwise the loop iterates again. Finally the third
+expression in the round brackets, <code>i++</code> is executed <b>after</b> each
+iteration of the loop. In this case, we increment the <code>i</code> variable by
+one.
+</p>
+<p>
+On line 7 is the code block that forms the body of the loop. This is
+code that is executed on each iteration of the loop. In this case we
+add the current value of <code>i</code> (which changes each time through the
+loop) to the <code>cumsum</code> variable. On line 8 the closing bracket <code>}</code>
+specifies the end of the body of the loop. On line 9 we print to the
+screen the value of the <code>cumsum</code> variable.
+</p>
+<p>
+As you can see, the use of a for-loop enables us to write the code for
+incrementing the <code>cumsum</code> variable just <b>once</b>, and place it inside a
+loop, that is constructed so that it executes that code 100 times, and
+each time, uses a different value of <code>i</code>.
+</p>
+</div>
+
+</div>
+
+<div id="outline-container-1-2" class="outline-3">
+<h3 id="sec-1-2">While Loop</h3>
+<div class="outline-text-3" id="text-1-2">
+
+
+<p>
+The while-loop is another looping construct that you might find more
+appropriate than a for-loop under some circumstances. A while-loop
+looks like this:
+</p>
+
+
+
+<pre class="src src-c"><span style="color: #af00ff;">while</span> (conditional_expression) {
+   program_statements;
+}
+</pre>
+
+
+<p>
+The while-loop will first check the value of the
+<code>conditional_expression</code>, and if it is <b>not FALSE</b> (i.e. if the
+expression returns a <b>non-zero</b> (non-FALSE) result, the
+<code>program_statement</code> (or multiple statements) will be executed
+once. Afterwards the <code>conditional_expression</code> will be evaluated again,
+and if it returns a non-zero result, the <code>program_statment</code> (or
+multiple statements) will be executed again, and so on. The while-loop
+will stop <b>only</b> when the <code>conditional_expression</code> returns <b>zero</b>.
+</p>
+<p>
+Here is a simple program that demonstrates the use of a while-loop:
+</p>
+
+
+
+<pre class="src src-c"><span style="color: #875f87;">#include</span> <span style="color: #87005f;">&lt;stdio.h&gt;</span>
+
+<span style="color: #008700;">int</span> <span style="color: #0000ff;">main</span>() {
+        <span style="color: #008700;">int</span> <span style="color: #af5f00;">number</span> = 0;
+        <span style="color: #af00ff;">while</span>(number != 999) {
+                printf(<span style="color: #87005f;">"Enter an integer or 999 to stop: "</span>);
+                scanf (<span style="color: #87005f;">"%i"</span>, &amp;number);
+                printf(<span style="color: #87005f;">"%d x 10 = %d\n"</span>, number, number*10);
+        }
+}
+</pre>
+
+
+<p>
+The program asks the user to enter an integer, and then the program
+prints to the screen the value of the integer multiplied by 10. If the
+user enters <code>999</code> then the program terminates. Enter it into your code
+editor and compile and run it, to see how it works.
+</p>
+</div>
+
+</div>
+
+<div id="outline-container-1-3" class="outline-3">
+<h3 id="sec-1-3">Do-While Loop</h3>
+<div class="outline-text-3" id="text-1-3">
+
+
+<p>
+There is another version of a while-loop that is essentially the same
+as a while-loop but it reverses the order of the <code>program_statement</code>
+and <code>conditional_expression</code>:
+</p>
+
+
+
+<pre class="src src-c"><span style="color: #875f87;">#include</span> <span style="color: #87005f;">&lt;stdio.h&gt;</span>
+
+<span style="color: #008700;">int</span> <span style="color: #0000ff;">main</span>() {
+        <span style="color: #008700;">int</span> <span style="color: #af5f00;">number</span> = 0;
+        <span style="color: #af00ff;">do</span> {
+                printf(<span style="color: #87005f;">"Enter an integer or 999 to stop: "</span>);
+                scanf (<span style="color: #87005f;">"%i"</span>, &amp;number);
+                printf(<span style="color: #87005f;">"%d x 10 = %d\n"</span>, number, number*10);
+        }
+        <span style="color: #af00ff;">while</span> (number != 999);
+}
+</pre>
+
+
+<p>
+The choice of a for-loop, a while-loop, or a do-while-loop, is up to
+you and the best one to use may differ depending on circumstance.
+</p>
+</div>
+</div>
+
+</div>
+
+<div id="outline-container-2" class="outline-2">
+<h2 id="sec-2">Conditionals</h2>
+<div class="outline-text-2" id="text-2">
+
+
+<p>
+One of the most important constructs in programming is the ability to
+execute (or not execute) pieces of code, or execute different pieces
+of code, depending on the outcome of some decision or question about
+data. The if-else construct lets us to this in C.
+</p>
+
+</div>
+
+<div id="outline-container-2-1" class="outline-3">
+<h3 id="sec-2-1">If Statement</h3>
+<div class="outline-text-3" id="text-2-1">
+
+
+<p>
+The basic if statement looks like this:
+</p>
+
+
+
+<pre class="src src-c"><span style="color: #af00ff;">if</span> (conditional_expression) {
+   program_statements;
+}
+</pre>
+
+
+<p>
+The <code>program_statements</code> are <b>only</b> executed if the
+<code>conditional_expression</code> returns a non-zero value, i.e. if it returns
+a value that is <b>not FALSE</b> (FALSE = zero).
+</p>
+<p>
+For example, here is a simple program that loops through the integers
+between 1 and 10 and prints to the screen the integers that are odd
+(that are not divisible by 2 with zero remainder):
+</p>
+
+
+
+<pre class="src src-c"><span style="color: #875f87;">#include</span> <span style="color: #87005f;">&lt;stdio.h&gt;</span>
+
+<span style="color: #008700;">int</span> <span style="color: #0000ff;">main</span>() {
+  <span style="color: #008700;">int</span> <span style="color: #af5f00;">i</span>;
+  <span style="color: #af00ff;">for</span> (i=1; i&lt;=10; i++) {
+    <span style="color: #af00ff;">if</span> ((i % 2) != 0) {
+      printf(<span style="color: #87005f;">"%d is odd\n"</span>, i);
+    }
+  }
+}
+</pre>
+
+
+
+<pre class="example">1 is odd
+3 is odd
+5 is odd
+7 is odd
+9 is odd
+</pre>
+
+
+</div>
+
+</div>
+
+<div id="outline-container-2-2" class="outline-3">
+<h3 id="sec-2-2">Else</h3>
+<div class="outline-text-3" id="text-2-2">
+
+
+<p>
+We can add an <b>else</b> to our if statement, to execute a different code
+block if the value of the <code>conditional_expression</code> is zero:
+</p>
+
+
+
+<pre class="src src-c"><span style="color: #875f87;">#include</span> <span style="color: #87005f;">&lt;stdio.h&gt;</span>
+
+<span style="color: #008700;">int</span> <span style="color: #0000ff;">main</span>() {
+  <span style="color: #008700;">int</span> <span style="color: #af5f00;">i</span>;
+  <span style="color: #af00ff;">for</span> (i=1; i&lt;=10; i++) {
+    <span style="color: #af00ff;">if</span> ((i % 2) != 0) {
+      printf(<span style="color: #87005f;">"%d is odd\n"</span>, i);
+    }
+    <span style="color: #af00ff;">else</span> {
+      printf(<span style="color: #87005f;">"%d is even\n"</span>, i);
+    }
+  }
+}
+</pre>
+
+
+
+<pre class="example">1 is odd
+2 is even
+3 is odd
+4 is even
+5 is odd
+6 is even
+7 is odd
+8 is even
+9 is odd
+10 is even
+</pre>
+
+
+</div>
+
+</div>
+
+<div id="outline-container-2-3" class="outline-3">
+<h3 id="sec-2-3">Else If</h3>
+<div class="outline-text-3" id="text-2-3">
+
+
+<p>
+You can string together several conditional tests and execute
+different pieces of code by using the <code>else if</code> construct. Here is a
+simple program that asks the user to enter an integer, and prints to
+the screen whether that integer is positive, negative, or zero:
+</p>
+
+
+
+<pre class="src src-c"><span style="color: #875f87;">#include</span> <span style="color: #87005f;">&lt;stdio.h&gt;</span>
+
+<span style="color: #008700;">int</span> <span style="color: #0000ff;">main</span>() {
+        <span style="color: #008700;">int</span> <span style="color: #af5f00;">number</span>;
+        printf(<span style="color: #87005f;">"enter an integer: "</span>);
+        scanf (<span style="color: #87005f;">"%i"</span>, &amp;number);
+        <span style="color: #af00ff;">if</span> (number &lt; 0) {
+                printf(<span style="color: #87005f;">"the integer %d is negative\n"</span>, number);
+        }
+        <span style="color: #af00ff;">else</span> <span style="color: #af00ff;">if</span> (number &gt; 0) {
+                printf(<span style="color: #87005f;">"the integer %d is positive\n"</span>, number);
+        }
+        <span style="color: #af00ff;">else</span> <span style="color: #af00ff;">if</span> (number == 0) {
+                printf(<span style="color: #87005f;">"the integer %d is zero\n"</span>, number);
+        }
+        <span style="color: #af00ff;">else</span> {
+                printf(<span style="color: #87005f;">"this statement should never be executed!\n"</span>);
+        }
+}
+</pre>
+
+
+
+<pre class="example">enter an integer: 123
+the integer 123 is positive
+</pre>
+
+
+
+</div>
+
+</div>
+
+<div id="outline-container-2-4" class="outline-3">
+<h3 id="sec-2-4">The Conditional Operator</h3>
+<div class="outline-text-3" id="text-2-4">
+
+
+<p>
+There is a convenient shorthand for simple if-else constructs, using
+the so-called <b>conditional operator</b>:
+</p>
+
+
+
+<pre class="src src-c">condition ? expression1 : expression2
+</pre>
+
+
+<p>
+It enables you to shorten your code a bit, but that's all. It doesn't
+give you any additional functionality, it's just a shorthand:
+</p>
+
+
+
+<pre class="src src-c"><span style="color: #875f87;">#include</span> <span style="color: #87005f;">&lt;stdio.h&gt;</span>
+
+<span style="color: #008700;">int</span> <span style="color: #0000ff;">main</span>() {
+  <span style="color: #008700;">int</span> <span style="color: #af5f00;">i</span>;
+  <span style="color: #af00ff;">for</span> (i=1; i&lt;=10; i++) {
+        (i % 2) ? printf(<span style="color: #87005f;">"%d is odd\n"</span>, i) : printf(<span style="color: #87005f;">"%d is even\n"</span>, i);
+  }
+}
+</pre>
+
+
+
+<pre class="example">1 is odd
+2 is even
+3 is odd
+4 is even
+5 is odd
+6 is even
+7 is odd
+8 is even
+9 is odd
+10 is even
+</pre>
+
+
+</div>
+</div>
+
+</div>
+
+<div id="outline-container-3" class="outline-2">
+<h2 id="sec-3">Switch</h2>
+<div class="outline-text-2" id="text-3">
+
+
+<p>
+The case of multiple if-else statements strung together to test for
+different values, and execute different code, is common enough that
+there is a special construct called the <b>switch statment</b> that is
+provided for this case:
+</p>
+
+
+
+<pre class="src src-c"><span style="color: #af00ff;">switch</span> (expression)
+{
+   <span style="color: #af00ff;">case</span> value1:
+              <span style="color: #008700;">program</span> <span style="color: #af5f00;">statement</span>;
+              <span style="color: #008700;">program</span> <span style="color: #af5f00;">statement</span>;
+              ...
+              <span style="color: #af00ff;">break</span>;
+   <span style="color: #af00ff;">case</span> value2:
+              <span style="color: #008700;">program</span> <span style="color: #af5f00;">statement</span>;
+              <span style="color: #008700;">program</span> <span style="color: #af5f00;">statement</span>;
+              ...
+              <span style="color: #af00ff;">break</span>;
+   <span style="color: #af00ff;">case</span> value3:
+              <span style="color: #008700;">program</span> <span style="color: #af5f00;">statement</span>;
+              <span style="color: #008700;">program</span> <span style="color: #af5f00;">statement</span>;
+              ...
+              <span style="color: #af00ff;">break</span>;
+   <span style="color: #af00ff;">default</span>:
+              <span style="color: #008700;">program</span> <span style="color: #af5f00;">statement</span>;
+              <span style="color: #008700;">program</span> <span style="color: #af5f00;">statement</span>;
+              ...
+              <span style="color: #af00ff;">break</span>;
+}
+</pre>
+
+
+<p>
+This is equivalent to the following series of if-else statements:
+</p>
+
+
+
+<pre class="src src-c"><span style="color: #af00ff;">if</span> (expression == value1) {
+   <span style="color: #008700;">program</span> <span style="color: #af5f00;">statement</span>;
+   <span style="color: #008700;">program</span> <span style="color: #af5f00;">statement</span>;
+   ...
+}
+<span style="color: #af00ff;">else</span> <span style="color: #af00ff;">if</span> (expression == value2) {
+   <span style="color: #008700;">program</span> <span style="color: #af5f00;">statement</span>;
+   <span style="color: #008700;">program</span> <span style="color: #af5f00;">statement</span>;
+   ...
+}
+<span style="color: #af00ff;">else</span> <span style="color: #af00ff;">if</span> (expression == value3) {
+   <span style="color: #008700;">program</span> <span style="color: #af5f00;">statement</span>;
+   <span style="color: #008700;">program</span> <span style="color: #af5f00;">statement</span>;
+   ...
+}
+<span style="color: #af00ff;">else</span> {
+   <span style="color: #008700;">program</span> <span style="color: #af5f00;">statement</span>;
+   <span style="color: #008700;">program</span> <span style="color: #af5f00;">statement</span>;
+   ...
+}
+</pre>
+
+
+<p>
+From my point of view the decision to use a switch statement versus a
+series of if-else statements is purely stylistic and is up to
+you. They accomplish the same thing.
+</p>
+</div>
+
+</div>
+
+<div id="outline-container-4" class="outline-2">
+<h2 id="sec-4">Break &amp; Continue</h2>
+<div class="outline-text-2" id="text-4">
+
+
+<p>
+There is a special statement in C called <code>break</code> that allows you to
+exit from a loop other than by testing at the top or bottom. As we saw
+above in switch statements we also use <code>break</code> to exit from each case.
+</p>
+<p>
+The <code>continue</code> statement is not used very often. It causes the next
+iteration of a loop to begin. You can think of it as a sort of a
+statement to "do nothing, just continue".
+</p>
+</div>
+
+</div>
+
+<div id="outline-container-5" class="outline-2">
+<h2 id="sec-5">Exercises</h2>
+<div class="outline-text-2" id="text-5">
+
+
+<ul>
+<li>1 <a href="http://imranontech.com/2007/01/24/using-fizzbuzz-to-find-developers-who-grok-coding/">FizzBuzz</a> : Write a program that prints the numbers from 1
+  to 100. For multiples of three print "Fizz" instead of the number
+  and for the multiples of five print "Buzz". For numbers which are
+  multiples of both three and five print "FizzBuzz".
+
+</li>
+<li>2 Write a program to estimate the square root of 612 using <a href="http://en.wikipedia.org/wiki/Newton's_method#Square_root_of_a_number">Newton's method</a>, using 5 iterations.
+
+</li>
+<li>3 Write a program that displays a triangle with height \(n\) and width \(2n-1\). The output for \(n=6\) would be:
+</li>
+</ul>
+
+
+
+
+
+<pre class="example">     *
+    ***
+   *****
+  *******
+ *********
+***********
+</pre>
+
+
+
+
+</div>
+
+<div id="outline-container-5-1" class="outline-3">
+<h3 id="sec-5-1">Solutions</h3>
+<div class="outline-text-3" id="text-5-1">
+
+
+<ul>
+<li><a href="code/exercises/4_1.c">1</a>
+</li>
+<li><a href="code/exercises/4_2.c">2</a>
+</li>
+<li><a href="code/exercises/4_3.c">3</a>
+</li>
+</ul>
+
+</div>
+</div>
+</div>
+</div>
+
+<div id="postamble">
+<hr />Paul Gribble | Summer 2012<br>This <span xmlns:dct="http://purl.org/dc/terms/" href="http://purl.org/dc/dcmitype/Text" rel="dct:type">work</span> is licensed under a <a rel="license" href="http://creativecommons.org/licenses/by-nc-sa/3.0/">Creative Commons Attribution-NonCommercial-ShareAlike 3.0 Unported License</a><br><a rel="license" href="http://creativecommons.org/licenses/by-nc-sa/3.0/"><img alt="Creative Commons License" style="border-width:0" src="http://i.creativecommons.org/l/by-nc-sa/3.0/80x15.png" /></a><br />
+</div>
+</body>
+</html>

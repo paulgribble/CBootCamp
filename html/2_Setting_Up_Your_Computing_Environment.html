@@ -1,0 +1,435 @@
+<?xml version="1.0" encoding="iso-8859-1"?>
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Strict//EN"
+               "http://www.w3.org/TR/xhtml1/DTD/xhtml1-strict.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml" lang="en" xml:lang="en">
+<head>
+<title>2. Setting Up Your Computing Environment</title>
+<meta http-equiv="Content-Type" content="text/html;charset=iso-8859-1"/>
+<meta name="title" content="2. Setting Up Your Computing Environment"/>
+<meta name="generator" content="Org-mode"/>
+<meta name="generated" content="Summer 2012"/>
+<meta name="author" content="Paul Gribble"/>
+<meta name="description" content=""/>
+<meta name="keywords" content=""/>
+<style type="text/css">
+ <!--/*--><![CDATA[/*><!--*/
+  html { font-family: Times, serif; font-size: 12pt; }
+  .title  { text-align: center; }
+  .todo   { color: red; }
+  .done   { color: green; }
+  .tag    { background-color: #add8e6; font-weight:normal }
+  .target { }
+  .timestamp { color: #bebebe; }
+  .timestamp-kwd { color: #5f9ea0; }
+  .right  {margin-left:auto; margin-right:0px;  text-align:right;}
+  .left   {margin-left:0px;  margin-right:auto; text-align:left;}
+  .center {margin-left:auto; margin-right:auto; text-align:center;}
+  p.verse { margin-left: 3% }
+  pre {
+	border: 1pt solid #AEBDCC;
+	background-color: #F3F5F7;
+	padding: 5pt;
+	font-family: courier, monospace;
+        font-size: 90%;
+        overflow:auto;
+  }
+  table { border-collapse: collapse; }
+  td, th { vertical-align: top;  }
+  th.right  { text-align:center;  }
+  th.left   { text-align:center;   }
+  th.center { text-align:center; }
+  td.right  { text-align:right;  }
+  td.left   { text-align:left;   }
+  td.center { text-align:center; }
+  dt { font-weight: bold; }
+  div.figure { padding: 0.5em; }
+  div.figure p { text-align: center; }
+  div.inlinetask {
+    padding:10px;
+    border:2px solid gray;
+    margin:10px;
+    background: #ffffcc;
+  }
+  textarea { overflow-x: auto; }
+  .linenr { font-size:smaller }
+  .code-highlighted {background-color:#ffff00;}
+  .org-info-js_info-navigation { border-style:none; }
+  #org-info-js_console-label { font-size:10px; font-weight:bold;
+                               white-space:nowrap; }
+  .org-info-js_search-highlight {background-color:#ffff00; color:#000000;
+                                 font-weight:bold; }
+  /*]]>*/-->
+</style><link rel="stylesheet" type="text/css" href="mystyle.css" />
+<script type="text/javascript">
+<!--/*--><![CDATA[/*><!--*/
+ function CodeHighlightOn(elem, id)
+ {
+   var target = document.getElementById(id);
+   if(null != target) {
+     elem.cacheClassElem = elem.className;
+     elem.cacheClassTarget = target.className;
+     target.className = "code-highlighted";
+     elem.className   = "code-highlighted";
+   }
+ }
+ function CodeHighlightOff(elem, id)
+ {
+   var target = document.getElementById(id);
+   if(elem.cacheClassElem)
+     elem.className = elem.cacheClassElem;
+   if(elem.cacheClassTarget)
+     target.className = elem.cacheClassTarget;
+ }
+/*]]>*///-->
+</script>
+
+</head>
+<body>
+<div id="org-div-home-and-up" style="text-align:right;font-size:70%;white-space:nowrap;">
+ <a accesskey="h" href="index.html"> UP </a>
+ |
+ <a accesskey="H" href="index.html"> HOME </a>
+</div>
+
+<div id="preamble">
+
+</div>
+
+<div id="content">
+<h1 class="title">2. Setting Up Your Computing Environment</h1>
+
+
+
+<hr/>
+<div id="table-of-contents">
+<h2>Table of Contents</h2>
+<div id="text-table-of-contents">
+<ul>
+<li><a href="#sec-1">Install some basic tools</a>
+<ul>
+<li><a href="#sec-1-1">GNU/Linux</a>
+<ul>
+<li><a href="#sec-1-1-1">Compiler</a></li>
+<li><a href="#sec-1-1-2">Source code editors</a></li>
+</ul>
+</li>
+<li><a href="#sec-1-2">Mac OS X</a>
+<ul>
+<li><a href="#sec-1-2-1">Compiler</a></li>
+<li><a href="#sec-1-2-2">Source code editors</a></li>
+</ul>
+</li>
+<li><a href="#sec-1-3">Windows</a></li>
+<li><a href="#sec-1-4">A note about IDEs</a></li>
+</ul>
+</li>
+<li><a href="#sec-2">Exercises</a></li>
+</ul>
+</div>
+</div>
+
+<hr/>
+
+
+<div id="outline-container-1" class="outline-2">
+<h2 id="sec-1">Install some basic tools</h2>
+<div class="outline-text-2" id="text-1">
+
+
+<p>
+No matter which operating system you are using (GNU/Linux, Mac,
+Windows), you will need at least two things:
+</p>
+<ol>
+<li>A way to edit source code files
+</li>
+<li>A C compiler (&amp; debugger)
+</li>
+</ol>
+
+
+
+</div>
+
+<div id="outline-container-1-1" class="outline-3">
+<h3 id="sec-1-1">GNU/Linux</h3>
+<div class="outline-text-3" id="text-1-1">
+
+
+<p>
+You have it easy. Most GNU/Linux distributions include a <b>package manager</b> that allows you to quickly and easily install software from
+centralized, up-to-date repositories.
+</p>
+
+</div>
+
+<div id="outline-container-1-1-1" class="outline-4">
+<h4 id="sec-1-1-1">Compiler</h4>
+<div class="outline-text-4" id="text-1-1-1">
+
+
+<p>
+If you are using <a href="http://www.ubuntu.com">Ubuntu</a>, just open up a <a href="https://help.ubuntu.com/community/UsingTheTerminal">Terminal</a> and type
+the following command to install the tools you will need:
+</p>
+
+
+
+<pre class="example">sudo apt-get install build-essential
+</pre>
+
+
+<p>
+That's it! Now you have a C compiler (<a href="http://gcc.gnu.org/"><code>gcc</code></a>) and a bunch of other
+developer tools including a debugger (<a href="http://sources.redhat.com/gdb/"><code>gdb</code></a>). You can verify you have
+<code>gcc</code> installed by typing:
+</p>
+
+
+
+<pre class="example">gcc --version
+</pre>
+
+
+</div>
+
+</div>
+
+<div id="outline-container-1-1-2" class="outline-4">
+<h4 id="sec-1-1-2">Source code editors</h4>
+<div class="outline-text-4" id="text-1-1-2">
+
+
+<p>
+When you write C source code, you save it in one or more plain ascii
+<a href="https://en.wikipedia.org/wiki/Text_file">text files</a>. Any editor that is capable of reading and writing plain
+text files, can be used to work with C code.
+</p>
+<p>
+For example, Ubuntu comes with a relatively nice GUI-based editor
+called <a href="https://help.ubuntu.com/community/gedit"><code>gedit</code></a>. It has multiple tabs, it has <a href="https://en.wikipedia.org/wiki/Syntax_highlighting">syntax highlighting</a> for
+source code (not only for C but other languages as well) and it has
+various plugins for adding other functionality.
+</p>
+<p>
+Some other classic editors include <a href="https://en.wikipedia.org/wiki/Emacs">GNU Emacs</a> and <a href="https://en.wikipedia.org/wiki/Vi">Vi</a> / <a href="https://en.wikipedia.org/wiki/Vim_(text_editor)">Vim</a>. We won't
+get into an <a href="https://en.wikipedia.org/wiki/Editor_war">editor war</a> here, but suffice it to say that both are
+powerful and useful, and both have relatively steep learning curves.
+</p>
+<p>
+For the purposes of these tutorials, you can use any editor you
+want. If you don't know what to choose, then I suggest starting with
+<code>gedit</code>.
+</p>
+<p>
+There's a pretty good cross-platform (linux, Mac OS X, Windows)
+source-code oriented editor called <a href="http://www.sublimetext.com/">Sublime Text 2</a> that I can also
+recommend. It has a lot of neat functionality that's particularly
+oriented towards source code editing (in many languages, not just
+C). Check it out.
+</p>
+</div>
+</div>
+
+</div>
+
+<div id="outline-container-1-2" class="outline-3">
+<h3 id="sec-1-2">Mac OS X</h3>
+<div class="outline-text-3" id="text-1-2">
+
+
+
+</div>
+
+<div id="outline-container-1-2-1" class="outline-4">
+<h4 id="sec-1-2-1">Compiler</h4>
+<div class="outline-text-4" id="text-1-2-1">
+
+
+<p>
+One the Mac, the standard way of obtaining the required developer
+tools is to download Apple's <a href="https://developer.apple.com/xcode/">Xcode</a> software. You can either download
+the entire <b>Xcode</b> package, which includes a GUI-based IDE and Apple's
+extensive Cocoa and iOS frameworks for programming on the Mac and on
+iOS devices, or you can install only the <b>Command Line Tools for OS X</b>. For this tutorial the command line tools will suffice.
+</p>
+<p>
+Unfortunately Apple forces you to <a href="http://developer.apple.com/programs/register/">register</a> for an Apple Developer ID
+first and give them all sorts of personal information. The Apple
+website makes it look like you have to pay money but in fact you
+don't.
+</p>
+<p>
+Just like in GNU/Linux, you can verify that you have the compiler
+installed by opening up a <a href="https://en.wikipedia.org/wiki/Terminal_(OS_X)">Terminal</a> (located in
+<i>Applications/Utilities</i>) and typing:
+</p>
+
+
+
+<pre class="example">gcc --version
+</pre>
+
+
+</div>
+
+</div>
+
+<div id="outline-container-1-2-2" class="outline-4">
+<h4 id="sec-1-2-2">Source code editors</h4>
+<div class="outline-text-4" id="text-1-2-2">
+
+
+<p>
+On the mac there are a host of editors to choose from. OS X comes with
+<a href="https://en.wikipedia.org/wiki/TextEdit">TextEdit</a>, which can read/write rich-text format (rtf) as well as plain
+text. A better idea however is to use an editor that has
+syntax-highlighting and other features that are developer-friendly.
+</p>
+<p>
+If you downloaded the full Xcode IDE then you can edit source code in
+Xcode. Note that Xcode is a gigantic and complex development
+environment, and so unless you already know how to use it, or are
+prepared to put the time in to learn how it works, I would suggest
+using a simpler editor. We won't have time to go through how to use
+Xcode in this series of tutorials.
+</p>
+<p>
+Good choices are <a href="http://macromates.com/">TextMate</a> and <a href="http://www.barebones.com/products/bbedit/">BBEdit</a>. You can of course also install
+and Vim (<a href="https://code.google.com/p/macvim/">macvim</a>) and GNU Emacs (<a href="http://aquamacs.org/">Aquamacs Emacs</a> or <a href="http://emacsformacosx.com/">Pure Emacs</a>) on the
+mac if you prefer. <a href="http://www.sublimetext.com/">Sublime Text 2</a> also works on the mac.
+</p>
+<p>
+There is another choice on the Mac which is called <a href="http://krillapps.com/coderunner/">CodeRunner</a>, which
+is a sort of very lightweight and simple IDE. It knows about a large
+number of languages besides C, and has a built-in console, which means
+that one can program in a slightly more interactive way than the usual
+edit -&gt; compile -&gt; run workflow.
+</p>
+</div>
+</div>
+
+</div>
+
+<div id="outline-container-1-3" class="outline-3">
+<h3 id="sec-1-3">Windows</h3>
+<div class="outline-text-3" id="text-1-3">
+
+
+<p>
+If you are using Windows, one option is to install and use <a href="http://cygwin.com/">Cygwin</a>,
+which is a collection of tools that provide unix-like funcionality
+within Windows. Another option is to install and use an IDE
+(e.g. <a href="http://www.eclipse.org/">Eclipse</a> that will let you edit, compile and run C code.
+</p>
+<p>
+Please note that I know very little about Windows and so unfortunately
+I won't be much help with doing things in Windows.
+</p>
+<p>
+A final option is to install Ubuntu (or some other GNU/Linux
+distribution) on your Windows machine, either in a dual-boot
+configuration (<a href="http://www.ubuntu.com/download/help/install-ubuntu-with-windows">Ubuntu instructions here</a>, or within a software virtual
+machine using something like VMware (<a href="http://www.vmware.com/products/fusion/overview.html">Mac</a>, <a href="http://www.vmware.com/products/workstation/overview.html">Windows</a>) or <a href="https://www.virtualbox.org/">VirtualBox</a>. This
+may be the fastest and easiest option to get up and running for this
+tutorial, which will be run using examples in GNU/Linux.
+</p>
+</div>
+
+</div>
+
+<div id="outline-container-1-4" class="outline-3">
+<h3 id="sec-1-4">A note about IDEs</h3>
+<div class="outline-text-3" id="text-1-4">
+
+
+<p>
+IDEs (<a href="https://en.wikipedia.org/wiki/Integrated_development_environment">Integrated Development Environments</a>) are programs that combine
+several development tools together into one unified environment. IDEs
+typically include components such as a source code editor, automated
+build and compile tools, a debugger, extensive language and framework
+documentation, and sometimes other components such as GUI-based
+interface design tools, performance measurement tools, version control
+systems, Object-Oriented Programming tools (e.g. class browsers and
+object inspectors), and others. Examples of IDEs are <a href="https://developer.apple.com/technologies/tools/features.html">Xcode</a> (Mac) and
+<a href="http://www.eclipse.org/">Eclipse</a> (GNU/Linux, Windows, Mac). There is a host of others as well,
+here is a Wikipedia page that lists many of them: <a href="https://en.wikipedia.org/wiki/Comparison_of_integrated_development_environments">A Comparison of IDEs</a>.
+</p>
+<p>
+The benefits of using an IDE start to show when your project involves
+a large amount of code spread over a large number of files, and/or
+when you make use of complex and extensive external libraries and
+frameworks, etc. For the purposes of these tutorials, I wouldn't
+suggest using an IDE unless you are already familiar with one.
+</p>
+</div>
+</div>
+
+</div>
+
+<div id="outline-container-2" class="outline-2">
+<h2 id="sec-2">Exercises</h2>
+<div class="outline-text-2" id="text-2">
+
+
+<ul>
+<li>1 Test your environment
+</li>
+</ul>
+
+
+<p>
+Open up your source code editor, enter the following code, and save it
+to a file called <code>hello.c</code>:
+</p>
+
+
+
+<pre class="src src-c"><span style="color: #875f87;">#include</span> <span style="color: #87005f;">&lt;stdio.h&gt;</span>
+
+<span style="color: #008700;">int</span> <span style="color: #0000ff;">main</span>() {
+  printf(<span style="color: #87005f;">"hello world!\n"</span>);
+  <span style="color: #af00ff;">return</span> 0;
+}
+</pre>
+
+
+<p>
+Now in a terminal, enter the following command to compile the code:
+</p>
+
+
+
+<pre class="example">gcc -o hello hello.c
+</pre>
+
+
+<p>
+Now enter the following command to run the program:
+</p>
+
+
+
+<pre class="example">./hello
+</pre>
+
+
+<p>
+and you should see the following output:
+</p>
+
+
+
+<pre class="example">hello world!
+</pre>
+
+
+</div>
+</div>
+</div>
+
+<div id="postamble">
+<hr />Paul Gribble | Summer 2012<br>This <span xmlns:dct="http://purl.org/dc/terms/" href="http://purl.org/dc/dcmitype/Text" rel="dct:type">work</span> is licensed under a <a rel="license" href="http://creativecommons.org/licenses/by-nc-sa/3.0/">Creative Commons Attribution-NonCommercial-ShareAlike 3.0 Unported License</a><br><a rel="license" href="http://creativecommons.org/licenses/by-nc-sa/3.0/"><img alt="Creative Commons License" style="border-width:0" src="http://i.creativecommons.org/l/by-nc-sa/3.0/80x15.png" /></a><br />
+</div>
+</body>
+</html>

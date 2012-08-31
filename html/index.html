@@ -1,0 +1,217 @@
+<?xml version="1.0" encoding="iso-8859-1"?>
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Strict//EN"
+               "http://www.w3.org/TR/xhtml1/DTD/xhtml1-strict.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml" lang="en" xml:lang="en">
+<head>
+<title>C Programming Boot Camp</title>
+<meta http-equiv="Content-Type" content="text/html;charset=iso-8859-1"/>
+<meta name="title" content="C Programming Boot Camp"/>
+<meta name="generator" content="Org-mode"/>
+<meta name="generated" content="Summer 2012"/>
+<meta name="author" content="Paul Gribble"/>
+<meta name="description" content=""/>
+<meta name="keywords" content=""/>
+<style type="text/css">
+ <!--/*--><![CDATA[/*><!--*/
+  html { font-family: Times, serif; font-size: 12pt; }
+  .title  { text-align: center; }
+  .todo   { color: red; }
+  .done   { color: green; }
+  .tag    { background-color: #add8e6; font-weight:normal }
+  .target { }
+  .timestamp { color: #bebebe; }
+  .timestamp-kwd { color: #5f9ea0; }
+  .right  {margin-left:auto; margin-right:0px;  text-align:right;}
+  .left   {margin-left:0px;  margin-right:auto; text-align:left;}
+  .center {margin-left:auto; margin-right:auto; text-align:center;}
+  p.verse { margin-left: 3% }
+  pre {
+	border: 1pt solid #AEBDCC;
+	background-color: #F3F5F7;
+	padding: 5pt;
+	font-family: courier, monospace;
+        font-size: 90%;
+        overflow:auto;
+  }
+  table { border-collapse: collapse; }
+  td, th { vertical-align: top;  }
+  th.right  { text-align:center;  }
+  th.left   { text-align:center;   }
+  th.center { text-align:center; }
+  td.right  { text-align:right;  }
+  td.left   { text-align:left;   }
+  td.center { text-align:center; }
+  dt { font-weight: bold; }
+  div.figure { padding: 0.5em; }
+  div.figure p { text-align: center; }
+  div.inlinetask {
+    padding:10px;
+    border:2px solid gray;
+    margin:10px;
+    background: #ffffcc;
+  }
+  textarea { overflow-x: auto; }
+  .linenr { font-size:smaller }
+  .code-highlighted {background-color:#ffff00;}
+  .org-info-js_info-navigation { border-style:none; }
+  #org-info-js_console-label { font-size:10px; font-weight:bold;
+                               white-space:nowrap; }
+  .org-info-js_search-highlight {background-color:#ffff00; color:#000000;
+                                 font-weight:bold; }
+  /*]]>*/-->
+</style><link rel="stylesheet" type="text/css" href="mystyle.css" />
+<script type="text/javascript">
+<!--/*--><![CDATA[/*><!--*/
+ function CodeHighlightOn(elem, id)
+ {
+   var target = document.getElementById(id);
+   if(null != target) {
+     elem.cacheClassElem = elem.className;
+     elem.cacheClassTarget = target.className;
+     target.className = "code-highlighted";
+     elem.className   = "code-highlighted";
+   }
+ }
+ function CodeHighlightOff(elem, id)
+ {
+   var target = document.getElementById(id);
+   if(elem.cacheClassElem)
+     elem.className = elem.cacheClassElem;
+   if(elem.cacheClassTarget)
+     target.className = elem.cacheClassTarget;
+ }
+/*]]>*///-->
+</script>
+
+</head>
+<body>
+<div id="org-div-home-and-up" style="text-align:right;font-size:70%;white-space:nowrap;">
+ <a accesskey="h" href="http://gribblelab.org/teaching.html"> UP </a>
+ |
+ <a accesskey="H" href="http://gribblelab.org/index.html"> HOME </a>
+</div>
+
+<div id="preamble">
+
+</div>
+
+<div id="content">
+<h1 class="title">C Programming Boot Camp</h1>
+
+
+
+
+
+<pre class="src src-c"><span style="color: #875f87;">#include</span> <span style="color: #87005f;">&lt;stdio.h&gt;</span>
+
+<span style="color: #008700;">int</span> <span style="color: #0000ff;">main</span>(<span style="color: #008700;">int</span> <span style="color: #af5f00;">argc</span>, <span style="color: #008700;">char</span> *<span style="color: #af5f00;">argv</span>[]) {
+  printf(<span style="color: #87005f;">"hello world\n"</span>);
+  <span style="color: #af00ff;">return</span> 0;
+}
+</pre>
+
+
+
+<div id="outline-container-1" class="outline-2">
+<h2 id="sec-1">Fundamentals</h2>
+<div class="outline-text-2" id="text-1">
+
+
+<ol>
+<li><a href="1_Why_Program_In_C.html">Why program in C?</a>
+</li>
+<li><a href="2_Setting_Up_Your_Computing_Environment.html">Setting up your computing environment</a>
+</li>
+<li><a href="3_Basic_Types_Operators_And_Expressions.html">Basic Types, Operators and Expressions</a>
+</li>
+<li><a href="4_Control_Flow.html">Control Flow</a>
+</li>
+<li><a href="5_Functions.html">Functions</a>
+</li>
+<li><a href="6_Complex_Data_Types.html">Complex Data Types</a>
+</li>
+<li><a href="7_Memory_Stack_vs_Heap.html">Memory : Stack vs Heap</a>
+</li>
+<li><a href="8_Pointers.html">Pointers</a>
+</li>
+<li><a href="9_Strings.html">Strings</a>
+</li>
+<li><a href="10_Input_and_Output.html">Input and Output</a>
+</li>
+<li><a href="11_Macros_and_the_C_Preprocessor.html">Macros &amp; the C Preprocessor</a>
+</li>
+<li><a href="12_Compiling_linking_Makefile_header_files.html">Compiling, linking, Makefile, header files</a>
+</li>
+<li><a href="13_Debugging.html">Debugging</a>
+</li>
+<li><a href="14_Speeding_up_your_code.html">Speeding up your code</a>
+</li>
+</ol>
+
+
+</div>
+
+</div>
+
+<div id="outline-container-2" class="outline-2">
+<h2 id="sec-2">Advanced Topics</h2>
+<div class="outline-text-2" id="text-2">
+
+
+<ol>
+<li><a href="A1_Libraries.html">A brief tour of some other useful C Libraries</a>: { <a href="http://www.gnu.org/software/libc/">glibc</a>, <a href="http://www.gnu.org/software/gsl/">GSL</a>, <a href="http://www.netlib.org/blas/">BLAS</a> /
+   <a href="http://www.netlib.org/lapack/">LAPACK</a>, <a href="http://apophenia.sourceforge.net/">Apophenia</a>, <a href="http://www.gnuplot.info/">GNUplot</a> }
+</li>
+<li><a href="A2_Parallel_Programming_in_C.html">Parallel programming in C</a>
+</li>
+<li>Integrating C code with <a href="http://www.python.org/">Python</a> and <a href="http://www.r-project.org">R</a>
+</li>
+</ol>
+
+
+</div>
+
+</div>
+
+<div id="outline-container-3" class="outline-2">
+<h2 id="sec-3">Topics Not Included</h2>
+<div class="outline-text-2" id="text-3">
+
+
+<ul>
+<li>UNIX tools
+</li>
+<li>IDEs (Integrated Development Environments, e.g. Xcode, Eclipse, etc)
+</li>
+<li>Object-Oriented Programming (OOP), e.g. C++, Objective-C
+</li>
+<li>Graphics (e.g. <a href="http://www.gnuplot.info/">Gnuplot</a>)
+</li>
+<li>Networking
+</li>
+<li>Interfacing with Hardware (e.g. data acquisition)
+</li>
+</ul>
+
+
+</div>
+
+</div>
+
+<div id="outline-container-4" class="outline-2">
+<h2 id="sec-4">These notes</h2>
+<div class="outline-text-2" id="text-4">
+
+
+<p>
+These notes can be viewed (and downloaded) in their entirety from a
+<a href="https://github.com">github</a> repository here: <a href="https://github.com/paulgribble/CBootCamp">CBootCamp</a>
+</p></div>
+</div>
+</div>
+
+<div id="postamble">
+<hr />Paul Gribble | Summer 2012<br>This <span xmlns:dct="http://purl.org/dc/terms/" href="http://purl.org/dc/dcmitype/Text" rel="dct:type">work</span> is licensed under a <a rel="license" href="http://creativecommons.org/licenses/by-nc-sa/3.0/">Creative Commons Attribution-NonCommercial-ShareAlike 3.0 Unported License</a><br><a rel="license" href="http://creativecommons.org/licenses/by-nc-sa/3.0/"><img alt="Creative Commons License" style="border-width:0" src="http://i.creativecommons.org/l/by-nc-sa/3.0/80x15.png" /></a><br />
+</div>
+</body>
+</html>

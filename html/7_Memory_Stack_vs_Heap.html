@@ -1,0 +1,452 @@
+<?xml version="1.0" encoding="iso-8859-1"?>
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Strict//EN"
+               "http://www.w3.org/TR/xhtml1/DTD/xhtml1-strict.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml" lang="en" xml:lang="en">
+<head>
+<title>7. Memory : Stack vs Heap</title>
+<meta http-equiv="Content-Type" content="text/html;charset=iso-8859-1"/>
+<meta name="title" content="7. Memory : Stack vs Heap"/>
+<meta name="generator" content="Org-mode"/>
+<meta name="generated" content="Summer 2012"/>
+<meta name="author" content="Paul Gribble"/>
+<meta name="description" content=""/>
+<meta name="keywords" content=""/>
+<style type="text/css">
+ <!--/*--><![CDATA[/*><!--*/
+  html { font-family: Times, serif; font-size: 12pt; }
+  .title  { text-align: center; }
+  .todo   { color: red; }
+  .done   { color: green; }
+  .tag    { background-color: #add8e6; font-weight:normal }
+  .target { }
+  .timestamp { color: #bebebe; }
+  .timestamp-kwd { color: #5f9ea0; }
+  .right  {margin-left:auto; margin-right:0px;  text-align:right;}
+  .left   {margin-left:0px;  margin-right:auto; text-align:left;}
+  .center {margin-left:auto; margin-right:auto; text-align:center;}
+  p.verse { margin-left: 3% }
+  pre {
+	border: 1pt solid #AEBDCC;
+	background-color: #F3F5F7;
+	padding: 5pt;
+	font-family: courier, monospace;
+        font-size: 90%;
+        overflow:auto;
+  }
+  table { border-collapse: collapse; }
+  td, th { vertical-align: top;  }
+  th.right  { text-align:center;  }
+  th.left   { text-align:center;   }
+  th.center { text-align:center; }
+  td.right  { text-align:right;  }
+  td.left   { text-align:left;   }
+  td.center { text-align:center; }
+  dt { font-weight: bold; }
+  div.figure { padding: 0.5em; }
+  div.figure p { text-align: center; }
+  div.inlinetask {
+    padding:10px;
+    border:2px solid gray;
+    margin:10px;
+    background: #ffffcc;
+  }
+  textarea { overflow-x: auto; }
+  .linenr { font-size:smaller }
+  .code-highlighted {background-color:#ffff00;}
+  .org-info-js_info-navigation { border-style:none; }
+  #org-info-js_console-label { font-size:10px; font-weight:bold;
+                               white-space:nowrap; }
+  .org-info-js_search-highlight {background-color:#ffff00; color:#000000;
+                                 font-weight:bold; }
+  /*]]>*/-->
+</style><link rel="stylesheet" type="text/css" href="mystyle.css" />
+<script type="text/javascript">
+<!--/*--><![CDATA[/*><!--*/
+ function CodeHighlightOn(elem, id)
+ {
+   var target = document.getElementById(id);
+   if(null != target) {
+     elem.cacheClassElem = elem.className;
+     elem.cacheClassTarget = target.className;
+     target.className = "code-highlighted";
+     elem.className   = "code-highlighted";
+   }
+ }
+ function CodeHighlightOff(elem, id)
+ {
+   var target = document.getElementById(id);
+   if(elem.cacheClassElem)
+     elem.className = elem.cacheClassElem;
+   if(elem.cacheClassTarget)
+     target.className = elem.cacheClassTarget;
+ }
+/*]]>*///-->
+</script>
+
+</head>
+<body>
+<div id="org-div-home-and-up" style="text-align:right;font-size:70%;white-space:nowrap;">
+ <a accesskey="h" href="index.html"> UP </a>
+ |
+ <a accesskey="H" href="index.html"> HOME </a>
+</div>
+
+<div id="preamble">
+
+</div>
+
+<div id="content">
+<h1 class="title">7. Memory : Stack vs Heap</h1>
+
+
+
+<hr/>
+<div id="table-of-contents">
+<h2>Table of Contents</h2>
+<div id="text-table-of-contents">
+<ul>
+<li><a href="#sec-1">Stack vs Heap</a></li>
+<li><a href="#sec-2">The Stack</a></li>
+<li><a href="#sec-3">The Heap</a></li>
+<li><a href="#sec-4">Stack vs Heap Pros and Cons</a>
+<ul>
+<li><a href="#sec-4-1">Stack</a></li>
+<li><a href="#sec-4-2">Heap</a></li>
+</ul>
+</li>
+<li><a href="#sec-5">Examples</a></li>
+<li><a href="#sec-6">When to use the Heap?</a></li>
+<li><a href="#sec-7">Links</a></li>
+</ul>
+</div>
+</div>
+
+<hr/>
+
+
+<div id="outline-container-1" class="outline-2">
+<h2 id="sec-1">Stack vs Heap</h2>
+<div class="outline-text-2" id="text-1">
+
+
+<p>
+So far we have seen how to declare basic type variables such as <code>int</code>,
+<code>double</code>, etc, and complex types such as arrays and structs. The way
+we have been declaring them so far, which is most like other languages
+such as MATLAB, Python, etc, puts these variables on the <b>stack</b>.
+</p>
+</div>
+
+</div>
+
+<div id="outline-container-2" class="outline-2">
+<h2 id="sec-2">The Stack</h2>
+<div class="outline-text-2" id="text-2">
+
+
+<p>
+What is the stack? It's a special region of your computer's memory
+that stores temporary variables created by each function (including
+the <code>main()</code> function). The stack is a "FILO" (first in, last out)
+data structure, that is managed and optimized by the CPU quite
+closely. Every time a function declares a new variable, it is "pushed"
+onto the stack. Then every time a function exits, <b>all</b> of the
+variables pushed onto the stack by that function, are freed (that is
+to say, they are deleted). Once a stack variable is freed, that region
+of memory becomes available for other stack variables.
+</p>
+<p>
+The advantage of using the stack to store variables, is that memory is
+managed for you. You don't have to allocate memory by hand, or free it
+once you don't need it any more. What's more, because the CPU
+organizes stack memory so efficiently, reading from and writing to
+stack variables is very fast.
+</p>
+<p>
+A key to understanding the stack is the notion that <b>when a function exits</b>, all of its variables are popped off of the stack (and hence
+lost forever). Thus stack variables are <b>local</b> in nature. This is
+related to a concept we saw earlier known as <b>variable scope</b>, or
+local vs global variables. A common bug in C programming is attempting
+to access a variable that was created on the stack inside some
+function, from a place in your program outside of that function
+(i.e. after that function has exited).
+</p>
+<p>
+Another feature of the stack to keep in mind, is that there is a limit
+(varies with OS) on the size of variables that can be store on the
+stack. This is not the case for variables allocated on the <b>heap</b>.
+</p>
+<p>
+To summarize the stack:
+</p>
+<ul>
+<li>the stack grows and shrinks as functions push and pop local variables
+</li>
+<li>there is no need to manage the memory yourself, variables are allocated and freed automatically
+</li>
+<li>the stack has size limits
+</li>
+<li>stack variables only exist while the function that created them, is running
+</li>
+</ul>
+
+
+</div>
+
+</div>
+
+<div id="outline-container-3" class="outline-2">
+<h2 id="sec-3">The Heap</h2>
+<div class="outline-text-2" id="text-3">
+
+
+<p>
+The heap is a region of your computer's memory that is not managed
+automatically for you, and is not as tightly managed by the CPU. It is
+a more free-floating region of memory (and is larger). To allocate
+memory on the heap, you must use <code>malloc()</code> or <code>calloc()</code>, which are
+built-in C functions. Once you have allocated memory on the heap, you
+are responsible for using <code>free()</code> to deallocate that memory once you
+don't need it any more. If you fail to do this, your program will have
+what is known as a <b>memory leak</b>. That is, memory on the heap will
+still be set aside (and won't be available to other processes). As we
+will see in the debugging section, there is a tool called <code>valgrind</code>
+that can help you detect memory leaks.
+</p>
+<p>
+Unlike the stack, the heap does not have size restrictions on variable
+size (apart from the obvious physical limitations of your
+computer). Heap memory is slightly slower to be read from and written
+to, because one has to use <b>pointers</b> to access memory on the heap. We
+will talk about pointers shortly.
+</p>
+<p>
+Unlike the stack, variables created on the heap are accessible by any
+function, anywhere in your program. Heap variables are essentially
+global in scope.
+</p>
+</div>
+
+</div>
+
+<div id="outline-container-4" class="outline-2">
+<h2 id="sec-4">Stack vs Heap Pros and Cons</h2>
+<div class="outline-text-2" id="text-4">
+
+
+
+</div>
+
+<div id="outline-container-4-1" class="outline-3">
+<h3 id="sec-4-1">Stack</h3>
+<div class="outline-text-3" id="text-4-1">
+
+
+<ul>
+<li>very fast access
+</li>
+<li>don't have to explicitly de-allocate variables
+</li>
+<li>space is managed efficiently by CPU, memory will not become fragmented
+</li>
+<li>local variables only
+</li>
+<li>limit on stack size (OS-dependent)
+</li>
+<li>variables cannot be resized
+</li>
+</ul>
+
+
+</div>
+
+</div>
+
+<div id="outline-container-4-2" class="outline-3">
+<h3 id="sec-4-2">Heap</h3>
+<div class="outline-text-3" id="text-4-2">
+
+
+<ul>
+<li>variables can be accessed globally
+</li>
+<li>no limit on memory size
+</li>
+<li>(relatively) slower access
+</li>
+<li>no guaranteed efficient use of space, memory may become fragmented over time as blocks of memory are allocated, then freed
+</li>
+<li>you must manage memory (you're in charge of allocating and freeing variables)
+</li>
+<li>variables can be resized using <code>realloc()</code>
+</li>
+</ul>
+
+
+</div>
+</div>
+
+</div>
+
+<div id="outline-container-5" class="outline-2">
+<h2 id="sec-5">Examples</h2>
+<div class="outline-text-2" id="text-5">
+
+
+<p>
+Here is a short program that creates its variables on the <b>stack</b>. It
+looks like the other programs we have seen so far.
+</p>
+
+
+
+<pre class="src src-c"><span style="color: #875f87;">#include</span> <span style="color: #87005f;">&lt;stdio.h&gt;</span>
+
+<span style="color: #008700;">double</span> <span style="color: #0000ff;">multiplyByTwo</span> (<span style="color: #008700;">double</span> <span style="color: #af5f00;">input</span>) {
+  <span style="color: #008700;">double</span> <span style="color: #af5f00;">twice</span> = input * 2.0;
+  <span style="color: #af00ff;">return</span> twice;
+}
+
+<span style="color: #008700;">int</span> <span style="color: #0000ff;">main</span> (<span style="color: #008700;">int</span> <span style="color: #af5f00;">argc</span>, <span style="color: #008700;">char</span> *<span style="color: #af5f00;">argv</span>[])
+{
+  <span style="color: #008700;">int</span> <span style="color: #af5f00;">age</span> = 30;
+  <span style="color: #008700;">double</span> <span style="color: #af5f00;">salary</span> = 12345.67;
+  <span style="color: #008700;">double</span> <span style="color: #af5f00;">myList</span>[3] = {1.2, 2.3, 3.4};
+
+  printf(<span style="color: #87005f;">"double your salary is %.3f\n"</span>, multiplyByTwo(salary));
+
+  <span style="color: #af00ff;">return</span> 0;
+}
+</pre>
+
+
+
+<pre class="example">double your salary is 24691.340
+</pre>
+
+
+<p>
+On lines 10, 11 and 12 we declare variables: an <code>int</code>, a <code>double</code>, and
+an array of three doubles. These three variables are pushed onto the
+stack as soon as the <code>main()</code> function allocates them. When the
+<code>main()</code> function exits (and the program stops) these variables are
+popped off of the stack. Similarly, in the function <code>multiplyByTwo()</code>,
+the <code>twice</code> variable, which is a <code>double</code>, is pushed onto the stack as
+soon as the <code>multiplyByTwo()</code> function allocates it. As soon as the
+<code>multiplyByTwo()</code> function exits, the <code>twice</code> variable is popped off
+of the stack, and is gone forever.
+</p>
+<p>
+As a side note, there is a way to tell C to keep a stack variable
+around, even after its creator function exits, and that is to use the
+<code>static</code> keyword when declaring the variable. A variable declared with
+the <code>static</code> keyword thus becomes something like a global variable,
+but one that is only visible inside the function that created it. It's
+a strange construction, one that you probably won't need except under
+very specific circumstances.
+</p>
+<p>
+Here is another version of this program that allocates all of its variables on the <b>heap</b> instead of the stack:
+</p>
+
+
+
+<pre class="src src-c"><span style="color: #875f87;">#include</span> <span style="color: #87005f;">&lt;stdio.h&gt;</span>
+<span style="color: #875f87;">#include</span> <span style="color: #87005f;">&lt;stdlib.h&gt;</span>
+
+<span style="color: #008700;">double</span> *<span style="color: #0000ff;">multiplyByTwo</span> (<span style="color: #008700;">double</span> *<span style="color: #af5f00;">input</span>) {
+  <span style="color: #008700;">double</span> *<span style="color: #af5f00;">twice</span> = malloc(<span style="color: #af00ff;">sizeof</span>(<span style="color: #008700;">double</span>));
+  *twice = *input * 2.0;
+  <span style="color: #af00ff;">return</span> twice;
+}
+
+<span style="color: #008700;">int</span> <span style="color: #0000ff;">main</span> (<span style="color: #008700;">int</span> <span style="color: #af5f00;">argc</span>, <span style="color: #008700;">char</span> *<span style="color: #af5f00;">argv</span>[])
+{
+  <span style="color: #008700;">int</span> *<span style="color: #af5f00;">age</span> = malloc(<span style="color: #af00ff;">sizeof</span>(<span style="color: #008700;">int</span>));
+  *age = 30;
+  <span style="color: #008700;">double</span> *<span style="color: #af5f00;">salary</span> = malloc(<span style="color: #af00ff;">sizeof</span>(<span style="color: #008700;">double</span>));
+  *salary = 12345.67;
+  <span style="color: #008700;">double</span> *<span style="color: #af5f00;">myList</span> = malloc(3 * <span style="color: #af00ff;">sizeof</span>(<span style="color: #008700;">double</span>));
+  myList[0] = 1.2;
+  myList[1] = 2.3;
+  myList[2] = 3.4;
+
+  <span style="color: #008700;">double</span> *<span style="color: #af5f00;">twiceSalary</span> = multiplyByTwo(salary);
+
+  printf(<span style="color: #87005f;">"double your salary is %.3f\n"</span>, *twiceSalary);
+
+  free(age);
+  free(salary);
+  free(myList);
+  free(twiceSalary);
+
+  <span style="color: #af00ff;">return</span> 0;
+}
+</pre>
+
+
+<p>
+As you can see, using <code>malloc()</code> to allocate memory on the heap and
+then using <code>free()</code> to deallocate it, is no big deal, but is a bit
+cumbersome. The other thing to notice is that there are a bunch of
+star symbols * all over the place now. What are those? The answer
+is, they are <b>pointers</b>. The <code>malloc()</code> (and <code>calloc()</code> and <code>free()</code>)
+functions deal with <b>pointers</b> not actual values. We will talk more
+about pointers shortly. The bottom line though: pointers are a special
+data type in C that store <b>addresses in memory</b> instead of storing
+actual values. Thus on line 5 above, the <code>twice</code> variable is not a
+double, but is a <b>pointer to a double</b>. It's an address in memory
+where the <code>double</code> is stored.
+</p>
+</div>
+
+</div>
+
+<div id="outline-container-6" class="outline-2">
+<h2 id="sec-6">When to use the Heap?</h2>
+<div class="outline-text-2" id="text-6">
+
+
+<p>
+When should you use the heap, and when should you use the stack? If
+you need to allocate a large block of memory (e.g. a large array, or a
+big struct), and you need to keep that variable around a long time
+(like a global), then you should allocate it on the heap. If you are
+dealing with realtively small variables that only need to persist as
+long as the function using them is alive, then you should use the
+stack, it's easier and faster. If you need variables like arrays and
+structs that can change size dynamically (e.g. arrays that can grow or
+shrink as needed) then you will likely need to allocate them on the
+heap, and use dynamic memory allocation functions like <code>malloc()</code>,
+<code>calloc()</code>, <code>realloc()</code> and <code>free()</code> to manage that memory "by
+hand". We will talk about dynamically allocated data structures after
+we talk about pointers.
+</p>
+
+</div>
+
+</div>
+
+<div id="outline-container-7" class="outline-2">
+<h2 id="sec-7">Links</h2>
+<div class="outline-text-2" id="text-7">
+
+
+<ul>
+<li><a href="http://www.learncpp.com/cpp-tutorial/79-the-stack-and-the-heap/">The Stack and the Heap</a>
+</li>
+<li><a href="http://stackoverflow.com/questions/79923/what-and-where-are-the-stack-and-heap">What and Where are the stack and heap</a>
+</li>
+</ul>
+
+
+
+</div>
+</div>
+</div>
+
+<div id="postamble">
+<hr />Paul Gribble | Summer 2012<br>This <span xmlns:dct="http://purl.org/dc/terms/" href="http://purl.org/dc/dcmitype/Text" rel="dct:type">work</span> is licensed under a <a rel="license" href="http://creativecommons.org/licenses/by-nc-sa/3.0/">Creative Commons Attribution-NonCommercial-ShareAlike 3.0 Unported License</a><br><a rel="license" href="http://creativecommons.org/licenses/by-nc-sa/3.0/"><img alt="Creative Commons License" style="border-width:0" src="http://i.creativecommons.org/l/by-nc-sa/3.0/80x15.png" /></a><br />
+</div>
+</body>
+</html>

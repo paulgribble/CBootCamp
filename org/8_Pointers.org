@@ -1,0 +1,675 @@
+#+STARTUP: showall
+
+#+TITLE:     8. Pointers
+#+AUTHOR:    Paul Gribble
+#+EMAIL:     paul@gribblelab.org
+#+DATE:      Summer 2012
+
+-----
+[TABLE-OF-CONTENTS]
+-----
+
+* Pointers
+
+Pointers represent one of the more powerful features of the C
+language, but also one of the most feared. Some of this fear and
+apprehension stems from the ridiculously obtuse ways that pointers
+*may* be used in C. Often tutorials and courses on C approach teaching
+pointers by asking the student to decipher bizarre looking pointer
+syntax combinations that truthfully are rarely used in practice. You
+may have seen bizarre looking pointer syntax, (and you may see it
+again), but typically, pointers do not have to be used in a horribly
+complicated way. Typically pointers are pretty straightforward.
+
+The bottom line is, pointers allow you to work with dynamically
+allocated memory blocks. You will use pointers to deal with variables
+that have been allocated on the *heap*. (You can use pointers to deal
+with stack variables, but in most cases this just isn't necessary).
+
+The basic idea is, a *pointer* is a special data type in C, that
+contains an *address* to a location in memory. Think of a pointer as
+an arrow that points to the location of a block of memory that in turn
+contains actual data of interest. It's not unlike the concept of a
+phone number, or a house address.
+
+The purpose of pointers is to allow you to manually, directly access a
+block of memory. Pointers are used a lot for *strings* and
+*structs*. It's not difficult to imagine that passing the *address* of
+a large block of memory (such as a struct that contains many things)
+to a function, is more efficient than making a copy of it and passing
+in that copy, only to delete that copy when your function is done with
+it. This is known as *passing by reference* versus *passing by
+value*. There is a code example below that illustrates this more
+clearly.
+
+** Declaring a pointer
+
+Here is how to declare a pointer:
+
+#+BEGIN_SRC c
+#include <stdio.h>
+
+int main (int argc, char *argv[])
+{
+  int age = 30;
+  int *p;
+  p = &age;
+  printf("age=%d\n", age);
+  printf("p=%p\n", p);
+  printf("*p=%d\n", *p);
+  printf("sizeof(p)=%ld\n", sizeof(p));
+  *p = 40;
+  printf("*p=%d\n", *p);
+  printf("age=%d\n", age);
+  return 0;
+}
+#+END_SRC
+
+#+BEGIN_EXAMPLE
+age=30
+p=0x7fff197ceb1c
+*p=30
+sizeof(p)=8
+*p=40
+age=40
+#+END_EXAMPLE
+
+On line 5 we declare an =int= variable =age= and initialize it to
+=30=. On line 6 we declare a variable =p= whose type is a *pointer to
+an int*. The star * syntax is how to declare the type as a pointer
+*to* a particular other type. Usually you need to declare pointers as
+pointing to a particular type, but the exception is a so-called *void*
+pointer, which is a pointer to an unknown type. Don't worry about void
+pointers for now.
+
+So we have a pointer variable =p= that is a pointer to an =int=. So
+far, it doesn't point anywhere... we have only declared that we want a
+space in memory to hold a pointer to an int. On line 7 is where we
+assign a value to our pointer =p=. We assign to =p= the *address* (the
+location) of the other variable =age=. So now at this point in the
+program, we have the following (which we can see in the output):
+
+- the value of =age= is the integer =30=
+- the value of =p= is the address of the =age= variable
+- the integer that =p= points to has a value of =30=
+
+On line 2 of the output we see that the value of the =p= pointer is a
+long strange looking string of letters and numbers. This is in fact a
+[[http://en.wikipedia.org/wiki/Hexadecimal][hexidecimal]] (base 16) *memory address*.
+
+** Dereferencing a Pointer
+
+On line 10, we see how to access the *value* that a pointer points to,
+by using the star * syntax. So =p= is the address of an =int=, whereas
+=*p= is the value of the =int= that =p= points to. Accessing the value
+that a pointer points to is called *dereferencing* a pointer.
+
+Finally, on line 11 (and on the last line of the output) we can see
+that our pointer =p= is 8 bytes. Remember, there are 8 bits in a byte,
+so a 4-byte pointer can hold up to 32 bits, or $2^{32}$ distinct values,
+i.e. $2^{32}$ distinct addresses in memory. So 32-bit pointers allow us
+to access up to 4 gigabytes (4 GB) of memory. If you want to use more
+than 4 GB of memory you will need bigger pointers! On 64-bit systems,
+pointers are 8 bytes, which allows for $2^{64}$ distinct addresses in
+memory. It will be a *long time* before your computer has that much
+RAM (16 [[http://en.wikipedia.org/wiki/Exabyte][exabytes]] in principle, which is 1 billion gigabytes or 1
+million terabytes).
+
+Take note of what happens in the code example above on line 12 of the
+code listing, and the values output on lines 5 and 6 of the output. On
+line 12 of the code listing, we use pointer dereferencing to set the
+value of the variable *pointed to by p* to =40=. Since =p= points to
+the =age= variable, we are setting the value of the address in memory
+corresponding to the =age= variable to =40=.
+
+** Pointers and Arrays
+
+When you declare an array using an expression like =int vec[5];=, what
+is really happening behind the scenes, is that a block of memory is
+being allocated (on the stack in this case) large enough to hold 5
+integers, and the =vec= variable is a pointer that points to the first
+element in the array. When you index into the array with an expression
+like =printf("vec[2]=%d\n", vec[2]);= what is really happening is that
+C is using *pointer arithmetic* to step into the array the appropriate
+number of times, and reading the value in the memory location it ends
+up in. So if you ask for the 3rd element of the =vec= array using
+=vec[2]= then C is first looking at the location pointed to by =vec=
+(the first element of the array), and stepping *two integers* forward,
+and then reading the value it finds there (=vec[2]=).
+
+The explicit way of doing this would be to use =malloc()= or
+=calloc()= to allocate the array (in this case on the heap) and then
+use pointer arithmetic to read off the 3rd value:
+
+#+BEGIN_SRC C
+#include <stdio.h>
+#include <stdlib.h>
+
+int main(void) {
+  int *vec;
+  vec = malloc(sizeof(int) * 3);
+  vec[0] = 1;
+  vec[1] = 2;
+  vec[2] = 3;
+  printf("vec[2]=%d\n", *(vec+2));
+  free(vec);
+  return 0;
+}
+#+END_SRC
+
+The expression =*(vec+2)= essentially says, go to the location that
+the pointer =vec= points to, take two steps (each step the size of an
+=int=) and the read off the value you find there. How does C know the
+size of each step to take? Remember when you declare a pointer, you
+have to declare the type that it points to. So when we declared our
+=vec= pointer, we declared it as a pointer to =int=. This means when
+you use pointer arithmetic, C knows the size of each step.
+
+The =*(vec+2)= notation is really just as a demonstration of what is
+happening behind the scenes, there is rarely a need to use such an
+explicit (and so difficult to read) expression to index into
+arrays. The more common way of indexing into arrays (and the more
+readable way) is to use the =vec[2]= notation:
+
+#+BEGIN_SRC C
+#include <stdio.h>
+#include <stdlib.h>
+
+int main(void) {
+  int *vec;
+  vec = malloc(sizeof(int) * 3);
+  vec[0] = 1;
+  vec[1] = 2;
+  vec[2] = 3;
+  printf("vec[2]=%d\n", vec[2]);
+  free(vec);
+  return 0;
+}
+#+END_SRC
+
+
+** Pointer to a struct
+
+Pointers can also be used to point to a struct. Here is how this would
+be done:
+
+#+BEGIN_SRC c
+#include <stdio.h>
+#include <stdlib.h>
+
+typedef struct {
+  int year;
+  int month;
+  int day;
+} date;
+
+int main(void) {
+
+  date *today;
+  today = malloc(sizeof(date));
+  
+  // the explicit way of accessing fields of our struct
+  (*today).day = 15;
+  (*today).month = 6;
+  (*today).year = 2012;
+
+  // the more readable shorthand way of doing it
+  today->day = 15;
+  today->month = 6;
+  today->year = 2012;
+
+  printf("the date is %d/%d/%d\n", today->day, today->month, today->year);
+
+  free(today);
+  
+  return 0;
+}
+#+END_SRC
+
+#+BEGIN_EXAMPLE
+the date is 15/6/2012
+#+END_EXAMPLE
+
+Let's go through this step by step. On lines 4-8 we define a struct
+that contains three =int= values: =year=, =month= and =day=. We use
+typedef to name our new struct type =date=.
+
+On line 12 we declare a new variable =today= to be a pointer to
+=date=. On line 13 we use =malloc()= to allocate a block of memory (on
+the heap) to store one =date= struct.
+
+On lines 16-18 I show how to access fields of our =date= struct, using
+explicit pointer syntax. So for example the expression =(*today).day=
+means, dereference the =today= pointer and then access the =day= field
+of the thing you find there (which will be a =date= struct).
+
+On lines 21-23 I show you the more common (and more readable)
+shorthand for using pointers with structs.
+
+Just as a reminder: here is how one would do this on the stack instead
+of the heap:
+
+#+BEGIN_SRC c
+#include <stdio.h>
+
+typedef struct {
+  int year;
+  int month;
+  int day;
+} date;
+
+int main(void) {
+
+  date today;
+  
+  today.day = 15;
+  today.month = 6;
+  today.year = 2012;
+
+  printf("the date is %d/%d/%d\n", today.day, today.month, today.year);
+
+  return 0;
+}
+#+END_SRC
+
+Gone is all of the pointer stuff, at least on the surface. Under the
+hood, C is still using pointers to accomplish this.
+
+
+** Pointers to Functions
+
+One of the handy things you can do in C, is to use a pointer to point to a function. Then you can pass this function pointer to other functions as an argument, you can store it in a struct, etc. Here is a small example:
+
+#+BEGIN_SRC c
+#include <stdio.h>
+
+int add( int a, int b ) {
+  return a + b;
+}
+
+int subtract( int a, int b ) {
+  return a - b;
+}
+
+int multiply( int a, int b ) {
+  return a * b;
+}
+
+void doMath( int (*fn)(int a, int b), int a, int b ) {
+  int result = fn(a, b);
+  printf("result = %d\n", result);
+}
+
+int main(void) {
+
+  int a = 2;
+  int b = 3;
+  
+  doMath(add, a, b);
+  doMath(subtract, a, b);
+  doMath(multiply, a, b);
+
+  return 0;
+}
+#+END_SRC
+
+Let's go through this to understand what's happening. On lines 3-5,
+7-9 and 11-13, we define functions =add=, =subtract= and
+=multiply=. These functions return an =int= and take two =int= values
+as input arguments.
+
+On lines 15-18 we define a function =doMath= which returns nothing
+(hence =void=) and which takes three input arguments. The first input argument is:
+
+#+BEGIN_SRC C
+int (*fn)(int a, int b)
+#+END_SRC
+
+This first argument is a *pointer to a function*. It's actually more
+specific than that. It's a pointer to a specific kind of function: a
+function that returns an =int=, and that takes two =int= values as
+inputs. Let's unpack this. The =(*fn)= says this is a pointer to a
+function, and we shall refer to that function as =fn=. The preceding
+=int= says, it's a function that returns an =int=. The subsequent
+=(int a, int b)= says it's a function that takes two =int= arguments
+as inputs.
+
+On lines 25-27, we call our =doMath()= function, each time passing it
+the three input arguments that it requires. First, a pointer to a
+function. Here we simply pass the *name* of one of the functions we
+defined above: =add()=, =subtract()= or =multiply()=. We are permitted
+to pass these functions to =doMath()= because they all satisfy the
+requirements of the first input argument of =doMath()=: they all
+return an =int=, and they all take two =int= values as inputs.
+
+** Function Arguments: Passing By Value vs Passing By Reference
+
+Typically when you think about passing arguments to functions, you
+think about passing the function the *value* of some variable. A
+common idiom in C however is to pass function arguments by
+*reference*, using pointers. This is the case in particular with large
+data structures like arrays and structs, for which it would be
+inefficient to make a copy of the whole thing, and passing that copy
+to a function. Instead, in passing by reference, you simply pass a
+pointer to the data, to the function.
+
+Here is some code illustrating passing by value, first:
+
+#+BEGIN_SRC c
+#include <stdio.h>
+
+void myFun(int x) {
+  x = x * 2;
+}
+
+int main(void) {
+  int y = 50;
+  printf("y=%d\n", y);
+  myFun(y);
+  printf("y=%d\n", y);
+  return 0;
+}
+#+END_SRC
+
+#+BEGIN_EXAMPLE
+y=50
+y=50
+#+END_EXAMPLE
+
+In the above code example, on line 8, we assign the value =50= to the
+variable =y=. Then on line 10 we call the function =myFun()= which
+takes one =int= argument and we pass it our variable =y=. This is
+*passing by value* since we are handing over to =myFun()= the *value*
+of =y= (=50=). Within =myFun()= we multiply the argument passed to it
+by =2= and exit. In =main()= when we print the value of =y=, after the
+function call to =myFun()=, it is still 50 (not 100).
+
+#+BEGIN_SRC c
+#include <stdio.h>
+
+void myFun(int *x) {
+  *x = *x * 2;
+}
+
+int main(void) {
+  int y = 50;
+  printf("y=%d\n", y);
+  myFun(&y);
+  printf("y=%d\n", y);
+  return 0;
+}
+#+END_SRC
+
+#+BEGIN_EXAMPLE
+y=50
+y=100
+#+END_EXAMPLE
+
+Here, we rewrite =myFun()= so that it take an input argument that is
+not an =int=, but rather a *pointer to an int* (hence the star *
+notation). Now in our =main()= function, on line 10, we pass to
+=myFun()= not the value of =y= as in the previous code example, but
+rather the *address* of =y=, using the =&= notation. Now when
+=myFun()= is called, it uses *pointer dereferencing* to multiply the
+value *pointed to by* its argument =x=, by =2=. Of course =x= is
+simply the *address* of =y=, which we passed to =myFun()=, and so the
+value pointed to by =x= is the value that we assigned to =y=, which is
+=50=. So =myFun()= multiplies that value by 2 and *assigns* it using
+pointer dereferencing to =*x=, which is the value associated with =y=.
+
+Make sure you understand these two code examples above, and why they
+do different things. If you understand this, then you basically
+understand pointers.
+
+* Dynamically Allocated Memory
+
+Languages like MATLAB, Python, etc, allow you to work with data
+structures like arrays, lists, etc, that you can dynamically
+resize. That is to say, you can make them longer, shorter, etc, even
+after they are created. In C this is not so easy.
+
+Once you have allocated a variable such as an array on the stack, it
+is fixed in its size. You cannot make it longer or shorter. In
+contrast, if you use =malloc()= or =calloc()= to allocate an array on
+the heap, you can use =realloc()= to resize it at some later time. In
+order to use these functions you will need to =#include <stdlib.h>= at
+the top of your C file.
+
+The built-in functions =malloc()=, =calloc()=, =realloc()= =memcpy()=
+and =free()= are what you will use to manage dynamically allocated
+data structures on the heap, "by hand". The life cycle of a heap variable involves three stages:
+
+1. allocating the heap variable using =malloc()= or =calloc()=
+2. (optionally) resizing the heap variable using =realloc()=
+3. releasing the memory from the heap using =free()=
+
+** Allocating memory using =malloc()= or =calloc()=
+
+These functions are used to allocate memory at runtime. The =malloc()=
+function takes as input the size of the memory block to be
+allocated. The =calloc()= function is like =malloc()= except that it
+also initializes all elements to zero. The =calloc()= function takes
+two input arguments, the number of elements and the size of each
+element.
+
+Here's an example of using =malloc()= to allocate memory to hold an
+array of 10 structs:
+
+#+BEGIN_SRC c
+#include <stdio.h>
+#include <stdlib.h>
+
+typedef struct {
+  int year;
+  int month;
+  int day;
+} date;
+
+int main(void) {
+
+  date *mylist = malloc(sizeof(date) * 10);
+  
+  mylist[0].year = 2012;
+  mylist[0].month = 1;
+  mylist[0].day = 15;
+
+  int i;
+  for (i=1; i<10; i++) {
+    mylist[i].year = 2012-i;
+    mylist[i].month = 1 + i;
+    mylist[i].day = 15 + i;
+  }
+
+  for (i=0; i<10; i++) {
+    printf("mylist[%d] = %d/%d/%d\n", i, mylist[i].day, mylist[i].month, mylist[i].year);
+  }
+
+  free(mylist);
+  return 0;
+}
+#+END_SRC
+
+#+BEGIN_EXAMPLE
+mylist[0] = 15/1/2012
+mylist[1] = 16/2/2011
+mylist[2] = 17/3/2010
+mylist[3] = 18/4/2009
+mylist[4] = 19/5/2008
+mylist[5] = 20/6/2007
+mylist[6] = 21/7/2006
+mylist[7] = 22/8/2005
+mylist[8] = 23/9/2004
+mylist[9] = 24/10/2003
+#+END_EXAMPLE
+
+** Resizing a variable using =realloc()=
+
+Let's say you use =calloc()= to allocate an array of 3 floating-point
+values, and you later in the program want to increase the size of the
+array to hold 5 values. Here's how you could do it using =realloc()=:
+
+#+BEGIN_SRC c
+#include <stdio.h>
+#include <stdlib.h>
+
+void showVec(double vec[], int n) {
+  int i;
+  for (i=0; i<n; i++) {
+    printf("vec[%d]=%.3f\n", i, vec[i]);
+  }
+  printf("\n");
+}
+
+int main(void) {
+  
+  double *vec = calloc(3, sizeof(double));
+  
+  vec[1] = 3.14;
+  showVec(vec, 3);
+
+  vec = realloc(vec, sizeof(double)*5);
+  showVec(vec, 5);
+
+  vec[3] = 7.77;
+  showVec(vec, 5);
+
+  free(vec);
+  return 0;
+}
+#+END_SRC
+
+#+BEGIN_EXAMPLE
+vec[0]=0.000
+vec[1]=0.000
+vec[2]=0.000
+
+vec[0]=0.000
+vec[1]=3.140
+vec[2]=0.000
+
+vec[0]=0.000
+vec[1]=3.140
+vec[2]=0.000
+vec[3]=0.000
+vec[4]=0.000
+
+vec[0]=0.000
+vec[1]=3.140
+vec[2]=0.000
+vec[3]=7.770
+vec[4]=0.000
+#+END_EXAMPLE
+
+** Freeing a memory block using =free()=
+
+You should always use =free()= to deallocate memory that has been
+allocated with =malloc()= or =calloc()=, as soon as you don't need it
+any more. Any memory allocated with =malloc()= or =calloc()= is
+*reserved*, in other words, it can't be used (for good reason) until
+it is deallocated with =free()=. If you fail to deallocate memory then
+you will have what's called a *memory leak*. If your program uses a
+lot of heap memory, that is not deallocated, and runs for a long time,
+then you might find that your computer (and your program) slows down,
+or suddenly freezes, or crashes, because there is no more memory to be
+allocated.
+
+The rule is, anytime you use =malloc()= or =calloc()=, you *must* also
+use =free()=.
+
+
+* Links
+
+- [[http://www.youtube.com/watch?v=6pmWojisM_E][Pointer Fun with Binky]] (YouTube)
+- [[http://www.youtube.com/watch?v=Rxvv9krECNw][Everything you need to know about pointers]] (YouTube)
+- [[http://c.learncodethehardway.org/book/learn-c-the-hard-waych16.html#x21-7500016][Pointers Dreaded Pointers]]
+- [[http://pw1.netcom.com/~tjensen/ptr/pointers.htm][A tutorial on pointers and arrays in C]]
+- [[http://boredzo.org/pointers/][Everything you need to know about pointers in C]]
+- [[http://cslibrary.stanford.edu/106/][Pointer Basics]]
+- [[http://en.wikipedia.org/wiki/Pointer_(computer_programming)][Wikipedia: Pointer (computer programming)]]
+
+* Exercises
+
+- 1 Refactor the code from your matrix program (from [[file:code/exercises/6_1_go.c][here]]) so that the
+  size of a matrix is not fixed to a maximum number of
+  elements. Instead use dynamic memory allocation.
+
+  Here are some hints:
+
+#+BEGIN_SRC c
+#include <stdio.h>
+#include <stdlib.h>
+
+typedef struct {
+  double *data;
+  int nrows;
+  int ncols;
+} Matrix;
+
+void printmat(Matrix *M);
+void matrixmult(Matrix *A, Matrix *B, Matrix *C);
+Matrix *createMatrix(int nrows, int ncols);
+void destroyMatrix(Matrix *M);
+
+int main(int argc, char *argv[])
+{
+  Matrix *A = createMatrix(3, 2);
+  A->data[0] = 1.2;
+  A->data[1] = 2.3;
+  A->data[2] = 3.4;
+  A->data[3] = 4.5;
+  A->data[4] = 5.6;
+  A->data[5] = 6.7;
+  printmat(A);
+
+  Matrix *B = createMatrix(2, 3);
+  B->data[0] = 5.5;
+  B->data[1] = 6.6;
+  B->data[2] = 7.7;
+  B->data[3] = 1.2;
+  B->data[4] = 2.1;
+  B->data[5] = 3.3;
+  printmat(B);
+
+  Matrix *C = createMatrix(3, 3);
+  matrixmult(A, B, C);
+  printmat(C);
+
+  destroyMatrix(A);
+  destroyMatrix(B);
+  destroyMatrix(C);
+  return 0;
+}
+
+// your code goes below...
+
+
+Matrix *createMatrix(int nrows, int ncols)
+{
+  // fill in the code here
+}
+
+void destroyMatrix(Matrix *M)
+{
+  // fill in the code here
+}
+
+void printmat(Matrix *M)
+{
+  // fill in the code here
+  printf("so far printmat does nothing\n");
+}
+
+void matrixmult(Matrix *A, Matrix *B, Matrix *C)
+{
+  // fill in the code here
+  printf("so far matrixmult does nothing\n");
+}
+
+
+#+END_SRC
+
+
+** Solutions
+
+- [[file:code/exercises/8_1.c][1]]
+

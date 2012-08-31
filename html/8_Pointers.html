@@ -1,0 +1,1055 @@
+<?xml version="1.0" encoding="iso-8859-1"?>
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Strict//EN"
+               "http://www.w3.org/TR/xhtml1/DTD/xhtml1-strict.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml" lang="en" xml:lang="en">
+<head>
+<title>8. Pointers</title>
+<meta http-equiv="Content-Type" content="text/html;charset=iso-8859-1"/>
+<meta name="title" content="8. Pointers"/>
+<meta name="generator" content="Org-mode"/>
+<meta name="generated" content="Summer 2012"/>
+<meta name="author" content="Paul Gribble"/>
+<meta name="description" content=""/>
+<meta name="keywords" content=""/>
+<style type="text/css">
+ <!--/*--><![CDATA[/*><!--*/
+  html { font-family: Times, serif; font-size: 12pt; }
+  .title  { text-align: center; }
+  .todo   { color: red; }
+  .done   { color: green; }
+  .tag    { background-color: #add8e6; font-weight:normal }
+  .target { }
+  .timestamp { color: #bebebe; }
+  .timestamp-kwd { color: #5f9ea0; }
+  .right  {margin-left:auto; margin-right:0px;  text-align:right;}
+  .left   {margin-left:0px;  margin-right:auto; text-align:left;}
+  .center {margin-left:auto; margin-right:auto; text-align:center;}
+  p.verse { margin-left: 3% }
+  pre {
+	border: 1pt solid #AEBDCC;
+	background-color: #F3F5F7;
+	padding: 5pt;
+	font-family: courier, monospace;
+        font-size: 90%;
+        overflow:auto;
+  }
+  table { border-collapse: collapse; }
+  td, th { vertical-align: top;  }
+  th.right  { text-align:center;  }
+  th.left   { text-align:center;   }
+  th.center { text-align:center; }
+  td.right  { text-align:right;  }
+  td.left   { text-align:left;   }
+  td.center { text-align:center; }
+  dt { font-weight: bold; }
+  div.figure { padding: 0.5em; }
+  div.figure p { text-align: center; }
+  div.inlinetask {
+    padding:10px;
+    border:2px solid gray;
+    margin:10px;
+    background: #ffffcc;
+  }
+  textarea { overflow-x: auto; }
+  .linenr { font-size:smaller }
+  .code-highlighted {background-color:#ffff00;}
+  .org-info-js_info-navigation { border-style:none; }
+  #org-info-js_console-label { font-size:10px; font-weight:bold;
+                               white-space:nowrap; }
+  .org-info-js_search-highlight {background-color:#ffff00; color:#000000;
+                                 font-weight:bold; }
+  /*]]>*/-->
+</style><link rel="stylesheet" type="text/css" href="mystyle.css" />
+<script type="text/javascript">
+<!--/*--><![CDATA[/*><!--*/
+ function CodeHighlightOn(elem, id)
+ {
+   var target = document.getElementById(id);
+   if(null != target) {
+     elem.cacheClassElem = elem.className;
+     elem.cacheClassTarget = target.className;
+     target.className = "code-highlighted";
+     elem.className   = "code-highlighted";
+   }
+ }
+ function CodeHighlightOff(elem, id)
+ {
+   var target = document.getElementById(id);
+   if(elem.cacheClassElem)
+     elem.className = elem.cacheClassElem;
+   if(elem.cacheClassTarget)
+     target.className = elem.cacheClassTarget;
+ }
+/*]]>*///-->
+</script>
+<script type="text/javascript" src="http://orgmode.org/mathjax/MathJax.js">
+<!--/*--><![CDATA[/*><!--*/
+    MathJax.Hub.Config({
+        // Only one of the two following lines, depending on user settings
+        // First allows browser-native MathML display, second forces HTML/CSS
+        //  config: ["MMLorHTML.js"], jax: ["input/TeX"],
+            jax: ["input/TeX", "output/HTML-CSS"],
+        extensions: ["tex2jax.js","TeX/AMSmath.js","TeX/AMSsymbols.js",
+                     "TeX/noUndefined.js"],
+        tex2jax: {
+            inlineMath: [ ["\\(","\\)"] ],
+            displayMath: [ ['$$','$$'], ["\\[","\\]"], ["\\begin{displaymath}","\\end{displaymath}"] ],
+            skipTags: ["script","noscript","style","textarea","pre","code"],
+            ignoreClass: "tex2jax_ignore",
+            processEscapes: false,
+            processEnvironments: true,
+            preview: "TeX"
+        },
+        showProcessingMessages: true,
+        displayAlign: "center",
+        displayIndent: "2em",
+
+        "HTML-CSS": {
+             scale: 100,
+             availableFonts: ["STIX","TeX"],
+             preferredFont: "TeX",
+             webFont: "TeX",
+             imageFont: "TeX",
+             showMathMenu: true,
+        },
+        MMLorHTML: {
+             prefer: {
+                 MSIE:    "MML",
+                 Firefox: "MML",
+                 Opera:   "HTML",
+                 other:   "HTML"
+             }
+        }
+    });
+/*]]>*///-->
+</script>
+</head>
+<body>
+<div id="org-div-home-and-up" style="text-align:right;font-size:70%;white-space:nowrap;">
+ <a accesskey="h" href="index.html"> UP </a>
+ |
+ <a accesskey="H" href="index.html"> HOME </a>
+</div>
+
+<div id="preamble">
+
+</div>
+
+<div id="content">
+<h1 class="title">8. Pointers</h1>
+
+
+
+<hr/>
+<div id="table-of-contents">
+<h2>Table of Contents</h2>
+<div id="text-table-of-contents">
+<ul>
+<li><a href="#sec-1">Pointers</a>
+<ul>
+<li><a href="#sec-1-1">Declaring a pointer</a></li>
+<li><a href="#sec-1-2">Dereferencing a Pointer</a></li>
+<li><a href="#sec-1-3">Pointers and Arrays</a></li>
+<li><a href="#sec-1-4">Pointer to a struct</a></li>
+<li><a href="#sec-1-5">Pointers to Functions</a></li>
+<li><a href="#sec-1-6">Function Arguments: Passing By Value vs Passing By Reference</a></li>
+</ul>
+</li>
+<li><a href="#sec-2">Dynamically Allocated Memory</a>
+<ul>
+<li><a href="#sec-2-1">Allocating memory using <code>malloc()</code> or <code>calloc()</code></a></li>
+<li><a href="#sec-2-2">Resizing a variable using <code>realloc()</code></a></li>
+<li><a href="#sec-2-3">Freeing a memory block using <code>free()</code></a></li>
+</ul>
+</li>
+<li><a href="#sec-3">Links</a></li>
+<li><a href="#sec-4">Exercises</a>
+<ul>
+<li><a href="#sec-4-1">Solutions</a></li>
+</ul>
+</li>
+</ul>
+</div>
+</div>
+
+<hr/>
+
+
+<div id="outline-container-1" class="outline-2">
+<h2 id="sec-1">Pointers</h2>
+<div class="outline-text-2" id="text-1">
+
+
+<p>
+Pointers represent one of the more powerful features of the C
+language, but also one of the most feared. Some of this fear and
+apprehension stems from the ridiculously obtuse ways that pointers
+<b>may</b> be used in C. Often tutorials and courses on C approach teaching
+pointers by asking the student to decipher bizarre looking pointer
+syntax combinations that truthfully are rarely used in practice. You
+may have seen bizarre looking pointer syntax, (and you may see it
+again), but typically, pointers do not have to be used in a horribly
+complicated way. Typically pointers are pretty straightforward.
+</p>
+<p>
+The bottom line is, pointers allow you to work with dynamically
+allocated memory blocks. You will use pointers to deal with variables
+that have been allocated on the <b>heap</b>. (You can use pointers to deal
+with stack variables, but in most cases this just isn't necessary).
+</p>
+<p>
+The basic idea is, a <b>pointer</b> is a special data type in C, that
+contains an <b>address</b> to a location in memory. Think of a pointer as
+an arrow that points to the location of a block of memory that in turn
+contains actual data of interest. It's not unlike the concept of a
+phone number, or a house address.
+</p>
+<p>
+The purpose of pointers is to allow you to manually, directly access a
+block of memory. Pointers are used a lot for <b>strings</b> and
+<b>structs</b>. It's not difficult to imagine that passing the <b>address</b> of
+a large block of memory (such as a struct that contains many things)
+to a function, is more efficient than making a copy of it and passing
+in that copy, only to delete that copy when your function is done with
+it. This is known as <b>passing by reference</b> versus <b>passing by value</b>. There is a code example below that illustrates this more
+clearly.
+</p>
+
+</div>
+
+<div id="outline-container-1-1" class="outline-3">
+<h3 id="sec-1-1">Declaring a pointer</h3>
+<div class="outline-text-3" id="text-1-1">
+
+
+<p>
+Here is how to declare a pointer:
+</p>
+
+
+
+<pre class="src src-c"><span style="color: #875f87;">#include</span> <span style="color: #87005f;">&lt;stdio.h&gt;</span>
+
+<span style="color: #008700;">int</span> <span style="color: #0000ff;">main</span> (<span style="color: #008700;">int</span> <span style="color: #af5f00;">argc</span>, <span style="color: #008700;">char</span> *<span style="color: #af5f00;">argv</span>[])
+{
+  <span style="color: #008700;">int</span> <span style="color: #af5f00;">age</span> = 30;
+  <span style="color: #008700;">int</span> *<span style="color: #af5f00;">p</span>;
+  p = &amp;age;
+  printf(<span style="color: #87005f;">"age=%d\n"</span>, age);
+  printf(<span style="color: #87005f;">"p=%p\n"</span>, p);
+  printf(<span style="color: #87005f;">"*p=%d\n"</span>, *p);
+  printf(<span style="color: #87005f;">"sizeof(p)=%ld\n"</span>, <span style="color: #af00ff;">sizeof</span>(p));
+  *p = 40;
+  printf(<span style="color: #87005f;">"*p=%d\n"</span>, *p);
+  printf(<span style="color: #87005f;">"age=%d\n"</span>, age);
+  <span style="color: #af00ff;">return</span> 0;
+}
+</pre>
+
+
+
+<pre class="example">age=30
+p=0x7fff197ceb1c
+*p=30
+sizeof(p)=8
+*p=40
+age=40
+</pre>
+
+
+<p>
+On line 5 we declare an <code>int</code> variable <code>age</code> and initialize it to
+<code>30</code>. On line 6 we declare a variable <code>p</code> whose type is a <b>pointer to an int</b>. The star * syntax is how to declare the type as a pointer
+<b>to</b> a particular other type. Usually you need to declare pointers as
+pointing to a particular type, but the exception is a so-called <b>void</b>
+pointer, which is a pointer to an unknown type. Don't worry about void
+pointers for now.
+</p>
+<p>
+So we have a pointer variable <code>p</code> that is a pointer to an <code>int</code>. So
+far, it doesn't point anywhere&hellip; we have only declared that we want a
+space in memory to hold a pointer to an int. On line 7 is where we
+assign a value to our pointer <code>p</code>. We assign to <code>p</code> the <b>address</b> (the
+location) of the other variable <code>age</code>. So now at this point in the
+program, we have the following (which we can see in the output):
+</p>
+<ul>
+<li>the value of <code>age</code> is the integer <code>30</code>
+</li>
+<li>the value of <code>p</code> is the address of the <code>age</code> variable
+</li>
+<li>the integer that <code>p</code> points to has a value of <code>30</code>
+</li>
+</ul>
+
+
+<p>
+On line 2 of the output we see that the value of the <code>p</code> pointer is a
+long strange looking string of letters and numbers. This is in fact a
+<a href="http://en.wikipedia.org/wiki/Hexadecimal">hexidecimal</a> (base 16) <b>memory address</b>.
+</p>
+</div>
+
+</div>
+
+<div id="outline-container-1-2" class="outline-3">
+<h3 id="sec-1-2">Dereferencing a Pointer</h3>
+<div class="outline-text-3" id="text-1-2">
+
+
+<p>
+On line 10, we see how to access the <b>value</b> that a pointer points to,
+by using the star * syntax. So <code>p</code> is the address of an <code>int</code>, whereas
+<code>*p</code> is the value of the <code>int</code> that <code>p</code> points to. Accessing the value
+that a pointer points to is called <b>dereferencing</b> a pointer.
+</p>
+<p>
+Finally, on line 11 (and on the last line of the output) we can see
+that our pointer <code>p</code> is 8 bytes. Remember, there are 8 bits in a byte,
+so a 4-byte pointer can hold up to 32 bits, or \(2^{32}\) distinct values,
+i.e. \(2^{32}\) distinct addresses in memory. So 32-bit pointers allow us
+to access up to 4 gigabytes (4 GB) of memory. If you want to use more
+than 4 GB of memory you will need bigger pointers! On 64-bit systems,
+pointers are 8 bytes, which allows for \(2^{64}\) distinct addresses in
+memory. It will be a <b>long time</b> before your computer has that much
+RAM (16 <a href="http://en.wikipedia.org/wiki/Exabyte">exabytes</a> in principle, which is 1 billion gigabytes or 1
+million terabytes).
+</p>
+<p>
+Take note of what happens in the code example above on line 12 of the
+code listing, and the values output on lines 5 and 6 of the output. On
+line 12 of the code listing, we use pointer dereferencing to set the
+value of the variable <b>pointed to by p</b> to <code>40</code>. Since <code>p</code> points to
+the <code>age</code> variable, we are setting the value of the address in memory
+corresponding to the <code>age</code> variable to <code>40</code>.
+</p>
+</div>
+
+</div>
+
+<div id="outline-container-1-3" class="outline-3">
+<h3 id="sec-1-3">Pointers and Arrays</h3>
+<div class="outline-text-3" id="text-1-3">
+
+
+<p>
+When you declare an array using an expression like <code>int vec[5];</code>, what
+is really happening behind the scenes, is that a block of memory is
+being allocated (on the stack in this case) large enough to hold 5
+integers, and the <code>vec</code> variable is a pointer that points to the first
+element in the array. When you index into the array with an expression
+like <code>printf("vec[2]=%d\n", vec[2]);</code> what is really happening is that
+C is using <b>pointer arithmetic</b> to step into the array the appropriate
+number of times, and reading the value in the memory location it ends
+up in. So if you ask for the 3rd element of the <code>vec</code> array using
+<code>vec[2]</code> then C is first looking at the location pointed to by <code>vec</code>
+(the first element of the array), and stepping <b>two integers</b> forward,
+and then reading the value it finds there (<code>vec[2]</code>).
+</p>
+<p>
+The explicit way of doing this would be to use <code>malloc()</code> or
+<code>calloc()</code> to allocate the array (in this case on the heap) and then
+use pointer arithmetic to read off the 3rd value:
+</p>
+
+
+
+<pre class="src src-C"><span style="color: #875f87;">#include</span> <span style="color: #87005f;">&lt;stdio.h&gt;</span>
+<span style="color: #875f87;">#include</span> <span style="color: #87005f;">&lt;stdlib.h&gt;</span>
+
+<span style="color: #008700;">int</span> <span style="color: #0000ff;">main</span>(<span style="color: #008700;">void</span>) {
+  <span style="color: #008700;">int</span> *<span style="color: #af5f00;">vec</span>;
+  vec = malloc(<span style="color: #af00ff;">sizeof</span>(<span style="color: #008700;">int</span>) * 3);
+  vec[0] = 1;
+  vec[1] = 2;
+  vec[2] = 3;
+  printf(<span style="color: #87005f;">"vec[2]=%d\n"</span>, *(vec+2));
+  free(vec);
+  <span style="color: #af00ff;">return</span> 0;
+}
+</pre>
+
+
+<p>
+The expression <code>*(vec+2)</code> essentially says, go to the location that
+the pointer <code>vec</code> points to, take two steps (each step the size of an
+<code>int</code>) and the read off the value you find there. How does C know the
+size of each step to take? Remember when you declare a pointer, you
+have to declare the type that it points to. So when we declared our
+<code>vec</code> pointer, we declared it as a pointer to <code>int</code>. This means when
+you use pointer arithmetic, C knows the size of each step.
+</p>
+<p>
+The <code>*(vec+2)</code> notation is really just as a demonstration of what is
+happening behind the scenes, there is rarely a need to use such an
+explicit (and so difficult to read) expression to index into
+arrays. The more common way of indexing into arrays (and the more
+readable way) is to use the <code>vec[2]</code> notation:
+</p>
+
+
+
+<pre class="src src-C"><span style="color: #875f87;">#include</span> <span style="color: #87005f;">&lt;stdio.h&gt;</span>
+<span style="color: #875f87;">#include</span> <span style="color: #87005f;">&lt;stdlib.h&gt;</span>
+
+<span style="color: #008700;">int</span> <span style="color: #0000ff;">main</span>(<span style="color: #008700;">void</span>) {
+  <span style="color: #008700;">int</span> *<span style="color: #af5f00;">vec</span>;
+  vec = malloc(<span style="color: #af00ff;">sizeof</span>(<span style="color: #008700;">int</span>) * 3);
+  vec[0] = 1;
+  vec[1] = 2;
+  vec[2] = 3;
+  printf(<span style="color: #87005f;">"vec[2]=%d\n"</span>, vec[2]);
+  free(vec);
+  <span style="color: #af00ff;">return</span> 0;
+}
+</pre>
+
+
+
+</div>
+
+</div>
+
+<div id="outline-container-1-4" class="outline-3">
+<h3 id="sec-1-4">Pointer to a struct</h3>
+<div class="outline-text-3" id="text-1-4">
+
+
+<p>
+Pointers can also be used to point to a struct. Here is how this would
+be done:
+</p>
+
+
+
+<pre class="src src-c"><span style="color: #875f87;">#include</span> <span style="color: #87005f;">&lt;stdio.h&gt;</span>
+<span style="color: #875f87;">#include</span> <span style="color: #87005f;">&lt;stdlib.h&gt;</span>
+
+<span style="color: #af00ff;">typedef</span> <span style="color: #af00ff;">struct</span> {
+  <span style="color: #008700;">int</span> <span style="color: #af5f00;">year</span>;
+  <span style="color: #008700;">int</span> <span style="color: #af5f00;">month</span>;
+  <span style="color: #008700;">int</span> <span style="color: #af5f00;">day</span>;
+} <span style="color: #af5f00;">date</span>;
+
+<span style="color: #008700;">int</span> <span style="color: #0000ff;">main</span>(<span style="color: #008700;">void</span>) {
+
+  <span style="color: #008700;">date</span> *<span style="color: #af5f00;">today</span>;
+  today = malloc(<span style="color: #af00ff;">sizeof</span>(date));
+
+  <span style="color: #af0000;">// </span><span style="color: #af0000;">the explicit way of accessing fields of our struct</span>
+  (*today).day = 15;
+  (*today).month = 6;
+  (*today).year = 2012;
+
+  <span style="color: #af0000;">// </span><span style="color: #af0000;">the more readable shorthand way of doing it</span>
+  today-&gt;day = 15;
+  today-&gt;month = 6;
+  today-&gt;year = 2012;
+
+  printf(<span style="color: #87005f;">"the date is %d/%d/%d\n"</span>, today-&gt;day, today-&gt;month, today-&gt;year);
+
+  free(today);
+
+  <span style="color: #af00ff;">return</span> 0;
+}
+</pre>
+
+
+
+<pre class="example">the date is 15/6/2012
+</pre>
+
+
+<p>
+Let's go through this step by step. On lines 4-8 we define a struct
+that contains three <code>int</code> values: <code>year</code>, <code>month</code> and <code>day</code>. We use
+typedef to name our new struct type <code>date</code>.
+</p>
+<p>
+On line 12 we declare a new variable <code>today</code> to be a pointer to
+<code>date</code>. On line 13 we use <code>malloc()</code> to allocate a block of memory (on
+the heap) to store one <code>date</code> struct.
+</p>
+<p>
+On lines 16-18 I show how to access fields of our <code>date</code> struct, using
+explicit pointer syntax. So for example the expression <code>(*today).day</code>
+means, dereference the <code>today</code> pointer and then access the <code>day</code> field
+of the thing you find there (which will be a <code>date</code> struct).
+</p>
+<p>
+On lines 21-23 I show you the more common (and more readable)
+shorthand for using pointers with structs.
+</p>
+<p>
+Just as a reminder: here is how one would do this on the stack instead
+of the heap:
+</p>
+
+
+
+<pre class="src src-c"><span style="color: #875f87;">#include</span> <span style="color: #87005f;">&lt;stdio.h&gt;</span>
+
+<span style="color: #af00ff;">typedef</span> <span style="color: #af00ff;">struct</span> {
+  <span style="color: #008700;">int</span> <span style="color: #af5f00;">year</span>;
+  <span style="color: #008700;">int</span> <span style="color: #af5f00;">month</span>;
+  <span style="color: #008700;">int</span> <span style="color: #af5f00;">day</span>;
+} <span style="color: #af5f00;">date</span>;
+
+<span style="color: #008700;">int</span> <span style="color: #0000ff;">main</span>(<span style="color: #008700;">void</span>) {
+
+  <span style="color: #008700;">date</span> <span style="color: #af5f00;">today</span>;
+
+  today.day = 15;
+  today.month = 6;
+  today.year = 2012;
+
+  printf(<span style="color: #87005f;">"the date is %d/%d/%d\n"</span>, today.day, today.month, today.year);
+
+  <span style="color: #af00ff;">return</span> 0;
+}
+</pre>
+
+
+<p>
+Gone is all of the pointer stuff, at least on the surface. Under the
+hood, C is still using pointers to accomplish this.
+</p>
+
+</div>
+
+</div>
+
+<div id="outline-container-1-5" class="outline-3">
+<h3 id="sec-1-5">Pointers to Functions</h3>
+<div class="outline-text-3" id="text-1-5">
+
+
+<p>
+One of the handy things you can do in C, is to use a pointer to point to a function. Then you can pass this function pointer to other functions as an argument, you can store it in a struct, etc. Here is a small example:
+</p>
+
+
+
+<pre class="src src-c"><span style="color: #875f87;">#include</span> <span style="color: #87005f;">&lt;stdio.h&gt;</span>
+
+<span style="color: #008700;">int</span> <span style="color: #0000ff;">add</span>( <span style="color: #008700;">int</span> <span style="color: #af5f00;">a</span>, <span style="color: #008700;">int</span> <span style="color: #af5f00;">b</span> ) {
+  <span style="color: #af00ff;">return</span> a + b;
+}
+
+<span style="color: #008700;">int</span> <span style="color: #0000ff;">subtract</span>( <span style="color: #008700;">int</span> <span style="color: #af5f00;">a</span>, <span style="color: #008700;">int</span> <span style="color: #af5f00;">b</span> ) {
+  <span style="color: #af00ff;">return</span> a - b;
+}
+
+<span style="color: #008700;">int</span> <span style="color: #0000ff;">multiply</span>( <span style="color: #008700;">int</span> <span style="color: #af5f00;">a</span>, <span style="color: #008700;">int</span> <span style="color: #af5f00;">b</span> ) {
+  <span style="color: #af00ff;">return</span> a * b;
+}
+
+<span style="color: #008700;">void</span> <span style="color: #0000ff;">doMath</span>( <span style="color: #008700;">int</span> (*<span style="color: #af5f00;">fn</span>)(<span style="color: #008700;">int</span> <span style="color: #af5f00;">a</span>, <span style="color: #008700;">int</span> <span style="color: #af5f00;">b</span>), <span style="color: #008700;">int</span> <span style="color: #af5f00;">a</span>, <span style="color: #008700;">int</span> <span style="color: #af5f00;">b</span> ) {
+  <span style="color: #008700;">int</span> <span style="color: #af5f00;">result</span> = fn(a, b);
+  printf(<span style="color: #87005f;">"result = %d\n"</span>, result);
+}
+
+<span style="color: #008700;">int</span> <span style="color: #0000ff;">main</span>(<span style="color: #008700;">void</span>) {
+
+  <span style="color: #008700;">int</span> <span style="color: #af5f00;">a</span> = 2;
+  <span style="color: #008700;">int</span> <span style="color: #af5f00;">b</span> = 3;
+
+  doMath(add, a, b);
+  doMath(subtract, a, b);
+  doMath(multiply, a, b);
+
+  <span style="color: #af00ff;">return</span> 0;
+}
+</pre>
+
+
+<p>
+Let's go through this to understand what's happening. On lines 3-5,
+7-9 and 11-13, we define functions <code>add</code>, <code>subtract</code> and
+<code>multiply</code>. These functions return an <code>int</code> and take two <code>int</code> values
+as input arguments.
+</p>
+<p>
+On lines 15-18 we define a function <code>doMath</code> which returns nothing
+(hence <code>void</code>) and which takes three input arguments. The first input argument is:
+</p>
+
+
+
+<pre class="src src-C"><span style="color: #008700;">int</span> (*<span style="color: #0000ff;">fn</span>)(<span style="color: #008700;">int</span> <span style="color: #af5f00;">a</span>, <span style="color: #008700;">int</span> <span style="color: #af5f00;">b</span>)
+</pre>
+
+
+<p>
+This first argument is a <b>pointer to a function</b>. It's actually more
+specific than that. It's a pointer to a specific kind of function: a
+function that returns an <code>int</code>, and that takes two <code>int</code> values as
+inputs. Let's unpack this. The <code>(*fn)</code> says this is a pointer to a
+function, and we shall refer to that function as <code>fn</code>. The preceding
+<code>int</code> says, it's a function that returns an <code>int</code>. The subsequent
+<code>(int a, int b)</code> says it's a function that takes two <code>int</code> arguments
+as inputs.
+</p>
+<p>
+On lines 25-27, we call our <code>doMath()</code> function, each time passing it
+the three input arguments that it requires. First, a pointer to a
+function. Here we simply pass the <b>name</b> of one of the functions we
+defined above: <code>add()</code>, <code>subtract()</code> or <code>multiply()</code>. We are permitted
+to pass these functions to <code>doMath()</code> because they all satisfy the
+requirements of the first input argument of <code>doMath()</code>: they all
+return an <code>int</code>, and they all take two <code>int</code> values as inputs.
+</p>
+</div>
+
+</div>
+
+<div id="outline-container-1-6" class="outline-3">
+<h3 id="sec-1-6">Function Arguments: Passing By Value vs Passing By Reference</h3>
+<div class="outline-text-3" id="text-1-6">
+
+
+<p>
+Typically when you think about passing arguments to functions, you
+think about passing the function the <b>value</b> of some variable. A
+common idiom in C however is to pass function arguments by
+<b>reference</b>, using pointers. This is the case in particular with large
+data structures like arrays and structs, for which it would be
+inefficient to make a copy of the whole thing, and passing that copy
+to a function. Instead, in passing by reference, you simply pass a
+pointer to the data, to the function.
+</p>
+<p>
+Here is some code illustrating passing by value, first:
+</p>
+
+
+
+<pre class="src src-c"><span style="color: #875f87;">#include</span> <span style="color: #87005f;">&lt;stdio.h&gt;</span>
+
+<span style="color: #008700;">void</span> <span style="color: #0000ff;">myFun</span>(<span style="color: #008700;">int</span> <span style="color: #af5f00;">x</span>) {
+  x = x * 2;
+}
+
+<span style="color: #008700;">int</span> <span style="color: #0000ff;">main</span>(<span style="color: #008700;">void</span>) {
+  <span style="color: #008700;">int</span> <span style="color: #af5f00;">y</span> = 50;
+  printf(<span style="color: #87005f;">"y=%d\n"</span>, y);
+  myFun(y);
+  printf(<span style="color: #87005f;">"y=%d\n"</span>, y);
+  <span style="color: #af00ff;">return</span> 0;
+}
+</pre>
+
+
+
+<pre class="example">y=50
+y=50
+</pre>
+
+
+<p>
+In the above code example, on line 8, we assign the value <code>50</code> to the
+variable <code>y</code>. Then on line 10 we call the function <code>myFun()</code> which
+takes one <code>int</code> argument and we pass it our variable <code>y</code>. This is
+<b>passing by value</b> since we are handing over to <code>myFun()</code> the <b>value</b>
+of <code>y</code> (<code>50</code>). Within <code>myFun()</code> we multiply the argument passed to it
+by <code>2</code> and exit. In <code>main()</code> when we print the value of <code>y</code>, after the
+function call to <code>myFun()</code>, it is still 50 (not 100).
+</p>
+
+
+
+<pre class="src src-c"><span style="color: #875f87;">#include</span> <span style="color: #87005f;">&lt;stdio.h&gt;</span>
+
+<span style="color: #008700;">void</span> <span style="color: #0000ff;">myFun</span>(<span style="color: #008700;">int</span> *<span style="color: #af5f00;">x</span>) {
+  *x = *x * 2;
+}
+
+<span style="color: #008700;">int</span> <span style="color: #0000ff;">main</span>(<span style="color: #008700;">void</span>) {
+  <span style="color: #008700;">int</span> <span style="color: #af5f00;">y</span> = 50;
+  printf(<span style="color: #87005f;">"y=%d\n"</span>, y);
+  myFun(&amp;y);
+  printf(<span style="color: #87005f;">"y=%d\n"</span>, y);
+  <span style="color: #af00ff;">return</span> 0;
+}
+</pre>
+
+
+
+<pre class="example">y=50
+y=100
+</pre>
+
+
+<p>
+Here, we rewrite <code>myFun()</code> so that it take an input argument that is
+not an <code>int</code>, but rather a <b>pointer to an int</b> (hence the star *
+notation). Now in our <code>main()</code> function, on line 10, we pass to
+<code>myFun()</code> not the value of <code>y</code> as in the previous code example, but
+rather the <b>address</b> of <code>y</code>, using the <code>&amp;</code> notation. Now when
+<code>myFun()</code> is called, it uses <b>pointer dereferencing</b> to multiply the
+value <b>pointed to by</b> its argument <code>x</code>, by <code>2</code>. Of course <code>x</code> is
+simply the <b>address</b> of <code>y</code>, which we passed to <code>myFun()</code>, and so the
+value pointed to by <code>x</code> is the value that we assigned to <code>y</code>, which is
+<code>50</code>. So <code>myFun()</code> multiplies that value by 2 and <b>assigns</b> it using
+pointer dereferencing to <code>*x</code>, which is the value associated with <code>y</code>.
+</p>
+<p>
+Make sure you understand these two code examples above, and why they
+do different things. If you understand this, then you basically
+understand pointers.
+</p>
+</div>
+</div>
+
+</div>
+
+<div id="outline-container-2" class="outline-2">
+<h2 id="sec-2">Dynamically Allocated Memory</h2>
+<div class="outline-text-2" id="text-2">
+
+
+<p>
+Languages like MATLAB, Python, etc, allow you to work with data
+structures like arrays, lists, etc, that you can dynamically
+resize. That is to say, you can make them longer, shorter, etc, even
+after they are created. In C this is not so easy.
+</p>
+<p>
+Once you have allocated a variable such as an array on the stack, it
+is fixed in its size. You cannot make it longer or shorter. In
+contrast, if you use <code>malloc()</code> or <code>calloc()</code> to allocate an array on
+the heap, you can use <code>realloc()</code> to resize it at some later time. In
+order to use these functions you will need to <code>#include &lt;stdlib.h&gt;</code> at
+the top of your C file.
+</p>
+<p>
+The built-in functions <code>malloc()</code>, <code>calloc()</code>, <code>realloc()</code> <code>memcpy()</code>
+and <code>free()</code> are what you will use to manage dynamically allocated
+data structures on the heap, "by hand". The life cycle of a heap variable involves three stages:
+</p>
+<ol>
+<li>allocating the heap variable using <code>malloc()</code> or <code>calloc()</code>
+</li>
+<li>(optionally) resizing the heap variable using <code>realloc()</code>
+</li>
+<li>releasing the memory from the heap using <code>free()</code>
+</li>
+</ol>
+
+
+
+</div>
+
+<div id="outline-container-2-1" class="outline-3">
+<h3 id="sec-2-1">Allocating memory using <code>malloc()</code> or <code>calloc()</code></h3>
+<div class="outline-text-3" id="text-2-1">
+
+
+<p>
+These functions are used to allocate memory at runtime. The <code>malloc()</code>
+function takes as input the size of the memory block to be
+allocated. The <code>calloc()</code> function is like <code>malloc()</code> except that it
+also initializes all elements to zero. The <code>calloc()</code> function takes
+two input arguments, the number of elements and the size of each
+element.
+</p>
+<p>
+Here's an example of using <code>malloc()</code> to allocate memory to hold an
+array of 10 structs:
+</p>
+
+
+
+<pre class="src src-c"><span style="color: #875f87;">#include</span> <span style="color: #87005f;">&lt;stdio.h&gt;</span>
+<span style="color: #875f87;">#include</span> <span style="color: #87005f;">&lt;stdlib.h&gt;</span>
+
+<span style="color: #af00ff;">typedef</span> <span style="color: #af00ff;">struct</span> {
+  <span style="color: #008700;">int</span> <span style="color: #af5f00;">year</span>;
+  <span style="color: #008700;">int</span> <span style="color: #af5f00;">month</span>;
+  <span style="color: #008700;">int</span> <span style="color: #af5f00;">day</span>;
+} <span style="color: #af5f00;">date</span>;
+
+<span style="color: #008700;">int</span> <span style="color: #0000ff;">main</span>(<span style="color: #008700;">void</span>) {
+
+  <span style="color: #008700;">date</span> *<span style="color: #af5f00;">mylist</span> = malloc(<span style="color: #af00ff;">sizeof</span>(date) * 10);
+
+  mylist[0].year = 2012;
+  mylist[0].month = 1;
+  mylist[0].day = 15;
+
+  <span style="color: #008700;">int</span> <span style="color: #af5f00;">i</span>;
+  <span style="color: #af00ff;">for</span> (i=1; i&lt;10; i++) {
+    mylist[i].year = 2012-i;
+    mylist[i].month = 1 + i;
+    mylist[i].day = 15 + i;
+  }
+
+  <span style="color: #af00ff;">for</span> (i=0; i&lt;10; i++) {
+    printf(<span style="color: #87005f;">"mylist[%d] = %d/%d/%d\n"</span>, i, mylist[i].day, mylist[i].month, mylist[i].year);
+  }
+
+  free(mylist);
+  <span style="color: #af00ff;">return</span> 0;
+}
+</pre>
+
+
+
+<pre class="example">mylist[0] = 15/1/2012
+mylist[1] = 16/2/2011
+mylist[2] = 17/3/2010
+mylist[3] = 18/4/2009
+mylist[4] = 19/5/2008
+mylist[5] = 20/6/2007
+mylist[6] = 21/7/2006
+mylist[7] = 22/8/2005
+mylist[8] = 23/9/2004
+mylist[9] = 24/10/2003
+</pre>
+
+
+</div>
+
+</div>
+
+<div id="outline-container-2-2" class="outline-3">
+<h3 id="sec-2-2">Resizing a variable using <code>realloc()</code></h3>
+<div class="outline-text-3" id="text-2-2">
+
+
+<p>
+Let's say you use <code>calloc()</code> to allocate an array of 3 floating-point
+values, and you later in the program want to increase the size of the
+array to hold 5 values. Here's how you could do it using <code>realloc()</code>:
+</p>
+
+
+
+<pre class="src src-c"><span style="color: #875f87;">#include</span> <span style="color: #87005f;">&lt;stdio.h&gt;</span>
+<span style="color: #875f87;">#include</span> <span style="color: #87005f;">&lt;stdlib.h&gt;</span>
+
+<span style="color: #008700;">void</span> <span style="color: #0000ff;">showVec</span>(<span style="color: #008700;">double</span> <span style="color: #af5f00;">vec</span>[], <span style="color: #008700;">int</span> <span style="color: #af5f00;">n</span>) {
+  <span style="color: #008700;">int</span> <span style="color: #af5f00;">i</span>;
+  <span style="color: #af00ff;">for</span> (i=0; i&lt;n; i++) {
+    printf(<span style="color: #87005f;">"vec[%d]=%.3f\n"</span>, i, vec[i]);
+  }
+  printf(<span style="color: #87005f;">"\n"</span>);
+}
+
+<span style="color: #008700;">int</span> <span style="color: #0000ff;">main</span>(<span style="color: #008700;">void</span>) {
+
+  <span style="color: #008700;">double</span> *<span style="color: #af5f00;">vec</span> = calloc(3, <span style="color: #af00ff;">sizeof</span>(<span style="color: #008700;">double</span>));
+
+  vec[1] = 3.14;
+  showVec(vec, 3);
+
+  vec = realloc(vec, <span style="color: #af00ff;">sizeof</span>(<span style="color: #008700;">double</span>)*5);
+  showVec(vec, 5);
+
+  vec[3] = 7.77;
+  showVec(vec, 5);
+
+  free(vec);
+  <span style="color: #af00ff;">return</span> 0;
+}
+</pre>
+
+
+
+<pre class="example">vec[0]=0.000
+vec[1]=0.000
+vec[2]=0.000
+
+vec[0]=0.000
+vec[1]=3.140
+vec[2]=0.000
+
+vec[0]=0.000
+vec[1]=3.140
+vec[2]=0.000
+vec[3]=0.000
+vec[4]=0.000
+
+vec[0]=0.000
+vec[1]=3.140
+vec[2]=0.000
+vec[3]=7.770
+vec[4]=0.000
+</pre>
+
+
+</div>
+
+</div>
+
+<div id="outline-container-2-3" class="outline-3">
+<h3 id="sec-2-3">Freeing a memory block using <code>free()</code></h3>
+<div class="outline-text-3" id="text-2-3">
+
+
+<p>
+You should always use <code>free()</code> to deallocate memory that has been
+allocated with <code>malloc()</code> or <code>calloc()</code>, as soon as you don't need it
+any more. Any memory allocated with <code>malloc()</code> or <code>calloc()</code> is
+<b>reserved</b>, in other words, it can't be used (for good reason) until
+it is deallocated with <code>free()</code>. If you fail to deallocate memory then
+you will have what's called a <b>memory leak</b>. If your program uses a
+lot of heap memory, that is not deallocated, and runs for a long time,
+then you might find that your computer (and your program) slows down,
+or suddenly freezes, or crashes, because there is no more memory to be
+allocated.
+</p>
+<p>
+The rule is, anytime you use <code>malloc()</code> or <code>calloc()</code>, you <b>must</b> also
+use <code>free()</code>.
+</p>
+
+</div>
+</div>
+
+</div>
+
+<div id="outline-container-3" class="outline-2">
+<h2 id="sec-3">Links</h2>
+<div class="outline-text-2" id="text-3">
+
+
+<ul>
+<li><a href="http://www.youtube.com/watch?v=6pmWojisM_E">Pointer Fun with Binky</a> (YouTube)
+</li>
+<li><a href="http://www.youtube.com/watch?v=Rxvv9krECNw">Everything you need to know about pointers</a> (YouTube)
+</li>
+<li><a href="http://c.learncodethehardway.org/book/learn-c-the-hard-waych16.html#x21-7500016">Pointers Dreaded Pointers</a>
+</li>
+<li><a href="http://pw1.netcom.com/~tjensen/ptr/pointers.htm">A tutorial on pointers and arrays in C</a>
+</li>
+<li><a href="http://boredzo.org/pointers/">Everything you need to know about pointers in C</a>
+</li>
+<li><a href="http://cslibrary.stanford.edu/106/">Pointer Basics</a>
+</li>
+<li><a href="http://en.wikipedia.org/wiki/Pointer_(computer_programming)">Wikipedia: Pointer (computer programming)</a>
+</li>
+</ul>
+
+
+</div>
+
+</div>
+
+<div id="outline-container-4" class="outline-2">
+<h2 id="sec-4">Exercises</h2>
+<div class="outline-text-2" id="text-4">
+
+
+<ul>
+<li>1 Refactor the code from your matrix program (from <a href="code/exercises/6_1_go.c">here</a>) so that the
+  size of a matrix is not fixed to a maximum number of
+  elements. Instead use dynamic memory allocation.
+
+<p>
+  Here are some hints:
+</p></li>
+</ul>
+
+
+
+
+
+<pre class="src src-c"><span style="color: #875f87;">#include</span> <span style="color: #87005f;">&lt;stdio.h&gt;</span>
+<span style="color: #875f87;">#include</span> <span style="color: #87005f;">&lt;stdlib.h&gt;</span>
+
+<span style="color: #af00ff;">typedef</span> <span style="color: #af00ff;">struct</span> {
+  <span style="color: #008700;">double</span> *<span style="color: #af5f00;">data</span>;
+  <span style="color: #008700;">int</span> <span style="color: #af5f00;">nrows</span>;
+  <span style="color: #008700;">int</span> <span style="color: #af5f00;">ncols</span>;
+} <span style="color: #af5f00;">Matrix</span>;
+
+<span style="color: #008700;">void</span> <span style="color: #0000ff;">printmat</span>(<span style="color: #008700;">Matrix</span> *<span style="color: #af5f00;">M</span>);
+<span style="color: #008700;">void</span> <span style="color: #0000ff;">matrixmult</span>(<span style="color: #008700;">Matrix</span> *<span style="color: #af5f00;">A</span>, <span style="color: #008700;">Matrix</span> *<span style="color: #af5f00;">B</span>, <span style="color: #008700;">Matrix</span> *<span style="color: #af5f00;">C</span>);
+<span style="color: #008700;">Matrix</span> *<span style="color: #0000ff;">createMatrix</span>(<span style="color: #008700;">int</span> <span style="color: #af5f00;">nrows</span>, <span style="color: #008700;">int</span> <span style="color: #af5f00;">ncols</span>);
+<span style="color: #008700;">void</span> <span style="color: #0000ff;">destroyMatrix</span>(<span style="color: #008700;">Matrix</span> *<span style="color: #af5f00;">M</span>);
+
+<span style="color: #008700;">int</span> <span style="color: #0000ff;">main</span>(<span style="color: #008700;">int</span> <span style="color: #af5f00;">argc</span>, <span style="color: #008700;">char</span> *<span style="color: #af5f00;">argv</span>[])
+{
+  <span style="color: #008700;">Matrix</span> *<span style="color: #af5f00;">A</span> = createMatrix(3, 2);
+  A-&gt;data[0] = 1.2;
+  A-&gt;data[1] = 2.3;
+  A-&gt;data[2] = 3.4;
+  A-&gt;data[3] = 4.5;
+  A-&gt;data[4] = 5.6;
+  A-&gt;data[5] = 6.7;
+  printmat(A);
+
+  <span style="color: #008700;">Matrix</span> *<span style="color: #af5f00;">B</span> = createMatrix(2, 3);
+  B-&gt;data[0] = 5.5;
+  B-&gt;data[1] = 6.6;
+  B-&gt;data[2] = 7.7;
+  B-&gt;data[3] = 1.2;
+  B-&gt;data[4] = 2.1;
+  B-&gt;data[5] = 3.3;
+  printmat(B);
+
+  <span style="color: #008700;">Matrix</span> *<span style="color: #af5f00;">C</span> = createMatrix(3, 3);
+  matrixmult(A, B, C);
+  printmat(C);
+
+  destroyMatrix(A);
+  destroyMatrix(B);
+  destroyMatrix(C);
+  <span style="color: #af00ff;">return</span> 0;
+}
+
+<span style="color: #af0000;">// </span><span style="color: #af0000;">your code goes below...</span>
+
+
+<span style="color: #008700;">Matrix</span> *<span style="color: #0000ff;">createMatrix</span>(<span style="color: #008700;">int</span> <span style="color: #af5f00;">nrows</span>, <span style="color: #008700;">int</span> <span style="color: #af5f00;">ncols</span>)
+{
+  <span style="color: #af0000;">// </span><span style="color: #af0000;">fill in the code here</span>
+}
+
+<span style="color: #008700;">void</span> <span style="color: #0000ff;">destroyMatrix</span>(<span style="color: #008700;">Matrix</span> *<span style="color: #af5f00;">M</span>)
+{
+  <span style="color: #af0000;">// </span><span style="color: #af0000;">fill in the code here</span>
+}
+
+<span style="color: #008700;">void</span> <span style="color: #0000ff;">printmat</span>(<span style="color: #008700;">Matrix</span> *<span style="color: #af5f00;">M</span>)
+{
+  <span style="color: #af0000;">// </span><span style="color: #af0000;">fill in the code here</span>
+  printf(<span style="color: #87005f;">"so far printmat does nothing\n"</span>);
+}
+
+<span style="color: #008700;">void</span> <span style="color: #0000ff;">matrixmult</span>(<span style="color: #008700;">Matrix</span> *<span style="color: #af5f00;">A</span>, <span style="color: #008700;">Matrix</span> *<span style="color: #af5f00;">B</span>, <span style="color: #008700;">Matrix</span> *<span style="color: #af5f00;">C</span>)
+{
+  <span style="color: #af0000;">// </span><span style="color: #af0000;">fill in the code here</span>
+  printf(<span style="color: #87005f;">"so far matrixmult does nothing\n"</span>);
+}
+
+
+</pre>
+
+
+
+
+</div>
+
+<div id="outline-container-4-1" class="outline-3">
+<h3 id="sec-4-1">Solutions</h3>
+<div class="outline-text-3" id="text-4-1">
+
+
+<ul>
+<li><a href="code/exercises/8_1.c">1</a>
+</li>
+</ul>
+
+
+</div>
+</div>
+</div>
+</div>
+
+<div id="postamble">
+<hr />Paul Gribble | Summer 2012<br>This <span xmlns:dct="http://purl.org/dc/terms/" href="http://purl.org/dc/dcmitype/Text" rel="dct:type">work</span> is licensed under a <a rel="license" href="http://creativecommons.org/licenses/by-nc-sa/3.0/">Creative Commons Attribution-NonCommercial-ShareAlike 3.0 Unported License</a><br><a rel="license" href="http://creativecommons.org/licenses/by-nc-sa/3.0/"><img alt="Creative Commons License" style="border-width:0" src="http://i.creativecommons.org/l/by-nc-sa/3.0/80x15.png" /></a><br />
+</div>
+</body>
+</html>

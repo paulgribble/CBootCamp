@@ -1,0 +1,512 @@
+<?xml version="1.0" encoding="iso-8859-1"?>
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Strict//EN"
+               "http://www.w3.org/TR/xhtml1/DTD/xhtml1-strict.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml" lang="en" xml:lang="en">
+<head>
+<title>A1. A Brief Tour of Some Other Useful C Libraries</title>
+<meta http-equiv="Content-Type" content="text/html;charset=iso-8859-1"/>
+<meta name="title" content="A1. A Brief Tour of Some Other Useful C Libraries"/>
+<meta name="generator" content="Org-mode"/>
+<meta name="generated" content="Summer 2012"/>
+<meta name="author" content="Paul Gribble"/>
+<meta name="description" content=""/>
+<meta name="keywords" content=""/>
+<style type="text/css">
+ <!--/*--><![CDATA[/*><!--*/
+  html { font-family: Times, serif; font-size: 12pt; }
+  .title  { text-align: center; }
+  .todo   { color: red; }
+  .done   { color: green; }
+  .tag    { background-color: #add8e6; font-weight:normal }
+  .target { }
+  .timestamp { color: #bebebe; }
+  .timestamp-kwd { color: #5f9ea0; }
+  .right  {margin-left:auto; margin-right:0px;  text-align:right;}
+  .left   {margin-left:0px;  margin-right:auto; text-align:left;}
+  .center {margin-left:auto; margin-right:auto; text-align:center;}
+  p.verse { margin-left: 3% }
+  pre {
+	border: 1pt solid #AEBDCC;
+	background-color: #F3F5F7;
+	padding: 5pt;
+	font-family: courier, monospace;
+        font-size: 90%;
+        overflow:auto;
+  }
+  table { border-collapse: collapse; }
+  td, th { vertical-align: top;  }
+  th.right  { text-align:center;  }
+  th.left   { text-align:center;   }
+  th.center { text-align:center; }
+  td.right  { text-align:right;  }
+  td.left   { text-align:left;   }
+  td.center { text-align:center; }
+  dt { font-weight: bold; }
+  div.figure { padding: 0.5em; }
+  div.figure p { text-align: center; }
+  div.inlinetask {
+    padding:10px;
+    border:2px solid gray;
+    margin:10px;
+    background: #ffffcc;
+  }
+  textarea { overflow-x: auto; }
+  .linenr { font-size:smaller }
+  .code-highlighted {background-color:#ffff00;}
+  .org-info-js_info-navigation { border-style:none; }
+  #org-info-js_console-label { font-size:10px; font-weight:bold;
+                               white-space:nowrap; }
+  .org-info-js_search-highlight {background-color:#ffff00; color:#000000;
+                                 font-weight:bold; }
+  /*]]>*/-->
+</style><link rel="stylesheet" type="text/css" href="mystyle.css" />
+<script type="text/javascript">
+<!--/*--><![CDATA[/*><!--*/
+ function CodeHighlightOn(elem, id)
+ {
+   var target = document.getElementById(id);
+   if(null != target) {
+     elem.cacheClassElem = elem.className;
+     elem.cacheClassTarget = target.className;
+     target.className = "code-highlighted";
+     elem.className   = "code-highlighted";
+   }
+ }
+ function CodeHighlightOff(elem, id)
+ {
+   var target = document.getElementById(id);
+   if(elem.cacheClassElem)
+     elem.className = elem.cacheClassElem;
+   if(elem.cacheClassTarget)
+     target.className = elem.cacheClassTarget;
+ }
+/*]]>*///-->
+</script>
+<script type="text/javascript" src="http://orgmode.org/mathjax/MathJax.js">
+<!--/*--><![CDATA[/*><!--*/
+    MathJax.Hub.Config({
+        // Only one of the two following lines, depending on user settings
+        // First allows browser-native MathML display, second forces HTML/CSS
+        //  config: ["MMLorHTML.js"], jax: ["input/TeX"],
+            jax: ["input/TeX", "output/HTML-CSS"],
+        extensions: ["tex2jax.js","TeX/AMSmath.js","TeX/AMSsymbols.js",
+                     "TeX/noUndefined.js"],
+        tex2jax: {
+            inlineMath: [ ["\\(","\\)"] ],
+            displayMath: [ ['$$','$$'], ["\\[","\\]"], ["\\begin{displaymath}","\\end{displaymath}"] ],
+            skipTags: ["script","noscript","style","textarea","pre","code"],
+            ignoreClass: "tex2jax_ignore",
+            processEscapes: false,
+            processEnvironments: true,
+            preview: "TeX"
+        },
+        showProcessingMessages: true,
+        displayAlign: "center",
+        displayIndent: "2em",
+
+        "HTML-CSS": {
+             scale: 100,
+             availableFonts: ["STIX","TeX"],
+             preferredFont: "TeX",
+             webFont: "TeX",
+             imageFont: "TeX",
+             showMathMenu: true,
+        },
+        MMLorHTML: {
+             prefer: {
+                 MSIE:    "MML",
+                 Firefox: "MML",
+                 Opera:   "HTML",
+                 other:   "HTML"
+             }
+        }
+    });
+/*]]>*///-->
+</script>
+</head>
+<body>
+<div id="org-div-home-and-up" style="text-align:right;font-size:70%;white-space:nowrap;">
+ <a accesskey="h" href="index.html"> UP </a>
+ |
+ <a accesskey="H" href="index.html"> HOME </a>
+</div>
+
+<div id="preamble">
+
+</div>
+
+<div id="content">
+<h1 class="title">A1. A Brief Tour of Some Other Useful C Libraries</h1>
+
+
+
+<hr/>
+<div id="table-of-contents">
+<h2>Table of Contents</h2>
+<div id="text-table-of-contents">
+<ul>
+<li><a href="#sec-1">Introduction</a></li>
+<li><a href="#sec-2">GNU C Library (glibc)</a>
+<ul>
+<li><a href="#sec-2-1">String and Array Utilities</a></li>
+<li><a href="#sec-2-2">Others</a></li>
+<li><a href="#sec-2-3">Linking to glibc</a></li>
+</ul>
+</li>
+<li><a href="#sec-3">GNU Scientific Library (GSL)</a>
+<ul>
+<li><a href="#sec-3-1">Linking to gsl</a></li>
+</ul>
+</li>
+<li><a href="#sec-4">BLAS / LAPACK</a></li>
+<li><a href="#sec-5">Apophenia</a>
+<ul>
+<li><a href="#sec-5-1">Modeling with Data (book)</a></li>
+</ul>
+</li>
+<li><a href="#sec-6">GNUplot</a></li>
+</ul>
+</div>
+</div>
+
+<hr/>
+
+
+<div id="outline-container-1" class="outline-2">
+<h2 id="sec-1">Introduction</h2>
+<div class="outline-text-2" id="text-1">
+
+
+<p>
+Since C is such a "small" language, you must typically rely on
+libraries and APIs for complex tasks (unless you code them up
+yourself). Here is a short list of some common libraries that you
+might find useful.
+</p>
+
+</div>
+
+</div>
+
+<div id="outline-container-2" class="outline-2">
+<h2 id="sec-2">GNU C Library (glibc)</h2>
+<div class="outline-text-2" id="text-2">
+
+
+<p>
+<a href="http://www.gnu.org/software/libc/">glibc</a>
+</p>
+<p>
+The GNU C Library contains many useful functions (a list is
+<a href="http://www.gnu.org/software/libc/manual/html_node/index.html#Top">here</a>). There are some that will probably be more generally useful to
+you than others:
+</p>
+
+</div>
+
+<div id="outline-container-2-1" class="outline-3">
+<h3 id="sec-2-1">String and Array Utilities</h3>
+<div class="outline-text-3" id="text-2-1">
+
+
+<p>
+There are a number of functions related to handling and manipulating
+strings and arrays (a list is <a href="http://www.gnu.org/software/libc/manual/html_node/String-and-Array-Utilities.html#String-and-Array-Utilities">here</a>). In particular routines for
+searching strings and copying and concatenation, will likely be useful
+to you. Dig deeper on your own to find out more.
+</p>
+</div>
+
+</div>
+
+<div id="outline-container-2-2" class="outline-3">
+<h3 id="sec-2-2">Others</h3>
+<div class="outline-text-3" id="text-2-2">
+
+
+<p>
+Other useful ones include <a href="http://www.gnu.org/software/libc/manual/html_node/Searching-and-Sorting.html#Searching-and-Sorting">Searching and Sorting</a> and <a href="http://www.gnu.org/software/libc/manual/html_node/Date-and-Time.html#Date-and-Time">Date and Time</a>
+functions. I suggest you have a look at the full list and familiarize
+yourself with what's available.
+</p>
+</div>
+
+</div>
+
+<div id="outline-container-2-3" class="outline-3">
+<h3 id="sec-2-3">Linking to glibc</h3>
+<div class="outline-text-3" id="text-2-3">
+
+
+<p>
+Depending on which function(s) you want to use in your program, you
+will probably have to use the <code>#include</code> directive to include the
+appropriate header file(s). For example to use the <code>strlen()</code> function
+(which returns the length of a string) you will have to include the
+<code>string.h</code> header file. Unlike other external libraries, for glibc
+there is no need to pass an extra parameter at compile time to link to
+the glibc library, the gcc compiler already knows to look for it.
+</p>
+
+
+
+<pre class="src src-c"><span style="color: #af0000;">// </span><span style="color: #af0000;">gcc -o go go.c</span>
+<span style="color: #875f87;">#include</span> <span style="color: #87005f;">&lt;stdio.h&gt;</span>
+<span style="color: #875f87;">#include</span> <span style="color: #87005f;">&lt;string.h&gt;</span>
+
+<span style="color: #008700;">int</span> <span style="color: #0000ff;">main</span>(<span style="color: #008700;">int</span> <span style="color: #af5f00;">argc</span>, <span style="color: #008700;">char</span> *<span style="color: #af5f00;">argv</span>[])
+ {                                                                             
+   <span style="color: #008700;">char</span> <span style="color: #af5f00;">mystring</span>[] = <span style="color: #87005f;">"the dude"</span>;
+   printf(<span style="color: #87005f;">"%s is %ld characters long\n"</span>, mystring, strlen(mystring));
+   <span style="color: #af00ff;">return</span> 0;                                                                   
+}
+</pre>
+
+
+
+<pre class="example">the dude is 8 characters long
+</pre>
+
+
+</div>
+</div>
+
+</div>
+
+<div id="outline-container-3" class="outline-2">
+<h2 id="sec-3">GNU Scientific Library (GSL)</h2>
+<div class="outline-text-2" id="text-3">
+
+
+<p>
+<a href="http://www.gnu.org/software/gsl/">gsl</a>
+</p>
+<p>
+The GNU Scientific Library provides a broad range of numerical and
+mathematical functions. If you want to do something in C that you have
+been doing in MATLAB, or Python/NumPy/SciPy, or R, then probably you
+will need to look at something like GSL for functions you need (or
+code them up yourself).
+</p>
+<p>
+There is a list of main categories <a href="http://www.gnu.org/software/gsl/manual/html_node/">here</a>. Things you might be
+interested are:
+</p>
+<ul>
+<li><a href="http://www.gnu.org/software/gsl/manual/html_node/Vectors-and-Matrices.html">Vectors and Matrices</a>
+</li>
+<li><a href="http://www.gnu.org/software/gsl/manual/html_node/Linear-Algebra.html">Linear Algebra</a>
+</li>
+<li><a href="http://www.gnu.org/software/gsl/manual/html_node/Fast-Fourier-Transforms.html">FFTs</a>
+</li>
+<li><a href="http://www.gnu.org/software/gsl/manual/html_node/Random-Number-Generation.html">Random Number Generation</a> &amp; <a href="http://www.gnu.org/software/gsl/manual/html_node/Random-Number-Distributions.html">Random Number Distributions</a>
+</li>
+<li><a href="http://www.gnu.org/software/gsl/manual/html_node/Statistics.html">Statistics</a>
+</li>
+<li><a href="http://www.gnu.org/software/gsl/manual/html_node/Ordinary-Differential-Equations.html">ODEs</a>
+</li>
+<li><a href="http://www.gnu.org/software/gsl/manual/html_node/Interpolation.html">Interpolation</a>
+</li>
+<li><a href="http://www.gnu.org/software/gsl/manual/html_node/Numerical-Differentiation.html">Numerical Differentiation</a>
+</li>
+<li><a href="http://www.gnu.org/software/gsl/manual/html_node/Least_002dSquares-Fitting.html">Least-Squares Fitting</a>
+</li>
+<li><a href="http://www.gnu.org/software/gsl/manual/html_node/Nonlinear-Least_002dSquares-Fitting.html">Nonlinear Least-Squares Fitting</a>
+</li>
+<li><a href="http://www.gnu.org/software/gsl/manual/html_node/Multidimensional-Minimization.html">Multidimensional Minimization</a>
+</li>
+</ul>
+
+
+
+
+</div>
+
+<div id="outline-container-3-1" class="outline-3">
+<h3 id="sec-3-1">Linking to gsl</h3>
+<div class="outline-text-3" id="text-3-1">
+
+
+<p>
+Of course before you can link to the gsl library, you have to make
+sure it is installed on your computer. See the gsl documentation for
+how to install it.
+</p>
+<p>
+To link your code to the gsl you will have to do two things. First you
+will have to use the <code>#include</code> directive to include the relevant
+header files. In the gsl documentation for each function, it tells you
+which header file(s) you will need. Second, you will have to use a
+flag when compiling to tell the compiler to include the library files
+themselves. Here is an example program <a href="http://www.gnu.org/software/gsl/manual/html_node/Linear-Algebra-Examples.html">from the gsl documentation</a> that
+uses linear algebra routines to solve a linear system \(Ax=b\):
+</p>
+
+
+
+<pre class="example">[ 0.18 0.60 0.57 0.96 ] [x0]   [1.0]
+[ 0.41 0.24 0.99 0.58 ] [x1] = [2.0]
+[ 0.14 0.30 0.97 0.66 ] [x2]   [3.0]
+[ 0.51 0.13 0.19 0.85 ] [x3]   [4.0]
+</pre>
+
+
+
+<pre class="src src-c"><span style="color: #af0000;">// </span><span style="color: #af0000;">gcc -o go go.c -lgsl -lgslcblas</span>
+
+<span style="color: #875f87;">#include</span> <span style="color: #87005f;">&lt;stdio.h&gt;</span>
+<span style="color: #875f87;">#include</span> <span style="color: #87005f;">&lt;gsl/gsl_linalg.h&gt;</span>
+
+<span style="color: #008700;">int</span> <span style="color: #0000ff;">main</span> (<span style="color: #008700;">void</span>)
+{
+  <span style="color: #008700;">double</span> <span style="color: #af5f00;">a_data</span>[] = { 0.18, 0.60, 0.57, 0.96,
+                      0.41, 0.24, 0.99, 0.58,
+                      0.14, 0.30, 0.97, 0.66,
+                      0.51, 0.13, 0.19, 0.85 };
+
+  <span style="color: #008700;">double</span> <span style="color: #af5f00;">b_data</span>[] = { 1.0, 2.0, 3.0, 4.0 };
+
+  <span style="color: #008700;">gsl_matrix_view</span> <span style="color: #af5f00;">m</span> 
+    = gsl_matrix_view_array (a_data, 4, 4);
+
+  <span style="color: #008700;">gsl_vector_view</span> <span style="color: #af5f00;">b</span>
+    = gsl_vector_view_array (b_data, 4);
+
+  <span style="color: #008700;">gsl_vector</span> *<span style="color: #af5f00;">x</span> = gsl_vector_alloc (4);
+
+  <span style="color: #008700;">int</span> <span style="color: #af5f00;">s</span>;
+
+  <span style="color: #008700;">gsl_permutation</span> * <span style="color: #af5f00;">p</span> = gsl_permutation_alloc (4);
+
+  gsl_linalg_LU_decomp (&amp;m.matrix, p, &amp;s);
+
+  gsl_linalg_LU_solve (&amp;m.matrix, p, &amp;b.vector, x);
+
+  printf (<span style="color: #87005f;">"x = \n"</span>);
+  gsl_vector_fprintf (stdout, x, <span style="color: #87005f;">"%g"</span>);
+
+  gsl_permutation_free (p);
+  gsl_vector_free (x);
+  <span style="color: #af00ff;">return</span> 0;
+}
+</pre>
+
+
+
+<pre class="example">plg@wildebeest:~$ gcc -o go go.c -lgsl -lgslcblas
+plg@wildebeest:~$ ./go
+x = 
+-4.05205
+-12.6056
+1.66091
+8.69377
+</pre>
+
+
+
+</div>
+</div>
+
+</div>
+
+<div id="outline-container-4" class="outline-2">
+<h2 id="sec-4">BLAS / LAPACK</h2>
+<div class="outline-text-2" id="text-4">
+
+
+<p>
+The <a href="http://www.netlib.org/blas/">blas</a> and <a href="http://www.netlib.org/lapack/">lapack</a> libraries are high-performance libraries for
+linear algebra. If you are dealing with large matrices and you have
+the need for speed, then probably you should look into using BLAS /
+LAPACK, it will probably be faster than GSL.
+</p>
+
+</div>
+
+</div>
+
+<div id="outline-container-5" class="outline-2">
+<h2 id="sec-5">Apophenia</h2>
+<div class="outline-text-2" id="text-5">
+
+
+<p>
+The <a href="http://apophenia.sourceforge.net/">Apophenia</a> library is an open source library for working with data
+sets, statistics, and statistical models.
+</p>
+<p>
+The Apophenia library provides functions for dealing with data
+(reading it in, storing it in convenient data structures, and writing
+it to files). It also provides functions for dealing with data using
+the SQL database language. This allows you to perform searches on
+data, extract subsets of data, etc.
+</p>
+<p>
+Apophenia has lots of functions to fit data to statistical models such
+as OLS models (ordinary least squares), it provides for statistical
+tests like t-tests, F-tests, and it includes models like logit,
+probit, and multinomial models. It also includes maximum likelihood
+methods, Bayesian updating, and resampling methods like bootstrapping.
+</p>
+<p>
+There is extensive online documentation and example code on the
+Apophenia website <a href="http://apophenia.sourceforge.net/">here</a>. I suggest you dive deeper on your own if you
+want to explore it in more detail.
+</p>
+
+</div>
+
+<div id="outline-container-5-1" class="outline-3">
+<h3 id="sec-5-1">Modeling with Data (book)</h3>
+<div class="outline-text-3" id="text-5-1">
+
+
+<p>
+Apophenia is maintained by Ben Klemens, who also wrote a book <a href="http://modelingwithdata.org/about_the_book.html">Modeling With Data</a> that makes use of Apophenia. You can buy the book or you can
+download it for free, the author makes it available on the website
+<a href="http://ben.klemens.org/pdfs/gsl_stats.pdf">here</a>.
+</p>
+<p>
+I highly recommend the book not only as a guide to using the Apophenia
+library, but more generally as a guide to how to use C on a daily
+basis for data analysis and modeling. Ben argues that really, C is not
+<b>that</b> much more of a pain in the neck than "higher-level" languages
+like Python and R, but C is <b>way</b> faster (in terms of execution
+speed). It's worth a read.
+</p>
+
+</div>
+</div>
+
+</div>
+
+<div id="outline-container-6" class="outline-2">
+<h2 id="sec-6">GNUplot</h2>
+<div class="outline-text-2" id="text-6">
+
+
+<p>
+<a href="http://www.gnuplot.info/">GNUplot</a>
+</p>
+<p>
+GNUplot is not an external C library but in fact is a standalone
+program for making graphs and figures. I include it here because it is
+a popular UNIX tool that you will likely see in your C travels. The
+<a href="http://apophenia.sourceforge.net/">Apophenia</a> library and the accompanying book <a href="http://modelingwithdata.org/about_the_book.html">Modeling With Data</a> include
+lots of examples of using GNUplot to graphically visualize data, and
+fitted statistical models.
+</p>
+<p>
+There is also good online <a href="http://www.gnuplot.info/documentation.html">documentation</a>, <a href="http://www.gnuplot.info/help.html">tutorials and help</a> and <a href="http://www.gnuplot.info/screenshots/index.html#demos">demos</a>
+of GNUplot functionality. Anything you can do with Matlab,
+Python/Matplotlib, R, etc you can likely also do in GNUplot.
+</p>
+</div>
+</div>
+</div>
+
+<div id="postamble">
+<hr />Paul Gribble | Summer 2012<br>This <span xmlns:dct="http://purl.org/dc/terms/" href="http://purl.org/dc/dcmitype/Text" rel="dct:type">work</span> is licensed under a <a rel="license" href="http://creativecommons.org/licenses/by-nc-sa/3.0/">Creative Commons Attribution-NonCommercial-ShareAlike 3.0 Unported License</a><br><a rel="license" href="http://creativecommons.org/licenses/by-nc-sa/3.0/"><img alt="Creative Commons License" style="border-width:0" src="http://i.creativecommons.org/l/by-nc-sa/3.0/80x15.png" /></a><br />
+</div>
+</body>
+</html>

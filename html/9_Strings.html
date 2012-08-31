@@ -1,0 +1,676 @@
+<?xml version="1.0" encoding="iso-8859-1"?>
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Strict//EN"
+               "http://www.w3.org/TR/xhtml1/DTD/xhtml1-strict.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml" lang="en" xml:lang="en">
+<head>
+<title>9. Strings</title>
+<meta http-equiv="Content-Type" content="text/html;charset=iso-8859-1"/>
+<meta name="title" content="9. Strings"/>
+<meta name="generator" content="Org-mode"/>
+<meta name="generated" content="Summer 2012"/>
+<meta name="author" content="Paul Gribble"/>
+<meta name="description" content=""/>
+<meta name="keywords" content=""/>
+<style type="text/css">
+ <!--/*--><![CDATA[/*><!--*/
+  html { font-family: Times, serif; font-size: 12pt; }
+  .title  { text-align: center; }
+  .todo   { color: red; }
+  .done   { color: green; }
+  .tag    { background-color: #add8e6; font-weight:normal }
+  .target { }
+  .timestamp { color: #bebebe; }
+  .timestamp-kwd { color: #5f9ea0; }
+  .right  {margin-left:auto; margin-right:0px;  text-align:right;}
+  .left   {margin-left:0px;  margin-right:auto; text-align:left;}
+  .center {margin-left:auto; margin-right:auto; text-align:center;}
+  p.verse { margin-left: 3% }
+  pre {
+	border: 1pt solid #AEBDCC;
+	background-color: #F3F5F7;
+	padding: 5pt;
+	font-family: courier, monospace;
+        font-size: 90%;
+        overflow:auto;
+  }
+  table { border-collapse: collapse; }
+  td, th { vertical-align: top;  }
+  th.right  { text-align:center;  }
+  th.left   { text-align:center;   }
+  th.center { text-align:center; }
+  td.right  { text-align:right;  }
+  td.left   { text-align:left;   }
+  td.center { text-align:center; }
+  dt { font-weight: bold; }
+  div.figure { padding: 0.5em; }
+  div.figure p { text-align: center; }
+  div.inlinetask {
+    padding:10px;
+    border:2px solid gray;
+    margin:10px;
+    background: #ffffcc;
+  }
+  textarea { overflow-x: auto; }
+  .linenr { font-size:smaller }
+  .code-highlighted {background-color:#ffff00;}
+  .org-info-js_info-navigation { border-style:none; }
+  #org-info-js_console-label { font-size:10px; font-weight:bold;
+                               white-space:nowrap; }
+  .org-info-js_search-highlight {background-color:#ffff00; color:#000000;
+                                 font-weight:bold; }
+  /*]]>*/-->
+</style><link rel="stylesheet" type="text/css" href="mystyle.css" />
+<script type="text/javascript">
+<!--/*--><![CDATA[/*><!--*/
+ function CodeHighlightOn(elem, id)
+ {
+   var target = document.getElementById(id);
+   if(null != target) {
+     elem.cacheClassElem = elem.className;
+     elem.cacheClassTarget = target.className;
+     target.className = "code-highlighted";
+     elem.className   = "code-highlighted";
+   }
+ }
+ function CodeHighlightOff(elem, id)
+ {
+   var target = document.getElementById(id);
+   if(elem.cacheClassElem)
+     elem.className = elem.cacheClassElem;
+   if(elem.cacheClassTarget)
+     target.className = elem.cacheClassTarget;
+ }
+/*]]>*///-->
+</script>
+
+</head>
+<body>
+<div id="org-div-home-and-up" style="text-align:right;font-size:70%;white-space:nowrap;">
+ <a accesskey="h" href="index.html"> UP </a>
+ |
+ <a accesskey="H" href="index.html"> HOME </a>
+</div>
+
+<div id="preamble">
+
+</div>
+
+<div id="content">
+<h1 class="title">9. Strings</h1>
+
+
+
+<hr/>
+<div id="table-of-contents">
+<h2>Table of Contents</h2>
+<div id="text-table-of-contents">
+<ul>
+<li><a href="#sec-1">Declaring strings</a>
+<ul>
+<li><a href="#sec-1-1">null-termination</a></li>
+</ul>
+</li>
+<li><a href="#sec-2">Modifying strings</a></li>
+<li><a href="#sec-3">String handling routines in the C standard library</a>
+<ul>
+<li><a href="#sec-3-1">An example: Concatenating two strings</a></li>
+<li><a href="#sec-3-2">Comparing two strings</a></li>
+<li><a href="#sec-3-3">Converting strings to and from numeric types</a>
+<ul>
+<li><a href="#sec-3-3-1">Strings to numbers</a></li>
+<li><a href="#sec-3-3-2">Numbers to strings</a></li>
+<li><a href="#sec-3-3-3">Numbers to string II (slightly esoteric)</a></li>
+</ul></li>
+</ul>
+</li>
+<li><a href="#sec-4">Arrays of Strings</a></li>
+<li><a href="#sec-5">Links</a></li>
+<li><a href="#sec-6">Exercises</a>
+<ul>
+<li><a href="#sec-6-1">Solutions</a></li>
+</ul>
+</li>
+</ul>
+</div>
+</div>
+
+<hr/>
+
+<p>
+I'll be honest, C is slightly awkward for dealing with character
+strings, especially compared to languages like Python.
+</p>
+
+<div id="outline-container-1" class="outline-2">
+<h2 id="sec-1">Declaring strings</h2>
+<div class="outline-text-2" id="text-1">
+
+
+<p>
+Constant character strings are written inside double-quotation marks
+(line 5 below).
+</p>
+<p>
+Strings are actually, under the hood, arrays of characters. Single
+character variables are declared using single-quotation marks (line 7
+below).
+</p>
+<p>
+String variables can be declared as indicated on line 8 below. The
+double square brackets signify an array.
+</p>
+
+
+
+<pre class="src src-c"><span style="color: #875f87;">#include</span> <span style="color: #87005f;">&lt;stdio.h&gt;</span>
+
+<span style="color: #008700;">int</span> <span style="color: #0000ff;">main</span>(<span style="color: #008700;">void</span>) {
+
+  printf(<span style="color: #87005f;">"Hello world\n"</span>);
+
+  <span style="color: #008700;">char</span> <span style="color: #af5f00;">c</span> = <span style="color: #87005f;">'p'</span>;
+  <span style="color: #008700;">char</span> <span style="color: #af5f00;">s</span>[] = <span style="color: #87005f;">"paul"</span>;
+
+  printf(<span style="color: #87005f;">"c=%c and s=%s\n"</span>, c, s);
+
+  <span style="color: #af00ff;">return</span> 0;
+}
+</pre>
+
+
+
+<pre class="example">Hello world
+c=p and s=paul
+</pre>
+
+
+
+</div>
+
+<div id="outline-container-1-1" class="outline-3">
+<h3 id="sec-1-1">null-termination</h3>
+<div class="outline-text-3" id="text-1-1">
+
+
+<p>
+An important thing to remember about strings is that they are always
+<b>null-terminated</b>. This means that the last element of the character
+array is a "null" character, abbreviated <code>\0</code>. When you declare a
+string as in line 8 above, you don't have to put the null termination
+character in yourself, the compiler does it for you. We can use the
+<code>sizeof()</code> function to inspect our character string above to see how
+long it actually is:
+</p>
+
+
+
+<pre class="src src-c"><span style="color: #875f87;">#include</span> <span style="color: #87005f;">&lt;stdio.h&gt;</span>
+
+<span style="color: #008700;">int</span> <span style="color: #0000ff;">main</span>(<span style="color: #008700;">void</span>) {
+
+  <span style="color: #008700;">char</span> <span style="color: #af5f00;">s</span>[] = <span style="color: #87005f;">"paul"</span>;
+
+  printf(<span style="color: #87005f;">"s is %ld elements long\n"</span>, <span style="color: #af00ff;">sizeof</span>(s));
+
+  <span style="color: #af00ff;">return</span> 0;
+}
+</pre>
+
+
+
+<pre class="example">s is 5 elements long
+</pre>
+
+
+<p>
+So, to summarize, in C, strings are simply <b>null-terminated arrays of characters</b>.
+</p>
+</div>
+</div>
+
+</div>
+
+<div id="outline-container-2" class="outline-2">
+<h2 id="sec-2">Modifying strings</h2>
+<div class="outline-text-2" id="text-2">
+
+
+<p>
+Importantly, once a string is declared to be a given length, you
+cannot just make it longer or shorter by reassigning a new constant to
+the variable. Well, you can sort of make it shorter, by writing a new
+shorter string in the old string array, and terminating the new
+(shorter) string with a null character. Then essentially you will have
+a short string sitting in a long array, but that's ok, since we know
+where the end is (the null termination character).
+</p>
+</div>
+
+</div>
+
+<div id="outline-container-3" class="outline-2">
+<h2 id="sec-3">String handling routines in the C standard library</h2>
+<div class="outline-text-2" id="text-3">
+
+
+<p>
+The standard C library, (which you can load into your program by
+including the statement <code>#include &lt;string.h&gt;</code> at the top of your
+program), contains many useful routines for manipulating these
+null-terminated strings.
+</p>
+<p>
+I suggest you consult a reference source (or Wikipedia,
+e.g. <a href="http://en.wikipedia.org/wiki/C_string_handling">C String Handling</a>) for a list (it's relatively long) of all the
+functions that exist for manipulating null-terminated strings in
+C. There are functions for copying strings, concatenating strings,
+getting the length of strings, comparing strings, etc.
+</p>
+
+</div>
+
+<div id="outline-container-3-1" class="outline-3">
+<h3 id="sec-3-1">An example: Concatenating two strings</h3>
+<div class="outline-text-3" id="text-3-1">
+
+
+
+
+
+<pre class="src src-C"><span style="color: #875f87;">#include</span> <span style="color: #87005f;">&lt;stdio.h&gt;</span>
+<span style="color: #875f87;">#include</span> <span style="color: #87005f;">&lt;string.h&gt;</span>
+
+<span style="color: #008700;">int</span> <span style="color: #0000ff;">main</span>(<span style="color: #008700;">void</span>) {
+
+  <span style="color: #008700;">char</span> <span style="color: #af5f00;">s1</span>[] = <span style="color: #87005f;">"paul"</span>;
+  <span style="color: #008700;">char</span> <span style="color: #af5f00;">s2</span>[] = <span style="color: #87005f;">"gribble"</span>;
+  <span style="color: #008700;">char</span> <span style="color: #af5f00;">s3</span>[256];
+  printf(<span style="color: #87005f;">"s3=%s, strlen(s3)=%ld\n"</span>, s3, strlen(s3));
+
+  strcat(s3, s1);
+  printf(<span style="color: #87005f;">"s3=%s, strlen(s3)=%ld\n"</span>, s3, strlen(s3));
+
+  strcat(s3, <span style="color: #87005f;">" "</span>);  
+  printf(<span style="color: #87005f;">"s3=%s, strlen(s3)=%ld\n"</span>, s3, strlen(s3));
+
+  strcat(s3, s2);
+  printf(<span style="color: #87005f;">"s3=%s, strlen(s3)=%ld\n"</span>, s3, strlen(s3));
+
+  <span style="color: #af00ff;">return</span> 0;
+}
+</pre>
+
+
+
+<pre class="example">s3=, strlen(s3)=0
+s3=paul, strlen(s3)=4
+s3=paul , strlen(s3)=5
+s3=paul gribble, strlen(s3)=12
+</pre>
+
+
+</div>
+
+</div>
+
+<div id="outline-container-3-2" class="outline-3">
+<h3 id="sec-3-2">Comparing two strings</h3>
+<div class="outline-text-3" id="text-3-2">
+
+
+<p>
+Importantly, you cannot simply use the <code>==</code> operator to test whether
+two strings are equal. Remember, strings are arrays of characters. You
+have to use a special string handling function to test equality of two
+strings, since it has to do a "deep" comparison, comparing each
+element against each other. Here's how you would do it:
+</p>
+
+
+
+<pre class="src src-C"><span style="color: #875f87;">#include</span> <span style="color: #87005f;">&lt;stdio.h&gt;</span>
+<span style="color: #875f87;">#include</span> <span style="color: #87005f;">&lt;string.h&gt;</span>
+
+<span style="color: #008700;">int</span> <span style="color: #0000ff;">main</span>(<span style="color: #008700;">void</span>) {
+
+  <span style="color: #008700;">char</span> <span style="color: #af5f00;">s1</span>[] = <span style="color: #87005f;">"paul"</span>;
+  <span style="color: #008700;">char</span> <span style="color: #af5f00;">s2</span>[] = <span style="color: #87005f;">"paul"</span>;
+  <span style="color: #008700;">char</span> <span style="color: #af5f00;">s3</span>[] = <span style="color: #87005f;">"peter"</span>;
+  <span style="color: #008700;">char</span> <span style="color: #af5f00;">s4</span>[] = <span style="color: #87005f;">"dave"</span>;
+
+  printf(<span style="color: #87005f;">"strcmp(s1,s2)? %d\n"</span>, strcmp(s1,s2));
+  printf(<span style="color: #87005f;">"strcmp(s1,s3)? %d\n"</span>, strcmp(s1,s3));
+  printf(<span style="color: #87005f;">"strcmp(s1,s4)? %d\n"</span>, strcmp(s1,s4));
+
+  <span style="color: #af00ff;">return</span> 0;
+}
+</pre>
+
+
+
+<pre class="example">strcmp(s1,s2)? 0
+strcmp(s1,s3)? -4
+strcmp(s1,s4)? 12
+</pre>
+
+
+<p>
+Note that the <code>strcmp(s1,s2)</code> function returns <code>0</code> if <code>s1</code> and <code>s2</code>
+are equal, a positive value if <code>s1</code> is (lexicographically) less than
+<code>s2</code>, and a negative value if <code>s1</code> is greater than <code>s2</code>.
+</p>
+</div>
+
+</div>
+
+<div id="outline-container-3-3" class="outline-3">
+<h3 id="sec-3-3">Converting strings to and from numeric types</h3>
+<div class="outline-text-3" id="text-3-3">
+
+
+
+</div>
+
+<div id="outline-container-3-3-1" class="outline-4">
+<h4 id="sec-3-3-1">Strings to numbers</h4>
+<div class="outline-text-4" id="text-3-3-1">
+
+
+<p>
+There are several functions to convert strings to numeric types like
+integers and floating-point numbers. You will need to <code>#include &lt;stdlib.h&gt;</code> at the top of your program.
+</p>
+<ul>
+<li><code>double atof(s)</code> converts the string pointed to by <code>s</code> into a
+  floating-point number (a double), returning the result
+</li>
+<li><code>int atoi(s)</code> converts string <code>s</code> into an integer
+</li>
+</ul>
+
+
+<p>
+There are a host of others, again I suggest consulting a reference
+source for a comprehensive list.
+</p>
+</div>
+
+</div>
+
+<div id="outline-container-3-3-2" class="outline-4">
+<h4 id="sec-3-3-2">Numbers to strings</h4>
+<div class="outline-text-4" id="text-3-3-2">
+
+
+<p>
+The common way of converting a numeric type like an integer or a
+floating-point number into a string, is to use the <code>sprintf()</code>
+function. It it used much like the <code>printf()</code> function we have seen
+before, but instead of printing something to the screen, <code>sprintf()</code>
+"prints" something to a character string. Here's how to use it:
+</p>
+
+
+
+<pre class="src src-c"><span style="color: #875f87;">#include</span> <span style="color: #87005f;">&lt;stdio.h&gt;</span>
+<span style="color: #875f87;">#include</span> <span style="color: #87005f;">&lt;string.h&gt;</span>
+
+<span style="color: #008700;">int</span> <span style="color: #0000ff;">main</span>(<span style="color: #008700;">void</span>) {
+
+  <span style="color: #008700;">char</span> <span style="color: #af5f00;">s1</span>[256];
+  <span style="color: #008700;">char</span> <span style="color: #af5f00;">s2</span>[256];
+  <span style="color: #008700;">int</span> <span style="color: #af5f00;">i1</span> = 12;
+  <span style="color: #008700;">double</span> <span style="color: #af5f00;">d1</span> = 3.141;
+
+  sprintf(s1, <span style="color: #87005f;">"%d"</span>, i1);
+  sprintf(s2, <span style="color: #87005f;">"%.3f"</span>, d1);
+
+  printf(<span style="color: #87005f;">"s1 = %s\n"</span>, s1);
+  printf(<span style="color: #87005f;">"s2 = %s\n"</span>, s2);
+
+  <span style="color: #af00ff;">return</span> 0;
+}
+</pre>
+
+
+
+<pre class="example">s1 = 12
+s2 = 3.141
+</pre>
+
+
+<p>
+Note how on lines 6 and 7 when <code>s1</code> and <code>s2</code> are declared, I declare
+them as character arrays large enough to hold 256 characters. If you
+try to <code>sprintf()</code> to a string that is not big enough to hold what
+you're trying to put into it, then you will end up writing values
+beyond the end of the string, and onto who knows what, in memory. If
+you are dealing with strings that you know will be relatively short
+(things like filenames, subject names, dates, etc) then probably the
+easiest way of doing things is to use preallocated strings that are
+long enough to hold any reasonable value (e.g. 256 characters
+long). After all we have enough RAM in our computers these days not to
+have to worry too much about 256 bytes here and there.
+</p>
+</div>
+
+</div>
+
+<div id="outline-container-3-3-3" class="outline-4">
+<h4 id="sec-3-3-3">Numbers to string II (slightly esoteric)</h4>
+<div class="outline-text-4" id="text-3-3-3">
+
+
+<p>
+There is, however, a way to do this without having to hard-code the
+size of the string to be written to, although it's a little bit
+roundabout. However it does illustrate several principles of C so
+let's have a look at it.
+</p>
+<p>
+First we will use the <code>snprintf()</code> function in a roundabout way to
+determine the number of bytes that the numeric to string conversion
+will result in. Then we will use <code>malloc()</code> to allocate a new string
+(character array) of that length. Finally we will use <code>sprintf()</code> to
+write to that character array. The first step ensures that we have a
+character array (a string) that is just the right length to recieve
+the converted numeric: not too small, and not too big.
+</p>
+<p>
+Here is some sample code that demonstrates this, first for an integer
+conversion, and then for a floating-point conversion:
+</p>
+
+
+
+<pre class="src src-c"><span style="color: #875f87;">#include</span> <span style="color: #87005f;">&lt;stdio.h&gt;</span>
+<span style="color: #875f87;">#include</span> <span style="color: #87005f;">&lt;stdlib.h&gt;</span>
+<span style="color: #875f87;">#include</span> <span style="color: #87005f;">&lt;string.h&gt;</span>
+
+<span style="color: #008700;">int</span> <span style="color: #0000ff;">main</span>(<span style="color: #008700;">void</span>) {
+
+  <span style="color: #008700;">int</span> <span style="color: #af5f00;">size</span>;
+
+  <span style="color: #008700;">int</span> <span style="color: #af5f00;">x</span> = 8765309;
+  size = snprintf(<span style="color: #008787;">NULL</span>, 0, <span style="color: #87005f;">"%d"</span>, x);
+  <span style="color: #008700;">char</span> *<span style="color: #af5f00;">xc</span> = malloc(size + 1);
+  sprintf(xc, <span style="color: #87005f;">"%d"</span>, x);
+
+  <span style="color: #008700;">double</span> <span style="color: #af5f00;">y</span> = 876.5309;
+  size = snprintf(<span style="color: #008787;">NULL</span>, 0, <span style="color: #87005f;">"%.4f"</span>, y);
+  <span style="color: #008700;">char</span> *<span style="color: #af5f00;">yc</span> = malloc(size + 1);
+  sprintf(yc, <span style="color: #87005f;">"%.4f"</span>, y);
+
+  printf(<span style="color: #87005f;">"xc = %s\n"</span>, xc);
+  printf(<span style="color: #87005f;">"yc = %s\n"</span>, yc);
+
+  free(xc);
+  free(yc);
+
+  <span style="color: #af00ff;">return</span> 0;
+}
+</pre>
+
+
+
+<pre class="example">xc = 8765309
+yc = 876.5309
+</pre>
+
+
+<p>
+Note on lines 10 and 15, where we use <code>snprintf()</code>, we are passing
+<code>NULL</code> as the first argument. The <code>snprintf()</code> function is like
+<code>sprintf()</code>, but it takes as its second argument, the maximum number
+of bytes to write out to the destination string. Thus <code>snprintf()</code> can
+be thought of as a "safe" version of <code>sprintf()</code> in that you <b>know</b>
+for sure that you will never write out more than the maximum number of
+bytes you ask for. Thus you can avoid over-writing past the end of
+your destination string buffer. The <code>snprintf()</code> function will return
+as its return value, the number of bytes <b>that would have been written</b> had the second argument been sufficiently large (not counting
+the termination <code>\0</code> character).
+</p>
+<p>
+So here we are passing <code>NULL</code> as the first argument, and <code>0</code> as the
+second. So as a result, <code>snprintf()</code> won't actually write any
+characters anywhere, it will simply return the number of characters
+that would have been written. Then on lines 11 and 16, we can use
+<code>malloc()</code> to dynamically allocate character arrays of exactly the
+required length.
+</p>
+</div>
+</div>
+</div>
+
+</div>
+
+<div id="outline-container-4" class="outline-2">
+<h2 id="sec-4">Arrays of Strings</h2>
+<div class="outline-text-2" id="text-4">
+
+
+<p>
+We have seen that strings are just arrays of characters, terminated by
+a null character. We have also seen that the variables that hold
+strings (like arrays of other types, e.g. <code>int</code> or <code>double</code>, are
+actually <b>pointers</b> to the head of the array. We can use an array of
+pointers, where each pointer is a pointer to the head of a character
+array (in other words a string), to store an array of strings. Here is
+an example:
+</p>
+
+
+
+<pre class="src src-c"><span style="color: #875f87;">#include</span> <span style="color: #87005f;">&lt;stdio.h&gt;</span>
+
+<span style="color: #008700;">int</span> <span style="color: #0000ff;">main</span>(<span style="color: #008700;">int</span> <span style="color: #af5f00;">argc</span>, <span style="color: #008700;">char</span> *<span style="color: #af5f00;">argv</span>[])
+{
+  <span style="color: #008700;">char</span> *<span style="color: #af5f00;">provinces</span>[] = { <span style="color: #87005f;">"British Columbia"</span>, <span style="color: #87005f;">"Alberta"</span>, <span style="color: #87005f;">"Saskatchewan"</span>, 
+                        <span style="color: #87005f;">"Manitoba"</span>, <span style="color: #87005f;">"Ontario"</span>, <span style="color: #87005f;">"Quebec"</span>, <span style="color: #87005f;">"New Brunswick"</span>,
+                        <span style="color: #87005f;">"Nova Scotia"</span>, <span style="color: #87005f;">"Prince Edward Island"</span>, <span style="color: #87005f;">"Newfoundland"</span>,
+                        <span style="color: #87005f;">"Yukon"</span>, <span style="color: #87005f;">"Northwest Territories"</span>, <span style="color: #87005f;">"Nunavut"</span> };
+  <span style="color: #008700;">int</span> <span style="color: #af5f00;">i</span>;
+  <span style="color: #af00ff;">for</span> (i=0; i&lt;13; i++) {
+    printf(<span style="color: #87005f;">"provinces[%d] = %s\n"</span>, <span style="color: #008700;">i</span> <span style="color: #af5f00;">provinces</span>[i]);
+  }
+  <span style="color: #af00ff;">return</span> 0;
+}
+</pre>
+
+
+
+<pre class="example">provinces[0] = British Columbia
+provinces[1] = Alberta
+provinces[2] = Saskatchewan
+provinces[3] = Manitoba
+provinces[4] = Ontario
+provinces[5] = Quebec
+provinces[6] = New Brunswick
+provinces[7] = Nova Scotia
+provinces[8] = Prince Edward Island
+provinces[9] = Newfoundland
+provinces[10] = Yukon
+provinces[11] = Northwest Territories
+provinces[12] = Nunavut
+</pre>
+
+
+
+</div>
+
+</div>
+
+<div id="outline-container-5" class="outline-2">
+<h2 id="sec-5">Links</h2>
+<div class="outline-text-2" id="text-5">
+
+
+<ul>
+<li><a href="http://en.wikipedia.org/wiki/C_string_handling">Wikipedia: C string handling</a>
+</li>
+</ul>
+
+
+
+</div>
+
+</div>
+
+<div id="outline-container-6" class="outline-2">
+<h2 id="sec-6">Exercises</h2>
+<div class="outline-text-2" id="text-6">
+
+
+<ul>
+<li>1 Alter the program above that prints out the provinces, so that it
+  prints out each province using all upper case letters. Hint: <a href="http://www.asciitable.com/">Ascii Table</a>. Another hint:
+</li>
+</ul>
+
+
+
+
+
+<pre class="src src-c"><span style="color: #875f87;">#include</span> <span style="color: #87005f;">&lt;stdio.h&gt;</span>
+
+<span style="color: #008700;">int</span> <span style="color: #0000ff;">main</span>(<span style="color: #008700;">int</span> <span style="color: #af5f00;">argc</span>, <span style="color: #008700;">char</span> *<span style="color: #af5f00;">argv</span>[])
+{
+  <span style="color: #008700;">char</span> <span style="color: #af5f00;">c</span> = <span style="color: #87005f;">'a'</span>;
+  printf(<span style="color: #87005f;">"%c - 32 = %c\n"</span>, c, c-32);
+  <span style="color: #af00ff;">return</span> 0;
+}
+</pre>
+
+
+
+<pre class="example">a - 32 = A
+</pre>
+
+
+
+
+
+</div>
+
+<div id="outline-container-6-1" class="outline-3">
+<h3 id="sec-6-1">Solutions</h3>
+<div class="outline-text-3" id="text-6-1">
+
+
+<ul>
+<li><a href="code/exercises/9_1.c">1</a>
+</li>
+</ul>
+
+
+
+</div>
+</div>
+</div>
+</div>
+
+<div id="postamble">
+<hr />Paul Gribble | Summer 2012<br>This <span xmlns:dct="http://purl.org/dc/terms/" href="http://purl.org/dc/dcmitype/Text" rel="dct:type">work</span> is licensed under a <a rel="license" href="http://creativecommons.org/licenses/by-nc-sa/3.0/">Creative Commons Attribution-NonCommercial-ShareAlike 3.0 Unported License</a><br><a rel="license" href="http://creativecommons.org/licenses/by-nc-sa/3.0/"><img alt="Creative Commons License" style="border-width:0" src="http://i.creativecommons.org/l/by-nc-sa/3.0/80x15.png" /></a><br />
+</div>
+</body>
+</html>

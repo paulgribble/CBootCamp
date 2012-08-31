@@ -1,0 +1,1145 @@
+<?xml version="1.0" encoding="iso-8859-1"?>
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Strict//EN"
+               "http://www.w3.org/TR/xhtml1/DTD/xhtml1-strict.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml" lang="en" xml:lang="en">
+<head>
+<title>3. Basic Types, Operators and Expressions</title>
+<meta http-equiv="Content-Type" content="text/html;charset=iso-8859-1"/>
+<meta name="title" content="3. Basic Types, Operators and Expressions"/>
+<meta name="generator" content="Org-mode"/>
+<meta name="generated" content="Summer 2012"/>
+<meta name="author" content="Paul Gribble"/>
+<meta name="description" content=""/>
+<meta name="keywords" content=""/>
+<style type="text/css">
+ <!--/*--><![CDATA[/*><!--*/
+  html { font-family: Times, serif; font-size: 12pt; }
+  .title  { text-align: center; }
+  .todo   { color: red; }
+  .done   { color: green; }
+  .tag    { background-color: #add8e6; font-weight:normal }
+  .target { }
+  .timestamp { color: #bebebe; }
+  .timestamp-kwd { color: #5f9ea0; }
+  .right  {margin-left:auto; margin-right:0px;  text-align:right;}
+  .left   {margin-left:0px;  margin-right:auto; text-align:left;}
+  .center {margin-left:auto; margin-right:auto; text-align:center;}
+  p.verse { margin-left: 3% }
+  pre {
+	border: 1pt solid #AEBDCC;
+	background-color: #F3F5F7;
+	padding: 5pt;
+	font-family: courier, monospace;
+        font-size: 90%;
+        overflow:auto;
+  }
+  table { border-collapse: collapse; }
+  td, th { vertical-align: top;  }
+  th.right  { text-align:center;  }
+  th.left   { text-align:center;   }
+  th.center { text-align:center; }
+  td.right  { text-align:right;  }
+  td.left   { text-align:left;   }
+  td.center { text-align:center; }
+  dt { font-weight: bold; }
+  div.figure { padding: 0.5em; }
+  div.figure p { text-align: center; }
+  div.inlinetask {
+    padding:10px;
+    border:2px solid gray;
+    margin:10px;
+    background: #ffffcc;
+  }
+  textarea { overflow-x: auto; }
+  .linenr { font-size:smaller }
+  .code-highlighted {background-color:#ffff00;}
+  .org-info-js_info-navigation { border-style:none; }
+  #org-info-js_console-label { font-size:10px; font-weight:bold;
+                               white-space:nowrap; }
+  .org-info-js_search-highlight {background-color:#ffff00; color:#000000;
+                                 font-weight:bold; }
+  /*]]>*/-->
+</style><link rel="stylesheet" type="text/css" href="mystyle.css" />
+<script type="text/javascript">
+<!--/*--><![CDATA[/*><!--*/
+ function CodeHighlightOn(elem, id)
+ {
+   var target = document.getElementById(id);
+   if(null != target) {
+     elem.cacheClassElem = elem.className;
+     elem.cacheClassTarget = target.className;
+     target.className = "code-highlighted";
+     elem.className   = "code-highlighted";
+   }
+ }
+ function CodeHighlightOff(elem, id)
+ {
+   var target = document.getElementById(id);
+   if(elem.cacheClassElem)
+     elem.className = elem.cacheClassElem;
+   if(elem.cacheClassTarget)
+     target.className = elem.cacheClassTarget;
+ }
+/*]]>*///-->
+</script>
+<script type="text/javascript" src="http://orgmode.org/mathjax/MathJax.js">
+<!--/*--><![CDATA[/*><!--*/
+    MathJax.Hub.Config({
+        // Only one of the two following lines, depending on user settings
+        // First allows browser-native MathML display, second forces HTML/CSS
+        //  config: ["MMLorHTML.js"], jax: ["input/TeX"],
+            jax: ["input/TeX", "output/HTML-CSS"],
+        extensions: ["tex2jax.js","TeX/AMSmath.js","TeX/AMSsymbols.js",
+                     "TeX/noUndefined.js"],
+        tex2jax: {
+            inlineMath: [ ["\\(","\\)"] ],
+            displayMath: [ ['$$','$$'], ["\\[","\\]"], ["\\begin{displaymath}","\\end{displaymath}"] ],
+            skipTags: ["script","noscript","style","textarea","pre","code"],
+            ignoreClass: "tex2jax_ignore",
+            processEscapes: false,
+            processEnvironments: true,
+            preview: "TeX"
+        },
+        showProcessingMessages: true,
+        displayAlign: "center",
+        displayIndent: "2em",
+
+        "HTML-CSS": {
+             scale: 100,
+             availableFonts: ["STIX","TeX"],
+             preferredFont: "TeX",
+             webFont: "TeX",
+             imageFont: "TeX",
+             showMathMenu: true,
+        },
+        MMLorHTML: {
+             prefer: {
+                 MSIE:    "MML",
+                 Firefox: "MML",
+                 Opera:   "HTML",
+                 other:   "HTML"
+             }
+        }
+    });
+/*]]>*///-->
+</script>
+</head>
+<body>
+<div id="org-div-home-and-up" style="text-align:right;font-size:70%;white-space:nowrap;">
+ <a accesskey="h" href="index.html"> UP </a>
+ |
+ <a accesskey="H" href="index.html"> HOME </a>
+</div>
+
+<div id="preamble">
+
+</div>
+
+<div id="content">
+<h1 class="title">3. Basic Types, Operators and Expressions</h1>
+
+
+
+<hr/>
+<div id="table-of-contents">
+<h2>Table of Contents</h2>
+<div id="text-table-of-contents">
+<ul>
+<li><a href="#sec-1">Variables</a>
+<ul>
+<li><a href="#sec-1-1">Variable names</a></li>
+</ul>
+</li>
+<li><a href="#sec-2">Data Types and Sizes</a>
+<ul>
+<li><a href="#sec-2-1">Binary representation</a></li>
+<li><a href="#sec-2-2">How many bytes on your machine?</a></li>
+</ul>
+</li>
+<li><a href="#sec-3">Constants</a>
+<ul>
+<li><a href="#sec-3-1">Numeric Constants</a></li>
+<li><a href="#sec-3-2">Character Constants</a></li>
+<li><a href="#sec-3-3">String Constants</a></li>
+<li><a href="#sec-3-4">Enumeration Constants</a></li>
+</ul>
+</li>
+<li><a href="#sec-4">Declarations</a></li>
+<li><a href="#sec-5">Expressions</a>
+<ul>
+<li><a href="#sec-5-1">Arithmetic Operators</a></li>
+<li><a href="#sec-5-2">Relational and Logical Operators</a></li>
+<li><a href="#sec-5-3">Increment and Decrement Operators</a></li>
+</ul>
+</li>
+<li><a href="#sec-6">Type Conversions</a>
+<ul>
+<li><a href="#sec-6-1">Implicit Type Conversion</a></li>
+<li><a href="#sec-6-2">Explicit Type Conversion</a>
+<ul>
+<li><a href="#sec-6-2-1">Type Casting</a></li>
+<li><a href="#sec-6-2-2">String Conversion Library Functions</a></li>
+</ul></li>
+</ul>
+</li>
+<li><a href="#sec-7">Defining your own type names using typedef</a></li>
+<li><a href="#sec-8">Exercises</a>
+<ul>
+<li><a href="#sec-8-1">Solutions</a></li>
+</ul>
+</li>
+</ul>
+</div>
+</div>
+
+<hr/>
+
+
+<div id="outline-container-1" class="outline-2">
+<h2 id="sec-1">Variables</h2>
+<div class="outline-text-2" id="text-1">
+
+
+<p>
+Like in other high-level programming languages, in C, we can assign
+symbolic names, known as <b>variables</b>, for storing information in
+memory. Then we can refer to those pieces of information in memory by
+using the symbolic variable name, instead of having to use the raw
+address in memory. Variables can be used to store floating-point
+numbers, characters, and even pointers to other locations in memory.
+</p>
+
+</div>
+
+<div id="outline-container-1-1" class="outline-3">
+<h3 id="sec-1-1">Variable names</h3>
+<div class="outline-text-3" id="text-1-1">
+
+
+<p>
+There are some restrictions on the names of variables in C. Names are
+made up of letters and digits, but the first character must be a
+letter (not a digit). The underscore "_" counts as a letter. Also
+remember in unix, uppercase and lowercase letters are distinct and so
+<code>Age</code> is distinct from <code>age</code>.
+</p>
+<p>
+Here is a list of <b>reserved keywords</b> in C that cannot be used as
+variable names:
+</p>
+<table border="2" cellspacing="0" cellpadding="6" rules="groups" frame="hsides">
+<caption></caption>
+<colgroup><col class="left" /><col class="left" /><col class="left" /><col class="left" /><col class="left" />
+</colgroup>
+<tbody>
+<tr><td class="left"><code>_Bool</code></td><td class="left"><code>default</code></td><td class="left"><code>if</code></td><td class="left"><code>sizeof</code></td><td class="left"><code>while</code></td></tr>
+<tr><td class="left"><code>_Complex</code></td><td class="left"><code>do</code></td><td class="left"><code>inline</code></td><td class="left"><code>static</code></td><td class="left"></td></tr>
+<tr><td class="left"><code>_Imaginary</code></td><td class="left"><code>double</code></td><td class="left"><code>int</code></td><td class="left"><code>struct</code></td><td class="left"></td></tr>
+<tr><td class="left"><code>auto</code></td><td class="left"><code>else</code></td><td class="left"><code>long</code></td><td class="left"><code>switch</code></td><td class="left"></td></tr>
+<tr><td class="left"><code>break</code></td><td class="left"><code>enum</code></td><td class="left"><code>register</code></td><td class="left"><code>typedef</code></td><td class="left"></td></tr>
+<tr><td class="left"><code>case</code></td><td class="left"><code>extern</code></td><td class="left"><code>restrict</code></td><td class="left"><code>union</code></td><td class="left"></td></tr>
+<tr><td class="left"><code>char</code></td><td class="left"><code>float</code></td><td class="left"><code>return</code></td><td class="left"><code>unsigned</code></td><td class="left"></td></tr>
+<tr><td class="left"><code>const</code></td><td class="left"><code>for</code></td><td class="left"><code>short</code></td><td class="left"><code>void</code></td><td class="left"></td></tr>
+<tr><td class="left"><code>continue</code></td><td class="left"><code>goto</code></td><td class="left"><code>signed</code></td><td class="left"><code>volatile</code></td><td class="left"></td></tr>
+</tbody>
+</table>
+
+
+</div>
+</div>
+
+</div>
+
+<div id="outline-container-2" class="outline-2">
+<h2 id="sec-2">Data Types and Sizes</h2>
+<div class="outline-text-2" id="text-2">
+
+
+<p>
+There are four basic data types in C, their meaning, and their size
+(on my MacBook Pro 15-inch, Mid 2010):
+</p>
+<table border="2" cellspacing="0" cellpadding="6" rules="groups" frame="hsides">
+<caption></caption>
+<colgroup><col class="left" /><col class="left" /><col class="left" /><col class="left" />
+</colgroup>
+<thead>
+<tr><th scope="col" class="left">Type</th><th scope="col" class="left">Meaning</th><th scope="col" class="left">Size (bytes)</th><th scope="col" class="left">Size (bits)</th></tr>
+</thead>
+<tbody>
+<tr><td class="left"><code>char</code></td><td class="left">a single byte, capable of holding one character</td><td class="left">1 byte</td><td class="left">8 bits</td></tr>
+<tr><td class="left"><code>int</code></td><td class="left">an integer</td><td class="left">4 bytes</td><td class="left">32 bits</td></tr>
+<tr><td class="left"><code>float</code></td><td class="left">single-precision floating point number</td><td class="left">4 bytes</td><td class="left">32 bits</td></tr>
+<tr><td class="left"><code>double</code></td><td class="left">double-precision floating point number</td><td class="left">8 bytes</td><td class="left">64 bits</td></tr>
+</tbody>
+</table>
+
+
+
+</div>
+
+<div id="outline-container-2-1" class="outline-3">
+<h3 id="sec-2-1">Binary representation</h3>
+<div class="outline-text-3" id="text-2-1">
+
+
+<p>
+There are also qualifiers <code>short</code>, <code>long</code>, <code>signed</code> and <code>unsigned</code>,
+that can be applied to these basic types.
+</p>
+<table border="2" cellspacing="0" cellpadding="6" rules="groups" frame="hsides">
+<caption></caption>
+<colgroup><col class="left" /><col class="left" /><col class="left" />
+</colgroup>
+<thead>
+<tr><th scope="col" class="left">Qualifier</th><th scope="col" class="left">Size (bytes)</th><th scope="col" class="left">Size (bits)</th></tr>
+</thead>
+<tbody>
+<tr><td class="left"><code>short int</code></td><td class="left">2 bytes</td><td class="left">16 bits</td></tr>
+<tr><td class="left"><code>long int</code></td><td class="left">8 bytes</td><td class="left">64 bits</td></tr>
+<tr><td class="left"><code>long double</code></td><td class="left">16 bytes</td><td class="left">128 bits</td></tr>
+</tbody>
+</table>
+
+
+<p>
+We have been talking about variable types and how many <b>bytes</b> they
+take up in memory. An important quantity to know about is that one
+<b>byte</b> is made up of 8 <b>bits</b>. One <b>bit</b> can take on two possible
+values: 0 or 1. An <b>unsigned</b> 8-bit variable can take on values
+between 0 and (2<sup>8</sup>)-1 = 255. A <b>signed</b> 8-bit variable can take on
+values between -127 and +127.
+</p>
+<p>
+So when a variable is <b>signed</b>, it can take on negative values, and
+half of it's total range is spread below zero, and the other half
+above zero.
+</p>
+<p>
+A signed <code>int</code> can take on values between -2,147,483,648 and
++2,147,483,648. If we want to be able to represent integers larger
+than +2,147,483,648 then we can either use more bits (e.g. by using a
+<code>long int</code>), or by forcing all 32 bits of our <code>int</code> to be used on the
+positive side of zero. An <code>unsigned int</code> (4 bytes or 32 bits) can take
+on values between 0 and 4,294,967,295.
+</p>
+</div>
+
+</div>
+
+<div id="outline-container-2-2" class="outline-3">
+<h3 id="sec-2-2">How many bytes on your machine?</h3>
+<div class="outline-text-3" id="text-2-2">
+
+
+<p>
+Here is a small C program that will print out the size of some basic C
+types on your machine. Enter it into your source code editor, and save
+it to a file called <a href="my_types.c"><code>my_types.c</code></a>
+</p>
+
+
+
+<pre class="src src-c"><span style="color: #875f87;">#include</span> <span style="color: #87005f;">&lt;stdio.h&gt;</span>
+
+<span style="color: #008700;">int</span> <span style="color: #0000ff;">main</span>(<span style="color: #008700;">int</span> <span style="color: #af5f00;">argc</span>, <span style="color: #008700;">char</span> *<span style="color: #af5f00;">argv</span>[]) {
+        printf(<span style="color: #87005f;">"a char is %ld bytes\n"</span>, <span style="color: #af00ff;">sizeof</span>(<span style="color: #008700;">char</span>));
+        printf(<span style="color: #87005f;">"an int is %ld bytes\n"</span>, <span style="color: #af00ff;">sizeof</span>(<span style="color: #008700;">int</span>));
+        printf(<span style="color: #87005f;">"an float is %ld bytes\n"</span>, <span style="color: #af00ff;">sizeof</span>(<span style="color: #008700;">float</span>));
+        printf(<span style="color: #87005f;">"a double is %ld bytes\n"</span>, <span style="color: #af00ff;">sizeof</span>(<span style="color: #008700;">double</span>));
+        printf(<span style="color: #87005f;">"a short int is %ld bytes\n"</span>, <span style="color: #af00ff;">sizeof</span>(<span style="color: #008700;">short</span> <span style="color: #008700;">int</span>));
+        printf(<span style="color: #87005f;">"a long int is %ld bytes\n"</span>, <span style="color: #af00ff;">sizeof</span>(<span style="color: #008700;">long</span> <span style="color: #008700;">int</span>));
+        printf(<span style="color: #87005f;">"a long double is %ld bytes\n"</span>, <span style="color: #af00ff;">sizeof</span>(<span style="color: #008700;">long</span> <span style="color: #008700;">double</span>));
+        <span style="color: #af00ff;">return</span> 0;
+}
+</pre>
+
+
+<p>
+Then compile and run using the following commands:
+</p>
+
+
+
+<pre class="example">gcc -o my_types my_types.c
+./my_types
+</pre>
+
+
+<p>
+and you should see something like the following output:
+</p>
+
+
+
+<pre class="example">a char is 1 bytes
+an int is 4 bytes
+an float is 4 bytes
+a double is 8 bytes
+a short int is 2 bytes
+a long int is 8 bytes
+a long double is 16 bytes
+</pre>
+
+
+</div>
+</div>
+
+</div>
+
+<div id="outline-container-3" class="outline-2">
+<h2 id="sec-3">Constants</h2>
+<div class="outline-text-2" id="text-3">
+
+
+<p>
+Constants are values that that do not change after they have been
+defined.
+</p>
+
+</div>
+
+<div id="outline-container-3-1" class="outline-3">
+<h3 id="sec-3-1">Numeric Constants</h3>
+<div class="outline-text-3" id="text-3-1">
+
+
+<p>
+An example of an <code>int</code> constant is the number <code>1234</code>. An example of a
+floating-point constant (by default typed as a <code>double</code>) is <code>123.4</code>
+and <code>1e-2</code>. We can write numbers in octal or hexadecimal instead of
+decimal: octal by using a leading zero (0) and hexadecimal by using a
+leading zero-x (0x). Decimal 31 can be written as 037 in octal and
+0x1f or 0X1F in hexadecimal. Here are some examples of defining
+numeric constants:
+</p>
+
+
+
+<pre class="src src-c"><span style="color: #008700;">int</span> <span style="color: #af5f00;">year</span> = 1984;       <span style="color: #af0000;">// </span><span style="color: #af0000;">integer constant 1984</span>
+<span style="color: #008700;">int</span> <span style="color: #af5f00;">octalYear</span> = 03700; <span style="color: #af0000;">// </span><span style="color: #af0000;">1984 in octal</span>
+<span style="color: #008700;">int</span> <span style="color: #af5f00;">hexYear</span> = 0x7c0;   <span style="color: #af0000;">// </span><span style="color: #af0000;">1984 in hexadecimal</span>
+</pre>
+
+
+<p>
+Here is some code to show how to print integers in various
+representations. Type it into your source code editor, and save it as
+<a href="numerics.c"><code>numerics.c</code></a>.
+</p>
+
+
+
+<pre class="src src-c"><span style="color: #875f87;">#include</span> <span style="color: #87005f;">&lt;stdio.h&gt;</span>
+
+<span style="color: #008700;">int</span> <span style="color: #0000ff;">main</span>() {
+  printf(<span style="color: #87005f;">"1984 in decimal is %d\n"</span>, 1984);
+  printf(<span style="color: #87005f;">"1984 in octal is 0%o\n"</span>, 1984);
+  printf(<span style="color: #87005f;">"1984 in hexadecimal is 0x%x\n"</span>, 1984);
+  printf(<span style="color: #87005f;">"0123 is octal for %d\n"</span>, 0123);
+  printf(<span style="color: #87005f;">"0x12f is hexadecimal for %d\n"</span>, 0x12f);
+  <span style="color: #af00ff;">return</span> 0;
+}
+</pre>
+
+
+
+<pre class="example">gcc -o numerics numerics.c
+./numerics
+1984 in decimal is 1984
+1984 in octal is 03700
+1984 in hexadecimal is 0x7c0
+0123 is octal for 83
+0x12f is hexadecimal for 303
+</pre>
+
+
+</div>
+
+</div>
+
+<div id="outline-container-3-2" class="outline-3">
+<h3 id="sec-3-2">Character Constants</h3>
+<div class="outline-text-3" id="text-3-2">
+
+
+<p>
+A character constant is written between <b>single quotes</b>, for example,
+'<code>x</code>'. Characters in C are represented using <b>integer</b> values, from
+the <b>ASCII character set</b>. ASCII codes range between 0 and 255. The
+upper-case alphabet starts at 65 (<code>A</code>) and ends at 90 (<code>Z</code>); the
+lowercase alphabet starts at 97 (<code>a</code>) and ends at 122 (<code>z</code>). Other
+symbols such as <code>(</code>, <code>!</code>, tab, carriage return, etc, are also
+represented in the ASCII table. See <a href="https://en.wikipedia.org/wiki/ASCII">ASCII (wikipedia)</a> and <a href="http://www.asciitable.com/">AsciiTable</a>
+for the mapping between characters and integer ascii codes.
+</p>
+<p>
+An important character constant to know about is the constant '<code>\0</code>'
+which represents the character with value zero, sometimes called the
+<code>NULL</code> character. We will see later when we talk about string handling
+in C that '<code>\0</code>' is used to terminate variable-length strings.
+</p>
+</div>
+
+</div>
+
+<div id="outline-container-3-3" class="outline-3">
+<h3 id="sec-3-3">String Constants</h3>
+<div class="outline-text-3" id="text-3-3">
+
+
+<p>
+String constants can be specified using a sequence of zero or more
+characters enclosed within <b>double quotes</b>, e.g. "<code>C is fun</code>". A
+string constant is technically an array of characters that is
+terminated by a null character '<code>\0</code>' at the end. This means that the
+storage required to represent a string of length <code>n</code> is actually
+<code>n+1</code>. Thus we can store strings of arbitrary length in memory as long
+as they are terminated by a null character (so we know when they
+stop). We will talk about arrays later.
+</p>
+</div>
+
+</div>
+
+<div id="outline-container-3-4" class="outline-3">
+<h3 id="sec-3-4">Enumeration Constants</h3>
+<div class="outline-text-3" id="text-3-4">
+
+
+<p>
+An enumeration constant is a list of constant integer values, that you
+can assign to arbitrary labels. They provide a convenient way to
+associate constant values with names. For example you could store the
+months of the year like this:
+</p>
+
+
+
+<pre class="src src-c"><span style="color: #af00ff;">enum</span> <span style="color: #008700;">months</span> { <span style="color: #af5f00;">JAN</span>=1, <span style="color: #af5f00;">FEB</span>, <span style="color: #af5f00;">MAR</span>, <span style="color: #af5f00;">APR</span>, <span style="color: #af5f00;">MAY</span>, <span style="color: #af5f00;">JUN</span>,
+              <span style="color: #af5f00;">JUL</span>, <span style="color: #af5f00;">AUG</span>, <span style="color: #af5f00;">SEP</span>, <span style="color: #af5f00;">OCT</span>, <span style="color: #af5f00;">NOV</span>, <span style="color: #af5f00;">DEC</span> };
+</pre>
+
+
+<p>
+Now you have defined a new enumerated constant data type called
+<code>months</code>. Now a variable of type <code>months</code> can only take on values as
+defined above. You can use the symbolic names (e.g. <code>JAN</code>) in place of
+their integer counterparts, for example like this:
+</p>
+
+
+
+<pre class="src src-c"><span style="color: #008700;">months</span> <span style="color: #af5f00;">the_month</span>;
+...
+<span style="color: #af00ff;">if</span> (the_month == JAN) {
+  printf(<span style="color: #87005f;">"it's January\n"</span>);
+}
+</pre>
+
+
+<p>
+Why not just use strings to represent months? One reason is that in C
+strings are slightly clunky to work with, especially compared to
+interpreted languages like Python, R, etc. Comparing two strings in C
+is not as easy as typing <code>if (the_month == "JAN")</code> &hellip; it requires a
+call to a function in <code>string.h</code> called <code>strcmp()</code>.
+</p>
+<p>
+Another reason is that because <code>enum</code> data types are represted as
+integers, you can do integer operations (comparisons, arithmetic, etc)
+on them&hellip; so for example you could do something clever like:
+</p>
+
+
+
+<pre class="src src-c"><span style="color: #af00ff;">if</span> ((the_month &gt; APR) &amp;&amp; (the_month &lt; SEP)) {
+  printf(<span style="color: #ff0000; font-weight: bold;">"</span><span style="color: #87005f;">it's summer!\");</span>
+<span style="color: #87005f;">}</span>
+</pre>
+
+
+</div>
+</div>
+
+</div>
+
+<div id="outline-container-4" class="outline-2">
+<h2 id="sec-4">Declarations</h2>
+<div class="outline-text-2" id="text-4">
+
+
+<p>
+Unlike in languages like Python, R, Octave/Matlab, etc, which are
+<a href="https://en.wikipedia.org/wiki/Type_system#Dynamic_typing"><b>dynamically typed</b></a> languages, the C language is a <a href="https://en.wikipedia.org/wiki/Type_system#Static_typing"><b>statically typed</b></a>
+language. From a practical point of view, this means in C, we have to
+declare, up front, the <b>type</b> of every variable we use. In languages
+like Python we can do crazy stuff like this:
+</p>
+
+
+
+<pre class="src src-Python">a = 123.456
+b = 50.2
+c = 100.0
+d = [a, b, c]
+print a, b, c, d
+</pre>
+
+
+
+<pre class="example">123.456 50.2 100.0 [123.456, 50.2, 100.0]
+</pre>
+
+
+<p>
+The Python interpreter will figure out what type to assign to <code>a</code>,
+<code>b</code>, <code>c</code> and <code>d</code> based on evaluating the right-hand side of each
+declaration. In C, we have to explicitly declare the type of each
+variable like this:
+</p>
+
+
+
+<pre class="src src-c"><span style="color: #875f87;">#include</span> <span style="color: #87005f;">&lt;stdio.h&gt;</span>
+
+<span style="color: #008700;">int</span> <span style="color: #0000ff;">main</span>() {
+        <span style="color: #008700;">double</span> <span style="color: #af5f00;">a</span> = 123.456;
+        <span style="color: #008700;">double</span> <span style="color: #af5f00;">b</span> = 50.2;
+        <span style="color: #008700;">double</span> <span style="color: #af5f00;">c</span> = 100.0;
+        <span style="color: #008700;">double</span> <span style="color: #af5f00;">d</span>[] = {a, b, c};
+        printf(<span style="color: #87005f;">"a=%.3f, b=%.3f, c=%.3f, d=[%.3f, %.3f, %.3f]\n"</span>, 
+                a, b, c, d[0], d[1], d[2]);
+        <span style="color: #af00ff;">return</span> 0;
+}
+
+</pre>
+
+
+
+<pre class="example">a=123.456, b=50.200, c=100.000, d=[123.456, 50.200, 100.000]
+</pre>
+
+
+<p>
+We haven't talked about arrays yet but we will later in the tutorial.
+</p>
+</div>
+
+</div>
+
+<div id="outline-container-5" class="outline-2">
+<h2 id="sec-5">Expressions</h2>
+<div class="outline-text-2" id="text-5">
+
+
+<p>
+Like in any other programming language, in C, there are a number of
+arithmetic relational and logical <b>operators</b> we can use to write
+<b>expressions</b> that are made up of simpler basic types.
+</p>
+
+</div>
+
+<div id="outline-container-5-1" class="outline-3">
+<h3 id="sec-5-1">Arithmetic Operators</h3>
+<div class="outline-text-3" id="text-5-1">
+
+
+<p>
+The following binary arithmetic operators can be used in C: <code>+</code>, <code>-</code>,
+<code>*</code>, <code>/</code> and the modulus operator <code>%</code>. When writing arithmetic
+expressions we must always be aware of <b>operator precedence</b>, which is
+the order in which operators are applied when evaluating an
+expression.
+</p>
+<p>
+For example <code>4+5*6</code> evaluates to <code>34</code>, because the <code>*</code> operator has
+precedence over the <code>+</code> operator, and so the expression is evaluated
+as <code>4 + (5*6)</code>, <b>not</b> <code>(4+5)*6</code>. My own strategy to deal with this is
+to always use brackets to explicitly denote desired precedence in
+arithmetic expressions. So instead of writing:
+</p>
+
+
+
+<pre class="src src-c"><span style="color: #008700;">double</span> <span style="color: #af5f00;">q</span> = a*x*x+b*x+c;
+</pre>
+
+
+<p>
+which is a perfectly accurate expression of the quadratic equation:
+</p>
+
+
+\begin{equation}
+ax^{2} + bx + c
+\end{equation}
+
+<p>
+I would rather code it like this:
+</p>
+
+
+
+<pre class="src src-c"><span style="color: #008700;">double</span> <span style="color: #af5f00;">q</span> = (a*x*x) + (b*x) + c;
+</pre>
+
+
+<p>
+Another illustration of operator precedence: What are the values of
+the <code>result1</code>, <code>result2</code> and <code>result3</code> variables in the following
+code?
+</p>
+
+
+
+<pre class="src src-c"><span style="color: #875f87;">#include</span> <span style="color: #87005f;">&lt;stdio.h&gt;</span>
+<span style="color: #008700;">int</span> <span style="color: #0000ff;">main</span>() {
+  <span style="color: #008700;">int</span> <span style="color: #af5f00;">a</span>=100, <span style="color: #af5f00;">b</span>=2, <span style="color: #af5f00;">c</span>=25, <span style="color: #af5f00;">d</span>=4;
+  <span style="color: #008700;">int</span> <span style="color: #af5f00;">result1</span>, <span style="color: #af5f00;">result2</span>, <span style="color: #af5f00;">result3</span>;
+  result1 = a * b + c * d;
+  result2 = (a * b) + (c * d);
+  result3 = a * (b + c) * d;
+  printf(<span style="color: #87005f;">"result1=%d, result2=%d, result3=%d\n"</span>,
+         result1, result2, result3);
+  <span style="color: #af00ff;">return</span> 0;
+}
+</pre>
+
+
+<p>
+Always using brackets will avoid cases where operator precedence
+messes up your calculations. These errors are very hard to debug.
+</p>
+<p>
+Wikipedia provides a chart showing <a href="https://en.wikipedia.org/wiki/Operators_in_C_and_C++#Operator_precedence"><b>operator precedence</b></a>.
+</p>
+</div>
+
+</div>
+
+<div id="outline-container-5-2" class="outline-3">
+<h3 id="sec-5-2">Relational and Logical Operators</h3>
+<div class="outline-text-3" id="text-5-2">
+
+
+<p>
+The relational operators are <code>&gt;</code>, <code>&gt;=</code>, <code>&lt;</code> and <code>&lt;=</code>, which all have
+equal precedence. There are also two equality operators: <code>==</code> and
+<code>!=</code>.
+</p>
+<p>
+A very common <b>gotcha</b> in C programming is to erroneously use the
+assignment operator <code>=</code> when you mean to use the equality operator
+<code>==</code>, for example:
+</p>
+
+
+
+<pre class="src src-c"><span style="color: #af00ff;">if</span> (grade = 49) grade = grade + 1; <span style="color: #af0000;">// </span><span style="color: #af0000;">INCORRECT !!!</span>
+<span style="color: #af00ff;">if</span> (grade == 49) grade = grade + 1; <span style="color: #af0000;">// </span><span style="color: #af0000;">CORRECT</span>
+</pre>
+
+
+<p>
+In line 1 above, the expression <code>grade=49</code> doesn't <b>test</b> for the
+equality of the variable <code>grade</code> and the constant <code>49</code>, it <b>assigns</b>
+the value <code>49</code> to the variable grade. What we really want is in line 2
+where we use the equality operator <code>==</code> to test if <code>grade==49</code>. This
+bug is a tough one to spot when it happens.
+</p>
+<p>
+There are two <b>logical operators</b> <code>&amp;&amp;</code> (logical AND) and <code>||</code> (logical
+OR).
+</p>
+<p>
+By default in C, the results of relational and logical operators are
+evaluated to integer values: <code>0</code> for FALSE and <code>1</code> for TRUE.
+</p>
+</div>
+
+</div>
+
+<div id="outline-container-5-3" class="outline-3">
+<h3 id="sec-5-3">Increment and Decrement Operators</h3>
+<div class="outline-text-3" id="text-5-3">
+
+
+<p>
+You may come across two unusual-looking operators that may be used as
+a shorthand for incrementing and decrementing variables. The <code>++</code> and
+<code>--</code> operators add <code>1</code> and subtract <code>1</code>, respectively, from their
+operands. For example in the following code snippet, we increment the
+<code>int</code> variable <code>a</code> and we decrement the <code>int</code> variable <code>b</code>:
+</p>
+
+
+
+<pre class="src src-c"><span style="color: #875f87;">#include</span> <span style="color: #87005f;">&lt;stdio.h&gt;</span>
+
+<span style="color: #008700;">int</span> <span style="color: #0000ff;">main</span>(<span style="color: #008700;">int</span> <span style="color: #af5f00;">argc</span>, <span style="color: #008700;">char</span> *<span style="color: #af5f00;">argv</span>[]) {
+
+        <span style="color: #008700;">int</span> <span style="color: #af5f00;">a</span> = 0;
+        <span style="color: #008700;">int</span> <span style="color: #af5f00;">b</span> = 0;
+
+        printf(<span style="color: #87005f;">"a=%d, b=%d\n"</span>, a, b);
+
+        a++;
+        b--;
+
+        printf(<span style="color: #87005f;">"a=%d, b=%d\n"</span>, a, b);
+
+        <span style="color: #af00ff;">return</span> 0;
+}
+</pre>
+
+
+
+<pre class="example">a=0, b=0
+a=1, b=-1
+</pre>
+
+
+<p>
+A note of caution, you can also use these two operators in a different
+way, by putting the operator before the operand, e.g. <code>++a</code> and
+<code>--b</code>. When the operand is used <b>before</b> the operand this is called a
+<b>prefix operator</b>, and when it is used after the operand it is called
+a <b>postfix operator</b>. When using <code>++</code> and <code>--</code> as a prefix operator,
+the increment (or decrement) happens <b>before</b> its value is used. As
+postfix operators, the increment (or decrement) happens <b>after</b> its
+value has been used. Here is a concrete example:
+</p>
+
+
+
+<pre class="src src-c"><span style="color: #875f87;">#include</span> <span style="color: #87005f;">&lt;stdio.h&gt;</span>
+
+<span style="color: #008700;">int</span> <span style="color: #0000ff;">main</span>(<span style="color: #008700;">int</span> <span style="color: #af5f00;">argc</span>, <span style="color: #008700;">char</span> *<span style="color: #af5f00;">argv</span>[]) {
+
+        <span style="color: #008700;">int</span> <span style="color: #af5f00;">n</span>, <span style="color: #af5f00;">x</span>;
+
+        n = 3;
+        x = 0;
+        printf(<span style="color: #87005f;">"n=%d, x=%d\n"</span>, n, x);
+        x = n++;
+        printf(<span style="color: #87005f;">"n=%d, x=%d\n\n"</span>, n, x);
+
+        n = 3;
+        x = 0;
+        printf(<span style="color: #87005f;">"n=%d, x=%d\n"</span>, n, x);
+        x = ++n;
+        printf(<span style="color: #87005f;">"n=%d, x=%d\n"</span>, n, x);
+
+        <span style="color: #af00ff;">return</span> 0;
+}
+</pre>
+
+
+
+<pre class="example">n=3, x=0
+n=4, x=3
+
+n=3, x=0
+n=4, x=4
+</pre>
+
+
+<p>
+In lines 7 to 11, <code>x</code> is set to <code>3</code> (the value of <code>n</code>), and <b>then</b> <code>n</code>
+is incremented by <code>1</code>. In lines 13 to 17, <code>n</code> is incremented first and
+becomes <code>4</code>, and <b>then</b> <code>x</code> is set to the resulting value (also <code>4</code>).
+</p>
+<p>
+If you think this is all a bit unnecessarily confusing, then you agree
+with me. I typically don't use these operators because of the risk of
+mis-using them, and so when I want to increment or decrement a value
+by 1, I just write it out explicitly:
+</p>
+
+
+
+<pre class="src src-c"><span style="color: #008700;">int</span> <span style="color: #af5f00;">x</span>;
+x = x + 1;
+</pre>
+
+
+</div>
+</div>
+
+</div>
+
+<div id="outline-container-6" class="outline-2">
+<h2 id="sec-6">Type Conversions</h2>
+<div class="outline-text-2" id="text-6">
+
+
+<p>
+There are two kinds of type conversion we need to talk about:
+automatic or <b>implicit</b> type conversion and <b>explicit</b> type
+conversion.
+</p>
+
+</div>
+
+<div id="outline-container-6-1" class="outline-3">
+<h3 id="sec-6-1">Implicit Type Conversion</h3>
+<div class="outline-text-3" id="text-6-1">
+
+
+<p>
+The operators we have looked at can deal with different types. For
+example we can apply the addition operator <code>+</code> to an <code>int</code> as well as
+a <code>double</code>. It is important to understand how operators deal with
+different types that appear in the same expression. There are rules in
+C that govern how operators convert different types, to evaluate the
+results of expressions.
+</p>
+<p>
+For example, when a floating-point number is assigned to an integer
+value in C, the decimal portion of the number gets truncated. On the
+other hand, when an integer value is assigned to a floating-point
+variable, the decimal is assumed as <code>.0</code>.
+</p>
+<p>
+This sort of implicit or automatic conversion can produce nasty bugs
+that are difficult to find, especially for example when performing
+multiplication or division using mixed types, e.g. integer and
+floating-point values. Here is some example code illustrating some of
+these effects:
+</p>
+
+
+
+<pre class="src src-c"><span style="color: #875f87;">#include</span> <span style="color: #87005f;">&lt;stdio.h&gt;</span>
+<span style="color: #008700;">int</span> <span style="color: #0000ff;">main</span>() {
+        <span style="color: #008700;">int</span> <span style="color: #af5f00;">a</span> = 2;
+        <span style="color: #008700;">double</span> <span style="color: #af5f00;">b</span> = 3.5;
+        <span style="color: #008700;">double</span> <span style="color: #af5f00;">c</span> = a * b;
+        <span style="color: #008700;">double</span> <span style="color: #af5f00;">d</span> = a / b;
+        <span style="color: #008700;">int</span> <span style="color: #af5f00;">e</span> = a * b;
+        <span style="color: #008700;">int</span> <span style="color: #af5f00;">f</span> = a / b;
+        printf(<span style="color: #87005f;">"a=%d, b=%.3f, c=%.3f, d=%.3f, e=%d, f=%d\n"</span>,
+                a, b, c, d, e, f);
+        <span style="color: #af00ff;">return</span> 0;
+}
+</pre>
+
+
+</div>
+
+</div>
+
+<div id="outline-container-6-2" class="outline-3">
+<h3 id="sec-6-2">Explicit Type Conversion</h3>
+<div class="outline-text-3" id="text-6-2">
+
+
+
+</div>
+
+<div id="outline-container-6-2-1" class="outline-4">
+<h4 id="sec-6-2-1">Type Casting</h4>
+<div class="outline-text-4" id="text-6-2-1">
+
+
+<p>
+There is a mechanism in C to perform <b>type casting</b>, that is to force
+an expression to be converted to a particular type of our choosing. We
+surround the desired type in brackets and place that just before the
+expression to be coerced. Look at the following example code:
+</p>
+
+
+
+<pre class="src src-c"><span style="color: #875f87;">#include</span> <span style="color: #87005f;">&lt;stdio.h&gt;</span>
+<span style="color: #875f87;">#include</span> <span style="color: #87005f;">&lt;stdio.h&gt;</span>
+<span style="color: #008700;">int</span> <span style="color: #0000ff;">main</span>() {
+        <span style="color: #008700;">int</span> <span style="color: #af5f00;">a</span> = 2;
+        <span style="color: #008700;">int</span> <span style="color: #af5f00;">b</span> = 3;
+        printf(<span style="color: #87005f;">"a / b = %.3f\n"</span>, a/b);
+        printf(<span style="color: #87005f;">"a / b = %.3f\n"</span>, (<span style="color: #008700;">double</span>) a/b);
+        <span style="color: #af00ff;">return</span> 0;
+}
+</pre>
+
+
+</div>
+
+</div>
+
+<div id="outline-container-6-2-2" class="outline-4">
+<h4 id="sec-6-2-2">String Conversion Library Functions</h4>
+<div class="outline-text-4" id="text-6-2-2">
+
+
+<p>
+There are some built-in library functions in C to perform some basic
+conversions between strings and numeric types. Two useful functions to
+know about convert ascii strings to numeric types: <code>atoi()</code> (ascii to
+integer) and <code>atof()</code> (ascii to floating-point). We need to <code>#include</code>
+the library <code>stdlib.h</code> in order to use these functions.
+</p>
+<p>
+To convert from numeric types to strings things are a bit more
+difficult. First we have to allocate space in memory to store the
+string. Then we use the <code>sprintf()</code> built-in function to "print" the
+numeric type into our string.
+</p>
+<p>
+Here is some example code (<a href="typeConvert.c"><code>typeConvert.c</code></a>) illustrating conversion of
+strings to numerics, and vice-versa:
+</p>
+
+
+
+<pre class="src src-c"><span style="color: #875f87;">#include</span> <span style="color: #87005f;">&lt;stdio.h&gt;</span>
+<span style="color: #875f87;">#include</span> <span style="color: #87005f;">&lt;stdlib.h&gt;</span>
+
+<span style="color: #008700;">int</span> <span style="color: #0000ff;">main</span>() {
+        <span style="color: #008700;">char</span> <span style="color: #af5f00;">intString</span>[] = <span style="color: #87005f;">"1234"</span>;
+        <span style="color: #008700;">char</span> <span style="color: #af5f00;">floatString</span>[] = <span style="color: #87005f;">"328.4"</span>;
+        <span style="color: #008700;">int</span> <span style="color: #af5f00;">myInt</span> = atoi(intString);
+        <span style="color: #008700;">double</span> <span style="color: #af5f00;">myDouble</span> = atof(floatString);
+        printf(<span style="color: #87005f;">"intString=%s, floatString=%s\n"</span>, intString, floatString);
+        printf(<span style="color: #87005f;">"myInt=%d, myDouble=%.1f\n\n"</span>, myInt, myDouble);
+
+        <span style="color: #008700;">int</span> <span style="color: #af5f00;">a</span> = 2;
+        <span style="color: #008700;">double</span> <span style="color: #af5f00;">b</span> = 3.14;
+        <span style="color: #008700;">char</span> <span style="color: #af5f00;">myString1</span>[64], <span style="color: #af5f00;">myString2</span>[64];
+        sprintf(myString1, <span style="color: #87005f;">"%d"</span>, a);
+        sprintf(myString2, <span style="color: #87005f;">"%.2f"</span>, b);
+        printf(<span style="color: #87005f;">"a=%d, b=%.2f\n"</span>, a, b);
+        printf(<span style="color: #87005f;">"myString1=%s, myString2=%s"</span>, myString1, myString2);
+        <span style="color: #af00ff;">return</span> 0;
+}
+</pre>
+
+
+
+<pre class="example">intString=1234, floatString=328.4
+myInt=1234, myDouble=328.4
+
+a=2, b=3.14
+myString1=2, myString2=3.14
+</pre>
+
+
+</div>
+</div>
+</div>
+
+</div>
+
+<div id="outline-container-7" class="outline-2">
+<h2 id="sec-7">Defining your own type names using typedef</h2>
+<div class="outline-text-2" id="text-7">
+
+
+<p>
+In C you can assign an alternate name to a data type, any name you
+want. The <code>typedef</code> statement allows you to do this. 
+</p>
+<p>
+For example we can use typedef to define a type called "Counter" which
+is an alternate name for an integer, like this:
+</p>
+
+
+
+<pre class="src src-c"><span style="color: #af00ff;">typedef</span> <span style="color: #008700;">int</span> <span style="color: #008700;">Counter</span>;
+</pre>
+
+
+<p>
+Now we can declare variables to be of type "Counter":
+</p>
+
+
+
+<pre class="src src-c"><span style="color: #af00ff;">typedef</span> <span style="color: #008700;">int</span> <span style="color: #008700;">Counter</span>;
+<span style="color: #008700;">Counter</span> <span style="color: #af5f00;">i</span>, <span style="color: #af5f00;">j</span>, <span style="color: #af5f00;">k</span>;
+</pre>
+
+
+<p>
+Typedef isn't used particularly often in most basic C code, but you
+may come across it in applications requiring a high degree of
+portability. New types may be defined for basic variables and typedef
+may be used in header files to tailor the program to the target
+machine.
+</p>
+<p>
+One place you may see typedef used more often is to simplify the
+declaration of compound types such as the <code>struct</code> type (which we will
+see later).
+</p>
+
+</div>
+
+</div>
+
+<div id="outline-container-8" class="outline-2">
+<h2 id="sec-8">Exercises</h2>
+<div class="outline-text-2" id="text-8">
+
+
+<ul>
+<li>1 Write a program that converts 27<sup>&deg;</sup> from degrees Fahrenheit (F)
+   to degrees Celsius (C) using the following formula, and write the
+   result to the screen:
+</li>
+</ul>
+
+
+  
+
+\begin{equation}
+   C =  \frac{(F-32)}{1.8}
+  \end{equation}
+
+<ul>
+<li>2 Write a program that computes the (two) roots of the quadratic
+   equation:
+
+<p>
+  \begin{equation}
+  a x^{2} + bx + c = 0
+  \end{equation}
+   where
+   \(a=1.2\), \(b=2.3\) and \(c=-3.4\).
+</p>
+<p>
+  You can hard-code values of \(a\), \(b\) and \(c\) and then compute and
+   print the two solutions for \(x\), to 5 decimal places. You can use
+   <a href="http://www.wolframalpha.com/input/?i=1.2*x*x+%2B++2.3*x+++-3.4+%3D+0">WolframAlpha</a> to check your arithmetic.
+</p></li>
+</ul>
+
+
+
+</div>
+
+<div id="outline-container-8-1" class="outline-3">
+<h3 id="sec-8-1">Solutions</h3>
+<div class="outline-text-3" id="text-8-1">
+
+
+<ul>
+<li><a href="code/exercises/3_1.c">1</a>
+</li>
+<li><a href="code/exercises/3_2.c">2</a> 
+</li>
+</ul>
+
+</div>
+</div>
+</div>
+</div>
+
+<div id="postamble">
+<hr />Paul Gribble | Summer 2012<br>This <span xmlns:dct="http://purl.org/dc/terms/" href="http://purl.org/dc/dcmitype/Text" rel="dct:type">work</span> is licensed under a <a rel="license" href="http://creativecommons.org/licenses/by-nc-sa/3.0/">Creative Commons Attribution-NonCommercial-ShareAlike 3.0 Unported License</a><br><a rel="license" href="http://creativecommons.org/licenses/by-nc-sa/3.0/"><img alt="Creative Commons License" style="border-width:0" src="http://i.creativecommons.org/l/by-nc-sa/3.0/80x15.png" /></a><br />
+</div>
+</body>
+</html>
