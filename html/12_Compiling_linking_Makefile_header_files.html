@@ -218,46 +218,46 @@ Here is our main program which is called <a href="code/neurons/go.c">go.c</a>:
 
 
 
-<pre class="src src-c"><span style="color: #999999;">// </span><span style="color: #999999;">gcc -std=c99 -o go go.c neuron.c -lm</span>
+<pre class="src src-c"><span style="color: #af0000;">// </span><span style="color: #af0000;">gcc -std=c99 -o go go.c neuron.c -lm</span>
 
-<span style="color: #afd7d7;">#include</span> <span style="color: #99cc99;">&lt;stdio.h&gt;</span>
-<span style="color: #afd7d7;">#include</span> <span style="color: #99cc99;">&lt;stdlib.h&gt;</span>
-<span style="color: #afd7d7;">#include</span> <span style="color: #99cc99;">&lt;string.h&gt;</span>
-<span style="color: #afd7d7;">#include</span> <span style="color: #99cc99;">"neuron.h"</span>
+<span style="color: #d75fd7;">#include</span> <span style="color: #af8787;">&lt;stdio.h&gt;</span>
+<span style="color: #d75fd7;">#include</span> <span style="color: #af8787;">&lt;stdlib.h&gt;</span>
+<span style="color: #d75fd7;">#include</span> <span style="color: #af8787;">&lt;string.h&gt;</span>
+<span style="color: #d75fd7;">#include</span> <span style="color: #af8787;">"neuron.h"</span>
 
-<span style="color: #ffcc66;">int</span> <span style="color: #6699cc;">main</span>(<span style="color: #ffcc66;">int</span> <span style="color: #f2777a;">argc</span>, <span style="color: #ffcc66;">char</span> *<span style="color: #f2777a;">argv</span>[]) {
+<span style="color: #008700;">int</span> <span style="color: #0000ee;">main</span>(<span style="color: #008700;">int</span> <span style="color: #af8700;">argc</span>, <span style="color: #008700;">char</span> *<span style="color: #af8700;">argv</span>[]) {
 
-  <span style="color: #ffcc66;">int</span> <span style="color: #f2777a;">ncells</span> = 100;                     <span style="color: #999999;">// </span><span style="color: #999999;"># cells to process</span>
-  <span style="color: #ffcc66;">char</span> <span style="color: #f2777a;">fnum</span>[4], <span style="color: #f2777a;">fname</span>[128];              <span style="color: #999999;">// </span><span style="color: #999999;">filename strings</span>
-  <span style="color: #ffcc66;">double</span> <span style="color: #f2777a;">celldirs</span>[40], <span style="color: #f2777a;">cellspks</span>[40];    <span style="color: #999999;">// </span><span style="color: #999999;">data for each cell</span>
-  <span style="color: #ffcc66;">double</span> <span style="color: #f2777a;">PD</span>[ncells], <span style="color: #f2777a;">plate_out</span>[9];      <span style="color: #999999;">// </span><span style="color: #999999;">store cell PDs</span>
+  <span style="color: #008700;">int</span> <span style="color: #af8700;">ncells</span> = 100;                     <span style="color: #af0000;">// </span><span style="color: #af0000;"># cells to process</span>
+  <span style="color: #008700;">char</span> <span style="color: #af8700;">fnum</span>[4], <span style="color: #af8700;">fname</span>[128];              <span style="color: #af0000;">// </span><span style="color: #af0000;">filename strings</span>
+  <span style="color: #008700;">double</span> <span style="color: #af8700;">celldirs</span>[40], <span style="color: #af8700;">cellspks</span>[40];    <span style="color: #af0000;">// </span><span style="color: #af0000;">data for each cell</span>
+  <span style="color: #008700;">double</span> <span style="color: #af8700;">PD</span>[ncells], <span style="color: #af8700;">plate_out</span>[9];      <span style="color: #af0000;">// </span><span style="color: #af0000;">store cell PDs</span>
 
-  <span style="color: #999999;">// </span><span style="color: #999999;">loop to process each cell</span>
-  <span style="color: #ffcc66;">int</span> <span style="color: #f2777a;">i</span>;
-  <span style="color: #cc99cc;">for</span> (i=1; i&lt;=ncells; i++) {
+  <span style="color: #af0000;">// </span><span style="color: #af0000;">loop to process each cell</span>
+  <span style="color: #008700;">int</span> <span style="color: #af8700;">i</span>;
+  <span style="color: #af00ff;">for</span> (i=1; i&lt;=ncells; i++) {
 
-    <span style="color: #999999;">// </span><span style="color: #999999;">construct the numeric part of the filename</span>
-    <span style="color: #cc99cc;">if</span> (i&lt;10) sprintf(fnum, <span style="color: #99cc99;">"00%d"</span>, i);
-    <span style="color: #cc99cc;">else</span> <span style="color: #cc99cc;">if</span> (i&lt;100) sprintf(fnum, <span style="color: #99cc99;">"0%d"</span>, i);
-    <span style="color: #cc99cc;">else</span> sprintf(fnum, <span style="color: #99cc99;">"%d"</span>, i);
+    <span style="color: #af0000;">// </span><span style="color: #af0000;">construct the numeric part of the filename</span>
+    <span style="color: #af00ff;">if</span> (i&lt;10) sprintf(fnum, <span style="color: #af8787;">"00%d"</span>, i);
+    <span style="color: #af00ff;">else</span> <span style="color: #af00ff;">if</span> (i&lt;100) sprintf(fnum, <span style="color: #af8787;">"0%d"</span>, i);
+    <span style="color: #af00ff;">else</span> sprintf(fnum, <span style="color: #af8787;">"%d"</span>, i);
 
-    <span style="color: #999999;">// </span><span style="color: #999999;">read in a dirs data file</span>
-    sprintf(fname, <span style="color: #99cc99;">"data/cell_dirs_%s.txt"</span>, fnum);
+    <span style="color: #af0000;">// </span><span style="color: #af0000;">read in a dirs data file</span>
+    sprintf(fname, <span style="color: #af8787;">"data/cell_dirs_%s.txt"</span>, fnum);
     readcell(fname, celldirs, 40, 0);
 
-    <span style="color: #999999;">// </span><span style="color: #999999;">read in a spks data file</span>
-    sprintf(fname, <span style="color: #99cc99;">"data/cell_spks_%s.txt"</span>, fnum);
+    <span style="color: #af0000;">// </span><span style="color: #af0000;">read in a spks data file</span>
+    sprintf(fname, <span style="color: #af8787;">"data/cell_spks_%s.txt"</span>, fnum);
     readcell(fname, cellspks, 40, 0);
 
-    <span style="color: #999999;">// </span><span style="color: #999999;">compute PD</span>
+    <span style="color: #af0000;">// </span><span style="color: #af0000;">compute PD</span>
     PD[i-1] = compute_PD(celldirs, cellspks, 40);
   }
 
-  <span style="color: #999999;">// </span><span style="color: #999999;">print vector of PDs to screen and write to a file</span>
+  <span style="color: #af0000;">// </span><span style="color: #af0000;">print vector of PDs to screen and write to a file</span>
   show_double_vec(PD, ncells);
-  write_double_vec(PD, ncells, <span style="color: #99cc99;">"PDs.txt"</span>);
+  write_double_vec(PD, ncells, <span style="color: #af8787;">"PDs.txt"</span>);
 
-  <span style="color: #cc99cc;">return</span> 0;
+  <span style="color: #af00ff;">return</span> 0;
 }
 
 
@@ -286,37 +286,37 @@ Here is the header file <a href="code/neurons/neuron.h">neuron.h</a>:
 
 
 
-<pre class="src src-c"><span style="color: #afd7d7;">#include</span> <span style="color: #99cc99;">&lt;stdlib.h&gt;</span>
-<span style="color: #afd7d7;">#include</span> <span style="color: #99cc99;">&lt;stdio.h&gt;</span>
-<span style="color: #afd7d7;">#include</span> <span style="color: #99cc99;">&lt;math.h&gt;</span>
+<pre class="src src-c"><span style="color: #d75fd7;">#include</span> <span style="color: #af8787;">&lt;stdlib.h&gt;</span>
+<span style="color: #d75fd7;">#include</span> <span style="color: #af8787;">&lt;stdio.h&gt;</span>
+<span style="color: #d75fd7;">#include</span> <span style="color: #af8787;">&lt;math.h&gt;</span>
 
-<span style="color: #afd7d7;">#if</span><span style="color: #afd7d7;">n</span><span style="color: #afd7d7;">def</span> M_PI
-<span style="color: #afd7d7;">#define</span> <span style="color: #f2777a;">M_PI</span> 3.1415926535897932384626433832795
-<span style="color: #afd7d7;">#endif</span>
+<span style="color: #d75fd7;">#if</span><span style="color: #d75fd7;">n</span><span style="color: #d75fd7;">def</span> M_PI
+<span style="color: #d75fd7;">#define</span> <span style="color: #af8700;">M_PI</span> 3.1415926535897932384626433832795
+<span style="color: #d75fd7;">#endif</span>
 
-<span style="color: #ffcc66;">void</span> <span style="color: #6699cc;">show_int_vec</span>(<span style="color: #ffcc66;">int</span> <span style="color: #f2777a;">vec</span>[], <span style="color: #ffcc66;">int</span> <span style="color: #f2777a;">n</span>);
+<span style="color: #008700;">void</span> <span style="color: #0000ee;">show_int_vec</span>(<span style="color: #008700;">int</span> <span style="color: #af8700;">vec</span>[], <span style="color: #008700;">int</span> <span style="color: #af8700;">n</span>);
 
-<span style="color: #ffcc66;">void</span> <span style="color: #6699cc;">show_double_vec</span>(<span style="color: #ffcc66;">double</span> <span style="color: #f2777a;">vec</span>[], <span style="color: #ffcc66;">int</span> <span style="color: #f2777a;">n</span>);
+<span style="color: #008700;">void</span> <span style="color: #0000ee;">show_double_vec</span>(<span style="color: #008700;">double</span> <span style="color: #af8700;">vec</span>[], <span style="color: #008700;">int</span> <span style="color: #af8700;">n</span>);
 
-<span style="color: #ffcc66;">void</span> <span style="color: #6699cc;">write_double_vec</span>(<span style="color: #ffcc66;">double</span> <span style="color: #f2777a;">vec</span>[], <span style="color: #ffcc66;">int</span> <span style="color: #f2777a;">n</span>, <span style="color: #ffcc66;">char</span> <span style="color: #f2777a;">fname</span>[]);
+<span style="color: #008700;">void</span> <span style="color: #0000ee;">write_double_vec</span>(<span style="color: #008700;">double</span> <span style="color: #af8700;">vec</span>[], <span style="color: #008700;">int</span> <span style="color: #af8700;">n</span>, <span style="color: #008700;">char</span> <span style="color: #af8700;">fname</span>[]);
 
-<span style="color: #ffcc66;">void</span> <span style="color: #6699cc;">showmat</span>(<span style="color: #ffcc66;">double</span> <span style="color: #f2777a;">mat</span>[], <span style="color: #ffcc66;">int</span> <span style="color: #f2777a;">nrows</span>, <span style="color: #ffcc66;">int</span> <span style="color: #f2777a;">ncols</span>);
+<span style="color: #008700;">void</span> <span style="color: #0000ee;">showmat</span>(<span style="color: #008700;">double</span> <span style="color: #af8700;">mat</span>[], <span style="color: #008700;">int</span> <span style="color: #af8700;">nrows</span>, <span style="color: #008700;">int</span> <span style="color: #af8700;">ncols</span>);
 
-<span style="color: #ffcc66;">void</span> <span style="color: #6699cc;">readcell</span>(<span style="color: #ffcc66;">char</span> <span style="color: #f2777a;">fname</span>[], <span style="color: #ffcc66;">double</span> <span style="color: #f2777a;">data</span>[], <span style="color: #ffcc66;">int</span> <span style="color: #f2777a;">n</span>, <span style="color: #ffcc66;">int</span> <span style="color: #f2777a;">msg</span>);
+<span style="color: #008700;">void</span> <span style="color: #0000ee;">readcell</span>(<span style="color: #008700;">char</span> <span style="color: #af8700;">fname</span>[], <span style="color: #008700;">double</span> <span style="color: #af8700;">data</span>[], <span style="color: #008700;">int</span> <span style="color: #af8700;">n</span>, <span style="color: #008700;">int</span> <span style="color: #af8700;">msg</span>);
 
-<span style="color: #ffcc66;">void</span> <span style="color: #6699cc;">oneplate</span>(<span style="color: #ffcc66;">double</span> <span style="color: #f2777a;">r1</span>, <span style="color: #ffcc66;">double</span> <span style="color: #f2777a;">r2</span>, <span style="color: #ffcc66;">double</span> <span style="color: #f2777a;">a1</span>, <span style="color: #ffcc66;">double</span> <span style="color: #f2777a;">a2</span>, <span style="color: #ffcc66;">double</span> <span style="color: #f2777a;">output</span>[6]);
+<span style="color: #008700;">void</span> <span style="color: #0000ee;">oneplate</span>(<span style="color: #008700;">double</span> <span style="color: #af8700;">r1</span>, <span style="color: #008700;">double</span> <span style="color: #af8700;">r2</span>, <span style="color: #008700;">double</span> <span style="color: #af8700;">a1</span>, <span style="color: #008700;">double</span> <span style="color: #af8700;">a2</span>, <span style="color: #008700;">double</span> <span style="color: #af8700;">output</span>[6]);
 
-<span style="color: #ffcc66;">void</span> <span style="color: #6699cc;">platemethod</span>(<span style="color: #ffcc66;">double</span> <span style="color: #f2777a;">a</span>[], <span style="color: #ffcc66;">double</span> <span style="color: #f2777a;">r</span>[], <span style="color: #ffcc66;">int</span> <span style="color: #f2777a;">n</span>, <span style="color: #ffcc66;">double</span> <span style="color: #f2777a;">output</span>[9]);
+<span style="color: #008700;">void</span> <span style="color: #0000ee;">platemethod</span>(<span style="color: #008700;">double</span> <span style="color: #af8700;">a</span>[], <span style="color: #008700;">double</span> <span style="color: #af8700;">r</span>[], <span style="color: #008700;">int</span> <span style="color: #af8700;">n</span>, <span style="color: #008700;">double</span> <span style="color: #af8700;">output</span>[9]);
 
-<span style="color: #ffcc66;">int</span> <span style="color: #6699cc;">mycomp</span>(<span style="color: #cc99cc;">const</span> <span style="color: #ffcc66;">void</span> *<span style="color: #f2777a;">a</span>, <span style="color: #cc99cc;">const</span> <span style="color: #ffcc66;">void</span> *<span style="color: #f2777a;">b</span>);
+<span style="color: #008700;">int</span> <span style="color: #0000ee;">mycomp</span>(<span style="color: #af00ff;">const</span> <span style="color: #008700;">void</span> *<span style="color: #af8700;">a</span>, <span style="color: #af00ff;">const</span> <span style="color: #008700;">void</span> *<span style="color: #af8700;">b</span>);
 
-<span style="color: #ffcc66;">double</span> <span style="color: #6699cc;">getangle</span>(<span style="color: #ffcc66;">double</span> <span style="color: #f2777a;">x</span>, <span style="color: #ffcc66;">double</span> <span style="color: #f2777a;">y</span>);
+<span style="color: #008700;">double</span> <span style="color: #0000ee;">getangle</span>(<span style="color: #008700;">double</span> <span style="color: #af8700;">x</span>, <span style="color: #008700;">double</span> <span style="color: #af8700;">y</span>);
 
-<span style="color: #ffcc66;">int</span> <span style="color: #6699cc;">mycomp_struct</span>(<span style="color: #cc99cc;">const</span> <span style="color: #ffcc66;">void</span> *<span style="color: #f2777a;">a</span>, <span style="color: #cc99cc;">const</span> <span style="color: #ffcc66;">void</span> *<span style="color: #f2777a;">b</span>);
+<span style="color: #008700;">int</span> <span style="color: #0000ee;">mycomp_struct</span>(<span style="color: #af00ff;">const</span> <span style="color: #008700;">void</span> *<span style="color: #af8700;">a</span>, <span style="color: #af00ff;">const</span> <span style="color: #008700;">void</span> *<span style="color: #af8700;">b</span>);
 
-<span style="color: #ffcc66;">double</span> <span style="color: #6699cc;">compute_PDr</span>(<span style="color: #ffcc66;">double</span> <span style="color: #f2777a;">celldirs</span>[], <span style="color: #ffcc66;">double</span> <span style="color: #f2777a;">cellspks</span>[], <span style="color: #ffcc66;">int</span> <span style="color: #f2777a;">ntrials</span>, <span style="color: #ffcc66;">int</span> <span style="color: #f2777a;">ndirs</span>);
+<span style="color: #008700;">double</span> <span style="color: #0000ee;">compute_PDr</span>(<span style="color: #008700;">double</span> <span style="color: #af8700;">celldirs</span>[], <span style="color: #008700;">double</span> <span style="color: #af8700;">cellspks</span>[], <span style="color: #008700;">int</span> <span style="color: #af8700;">ntrials</span>, <span style="color: #008700;">int</span> <span style="color: #af8700;">ndirs</span>);
 
-<span style="color: #ffcc66;">double</span> <span style="color: #6699cc;">compute_PD</span>(<span style="color: #ffcc66;">double</span> <span style="color: #f2777a;">celldirs</span>[], <span style="color: #ffcc66;">double</span> <span style="color: #f2777a;">cellspks</span>[], <span style="color: #ffcc66;">int</span> <span style="color: #f2777a;">ntrials</span>);
+<span style="color: #008700;">double</span> <span style="color: #0000ee;">compute_PD</span>(<span style="color: #008700;">double</span> <span style="color: #af8700;">celldirs</span>[], <span style="color: #008700;">double</span> <span style="color: #af8700;">cellspks</span>[], <span style="color: #008700;">int</span> <span style="color: #af8700;">ntrials</span>);
 </pre>
 
 
@@ -372,7 +372,7 @@ you a pair of files (<a href="code/primes/primes.h">primes.h</a> and <a href="co
 
 
 
-<pre class="src src-c"><span style="color: #ffcc66;">int</span> <span style="color: #6699cc;">isPrime</span>(<span style="color: #ffcc66;">int</span> <span style="color: #f2777a;">n</span>); <span style="color: #999999;">// </span><span style="color: #999999;">returns 0 if n is not prime, 1 if n is prime</span>
+<pre class="src src-c"><span style="color: #008700;">int</span> <span style="color: #0000ee;">isPrime</span>(<span style="color: #008700;">int</span> <span style="color: #af8700;">n</span>); <span style="color: #af0000;">// </span><span style="color: #af0000;">returns 0 if n is not prime, 1 if n is prime</span>
 
 </pre>
 
@@ -394,21 +394,21 @@ Here is what the <a href="code/primes/primes.c">primes.c</a> file look like:
 
 
 
-<pre class="src src-c"><span style="color: #ffcc66;">int</span> <span style="color: #6699cc;">isPrime</span>(<span style="color: #ffcc66;">int</span> <span style="color: #f2777a;">n</span>) {
+<pre class="src src-c"><span style="color: #008700;">int</span> <span style="color: #0000ee;">isPrime</span>(<span style="color: #008700;">int</span> <span style="color: #af8700;">n</span>) {
 
-  <span style="color: #999999;">// </span><span style="color: #999999;">returns 0 if not prime, 1 if prime</span>
+  <span style="color: #af0000;">// </span><span style="color: #af0000;">returns 0 if not prime, 1 if prime</span>
 
-  <span style="color: #cc99cc;">if</span> (n&lt;2) <span style="color: #cc99cc;">return</span> 0;         <span style="color: #999999;">// </span><span style="color: #999999;">first prime number is 2</span>
-  <span style="color: #cc99cc;">if</span> (n==2) <span style="color: #cc99cc;">return</span> 1;        <span style="color: #999999;">// </span><span style="color: #999999;">ensure 2 is identified as a prime</span>
-  <span style="color: #cc99cc;">if</span> ((n % 2)==0) <span style="color: #cc99cc;">return</span> 0;  <span style="color: #999999;">// </span><span style="color: #999999;">all even numbers above 2 are not prime</span>
+  <span style="color: #af00ff;">if</span> (n&lt;2) <span style="color: #af00ff;">return</span> 0;         <span style="color: #af0000;">// </span><span style="color: #af0000;">first prime number is 2</span>
+  <span style="color: #af00ff;">if</span> (n==2) <span style="color: #af00ff;">return</span> 1;        <span style="color: #af0000;">// </span><span style="color: #af0000;">ensure 2 is identified as a prime</span>
+  <span style="color: #af00ff;">if</span> ((n % 2)==0) <span style="color: #af00ff;">return</span> 0;  <span style="color: #af0000;">// </span><span style="color: #af0000;">all even numbers above 2 are not prime</span>
 
-  <span style="color: #ffcc66;">int</span> <span style="color: #f2777a;">i</span>;
-  <span style="color: #cc99cc;">for</span> (i=3; i*i &lt; n; i++) {  <span style="color: #999999;">// </span><span style="color: #999999;">test divisibility up to sqrt(n)</span>
-    <span style="color: #cc99cc;">if</span> ((n % i) == 0) {
-      <span style="color: #cc99cc;">return</span> 0;
+  <span style="color: #008700;">int</span> <span style="color: #af8700;">i</span>;
+  <span style="color: #af00ff;">for</span> (i=3; i*i &lt; n; i++) {  <span style="color: #af0000;">// </span><span style="color: #af0000;">test divisibility up to sqrt(n)</span>
+    <span style="color: #af00ff;">if</span> ((n % i) == 0) {
+      <span style="color: #af00ff;">return</span> 0;
     }
   }
-  <span style="color: #cc99cc;">return</span> 1;
+  <span style="color: #af00ff;">return</span> 1;
 }
 </pre>
 
@@ -419,27 +419,27 @@ Here is what our program <a href="code/primes/go.c">go.c</a> looks like:
 
 
 
-<pre class="src src-c"><span style="color: #999999;">/* </span><span style="color: #999999;">go.c</span>
-<span style="color: #999999;">   Takes one input argument from the command line, an integer,</span>
-<span style="color: #999999;">   and returns 1 if the number is prime, and 0 if it is not.</span>
+<pre class="src src-c"><span style="color: #af0000;">/* </span><span style="color: #af0000;">go.c</span>
+<span style="color: #af0000;">   Takes one input argument from the command line, an integer,</span>
+<span style="color: #af0000;">   and returns 1 if the number is prime, and 0 if it is not.</span>
 
-<span style="color: #999999;">   Compile with: gcc -o go go.c primes.c </span>
-<span style="color: #999999;">*/</span>
+<span style="color: #af0000;">   Compile with: gcc -o go go.c primes.c </span>
+<span style="color: #af0000;">*/</span>
 
-<span style="color: #afd7d7;">#include</span> <span style="color: #99cc99;">&lt;stdio.h&gt;</span>
-<span style="color: #afd7d7;">#include</span> <span style="color: #99cc99;">&lt;stdlib.h&gt;</span>
-<span style="color: #afd7d7;">#include</span> <span style="color: #99cc99;">"primes.h"</span>
+<span style="color: #d75fd7;">#include</span> <span style="color: #af8787;">&lt;stdio.h&gt;</span>
+<span style="color: #d75fd7;">#include</span> <span style="color: #af8787;">&lt;stdlib.h&gt;</span>
+<span style="color: #d75fd7;">#include</span> <span style="color: #af8787;">"primes.h"</span>
 
-<span style="color: #ffcc66;">int</span> <span style="color: #6699cc;">main</span>(<span style="color: #ffcc66;">int</span> <span style="color: #f2777a;">argc</span>, <span style="color: #ffcc66;">char</span> *<span style="color: #f2777a;">argv</span>[]) {
-  <span style="color: #cc99cc;">if</span> (argc &lt; 2) {
-    printf(<span style="color: #99cc99;">"error: must provide a single integer value to test\n"</span>);
-    <span style="color: #cc99cc;">return</span> 1;
+<span style="color: #008700;">int</span> <span style="color: #0000ee;">main</span>(<span style="color: #008700;">int</span> <span style="color: #af8700;">argc</span>, <span style="color: #008700;">char</span> *<span style="color: #af8700;">argv</span>[]) {
+  <span style="color: #af00ff;">if</span> (argc &lt; 2) {
+    printf(<span style="color: #af8787;">"error: must provide a single integer value to test\n"</span>);
+    <span style="color: #af00ff;">return</span> 1;
   }
-  <span style="color: #cc99cc;">else</span> {
-    <span style="color: #ffcc66;">int</span> <span style="color: #f2777a;">n</span> = atoi(argv[1]);
-    <span style="color: #ffcc66;">int</span> <span style="color: #f2777a;">prime</span> = isPrime(n);
-    printf(<span style="color: #99cc99;">"isPrime(%d) = %d\n"</span>, n, prime);
-    <span style="color: #cc99cc;">return</span> 0;
+  <span style="color: #af00ff;">else</span> {
+    <span style="color: #008700;">int</span> <span style="color: #af8700;">n</span> = atoi(argv[1]);
+    <span style="color: #008700;">int</span> <span style="color: #af8700;">prime</span> = isPrime(n);
+    printf(<span style="color: #af8787;">"isPrime(%d) = %d\n"</span>, n, prime);
+    <span style="color: #af00ff;">return</span> 0;
   }
 }
 
@@ -599,11 +599,11 @@ CFLAGS = -Wall
 DEPS = primes.h
 OBJ = go.o primes.o
 
-%.o: %.c $(<span style="color: #ff875f;">DEPS</span>)
-        $(<span style="color: #ff875f;">CC</span>) $(<span style="color: #ff875f;">CFLAGS</span>) -c -o $@ $&lt;
+%.o: %.c $(<span style="color: #cd00cd;">DEPS</span>)
+        $(<span style="color: #cd00cd;">CC</span>) $(<span style="color: #cd00cd;">CFLAGS</span>) -c -o $@ $&lt;
 
-go: $(<span style="color: #ff875f;">OBJ</span>)
-        gcc $(<span style="color: #ff875f;">CFLAGS</span>) -o $@ $^
+go: $(<span style="color: #cd00cd;">OBJ</span>)
+        gcc $(<span style="color: #cd00cd;">CFLAGS</span>) -o $@ $^
 </pre>
 
 

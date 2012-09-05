@@ -209,59 +209,59 @@ will use to illustrate the gdb debugger, you can download it here:
 
 
 
-<pre class="src src-c"><span style="color: #afd7d7;">#include</span> <span style="color: #99cc99;">&lt;stdio.h&gt;</span>
-<span style="color: #afd7d7;">#include</span> <span style="color: #99cc99;">&lt;stdlib.h&gt;</span>
+<pre class="src src-c"><span style="color: #d75fd7;">#include</span> <span style="color: #af8787;">&lt;stdio.h&gt;</span>
+<span style="color: #d75fd7;">#include</span> <span style="color: #af8787;">&lt;stdlib.h&gt;</span>
 
-<span style="color: #ffcc66;">char</span> *<span style="color: #6699cc;">getWord</span>(<span style="color: #ffcc66;">int</span> <span style="color: #f2777a;">maxsize</span>)
+<span style="color: #008700;">char</span> *<span style="color: #0000ee;">getWord</span>(<span style="color: #008700;">int</span> <span style="color: #af8700;">maxsize</span>)
 {
-  <span style="color: #ffcc66;">char</span> *<span style="color: #f2777a;">s</span>;
-  s = calloc(<span style="color: #cc99cc;">sizeof</span>(<span style="color: #ffcc66;">char</span>), maxsize);
-  printf(<span style="color: #99cc99;">"enter a string (max %d chars): "</span>, maxsize);
-  scanf(<span style="color: #99cc99;">"%s"</span>, s);
-  <span style="color: #cc99cc;">return</span> s;
+  <span style="color: #008700;">char</span> *<span style="color: #af8700;">s</span>;
+  s = calloc(<span style="color: #af00ff;">sizeof</span>(<span style="color: #008700;">char</span>), maxsize);
+  printf(<span style="color: #af8787;">"enter a string (max %d chars): "</span>, maxsize);
+  scanf(<span style="color: #af8787;">"%s"</span>, s);
+  <span style="color: #af00ff;">return</span> s;
 }
 
-<span style="color: #ffcc66;">void</span> <span style="color: #6699cc;">repeatWord</span>(<span style="color: #ffcc66;">char</span> *<span style="color: #f2777a;">s</span>, <span style="color: #ffcc66;">int</span> <span style="color: #f2777a;">n</span>)
+<span style="color: #008700;">void</span> <span style="color: #0000ee;">repeatWord</span>(<span style="color: #008700;">char</span> *<span style="color: #af8700;">s</span>, <span style="color: #008700;">int</span> <span style="color: #af8700;">n</span>)
 {
-  <span style="color: #ffcc66;">int</span> <span style="color: #f2777a;">i</span>;
-  <span style="color: #cc99cc;">for</span> (i=0; i&lt;n; i++) {
-    printf(<span style="color: #99cc99;">"%s\n"</span>, s);
+  <span style="color: #008700;">int</span> <span style="color: #af8700;">i</span>;
+  <span style="color: #af00ff;">for</span> (i=0; i&lt;n; i++) {
+    printf(<span style="color: #af8787;">"%s\n"</span>, s);
   }
 }
 
-<span style="color: #ffcc66;">int</span> *<span style="color: #6699cc;">getVec</span>(<span style="color: #ffcc66;">int</span> <span style="color: #f2777a;">vecsize</span>)
+<span style="color: #008700;">int</span> *<span style="color: #0000ee;">getVec</span>(<span style="color: #008700;">int</span> <span style="color: #af8700;">vecsize</span>)
 {
-  <span style="color: #ffcc66;">int</span> *<span style="color: #f2777a;">vec</span> = malloc(<span style="color: #cc99cc;">sizeof</span>(<span style="color: #ffcc66;">int</span>)*vecsize);
-  <span style="color: #ffcc66;">int</span> <span style="color: #f2777a;">i</span>;
-  <span style="color: #cc99cc;">for</span> (i=0; i&lt;vecsize; i++) {
-    printf(<span style="color: #99cc99;">"enter value of vec[%d]:"</span>, i);
-    scanf(<span style="color: #99cc99;">"%d"</span>, &amp;vec[i]);
+  <span style="color: #008700;">int</span> *<span style="color: #af8700;">vec</span> = malloc(<span style="color: #af00ff;">sizeof</span>(<span style="color: #008700;">int</span>)*vecsize);
+  <span style="color: #008700;">int</span> <span style="color: #af8700;">i</span>;
+  <span style="color: #af00ff;">for</span> (i=0; i&lt;vecsize; i++) {
+    printf(<span style="color: #af8787;">"enter value of vec[%d]:"</span>, i);
+    scanf(<span style="color: #af8787;">"%d"</span>, &amp;vec[i]);
   }
-  <span style="color: #cc99cc;">return</span> vec;
+  <span style="color: #af00ff;">return</span> vec;
 }
 
-<span style="color: #ffcc66;">void</span> <span style="color: #6699cc;">printVec</span>(<span style="color: #ffcc66;">int</span> *<span style="color: #f2777a;">vec</span>, <span style="color: #ffcc66;">int</span> <span style="color: #f2777a;">size</span>)
+<span style="color: #008700;">void</span> <span style="color: #0000ee;">printVec</span>(<span style="color: #008700;">int</span> *<span style="color: #af8700;">vec</span>, <span style="color: #008700;">int</span> <span style="color: #af8700;">size</span>)
 {
-  <span style="color: #ffcc66;">int</span> <span style="color: #f2777a;">i</span>;
-  printf(<span style="color: #99cc99;">"vec = {"</span>);
-  <span style="color: #cc99cc;">for</span> (i=0; i&lt;size-1; i++) {
-    printf(<span style="color: #99cc99;">"%d,"</span>, vec[i]);
+  <span style="color: #008700;">int</span> <span style="color: #af8700;">i</span>;
+  printf(<span style="color: #af8787;">"vec = {"</span>);
+  <span style="color: #af00ff;">for</span> (i=0; i&lt;size-1; i++) {
+    printf(<span style="color: #af8787;">"%d,"</span>, vec[i]);
   }
-  printf(<span style="color: #99cc99;">"%d}\n"</span>, vec[size-1]);
+  printf(<span style="color: #af8787;">"%d}\n"</span>, vec[size-1]);
 }
 
-<span style="color: #ffcc66;">int</span> <span style="color: #6699cc;">main</span>(<span style="color: #ffcc66;">int</span> <span style="color: #f2777a;">argc</span>, <span style="color: #ffcc66;">char</span> *<span style="color: #f2777a;">argv</span>[])
+<span style="color: #008700;">int</span> <span style="color: #0000ee;">main</span>(<span style="color: #008700;">int</span> <span style="color: #af8700;">argc</span>, <span style="color: #008700;">char</span> *<span style="color: #af8700;">argv</span>[])
 {  
-  <span style="color: #ffcc66;">char</span> *<span style="color: #f2777a;">myWord</span> = getWord(256);
+  <span style="color: #008700;">char</span> *<span style="color: #af8700;">myWord</span> = getWord(256);
   repeatWord(myWord, 3);
 
-  <span style="color: #ffcc66;">int</span> *<span style="color: #f2777a;">myVec</span> = getVec(5);
+  <span style="color: #008700;">int</span> *<span style="color: #af8700;">myVec</span> = getVec(5);
   printVec(myVec, 5);
 
   free(myWord);
   free(myVec);
 
-  <span style="color: #cc99cc;">return</span> 0;
+  <span style="color: #af00ff;">return</span> 0;
 }
 </pre>
 
@@ -343,7 +343,7 @@ As an example, let's change the code above to introduce a bug that causes the pr
 
 
 
-<pre class="src src-c"><span style="color: #999999;">//  </span><span style="color: #999999;">s = calloc(sizeof(char), maxsize);</span>
+<pre class="src src-c"><span style="color: #af0000;">//  </span><span style="color: #af0000;">s = calloc(sizeof(char), maxsize);</span>
 </pre>
 
 
@@ -657,15 +657,15 @@ following code will print to the screen?
 
 
 
-<pre class="src src-C"><span style="color: #afd7d7;">#include</span> <span style="color: #99cc99;">&lt;stdio.h&gt;</span>
+<pre class="src src-C"><span style="color: #d75fd7;">#include</span> <span style="color: #af8787;">&lt;stdio.h&gt;</span>
 
-<span style="color: #ffcc66;">int</span> <span style="color: #6699cc;">main</span> ()
+<span style="color: #008700;">int</span> <span style="color: #0000ee;">main</span> ()
 {
-  <span style="color: #ffcc66;">double</span> <span style="color: #f2777a;">mass</span> = 2.5;
-  <span style="color: #ffcc66;">double</span> <span style="color: #f2777a;">velocity</span> = 4.5;
-  <span style="color: #ffcc66;">double</span> <span style="color: #f2777a;">kinetic_energy</span> = (1/2) * mass * velocity * velocity;
-  printf(<span style="color: #99cc99;">"kinetic energy = %.3f\n"</span>, kinetic_energy);
-  <span style="color: #cc99cc;">return</span> 0;
+  <span style="color: #008700;">double</span> <span style="color: #af8700;">mass</span> = 2.5;
+  <span style="color: #008700;">double</span> <span style="color: #af8700;">velocity</span> = 4.5;
+  <span style="color: #008700;">double</span> <span style="color: #af8700;">kinetic_energy</span> = (1/2) * mass * velocity * velocity;
+  printf(<span style="color: #af8787;">"kinetic energy = %.3f\n"</span>, kinetic_energy);
+  <span style="color: #af00ff;">return</span> 0;
 }
 </pre>
 
@@ -689,15 +689,15 @@ floating-point value, then we have to <b>use floating-point syntax for all numbe
 
 
 
-<pre class="src src-C"><span style="color: #afd7d7;">#include</span> <span style="color: #99cc99;">&lt;stdio.h&gt;</span>
+<pre class="src src-C"><span style="color: #d75fd7;">#include</span> <span style="color: #af8787;">&lt;stdio.h&gt;</span>
 
-<span style="color: #ffcc66;">int</span> <span style="color: #6699cc;">main</span> ()
+<span style="color: #008700;">int</span> <span style="color: #0000ee;">main</span> ()
 {
-  <span style="color: #ffcc66;">double</span> <span style="color: #f2777a;">mass</span> = 2.5;
-  <span style="color: #ffcc66;">double</span> <span style="color: #f2777a;">velocity</span> = 4.5;
-  <span style="color: #ffcc66;">double</span> <span style="color: #f2777a;">kinetic_energy</span> = (1.0/2.0) * mass * velocity * velocity;
-  printf(<span style="color: #99cc99;">"kinetic energy = %.3f\n"</span>, kinetic_energy);
-  <span style="color: #cc99cc;">return</span> 0;
+  <span style="color: #008700;">double</span> <span style="color: #af8700;">mass</span> = 2.5;
+  <span style="color: #008700;">double</span> <span style="color: #af8700;">velocity</span> = 4.5;
+  <span style="color: #008700;">double</span> <span style="color: #af8700;">kinetic_energy</span> = (1.0/2.0) * mass * velocity * velocity;
+  printf(<span style="color: #af8787;">"kinetic energy = %.3f\n"</span>, kinetic_energy);
+  <span style="color: #af00ff;">return</span> 0;
 }
 </pre>
 
@@ -752,14 +752,14 @@ expressions. Here is an example of how you might be led astray. What is the outp
 
 
 
-<pre class="src src-C"><span style="color: #afd7d7;">#include</span> <span style="color: #99cc99;">&lt;stdio.h&gt;</span>
+<pre class="src src-C"><span style="color: #d75fd7;">#include</span> <span style="color: #af8787;">&lt;stdio.h&gt;</span>
 
-<span style="color: #ffcc66;">int</span> <span style="color: #6699cc;">main</span> () {
-  <span style="color: #ffcc66;">double</span> <span style="color: #f2777a;">x</span> = 0.1;
-  <span style="color: #ffcc66;">double</span> <span style="color: #f2777a;">y</span> = 0.2;
-  <span style="color: #cc99cc;">if</span> ((x + y) == 0.3) printf(<span style="color: #99cc99;">"TRUE\n"</span>); <span style="color: #cc99cc;">else</span> printf(<span style="color: #99cc99;">"FALSE\n"</span>);
-  printf(<span style="color: #99cc99;">"x + y = %.20f\n"</span>, x+y);
-  <span style="color: #cc99cc;">return</span> 0;
+<span style="color: #008700;">int</span> <span style="color: #0000ee;">main</span> () {
+  <span style="color: #008700;">double</span> <span style="color: #af8700;">x</span> = 0.1;
+  <span style="color: #008700;">double</span> <span style="color: #af8700;">y</span> = 0.2;
+  <span style="color: #af00ff;">if</span> ((x + y) == 0.3) printf(<span style="color: #af8787;">"TRUE\n"</span>); <span style="color: #af00ff;">else</span> printf(<span style="color: #af8787;">"FALSE\n"</span>);
+  printf(<span style="color: #af8787;">"x + y = %.20f\n"</span>, x+y);
+  <span style="color: #af00ff;">return</span> 0;
 }
 </pre>
 
@@ -850,24 +850,24 @@ entry called <a href="http://www.ioccc.org/years.html#2011_eastman">eastman</a> 
 
 
 
-<pre class="src src-c"><span style="color: #afd7d7;">#include</span> <span style="color: #99cc99;">&lt;stdio.h&gt;</span>
-<span style="color: #afd7d7;">#include</span> <span style="color: #99cc99;">&lt;math.h&gt;</span>
-<span style="color: #afd7d7;">#include</span> <span style="color: #99cc99;">&lt;unistd.h&gt;</span>
-<span style="color: #afd7d7;">#include</span> <span style="color: #99cc99;">&lt;sys/ioctl.h&gt;</span>
-             <span style="color: #6699cc;">main</span>() {
-         <span style="color: #ffcc66;">short</span> <span style="color: #f2777a;">a</span>[4];ioctl
-      (0,TIOCGWINSZ,&amp;a);<span style="color: #ffcc66;">int</span>
-    <span style="color: #f2777a;">b</span>,<span style="color: #f2777a;">c</span>,<span style="color: #f2777a;">d</span>=*a,<span style="color: #f2777a;">e</span>=a[1];<span style="color: #ffcc66;">float</span> <span style="color: #f2777a;">f</span>,<span style="color: #f2777a;">g</span>,
-  <span style="color: #f2777a;">h</span>,<span style="color: #f2777a;">i</span>=d/2+d%2+1,<span style="color: #f2777a;">j</span>=d/5-1,<span style="color: #f2777a;">k</span>=0,<span style="color: #f2777a;">l</span>=e/
- 2,<span style="color: #f2777a;">m</span>=d/4,<span style="color: #f2777a;">n</span>=.01*e,<span style="color: #f2777a;">o</span>=0,<span style="color: #f2777a;">p</span>=.1;<span style="color: #cc99cc;">while</span> (
-printf(<span style="color: #99cc99;">"\x1b[H\x1B[?25l"</span>),!usleep(
-79383)){<span style="color: #cc99cc;">for</span> (b=c=0;h=2*(m-c)/i,f=-
+<pre class="src src-c"><span style="color: #d75fd7;">#include</span> <span style="color: #af8787;">&lt;stdio.h&gt;</span>
+<span style="color: #d75fd7;">#include</span> <span style="color: #af8787;">&lt;math.h&gt;</span>
+<span style="color: #d75fd7;">#include</span> <span style="color: #af8787;">&lt;unistd.h&gt;</span>
+<span style="color: #d75fd7;">#include</span> <span style="color: #af8787;">&lt;sys/ioctl.h&gt;</span>
+             <span style="color: #0000ee;">main</span>() {
+         <span style="color: #008700;">short</span> <span style="color: #af8700;">a</span>[4];ioctl
+      (0,TIOCGWINSZ,&amp;a);<span style="color: #008700;">int</span>
+    <span style="color: #af8700;">b</span>,<span style="color: #af8700;">c</span>,<span style="color: #af8700;">d</span>=*a,<span style="color: #af8700;">e</span>=a[1];<span style="color: #008700;">float</span> <span style="color: #af8700;">f</span>,<span style="color: #af8700;">g</span>,
+  <span style="color: #af8700;">h</span>,<span style="color: #af8700;">i</span>=d/2+d%2+1,<span style="color: #af8700;">j</span>=d/5-1,<span style="color: #af8700;">k</span>=0,<span style="color: #af8700;">l</span>=e/
+ 2,<span style="color: #af8700;">m</span>=d/4,<span style="color: #af8700;">n</span>=.01*e,<span style="color: #af8700;">o</span>=0,<span style="color: #af8700;">p</span>=.1;<span style="color: #af00ff;">while</span> (
+printf(<span style="color: #af8787;">"\x1b[H\x1B[?25l"</span>),!usleep(
+79383)){<span style="color: #af00ff;">for</span> (b=c=0;h=2*(m-c)/i,f=-
 .3*(g=(l-b)/i)+.954*h,c&lt;d;c+=(b=++
-b%e)==0)printf(<span style="color: #99cc99;">"\x1B[%dm "</span>,g*g&gt;1-h
+b%e)==0)printf(<span style="color: #af8787;">"\x1B[%dm "</span>,g*g&gt;1-h
 *h?c&gt;d-j?b&lt;d-c||d-c&gt;e-b?40:100:b&lt;j
 ||b&gt;e-j?40:g*(g+.6)+.09+h*h&lt;1?100:
- 47:((<span style="color: #ffcc66;">int</span>)(9-k+(.954*g+.3*h)/sqrt
-  (1-f*f))+(<span style="color: #ffcc66;">int</span>)(2+f*2))%2==0?107
+ 47:((<span style="color: #008700;">int</span>)(9-k+(.954*g+.3*h)/sqrt
+  (1-f*f))+(<span style="color: #008700;">int</span>)(2+f*2))%2==0?107
     :101);k+=p,m+=o,o=m&gt;d-2*j?
       -.04*d:o+.002*d;n=(l+=
          n)&lt;i||l&gt;e-i?p=-p

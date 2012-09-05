@@ -405,40 +405,40 @@ runs the <code>myFun()</code> function:
 
 
 
-<pre class="src src-c"><span style="color: #afd7d7;">#include</span> <span style="color: #99cc99;">&lt;stdio.h&gt;</span>
-<span style="color: #afd7d7;">#include</span> <span style="color: #99cc99;">&lt;stdlib.h&gt;</span>
-<span style="color: #afd7d7;">#include</span> <span style="color: #99cc99;">&lt;pthread.h&gt;</span>
+<pre class="src src-c"><span style="color: #d75fd7;">#include</span> <span style="color: #af8787;">&lt;stdio.h&gt;</span>
+<span style="color: #d75fd7;">#include</span> <span style="color: #af8787;">&lt;stdlib.h&gt;</span>
+<span style="color: #d75fd7;">#include</span> <span style="color: #af8787;">&lt;pthread.h&gt;</span>
 
-<span style="color: #afd7d7;">#define</span> <span style="color: #f2777a;">NTHREADS</span> 5
+<span style="color: #d75fd7;">#define</span> <span style="color: #af8700;">NTHREADS</span> 5
 
-<span style="color: #ffcc66;">void</span> *<span style="color: #6699cc;">myFun</span>(<span style="color: #ffcc66;">void</span> *<span style="color: #f2777a;">x</span>)
+<span style="color: #008700;">void</span> *<span style="color: #0000ee;">myFun</span>(<span style="color: #008700;">void</span> *<span style="color: #af8700;">x</span>)
 {
-  <span style="color: #ffcc66;">int</span> <span style="color: #f2777a;">tid</span>;
-  tid = *((<span style="color: #ffcc66;">int</span> *) x);
-  printf(<span style="color: #99cc99;">"Hi from thread %d!\n"</span>, tid);
-  <span style="color: #cc99cc;">return</span> <span style="color: #99cc99;">NULL</span>;
+  <span style="color: #008700;">int</span> <span style="color: #af8700;">tid</span>;
+  tid = *((<span style="color: #008700;">int</span> *) x);
+  printf(<span style="color: #af8787;">"Hi from thread %d!\n"</span>, tid);
+  <span style="color: #af00ff;">return</span> <span style="color: #5fafaf;">NULL</span>;
 }
 
-<span style="color: #ffcc66;">int</span> <span style="color: #6699cc;">main</span>(<span style="color: #ffcc66;">int</span> <span style="color: #f2777a;">argc</span>, <span style="color: #ffcc66;">char</span> *<span style="color: #f2777a;">argv</span>[])
+<span style="color: #008700;">int</span> <span style="color: #0000ee;">main</span>(<span style="color: #008700;">int</span> <span style="color: #af8700;">argc</span>, <span style="color: #008700;">char</span> *<span style="color: #af8700;">argv</span>[])
 {
-  <span style="color: #ffcc66;">pthread_t</span> <span style="color: #f2777a;">threads</span>[NTHREADS];
-  <span style="color: #ffcc66;">int</span> <span style="color: #f2777a;">thread_args</span>[NTHREADS];
-  <span style="color: #ffcc66;">int</span> <span style="color: #f2777a;">rc</span>, <span style="color: #f2777a;">i</span>;
+  <span style="color: #008700;">pthread_t</span> <span style="color: #af8700;">threads</span>[NTHREADS];
+  <span style="color: #008700;">int</span> <span style="color: #af8700;">thread_args</span>[NTHREADS];
+  <span style="color: #008700;">int</span> <span style="color: #af8700;">rc</span>, <span style="color: #af8700;">i</span>;
 
-  <span style="color: #999999;">/* </span><span style="color: #999999;">spawn the threads </span><span style="color: #999999;">*/</span>
-  <span style="color: #cc99cc;">for</span> (i=0; i&lt;NTHREADS; ++i)
+  <span style="color: #af0000;">/* </span><span style="color: #af0000;">spawn the threads </span><span style="color: #af0000;">*/</span>
+  <span style="color: #af00ff;">for</span> (i=0; i&lt;NTHREADS; ++i)
     {
       thread_args[i] = i;
-      printf(<span style="color: #99cc99;">"spawning thread %d\n"</span>, i);
-      rc = pthread_create(&amp;threads[i], <span style="color: #99cc99;">NULL</span>, myFun, (<span style="color: #ffcc66;">void</span> *) &amp;thread_args[i]);
+      printf(<span style="color: #af8787;">"spawning thread %d\n"</span>, i);
+      rc = pthread_create(&amp;threads[i], <span style="color: #5fafaf;">NULL</span>, myFun, (<span style="color: #008700;">void</span> *) &amp;thread_args[i]);
     }
 
-  <span style="color: #999999;">/* </span><span style="color: #999999;">wait for threads to finish </span><span style="color: #999999;">*/</span>
-  <span style="color: #cc99cc;">for</span> (i=0; i&lt;NTHREADS; ++i) {
-    rc = pthread_join(threads[i], <span style="color: #99cc99;">NULL</span>);
+  <span style="color: #af0000;">/* </span><span style="color: #af0000;">wait for threads to finish </span><span style="color: #af0000;">*/</span>
+  <span style="color: #af00ff;">for</span> (i=0; i&lt;NTHREADS; ++i) {
+    rc = pthread_join(threads[i], <span style="color: #5fafaf;">NULL</span>);
   }
 
-  <span style="color: #cc99cc;">return</span> 1;
+  <span style="color: #af00ff;">return</span> 1;
 }
 
 </pre>
@@ -492,13 +492,13 @@ Here is the general code structure of an OpenMP program:
 
 
 
-<pre class="src src-c"><span style="color: #afd7d7;">#include</span> <span style="color: #99cc99;">&lt;omp.h&gt;</span>
+<pre class="src src-c"><span style="color: #d75fd7;">#include</span> <span style="color: #af8787;">&lt;omp.h&gt;</span>
 
-<span style="color: #6699cc;">main</span> ()  {
+<span style="color: #0000ee;">main</span> ()  {
 
-<span style="color: #ffcc66;">int</span> <span style="color: #f2777a;">var1</span>, <span style="color: #f2777a;">var2</span>, <span style="color: #f2777a;">var3</span>;
+<span style="color: #008700;">int</span> <span style="color: #af8700;">var1</span>, <span style="color: #af8700;">var2</span>, <span style="color: #af8700;">var3</span>;
 
-<span style="color: #ffcc66;">Serial</span> <span style="color: #f2777a;">code</span> 
+<span style="color: #008700;">Serial</span> <span style="color: #af8700;">code</span> 
       .
       .
       .
@@ -506,10 +506,10 @@ Here is the general code structure of an OpenMP program:
 Beginning of parallel section. Fork a team of threads.
 Specify variable scoping 
 
-<span style="color: #afd7d7;">#pragma</span> omp parallel private(var1, var2) shared(var3)
+<span style="color: #d75fd7;">#pragma</span> omp parallel private(var1, var2) shared(var3)
   {
 
-  Parallel section executed by <span style="color: #ffcc66;">all</span> <span style="color: #f2777a;">threads</span> 
+  Parallel section executed by <span style="color: #008700;">all</span> <span style="color: #af8700;">threads</span> 
         .
         .
         .
@@ -518,7 +518,7 @@ Specify variable scoping
 
   }  
 
-Resume <span style="color: #ffcc66;">serial</span> <span style="color: #f2777a;">code</span> 
+Resume <span style="color: #008700;">serial</span> <span style="color: #af8700;">code</span> 
       .
       .
       .
@@ -562,33 +562,33 @@ loop iteration counters in OpenMP loop constructs (in this case the
 
 
 
-<pre class="src src-c"><span style="color: #999999;">// </span><span style="color: #999999;">gcc -fopenmp -o go go.c</span>
-<span style="color: #999999;">// </span><span style="color: #999999;">./go</span>
+<pre class="src src-c"><span style="color: #af0000;">// </span><span style="color: #af0000;">gcc -fopenmp -o go go.c</span>
+<span style="color: #af0000;">// </span><span style="color: #af0000;">./go</span>
 
-<span style="color: #afd7d7;">#include</span> <span style="color: #99cc99;">&lt;stdio.h&gt;</span>
-<span style="color: #afd7d7;">#include</span> <span style="color: #99cc99;">&lt;omp.h&gt;</span>
+<span style="color: #d75fd7;">#include</span> <span style="color: #af8787;">&lt;stdio.h&gt;</span>
+<span style="color: #d75fd7;">#include</span> <span style="color: #af8787;">&lt;omp.h&gt;</span>
 
-<span style="color: #ffcc66;">int</span> <span style="color: #6699cc;">main</span>(<span style="color: #ffcc66;">int</span> <span style="color: #f2777a;">argc</span>, <span style="color: #ffcc66;">char</span> **<span style="color: #f2777a;">argv</span>)
+<span style="color: #008700;">int</span> <span style="color: #0000ee;">main</span>(<span style="color: #008700;">int</span> <span style="color: #af8700;">argc</span>, <span style="color: #008700;">char</span> **<span style="color: #af8700;">argv</span>)
 {
-  <span style="color: #ffcc66;">int</span> <span style="color: #f2777a;">i</span>, <span style="color: #f2777a;">thread_id</span>, <span style="color: #f2777a;">nloops</span>;
+  <span style="color: #008700;">int</span> <span style="color: #af8700;">i</span>, <span style="color: #af8700;">thread_id</span>, <span style="color: #af8700;">nloops</span>;
 
-<span style="color: #afd7d7;">#pragma</span> omp parallel private(thread_id, nloops)
+<span style="color: #d75fd7;">#pragma</span> omp parallel private(thread_id, nloops)
   {
     nloops = 0;
 
-<span style="color: #afd7d7;">#pragma</span> omp <span style="color: #cc99cc;">for</span>
-    <span style="color: #cc99cc;">for</span> (i=0; i&lt;1000; ++i)
+<span style="color: #d75fd7;">#pragma</span> omp <span style="color: #af00ff;">for</span>
+    <span style="color: #af00ff;">for</span> (i=0; i&lt;1000; ++i)
       {
         ++nloops;
       }
 
     thread_id = omp_get_thread_num();
 
-    printf(<span style="color: #99cc99;">"Thread %d performed %d iterations of the loop.\n"</span>,
+    printf(<span style="color: #af8787;">"Thread %d performed %d iterations of the loop.\n"</span>,
            thread_id, nloops );
   }
 
-  <span style="color: #cc99cc;">return</span> 0;
+  <span style="color: #af00ff;">return</span> 0;
 }
 </pre>
 
@@ -628,40 +628,40 @@ at the same time (a collision).
 
 
 
-<pre class="src src-c"><span style="color: #afd7d7;">#include</span> <span style="color: #99cc99;">&lt;stdio.h&gt;</span>
-<span style="color: #afd7d7;">#include</span> <span style="color: #99cc99;">&lt;omp.h&gt;</span>
+<pre class="src src-c"><span style="color: #d75fd7;">#include</span> <span style="color: #af8787;">&lt;stdio.h&gt;</span>
+<span style="color: #d75fd7;">#include</span> <span style="color: #af8787;">&lt;omp.h&gt;</span>
 
-<span style="color: #ffcc66;">int</span> <span style="color: #6699cc;">main</span>(<span style="color: #ffcc66;">int</span> <span style="color: #f2777a;">argc</span>, <span style="color: #ffcc66;">char</span> *<span style="color: #f2777a;">argv</span>[])
+<span style="color: #008700;">int</span> <span style="color: #0000ee;">main</span>(<span style="color: #008700;">int</span> <span style="color: #af8700;">argc</span>, <span style="color: #008700;">char</span> *<span style="color: #af8700;">argv</span>[])
 {
-    <span style="color: #ffcc66;">int</span> <span style="color: #f2777a;">i</span>, <span style="color: #f2777a;">thread_id</span>;
-    <span style="color: #ffcc66;">int</span> <span style="color: #f2777a;">glob_nloops</span>, <span style="color: #f2777a;">priv_nloops</span>;
+    <span style="color: #008700;">int</span> <span style="color: #af8700;">i</span>, <span style="color: #af8700;">thread_id</span>;
+    <span style="color: #008700;">int</span> <span style="color: #af8700;">glob_nloops</span>, <span style="color: #af8700;">priv_nloops</span>;
     glob_nloops = 0;
 
-    <span style="color: #999999;">// </span><span style="color: #999999;">parallelize this chunk of code</span>
-<span style="color: #afd7d7;">    #pragma</span> omp parallel private(priv_nloops, thread_id)
+    <span style="color: #af0000;">// </span><span style="color: #af0000;">parallelize this chunk of code</span>
+<span style="color: #d75fd7;">    #pragma</span> omp parallel private(priv_nloops, thread_id)
     {
         priv_nloops = 0;
         thread_id = omp_get_thread_num();
 
-        <span style="color: #999999;">// </span><span style="color: #999999;">parallelize this for loop</span>
-<span style="color: #afd7d7;">        #pragma</span> omp <span style="color: #cc99cc;">for</span>
-        <span style="color: #cc99cc;">for</span> (i=0; i&lt;100000; ++i)
+        <span style="color: #af0000;">// </span><span style="color: #af0000;">parallelize this for loop</span>
+<span style="color: #d75fd7;">        #pragma</span> omp <span style="color: #af00ff;">for</span>
+        <span style="color: #af00ff;">for</span> (i=0; i&lt;100000; ++i)
         {
             ++priv_nloops;
         }
 
-        <span style="color: #999999;">// </span><span style="color: #999999;">make this a "critical" code section</span>
-<span style="color: #afd7d7;">        #pragma</span> omp critical
+        <span style="color: #af0000;">// </span><span style="color: #af0000;">make this a "critical" code section</span>
+<span style="color: #d75fd7;">        #pragma</span> omp critical
         {
-            printf(<span style="color: #99cc99;">"Thread %d is adding its iterations (%d) to sum (%d), "</span>,
+            printf(<span style="color: #af8787;">"Thread %d is adding its iterations (%d) to sum (%d), "</span>,
                    thread_id, priv_nloops, glob_nloops);
             glob_nloops += priv_nloops;
-            printf(<span style="color: #99cc99;">" total nloops is now %d.\n"</span>, glob_nloops);
+            printf(<span style="color: #af8787;">" total nloops is now %d.\n"</span>, glob_nloops);
         }
     }
-    printf(<span style="color: #99cc99;">"Total # loop iterations is %d\n"</span>,
+    printf(<span style="color: #af8787;">"Total # loop iterations is %d\n"</span>,
            glob_nloops);
-    <span style="color: #cc99cc;">return</span> 0;
+    <span style="color: #af00ff;">return</span> 0;
 }
 </pre>
 
@@ -702,32 +702,32 @@ a specific directive that allows you to more easily implement this.
 
 
 
-<pre class="src src-c"><span style="color: #afd7d7;">#include</span> <span style="color: #99cc99;">&lt;stdio.h&gt;</span>
-<span style="color: #afd7d7;">#include</span> <span style="color: #99cc99;">&lt;omp.h&gt;</span>
+<pre class="src src-c"><span style="color: #d75fd7;">#include</span> <span style="color: #af8787;">&lt;stdio.h&gt;</span>
+<span style="color: #d75fd7;">#include</span> <span style="color: #af8787;">&lt;omp.h&gt;</span>
 
-<span style="color: #ffcc66;">int</span> <span style="color: #6699cc;">main</span>(<span style="color: #ffcc66;">int</span> <span style="color: #f2777a;">argc</span>, <span style="color: #ffcc66;">char</span> *<span style="color: #f2777a;">argv</span>[])
+<span style="color: #008700;">int</span> <span style="color: #0000ee;">main</span>(<span style="color: #008700;">int</span> <span style="color: #af8700;">argc</span>, <span style="color: #008700;">char</span> *<span style="color: #af8700;">argv</span>[])
 {
-    <span style="color: #ffcc66;">int</span> <span style="color: #f2777a;">i</span>, <span style="color: #f2777a;">thread_id</span>;
-    <span style="color: #ffcc66;">int</span> <span style="color: #f2777a;">glob_nloops</span>, <span style="color: #f2777a;">priv_nloops</span>;
+    <span style="color: #008700;">int</span> <span style="color: #af8700;">i</span>, <span style="color: #af8700;">thread_id</span>;
+    <span style="color: #008700;">int</span> <span style="color: #af8700;">glob_nloops</span>, <span style="color: #af8700;">priv_nloops</span>;
     glob_nloops = 0;
 
-    <span style="color: #999999;">// </span><span style="color: #999999;">parallelize this chunk of code</span>
-<span style="color: #afd7d7;">    #pragma</span> omp parallel private(priv_nloops, thread_id) reduction(+:glob_nloops)
+    <span style="color: #af0000;">// </span><span style="color: #af0000;">parallelize this chunk of code</span>
+<span style="color: #d75fd7;">    #pragma</span> omp parallel private(priv_nloops, thread_id) reduction(+:glob_nloops)
     {
         priv_nloops = 0;
         thread_id = omp_get_thread_num();
 
-        <span style="color: #999999;">// </span><span style="color: #999999;">parallelize this for loop</span>
-<span style="color: #afd7d7;">        #pragma</span> omp <span style="color: #cc99cc;">for</span>
-        <span style="color: #cc99cc;">for</span> (i=0; i&lt;100000; ++i)
+        <span style="color: #af0000;">// </span><span style="color: #af0000;">parallelize this for loop</span>
+<span style="color: #d75fd7;">        #pragma</span> omp <span style="color: #af00ff;">for</span>
+        <span style="color: #af00ff;">for</span> (i=0; i&lt;100000; ++i)
         {
             ++priv_nloops;
         }
         glob_nloops += priv_nloops;
     }
-    printf(<span style="color: #99cc99;">"Total # loop iterations is %d\n"</span>,
+    printf(<span style="color: #af8787;">"Total # loop iterations is %d\n"</span>,
            glob_nloops);
-    <span style="color: #cc99cc;">return</span> 0;
+    <span style="color: #af00ff;">return</span> 0;
 }
 </pre>
 
@@ -815,24 +815,24 @@ indicating which node is running.
 
 
 
-<pre class="src src-c"><span style="color: #999999;">// </span><span style="color: #999999;">mpicc go_mpi.c -o go_mpi</span>
-<span style="color: #999999;">// </span><span style="color: #999999;">mpirun -n 4 go_mpi</span>
+<pre class="src src-c"><span style="color: #af0000;">// </span><span style="color: #af0000;">mpicc go_mpi.c -o go_mpi</span>
+<span style="color: #af0000;">// </span><span style="color: #af0000;">mpirun -n 4 go_mpi</span>
 
-<span style="color: #afd7d7;">#include</span> <span style="color: #99cc99;">&lt;stdio.h&gt;</span>
-<span style="color: #afd7d7;">#include</span> <span style="color: #99cc99;">&lt;mpi.h&gt;</span>
+<span style="color: #d75fd7;">#include</span> <span style="color: #af8787;">&lt;stdio.h&gt;</span>
+<span style="color: #d75fd7;">#include</span> <span style="color: #af8787;">&lt;mpi.h&gt;</span>
 
-<span style="color: #ffcc66;">int</span> <span style="color: #6699cc;">main</span>(<span style="color: #ffcc66;">int</span> <span style="color: #f2777a;">argc</span>, <span style="color: #ffcc66;">char</span> *<span style="color: #f2777a;">argv</span>[]) 
+<span style="color: #008700;">int</span> <span style="color: #0000ee;">main</span>(<span style="color: #008700;">int</span> <span style="color: #af8700;">argc</span>, <span style="color: #008700;">char</span> *<span style="color: #af8700;">argv</span>[]) 
 {
-  <span style="color: #ffcc66;">int</span> <span style="color: #f2777a;">myrank</span>, <span style="color: #f2777a;">nprocs</span>;
+  <span style="color: #008700;">int</span> <span style="color: #af8700;">myrank</span>, <span style="color: #af8700;">nprocs</span>;
 
   MPI_Init(&amp;argc, &amp;argv);
   MPI_Comm_size(MPI_COMM_WORLD, &amp;nprocs);
   MPI_Comm_rank(MPI_COMM_WORLD, &amp;myrank);
 
-  printf(<span style="color: #99cc99;">"I am node %d of %d\n"</span>, myrank, nprocs);
+  printf(<span style="color: #af8787;">"I am node %d of %d\n"</span>, myrank, nprocs);
 
   MPI_Finalize();
-  <span style="color: #cc99cc;">return</span> 0;
+  <span style="color: #af00ff;">return</span> 0;
 }
 </pre>
 
@@ -884,89 +884,89 @@ across all threads. A similar function exists in MPI called
 
 
 
-<pre class="src src-c"><span style="color: #999999;">// </span><span style="color: #999999;">Estimating pi using the dartboard algorithm</span>
-<span style="color: #999999;">// </span><span style="color: #999999;">All processes contribute to the calculation, with the</span>
-<span style="color: #999999;">// </span><span style="color: #999999;">master process averaging the values for pi.</span>
-<span style="color: #999999;">// </span><span style="color: #999999;">We then use mpc_reduce to collect the results</span>
-<span style="color: #999999;">//</span>
-<span style="color: #999999;">// </span><span style="color: #999999;">mpicc -o go mpi_pi_reduce.c</span>
-<span style="color: #999999;">// </span><span style="color: #999999;">mpirun -n 8 go</span>
+<pre class="src src-c"><span style="color: #af0000;">// </span><span style="color: #af0000;">Estimating pi using the dartboard algorithm</span>
+<span style="color: #af0000;">// </span><span style="color: #af0000;">All processes contribute to the calculation, with the</span>
+<span style="color: #af0000;">// </span><span style="color: #af0000;">master process averaging the values for pi.</span>
+<span style="color: #af0000;">// </span><span style="color: #af0000;">We then use mpc_reduce to collect the results</span>
+<span style="color: #af0000;">//</span>
+<span style="color: #af0000;">// </span><span style="color: #af0000;">mpicc -o go mpi_pi_reduce.c</span>
+<span style="color: #af0000;">// </span><span style="color: #af0000;">mpirun -n 8 go</span>
 
-<span style="color: #afd7d7;">#include</span> <span style="color: #99cc99;">&lt;stdio.h&gt;</span>
-<span style="color: #afd7d7;">#include</span> <span style="color: #99cc99;">&lt;stdlib.h&gt;</span>
-<span style="color: #afd7d7;">#include</span> <span style="color: #99cc99;">&lt;mpi.h&gt;</span>
+<span style="color: #d75fd7;">#include</span> <span style="color: #af8787;">&lt;stdio.h&gt;</span>
+<span style="color: #d75fd7;">#include</span> <span style="color: #af8787;">&lt;stdlib.h&gt;</span>
+<span style="color: #d75fd7;">#include</span> <span style="color: #af8787;">&lt;mpi.h&gt;</span>
 
-<span style="color: #afd7d7;">#define</span> <span style="color: #f2777a;">MASTER</span> 0         <span style="color: #999999;">// </span><span style="color: #999999;">task ID of master task</span>
-<span style="color: #afd7d7;">#define</span> <span style="color: #f2777a;">NDARTS</span> 1000      <span style="color: #999999;">// </span><span style="color: #999999;"># dart throws per round</span>
-<span style="color: #afd7d7;">#define</span> <span style="color: #f2777a;">NROUNDS</span> 10     <span style="color: #999999;">// </span><span style="color: #999999;"># of rounds of dart throwing</span>
+<span style="color: #d75fd7;">#define</span> <span style="color: #af8700;">MASTER</span> 0         <span style="color: #af0000;">// </span><span style="color: #af0000;">task ID of master task</span>
+<span style="color: #d75fd7;">#define</span> <span style="color: #af8700;">NDARTS</span> 1000      <span style="color: #af0000;">// </span><span style="color: #af0000;"># dart throws per round</span>
+<span style="color: #d75fd7;">#define</span> <span style="color: #af8700;">NROUNDS</span> 10     <span style="color: #af0000;">// </span><span style="color: #af0000;"># of rounds of dart throwing</span>
 
-<span style="color: #999999;">// </span><span style="color: #999999;">our function for throwing darts and estimating pi</span>
-<span style="color: #ffcc66;">double</span> <span style="color: #6699cc;">dartboard</span>(<span style="color: #ffcc66;">int</span> <span style="color: #f2777a;">ndarts</span>)
+<span style="color: #af0000;">// </span><span style="color: #af0000;">our function for throwing darts and estimating pi</span>
+<span style="color: #008700;">double</span> <span style="color: #0000ee;">dartboard</span>(<span style="color: #008700;">int</span> <span style="color: #af8700;">ndarts</span>)
 {
-  <span style="color: #ffcc66;">double</span> <span style="color: #f2777a;">x</span>, <span style="color: #f2777a;">y</span>, <span style="color: #f2777a;">r</span>, <span style="color: #f2777a;">pi</span>; 
-  <span style="color: #ffcc66;">int</span> <span style="color: #f2777a;">n</span>, <span style="color: #f2777a;">hits</span>;
+  <span style="color: #008700;">double</span> <span style="color: #af8700;">x</span>, <span style="color: #af8700;">y</span>, <span style="color: #af8700;">r</span>, <span style="color: #af8700;">pi</span>; 
+  <span style="color: #008700;">int</span> <span style="color: #af8700;">n</span>, <span style="color: #af8700;">hits</span>;
   hits = 0;
 
-  <span style="color: #999999;">// </span><span style="color: #999999;">throw darts</span>
-  <span style="color: #cc99cc;">for</span> (n = 1; n &lt;= ndarts; n++)  {
-    <span style="color: #999999;">// </span><span style="color: #999999;">(x,y) are random between -1 and 1</span>
-    r = (<span style="color: #ffcc66;">double</span>)random()/RAND_MAX;
+  <span style="color: #af0000;">// </span><span style="color: #af0000;">throw darts</span>
+  <span style="color: #af00ff;">for</span> (n = 1; n &lt;= ndarts; n++)  {
+    <span style="color: #af0000;">// </span><span style="color: #af0000;">(x,y) are random between -1 and 1</span>
+    r = (<span style="color: #008700;">double</span>)random()/RAND_MAX;
     x = (2.0 * r) - 1.0;
-    r = (<span style="color: #ffcc66;">double</span>)random()/RAND_MAX;
+    r = (<span style="color: #008700;">double</span>)random()/RAND_MAX;
     y = (2.0 * r) - 1.0;
-    <span style="color: #999999;">// </span><span style="color: #999999;">if our random dart landed inside the unit circle, increment the score</span>
-    <span style="color: #cc99cc;">if</span> (((x*x) + (y*y)) &lt;= 1.0) {
+    <span style="color: #af0000;">// </span><span style="color: #af0000;">if our random dart landed inside the unit circle, increment the score</span>
+    <span style="color: #af00ff;">if</span> (((x*x) + (y*y)) &lt;= 1.0) {
       hits++;
     }
   }
 
-  <span style="color: #999999;">// </span><span style="color: #999999;">estimate pi</span>
-  pi = 4.0 * (<span style="color: #ffcc66;">double</span>)hits / (<span style="color: #ffcc66;">double</span>)ndarts;
-  <span style="color: #cc99cc;">return</span>(pi);
+  <span style="color: #af0000;">// </span><span style="color: #af0000;">estimate pi</span>
+  pi = 4.0 * (<span style="color: #008700;">double</span>)hits / (<span style="color: #008700;">double</span>)ndarts;
+  <span style="color: #af00ff;">return</span>(pi);
 } 
 
-<span style="color: #999999;">// </span><span style="color: #999999;">the main program</span>
-<span style="color: #ffcc66;">int</span> <span style="color: #6699cc;">main</span> (<span style="color: #ffcc66;">int</span> <span style="color: #f2777a;">argc</span>, <span style="color: #ffcc66;">char</span> *<span style="color: #f2777a;">argv</span>[])
+<span style="color: #af0000;">// </span><span style="color: #af0000;">the main program</span>
+<span style="color: #008700;">int</span> <span style="color: #0000ee;">main</span> (<span style="color: #008700;">int</span> <span style="color: #af8700;">argc</span>, <span style="color: #008700;">char</span> *<span style="color: #af8700;">argv</span>[])
 {
-  <span style="color: #ffcc66;">double</span> <span style="color: #f2777a;">my_pi</span>, <span style="color: #f2777a;">pi_sum</span>, <span style="color: #f2777a;">pi_est</span>, <span style="color: #f2777a;">mean_pi</span>, <span style="color: #f2777a;">err</span>;
-  <span style="color: #ffcc66;">int</span> <span style="color: #f2777a;">task_id</span>, <span style="color: #f2777a;">n_tasks</span>, <span style="color: #f2777a;">rc</span>, <span style="color: #f2777a;">i</span>;
-  <span style="color: #ffcc66;">MPI_Status</span> <span style="color: #f2777a;">status</span>;
+  <span style="color: #008700;">double</span> <span style="color: #af8700;">my_pi</span>, <span style="color: #af8700;">pi_sum</span>, <span style="color: #af8700;">pi_est</span>, <span style="color: #af8700;">mean_pi</span>, <span style="color: #af8700;">err</span>;
+  <span style="color: #008700;">int</span> <span style="color: #af8700;">task_id</span>, <span style="color: #af8700;">n_tasks</span>, <span style="color: #af8700;">rc</span>, <span style="color: #af8700;">i</span>;
+  <span style="color: #008700;">MPI_Status</span> <span style="color: #af8700;">status</span>;
 
-  <span style="color: #999999;">// </span><span style="color: #999999;">Obtain number of tasks and task ID</span>
+  <span style="color: #af0000;">// </span><span style="color: #af0000;">Obtain number of tasks and task ID</span>
   MPI_Init(&amp;argc,&amp;argv);
   MPI_Comm_size(MPI_COMM_WORLD,&amp;n_tasks);
   MPI_Comm_rank(MPI_COMM_WORLD,&amp;task_id);
-  <span style="color: #999999;">//  </span><span style="color: #999999;">printf ("task %d of %d reporting for duty...\n", task_id, n_tasks);</span>
+  <span style="color: #af0000;">//  </span><span style="color: #af0000;">printf ("task %d of %d reporting for duty...\n", task_id, n_tasks);</span>
 
-  <span style="color: #999999;">// </span><span style="color: #999999;">different seed for random number generator for each task</span>
+  <span style="color: #af0000;">// </span><span style="color: #af0000;">different seed for random number generator for each task</span>
   srandom (task_id);
 
   mean_pi = 0.0;
-  <span style="color: #cc99cc;">for</span> (i=0; i&lt;NROUNDS; i++) {
-    <span style="color: #999999;">// </span><span style="color: #999999;">all tasks will execute dartboard() to calculate their own estimate of pi</span>
+  <span style="color: #af00ff;">for</span> (i=0; i&lt;NROUNDS; i++) {
+    <span style="color: #af0000;">// </span><span style="color: #af0000;">all tasks will execute dartboard() to calculate their own estimate of pi</span>
     my_pi = dartboard(NDARTS);
 
-    <span style="color: #999999;">// </span><span style="color: #999999;">now we use MPI_Reduce() to sum values of my_pi across all tasks</span>
-    <span style="color: #999999;">// </span><span style="color: #999999;">the master process (id=MASTER) will store the accumulated value</span>
-    <span style="color: #999999;">// </span><span style="color: #999999;">in pi_sum. We tell MPI_Reduce() to sum by passing it</span>
-    <span style="color: #999999;">// </span><span style="color: #999999;">the MPI_SUM value (define in mpi.h)</span>
+    <span style="color: #af0000;">// </span><span style="color: #af0000;">now we use MPI_Reduce() to sum values of my_pi across all tasks</span>
+    <span style="color: #af0000;">// </span><span style="color: #af0000;">the master process (id=MASTER) will store the accumulated value</span>
+    <span style="color: #af0000;">// </span><span style="color: #af0000;">in pi_sum. We tell MPI_Reduce() to sum by passing it</span>
+    <span style="color: #af0000;">// </span><span style="color: #af0000;">the MPI_SUM value (define in mpi.h)</span>
     rc = MPI_Reduce(&amp;my_pi, &amp;pi_sum, 1, MPI_DOUBLE, MPI_SUM,
                     MASTER, MPI_COMM_WORLD);
 
-    <span style="color: #999999;">// </span><span style="color: #999999;">now, IF WE ARE THE MASTER process, we will compute the mean</span>
-    <span style="color: #cc99cc;">if</span> (task_id == MASTER) {
+    <span style="color: #af0000;">// </span><span style="color: #af0000;">now, IF WE ARE THE MASTER process, we will compute the mean</span>
+    <span style="color: #af00ff;">if</span> (task_id == MASTER) {
       pi_est = pi_sum / n_tasks;
-      mean_pi = ( (mean_pi * i) + pi_est ) / (i + 1); <span style="color: #999999;">// </span><span style="color: #999999;">running average</span>
+      mean_pi = ( (mean_pi * i) + pi_est ) / (i + 1); <span style="color: #af0000;">// </span><span style="color: #af0000;">running average</span>
       err = mean_pi - 3.14159265358979323846;
-      printf(<span style="color: #99cc99;">"%d throws: mean_pi %.12f: error %.12f\n"</span>,
+      printf(<span style="color: #af8787;">"%d throws: mean_pi %.12f: error %.12f\n"</span>,
              (NDARTS * (i + 1)), mean_pi, err);
     }
   }
-  <span style="color: #cc99cc;">if</span> (task_id == MASTER) 
-    printf (<span style="color: #99cc99;">"PS, the real value of pi is about 3.14159265358979323846\n"</span>);
+  <span style="color: #af00ff;">if</span> (task_id == MASTER) 
+    printf (<span style="color: #af8787;">"PS, the real value of pi is about 3.14159265358979323846\n"</span>);
 
   MPI_Finalize();
-  <span style="color: #cc99cc;">return</span> 0;
+  <span style="color: #af00ff;">return</span> 0;
 }
 
 </pre>

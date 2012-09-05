@@ -250,15 +250,15 @@ the glibc library, the gcc compiler already knows to look for it.
 
 
 
-<pre class="src src-c"><span style="color: #999999;">// </span><span style="color: #999999;">gcc -o go go.c</span>
-<span style="color: #afd7d7;">#include</span> <span style="color: #99cc99;">&lt;stdio.h&gt;</span>
-<span style="color: #afd7d7;">#include</span> <span style="color: #99cc99;">&lt;string.h&gt;</span>
+<pre class="src src-c"><span style="color: #af0000;">// </span><span style="color: #af0000;">gcc -o go go.c</span>
+<span style="color: #d75fd7;">#include</span> <span style="color: #af8787;">&lt;stdio.h&gt;</span>
+<span style="color: #d75fd7;">#include</span> <span style="color: #af8787;">&lt;string.h&gt;</span>
 
-<span style="color: #ffcc66;">int</span> <span style="color: #6699cc;">main</span>(<span style="color: #ffcc66;">int</span> <span style="color: #f2777a;">argc</span>, <span style="color: #ffcc66;">char</span> *<span style="color: #f2777a;">argv</span>[])
+<span style="color: #008700;">int</span> <span style="color: #0000ee;">main</span>(<span style="color: #008700;">int</span> <span style="color: #af8700;">argc</span>, <span style="color: #008700;">char</span> *<span style="color: #af8700;">argv</span>[])
  {                                                                             
-   <span style="color: #ffcc66;">char</span> <span style="color: #f2777a;">mystring</span>[] = <span style="color: #99cc99;">"the dude"</span>;
-   printf(<span style="color: #99cc99;">"%s is %ld characters long\n"</span>, mystring, strlen(mystring));
-   <span style="color: #cc99cc;">return</span> 0;                                                                   
+   <span style="color: #008700;">char</span> <span style="color: #af8700;">mystring</span>[] = <span style="color: #af8787;">"the dude"</span>;
+   printf(<span style="color: #af8787;">"%s is %ld characters long\n"</span>, mystring, strlen(mystring));
+   <span style="color: #af00ff;">return</span> 0;                                                                   
 }
 </pre>
 
@@ -352,42 +352,42 @@ uses linear algebra routines to solve a linear system \(Ax=b\):
 
 
 
-<pre class="src src-c"><span style="color: #999999;">// </span><span style="color: #999999;">gcc -o go go.c -lgsl -lgslcblas</span>
+<pre class="src src-c"><span style="color: #af0000;">// </span><span style="color: #af0000;">gcc -o go go.c -lgsl -lgslcblas</span>
 
-<span style="color: #afd7d7;">#include</span> <span style="color: #99cc99;">&lt;stdio.h&gt;</span>
-<span style="color: #afd7d7;">#include</span> <span style="color: #99cc99;">&lt;gsl/gsl_linalg.h&gt;</span>
+<span style="color: #d75fd7;">#include</span> <span style="color: #af8787;">&lt;stdio.h&gt;</span>
+<span style="color: #d75fd7;">#include</span> <span style="color: #af8787;">&lt;gsl/gsl_linalg.h&gt;</span>
 
-<span style="color: #ffcc66;">int</span> <span style="color: #6699cc;">main</span> (<span style="color: #ffcc66;">void</span>)
+<span style="color: #008700;">int</span> <span style="color: #0000ee;">main</span> (<span style="color: #008700;">void</span>)
 {
-  <span style="color: #ffcc66;">double</span> <span style="color: #f2777a;">a_data</span>[] = { 0.18, 0.60, 0.57, 0.96,
+  <span style="color: #008700;">double</span> <span style="color: #af8700;">a_data</span>[] = { 0.18, 0.60, 0.57, 0.96,
                       0.41, 0.24, 0.99, 0.58,
                       0.14, 0.30, 0.97, 0.66,
                       0.51, 0.13, 0.19, 0.85 };
 
-  <span style="color: #ffcc66;">double</span> <span style="color: #f2777a;">b_data</span>[] = { 1.0, 2.0, 3.0, 4.0 };
+  <span style="color: #008700;">double</span> <span style="color: #af8700;">b_data</span>[] = { 1.0, 2.0, 3.0, 4.0 };
 
-  <span style="color: #ffcc66;">gsl_matrix_view</span> <span style="color: #f2777a;">m</span> 
+  <span style="color: #008700;">gsl_matrix_view</span> <span style="color: #af8700;">m</span> 
     = gsl_matrix_view_array (a_data, 4, 4);
 
-  <span style="color: #ffcc66;">gsl_vector_view</span> <span style="color: #f2777a;">b</span>
+  <span style="color: #008700;">gsl_vector_view</span> <span style="color: #af8700;">b</span>
     = gsl_vector_view_array (b_data, 4);
 
-  <span style="color: #ffcc66;">gsl_vector</span> *<span style="color: #f2777a;">x</span> = gsl_vector_alloc (4);
+  <span style="color: #008700;">gsl_vector</span> *<span style="color: #af8700;">x</span> = gsl_vector_alloc (4);
 
-  <span style="color: #ffcc66;">int</span> <span style="color: #f2777a;">s</span>;
+  <span style="color: #008700;">int</span> <span style="color: #af8700;">s</span>;
 
-  <span style="color: #ffcc66;">gsl_permutation</span> * <span style="color: #f2777a;">p</span> = gsl_permutation_alloc (4);
+  <span style="color: #008700;">gsl_permutation</span> * <span style="color: #af8700;">p</span> = gsl_permutation_alloc (4);
 
   gsl_linalg_LU_decomp (&amp;m.matrix, p, &amp;s);
 
   gsl_linalg_LU_solve (&amp;m.matrix, p, &amp;b.vector, x);
 
-  printf (<span style="color: #99cc99;">"x = \n"</span>);
-  gsl_vector_fprintf (stdout, x, <span style="color: #99cc99;">"%g"</span>);
+  printf (<span style="color: #af8787;">"x = \n"</span>);
+  gsl_vector_fprintf (stdout, x, <span style="color: #af8787;">"%g"</span>);
 
   gsl_permutation_free (p);
   gsl_vector_free (x);
-  <span style="color: #cc99cc;">return</span> 0;
+  <span style="color: #af00ff;">return</span> 0;
 }
 </pre>
 

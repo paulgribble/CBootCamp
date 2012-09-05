@@ -140,9 +140,9 @@ constants. For example:
 
 
 
-<pre class="src src-c"><span style="color: #afd7d7;">#define</span> <span style="color: #f2777a;">YES</span> 1
-<span style="color: #afd7d7;">#define</span> <span style="color: #f2777a;">PI</span> 3.14
-<span style="color: #afd7d7;">#define</span> <span style="color: #f2777a;">MYNAME</span> <span style="color: #99cc99;">"paul"</span>
+<pre class="src src-c"><span style="color: #d75fd7;">#define</span> <span style="color: #af8700;">YES</span> 1
+<span style="color: #d75fd7;">#define</span> <span style="color: #af8700;">PI</span> 3.14
+<span style="color: #d75fd7;">#define</span> <span style="color: #af8700;">MYNAME</span> <span style="color: #af8787;">"paul"</span>
 </pre>
 
 
@@ -181,7 +181,7 @@ number like this:
 
 
 
-<pre class="src src-c"><span style="color: #afd7d7;">#define</span> <span style="color: #6699cc;">SQUARE</span>(<span style="color: #f2777a;">n</span>) n*n
+<pre class="src src-c"><span style="color: #d75fd7;">#define</span> <span style="color: #0000ee;">SQUARE</span>(<span style="color: #af8700;">n</span>) n*n
 </pre>
 
 
@@ -191,8 +191,8 @@ Then you could use it in your code like this:
 
 
 
-<pre class="src src-c"><span style="color: #ffcc66;">int</span> <span style="color: #f2777a;">x</span> = 3;
-<span style="color: #ffcc66;">int</span> <span style="color: #f2777a;">y</span> = SQUARE(x);
+<pre class="src src-c"><span style="color: #008700;">int</span> <span style="color: #af8700;">x</span> = 3;
+<span style="color: #008700;">int</span> <span style="color: #af8700;">y</span> = SQUARE(x);
 </pre>
 
 
@@ -202,7 +202,7 @@ Another common example of macros is to define a macro to return the maximum valu
 
 
 
-<pre class="src src-c"><span style="color: #afd7d7;">#define</span> <span style="color: #6699cc;">MAX</span>(<span style="color: #f2777a;">a</span>,<span style="color: #f2777a;">b</span>) ( ((a) &gt; (b)) ? (a) : (b) )
+<pre class="src src-c"><span style="color: #d75fd7;">#define</span> <span style="color: #0000ee;">MAX</span>(<span style="color: #af8700;">a</span>,<span style="color: #af8700;">b</span>) ( ((a) &gt; (b)) ? (a) : (b) )
 </pre>
 
 
@@ -212,7 +212,7 @@ Another one is to determine if a character is lower-case:
 
 
 
-<pre class="src src-c"><span style="color: #afd7d7;">#define</span> <span style="color: #6699cc;">IS_LOWER_CASE</span>(<span style="color: #f2777a;">x</span>) ( ((x) &gt;= <span style="color: #99cc99;">'a'</span>) &amp;&amp; ((x) &lt;= <span style="color: #99cc99;">'z'</span>) )
+<pre class="src src-c"><span style="color: #d75fd7;">#define</span> <span style="color: #0000ee;">IS_LOWER_CASE</span>(<span style="color: #af8700;">x</span>) ( ((x) &gt;= <span style="color: #af8787;">'a'</span>) &amp;&amp; ((x) &lt;= <span style="color: #af8787;">'z'</span>) )
 </pre>
 
 
@@ -231,7 +231,7 @@ also write variadic functions in C). Here is an example:
 
 
 
-<pre class="src src-c"><span style="color: #afd7d7;">#define</span> <span style="color: #6699cc;">debugPrintf</span>(...) printf(<span style="color: #99cc99;">"DEBUG: "</span> __VA_ARGS__);
+<pre class="src src-c"><span style="color: #d75fd7;">#define</span> <span style="color: #0000ee;">debugPrintf</span>(...) printf(<span style="color: #af8787;">"DEBUG: "</span> __VA_ARGS__);
 </pre>
 
 
@@ -241,7 +241,7 @@ Now we could use this in the following way, either with one argument:
 
 
 
-<pre class="src src-c">debugPrintf(<span style="color: #99cc99;">"Hello World!\n"</span>);
+<pre class="src src-c">debugPrintf(<span style="color: #af8787;">"Hello World!\n"</span>);
 </pre>
 
 
@@ -256,9 +256,9 @@ or with multiple arguments:
 
 
 
-<pre class="src src-c"><span style="color: #ffcc66;">int</span> <span style="color: #f2777a;">x</span>=12;
-<span style="color: #ffcc66;">int</span> <span style="color: #f2777a;">y</span>=13;
-debugPrintf(<span style="color: #99cc99;">"x=%d, y=%d\n"</span>, x, y);
+<pre class="src src-c"><span style="color: #008700;">int</span> <span style="color: #af8700;">x</span>=12;
+<span style="color: #008700;">int</span> <span style="color: #af8700;">y</span>=13;
+debugPrintf(<span style="color: #af8787;">"x=%d, y=%d\n"</span>, x, y);
 </pre>
 
 
