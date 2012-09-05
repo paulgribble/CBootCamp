@@ -158,36 +158,36 @@ Here is an example program that we wish to profile:
 
 
 
-<pre class="src src-c"><span style="color: #875f87;">#include</span> <span style="color: #87005f;">&lt;stdio.h&gt;</span>
-<span style="color: #875f87;">#include</span> <span style="color: #87005f;">&lt;math.h&gt;</span>
+<pre class="src src-c"><span style="color: #afd7d7;">#include</span> <span style="color: #99cc99;">&lt;stdio.h&gt;</span>
+<span style="color: #afd7d7;">#include</span> <span style="color: #99cc99;">&lt;math.h&gt;</span>
 
-<span style="color: #875f87;">#define</span> <span style="color: #af5f00;">MAXLOOP</span> 1e7
+<span style="color: #afd7d7;">#define</span> <span style="color: #f2777a;">MAXLOOP</span> 1e7
 
-<span style="color: #008700;">double</span> <span style="color: #0000ff;">myFun1</span>(<span style="color: #008700;">double</span> <span style="color: #af5f00;">x</span>) {
-  <span style="color: #008700;">double</span> <span style="color: #af5f00;">a</span> = sin(x);
-  <span style="color: #af00ff;">return</span> a;
+<span style="color: #ffcc66;">double</span> <span style="color: #6699cc;">myFun1</span>(<span style="color: #ffcc66;">double</span> <span style="color: #f2777a;">x</span>) {
+  <span style="color: #ffcc66;">double</span> <span style="color: #f2777a;">a</span> = sin(x);
+  <span style="color: #cc99cc;">return</span> a;
 }
 
-<span style="color: #008700;">double</span> <span style="color: #0000ff;">myFun2</span>(<span style="color: #008700;">double</span> <span style="color: #af5f00;">x</span>) {
-  <span style="color: #008700;">double</span> <span style="color: #af5f00;">a</span> = pow(x,3);
-  <span style="color: #af00ff;">return</span> a;
+<span style="color: #ffcc66;">double</span> <span style="color: #6699cc;">myFun2</span>(<span style="color: #ffcc66;">double</span> <span style="color: #f2777a;">x</span>) {
+  <span style="color: #ffcc66;">double</span> <span style="color: #f2777a;">a</span> = pow(x,3);
+  <span style="color: #cc99cc;">return</span> a;
 }
 
-<span style="color: #008700;">double</span> <span style="color: #0000ff;">myFun3</span>(<span style="color: #008700;">double</span> <span style="color: #af5f00;">x</span>) {
-  <span style="color: #008700;">double</span> <span style="color: #af5f00;">a</span> = sqrt(x);
-  <span style="color: #af00ff;">return</span> a;
+<span style="color: #ffcc66;">double</span> <span style="color: #6699cc;">myFun3</span>(<span style="color: #ffcc66;">double</span> <span style="color: #f2777a;">x</span>) {
+  <span style="color: #ffcc66;">double</span> <span style="color: #f2777a;">a</span> = sqrt(x);
+  <span style="color: #cc99cc;">return</span> a;
 }
 
-<span style="color: #008700;">int</span> <span style="color: #0000ff;">main</span>(<span style="color: #008700;">int</span> <span style="color: #af5f00;">argc</span>, <span style="color: #008700;">char</span> *<span style="color: #af5f00;">argv</span>[]) {
-  <span style="color: #008700;">int</span> <span style="color: #af5f00;">i</span>;
-  <span style="color: #008700;">double</span> <span style="color: #af5f00;">x</span>;
-  <span style="color: #008700;">double</span> <span style="color: #af5f00;">xsum</span> = 0.0;
-  <span style="color: #af00ff;">for</span> (i=1; i&lt;MAXLOOP; i++) {
+<span style="color: #ffcc66;">int</span> <span style="color: #6699cc;">main</span>(<span style="color: #ffcc66;">int</span> <span style="color: #f2777a;">argc</span>, <span style="color: #ffcc66;">char</span> *<span style="color: #f2777a;">argv</span>[]) {
+  <span style="color: #ffcc66;">int</span> <span style="color: #f2777a;">i</span>;
+  <span style="color: #ffcc66;">double</span> <span style="color: #f2777a;">x</span>;
+  <span style="color: #ffcc66;">double</span> <span style="color: #f2777a;">xsum</span> = 0.0;
+  <span style="color: #cc99cc;">for</span> (i=1; i&lt;MAXLOOP; i++) {
     x = myFun1(i) + myFun2(i) + myFun3(i);
     xsum += x;
   }
-  printf(<span style="color: #87005f;">"xsum = %.6f\n"</span>, xsum);
-  <span style="color: #af00ff;">return</span> 0;
+  printf(<span style="color: #99cc99;">"xsum = %.6f\n"</span>, xsum);
+  <span style="color: #cc99cc;">return</span> 0;
 }
 </pre>
 
@@ -301,8 +301,8 @@ When using <code>pow()</code> with integers, just use basic operators instead. F
 
 
 
-<pre class="src src-c"><span style="color: #008700;">double</span> <span style="color: #af5f00;">y</span> = 3.14;
-<span style="color: #008700;">double</span> <span style="color: #af5f00;">x</span> = pow(y, 3);
+<pre class="src src-c"><span style="color: #ffcc66;">double</span> <span style="color: #f2777a;">y</span> = 3.14;
+<span style="color: #ffcc66;">double</span> <span style="color: #f2777a;">x</span> = pow(y, 3);
 </pre>
 
 
@@ -312,8 +312,8 @@ Use the <code>*</code> operator instead:
 
 
 
-<pre class="src src-c"><span style="color: #008700;">double</span> <span style="color: #af5f00;">y</span> = 3.14;
-<span style="color: #008700;">double</span> <span style="color: #af5f00;">x</span> = y*y*y;
+<pre class="src src-c"><span style="color: #ffcc66;">double</span> <span style="color: #f2777a;">y</span> = 3.14;
+<span style="color: #ffcc66;">double</span> <span style="color: #f2777a;">x</span> = y*y*y;
 </pre>
 
 
@@ -324,9 +324,9 @@ squaring instead (but not using <code>pow()</code>). For example, let's say we'r
 
 
 
-<pre class="src src-c"><span style="color: #008700;">double</span> <span style="color: #af5f00;">the_dist</span> = sqrt( pow(x2-x1,2) + pow(y2-y1,2) );
-<span style="color: #af00ff;">if</span> (the_dist &lt; mindist) {
-  printf(<span style="color: #87005f;">"it is less\n"</span>);
+<pre class="src src-c"><span style="color: #ffcc66;">double</span> <span style="color: #f2777a;">the_dist</span> = sqrt( pow(x2-x1,2) + pow(y2-y1,2) );
+<span style="color: #cc99cc;">if</span> (the_dist &lt; mindist) {
+  printf(<span style="color: #99cc99;">"it is less\n"</span>);
 }
 </pre>
 
@@ -337,11 +337,11 @@ You can test the squared distance against the squared mindist:
 
 
 
-<pre class="src src-c"><span style="color: #008700;">double</span> <span style="color: #af5f00;">xdif</span> = x2-x1;
-<span style="color: #008700;">double</span> <span style="color: #af5f00;">ydif</span> = y2-y1;
-<span style="color: #008700;">double</span> <span style="color: #af5f00;">the_dist_squared</span> = (xdif*xdif) + (ydif*ydif);
-<span style="color: #af00ff;">if</span> (the_dist_squared &lt; (mindist*mindist)) {
-  printf(<span style="color: #87005f;">"it is less\n"</span>);
+<pre class="src src-c"><span style="color: #ffcc66;">double</span> <span style="color: #f2777a;">xdif</span> = x2-x1;
+<span style="color: #ffcc66;">double</span> <span style="color: #f2777a;">ydif</span> = y2-y1;
+<span style="color: #ffcc66;">double</span> <span style="color: #f2777a;">the_dist_squared</span> = (xdif*xdif) + (ydif*ydif);
+<span style="color: #cc99cc;">if</span> (the_dist_squared &lt; (mindist*mindist)) {
+  printf(<span style="color: #99cc99;">"it is less\n"</span>);
 }
 </pre>
 
@@ -437,7 +437,7 @@ twice as fast.
 </div>
 
 <div id="postamble">
-<hr />Paul Gribble | Summer 2012<br>This <span xmlns:dct="http://purl.org/dc/terms/" href="http://purl.org/dc/dcmitype/Text" rel="dct:type">work</span> is licensed under a <a rel="license" href="http://creativecommons.org/licenses/by-nc-sa/3.0/">Creative Commons Attribution-NonCommercial-ShareAlike 3.0 Unported License</a><br><a rel="license" href="http://creativecommons.org/licenses/by-nc-sa/3.0/"><img alt="Creative Commons License" style="border-width:0" src="http://i.creativecommons.org/l/by-nc-sa/3.0/80x15.png" /></a><br /> <script type=
+<hr />Paul Gribble | Summer 2012<br>This <span xmlns:dct="http://purl.org/dc/terms/" href="http://purl.org/dc/dcmitype/Text" rel="dct:type">work</span> is licensed under a <a rel="license" href="http://creativecommons.org/licenses/by-nc-sa/3.0/">Creative Commons Attribution-NonCommercial-ShareAlike 3.0 Unported License</a><br><a rel="license" href="http://creativecommons.org/licenses/by-nc-sa/3.0/"><img alt="Creative Commons License" style="border-width:0" src="http://i.creativecommons.org/l/by-nc-sa/3.0/80x15.png" /></a><br />
 </div>
 </body>
 </html>
