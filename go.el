@@ -3,9 +3,9 @@
 (setq org-publish-project-alist
       '(
 	("CBootCamp"
-	 :base-directory "~/Desktop/CBootCamp/org/"
+	 :base-directory "org/"
 	 :base-extension "org"
-	 :publishing-directory "~/Desktop/CBootCamp/html"
+	 :publishing-directory "html"
 	 :publishing-function org-publish-org-to-html
 	 :recursive t
 	 :section-numbers nil
@@ -16,14 +16,14 @@
 	 :style "<link rel=\"stylesheet\" type=\"text/css\" href=\"mystyle.css\" />"
 	 )
 	("CBootCamp_html"
-	 :base-directory "~/Desktop/CBootCamp/html/"
+	 :base-directory "html/"
 	 :base-extension "css\\|html"
 	 :publishing-directory "/ssh:admin@leviathan.ssc.uwo.ca:~/gribblelab.org/CBootCamp/"
 	 :publishing-function org-publish-attachment
 	 :recursive t
 	 )
 	("CBootCamp_code"
-	 :base-directory "~/Desktop/CBootCamp/code/"
+	 :base-directory "code/"
 	 :base-extension "c\\|h\\|txt\\|csv"
 	 :publishing-directory "/ssh:admin@leviathan.ssc.uwo.ca:~/gribblelab.org/CBootCamp/code/"
 	 :publishing-function org-publish-attachment
