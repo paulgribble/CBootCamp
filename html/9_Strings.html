@@ -61,6 +61,30 @@
   /*]]>*/-->
 </style><link rel="stylesheet" type="text/css" href="mystyle.css" />
 <script type="text/javascript">
+/*
+@licstart  The following is the entire license notice for the
+JavaScript code in this tag.
+
+Copyright (C) 2012  Free Software Foundation, Inc.
+
+The JavaScript code in this tag is free software: you can
+redistribute it and/or modify it under the terms of the GNU
+General Public License (GNU GPL) as published by the Free Software
+Foundation, either version 3 of the License, or (at your option)
+any later version.  The code is distributed WITHOUT ANY WARRANTY;
+without even the implied warranty of MERCHANTABILITY or FITNESS
+FOR A PARTICULAR PURPOSE.  See the GNU GPL for more details.
+
+As additional permission under GNU GPL version 3 section 7, you
+may distribute non-source (e.g., minimized or compacted) forms of
+that code without the copy of the GNU GPL normally required by
+section 4, provided you include this license notice and a URL
+through which recipients can access the Corresponding Source.
+
+
+@licend  The above is the entire license notice
+for the JavaScript code in this tag.
+*/
 <!--/*--><![CDATA[/*><!--*/
  function CodeHighlightOn(elem, id)
  {
@@ -162,16 +186,16 @@ double square brackets signify an array.
 
 
 
-<pre class="src src-c"><span style="color: #d75fd7;">#include</span> <span style="color: #af8787;">&lt;stdio.h&gt;</span>
+<pre class="src src-c"><span style="color: #5f5f87;">#include</span> <span style="color: #87005f;">&lt;stdio.h&gt;</span>
 
-<span style="color: #008700;">int</span> <span style="color: #0000ee;">main</span>(<span style="color: #008700;">void</span>) {
+<span style="color: #008700;">int</span> <span style="color: #0000ff;">main</span>(<span style="color: #008700;">void</span>) {
 
-  printf(<span style="color: #af8787;">"Hello world\n"</span>);
+  printf(<span style="color: #87005f;">"Hello world\n"</span>);
 
-  <span style="color: #008700;">char</span> <span style="color: #af8700;">c</span> = <span style="color: #af8787;">'p'</span>;
-  <span style="color: #008700;">char</span> <span style="color: #af8700;">s</span>[] = <span style="color: #af8787;">"paul"</span>;
+  <span style="color: #008700;">char</span> <span style="color: #af5f00;">c</span> = <span style="color: #87005f;">'p'</span>;
+  <span style="color: #008700;">char</span> <span style="color: #af5f00;">s</span>[] = <span style="color: #87005f;">"paul"</span>;
 
-  printf(<span style="color: #af8787;">"c=%c and s=%s\n"</span>, c, s);
+  printf(<span style="color: #87005f;">"c=%c and s=%s\n"</span>, c, s);
 
   <span style="color: #af00ff;">return</span> 0;
 }
@@ -204,13 +228,13 @@ long it actually is:
 
 
 
-<pre class="src src-c"><span style="color: #d75fd7;">#include</span> <span style="color: #af8787;">&lt;stdio.h&gt;</span>
+<pre class="src src-c"><span style="color: #5f5f87;">#include</span> <span style="color: #87005f;">&lt;stdio.h&gt;</span>
 
-<span style="color: #008700;">int</span> <span style="color: #0000ee;">main</span>(<span style="color: #008700;">void</span>) {
+<span style="color: #008700;">int</span> <span style="color: #0000ff;">main</span>(<span style="color: #008700;">void</span>) {
 
-  <span style="color: #008700;">char</span> <span style="color: #af8700;">s</span>[] = <span style="color: #af8787;">"paul"</span>;
+  <span style="color: #008700;">char</span> <span style="color: #af5f00;">s</span>[] = <span style="color: #87005f;">"paul"</span>;
 
-  printf(<span style="color: #af8787;">"s is %ld elements long\n"</span>, <span style="color: #af00ff;">sizeof</span>(s));
+  printf(<span style="color: #87005f;">"s is %ld elements long\n"</span>, <span style="color: #af00ff;">sizeof</span>(s));
 
   <span style="color: #af00ff;">return</span> 0;
 }
@@ -277,24 +301,24 @@ getting the length of strings, comparing strings, etc.
 
 
 
-<pre class="src src-C"><span style="color: #d75fd7;">#include</span> <span style="color: #af8787;">&lt;stdio.h&gt;</span>
-<span style="color: #d75fd7;">#include</span> <span style="color: #af8787;">&lt;string.h&gt;</span>
+<pre class="src src-C"><span style="color: #5f5f87;">#include</span> <span style="color: #87005f;">&lt;stdio.h&gt;</span>
+<span style="color: #5f5f87;">#include</span> <span style="color: #87005f;">&lt;string.h&gt;</span>
 
-<span style="color: #008700;">int</span> <span style="color: #0000ee;">main</span>(<span style="color: #008700;">void</span>) {
+<span style="color: #008700;">int</span> <span style="color: #0000ff;">main</span>(<span style="color: #008700;">void</span>) {
 
-  <span style="color: #008700;">char</span> <span style="color: #af8700;">s1</span>[] = <span style="color: #af8787;">"paul"</span>;
-  <span style="color: #008700;">char</span> <span style="color: #af8700;">s2</span>[] = <span style="color: #af8787;">"gribble"</span>;
-  <span style="color: #008700;">char</span> <span style="color: #af8700;">s3</span>[256];
-  printf(<span style="color: #af8787;">"s3=%s, strlen(s3)=%ld\n"</span>, s3, strlen(s3));
+  <span style="color: #008700;">char</span> <span style="color: #af5f00;">s1</span>[] = <span style="color: #87005f;">"paul"</span>;
+  <span style="color: #008700;">char</span> <span style="color: #af5f00;">s2</span>[] = <span style="color: #87005f;">"gribble"</span>;
+  <span style="color: #008700;">char</span> <span style="color: #af5f00;">s3</span>[256];
+  printf(<span style="color: #87005f;">"s3=%s, strlen(s3)=%ld\n"</span>, s3, strlen(s3));
 
   strcat(s3, s1);
-  printf(<span style="color: #af8787;">"s3=%s, strlen(s3)=%ld\n"</span>, s3, strlen(s3));
+  printf(<span style="color: #87005f;">"s3=%s, strlen(s3)=%ld\n"</span>, s3, strlen(s3));
 
-  strcat(s3, <span style="color: #af8787;">" "</span>);  
-  printf(<span style="color: #af8787;">"s3=%s, strlen(s3)=%ld\n"</span>, s3, strlen(s3));
+  strcat(s3, <span style="color: #87005f;">" "</span>);  
+  printf(<span style="color: #87005f;">"s3=%s, strlen(s3)=%ld\n"</span>, s3, strlen(s3));
 
   strcat(s3, s2);
-  printf(<span style="color: #af8787;">"s3=%s, strlen(s3)=%ld\n"</span>, s3, strlen(s3));
+  printf(<span style="color: #87005f;">"s3=%s, strlen(s3)=%ld\n"</span>, s3, strlen(s3));
 
   <span style="color: #af00ff;">return</span> 0;
 }
@@ -328,19 +352,19 @@ element against each other. Here's how you would do it:
 
 
 
-<pre class="src src-C"><span style="color: #d75fd7;">#include</span> <span style="color: #af8787;">&lt;stdio.h&gt;</span>
-<span style="color: #d75fd7;">#include</span> <span style="color: #af8787;">&lt;string.h&gt;</span>
+<pre class="src src-C"><span style="color: #5f5f87;">#include</span> <span style="color: #87005f;">&lt;stdio.h&gt;</span>
+<span style="color: #5f5f87;">#include</span> <span style="color: #87005f;">&lt;string.h&gt;</span>
 
-<span style="color: #008700;">int</span> <span style="color: #0000ee;">main</span>(<span style="color: #008700;">void</span>) {
+<span style="color: #008700;">int</span> <span style="color: #0000ff;">main</span>(<span style="color: #008700;">void</span>) {
 
-  <span style="color: #008700;">char</span> <span style="color: #af8700;">s1</span>[] = <span style="color: #af8787;">"paul"</span>;
-  <span style="color: #008700;">char</span> <span style="color: #af8700;">s2</span>[] = <span style="color: #af8787;">"paul"</span>;
-  <span style="color: #008700;">char</span> <span style="color: #af8700;">s3</span>[] = <span style="color: #af8787;">"peter"</span>;
-  <span style="color: #008700;">char</span> <span style="color: #af8700;">s4</span>[] = <span style="color: #af8787;">"dave"</span>;
+  <span style="color: #008700;">char</span> <span style="color: #af5f00;">s1</span>[] = <span style="color: #87005f;">"paul"</span>;
+  <span style="color: #008700;">char</span> <span style="color: #af5f00;">s2</span>[] = <span style="color: #87005f;">"paul"</span>;
+  <span style="color: #008700;">char</span> <span style="color: #af5f00;">s3</span>[] = <span style="color: #87005f;">"peter"</span>;
+  <span style="color: #008700;">char</span> <span style="color: #af5f00;">s4</span>[] = <span style="color: #87005f;">"dave"</span>;
 
-  printf(<span style="color: #af8787;">"strcmp(s1,s2)? %d\n"</span>, strcmp(s1,s2));
-  printf(<span style="color: #af8787;">"strcmp(s1,s3)? %d\n"</span>, strcmp(s1,s3));
-  printf(<span style="color: #af8787;">"strcmp(s1,s4)? %d\n"</span>, strcmp(s1,s4));
+  printf(<span style="color: #87005f;">"strcmp(s1,s2)? %d\n"</span>, strcmp(s1,s2));
+  printf(<span style="color: #87005f;">"strcmp(s1,s3)? %d\n"</span>, strcmp(s1,s3));
+  printf(<span style="color: #87005f;">"strcmp(s1,s4)? %d\n"</span>, strcmp(s1,s4));
 
   <span style="color: #af00ff;">return</span> 0;
 }
@@ -412,21 +436,21 @@ before, but instead of printing something to the screen, <code>sprintf()</code>
 
 
 
-<pre class="src src-c"><span style="color: #d75fd7;">#include</span> <span style="color: #af8787;">&lt;stdio.h&gt;</span>
-<span style="color: #d75fd7;">#include</span> <span style="color: #af8787;">&lt;string.h&gt;</span>
+<pre class="src src-c"><span style="color: #5f5f87;">#include</span> <span style="color: #87005f;">&lt;stdio.h&gt;</span>
+<span style="color: #5f5f87;">#include</span> <span style="color: #87005f;">&lt;string.h&gt;</span>
 
-<span style="color: #008700;">int</span> <span style="color: #0000ee;">main</span>(<span style="color: #008700;">void</span>) {
+<span style="color: #008700;">int</span> <span style="color: #0000ff;">main</span>(<span style="color: #008700;">void</span>) {
 
-  <span style="color: #008700;">char</span> <span style="color: #af8700;">s1</span>[256];
-  <span style="color: #008700;">char</span> <span style="color: #af8700;">s2</span>[256];
-  <span style="color: #008700;">int</span> <span style="color: #af8700;">i1</span> = 12;
-  <span style="color: #008700;">double</span> <span style="color: #af8700;">d1</span> = 3.141;
+  <span style="color: #008700;">char</span> <span style="color: #af5f00;">s1</span>[256];
+  <span style="color: #008700;">char</span> <span style="color: #af5f00;">s2</span>[256];
+  <span style="color: #008700;">int</span> <span style="color: #af5f00;">i1</span> = 12;
+  <span style="color: #008700;">double</span> <span style="color: #af5f00;">d1</span> = 3.141;
 
-  sprintf(s1, <span style="color: #af8787;">"%d"</span>, i1);
-  sprintf(s2, <span style="color: #af8787;">"%.3f"</span>, d1);
+  sprintf(s1, <span style="color: #87005f;">"%d"</span>, i1);
+  sprintf(s2, <span style="color: #87005f;">"%.3f"</span>, d1);
 
-  printf(<span style="color: #af8787;">"s1 = %s\n"</span>, s1);
-  printf(<span style="color: #af8787;">"s2 = %s\n"</span>, s2);
+  printf(<span style="color: #87005f;">"s1 = %s\n"</span>, s1);
+  printf(<span style="color: #87005f;">"s2 = %s\n"</span>, s2);
 
   <span style="color: #af00ff;">return</span> 0;
 }
@@ -483,26 +507,26 @@ conversion, and then for a floating-point conversion:
 
 
 
-<pre class="src src-c"><span style="color: #d75fd7;">#include</span> <span style="color: #af8787;">&lt;stdio.h&gt;</span>
-<span style="color: #d75fd7;">#include</span> <span style="color: #af8787;">&lt;stdlib.h&gt;</span>
-<span style="color: #d75fd7;">#include</span> <span style="color: #af8787;">&lt;string.h&gt;</span>
+<pre class="src src-c"><span style="color: #5f5f87;">#include</span> <span style="color: #87005f;">&lt;stdio.h&gt;</span>
+<span style="color: #5f5f87;">#include</span> <span style="color: #87005f;">&lt;stdlib.h&gt;</span>
+<span style="color: #5f5f87;">#include</span> <span style="color: #87005f;">&lt;string.h&gt;</span>
 
-<span style="color: #008700;">int</span> <span style="color: #0000ee;">main</span>(<span style="color: #008700;">void</span>) {
+<span style="color: #008700;">int</span> <span style="color: #0000ff;">main</span>(<span style="color: #008700;">void</span>) {
 
-  <span style="color: #008700;">int</span> <span style="color: #af8700;">size</span>;
+  <span style="color: #008700;">int</span> <span style="color: #af5f00;">size</span>;
 
-  <span style="color: #008700;">int</span> <span style="color: #af8700;">x</span> = 8765309;
-  size = snprintf(<span style="color: #5fafaf;">NULL</span>, 0, <span style="color: #af8787;">"%d"</span>, x);
-  <span style="color: #008700;">char</span> *<span style="color: #af8700;">xc</span> = malloc(size + 1);
-  sprintf(xc, <span style="color: #af8787;">"%d"</span>, x);
+  <span style="color: #008700;">int</span> <span style="color: #af5f00;">x</span> = 8765309;
+  size = snprintf(<span style="color: #008787;">NULL</span>, 0, <span style="color: #87005f;">"%d"</span>, x);
+  <span style="color: #008700;">char</span> *<span style="color: #af5f00;">xc</span> = malloc(size + 1);
+  sprintf(xc, <span style="color: #87005f;">"%d"</span>, x);
 
-  <span style="color: #008700;">double</span> <span style="color: #af8700;">y</span> = 876.5309;
-  size = snprintf(<span style="color: #5fafaf;">NULL</span>, 0, <span style="color: #af8787;">"%.4f"</span>, y);
-  <span style="color: #008700;">char</span> *<span style="color: #af8700;">yc</span> = malloc(size + 1);
-  sprintf(yc, <span style="color: #af8787;">"%.4f"</span>, y);
+  <span style="color: #008700;">double</span> <span style="color: #af5f00;">y</span> = 876.5309;
+  size = snprintf(<span style="color: #008787;">NULL</span>, 0, <span style="color: #87005f;">"%.4f"</span>, y);
+  <span style="color: #008700;">char</span> *<span style="color: #af5f00;">yc</span> = malloc(size + 1);
+  sprintf(yc, <span style="color: #87005f;">"%.4f"</span>, y);
 
-  printf(<span style="color: #af8787;">"xc = %s\n"</span>, xc);
-  printf(<span style="color: #af8787;">"yc = %s\n"</span>, yc);
+  printf(<span style="color: #87005f;">"xc = %s\n"</span>, xc);
+  printf(<span style="color: #87005f;">"yc = %s\n"</span>, yc);
 
   free(xc);
   free(yc);
@@ -561,17 +585,17 @@ an example:
 
 
 
-<pre class="src src-c"><span style="color: #d75fd7;">#include</span> <span style="color: #af8787;">&lt;stdio.h&gt;</span>
+<pre class="src src-c"><span style="color: #5f5f87;">#include</span> <span style="color: #87005f;">&lt;stdio.h&gt;</span>
 
-<span style="color: #008700;">int</span> <span style="color: #0000ee;">main</span>(<span style="color: #008700;">int</span> <span style="color: #af8700;">argc</span>, <span style="color: #008700;">char</span> *<span style="color: #af8700;">argv</span>[])
+<span style="color: #008700;">int</span> <span style="color: #0000ff;">main</span>(<span style="color: #008700;">int</span> <span style="color: #af5f00;">argc</span>, <span style="color: #008700;">char</span> *<span style="color: #af5f00;">argv</span>[])
 {
-  <span style="color: #008700;">char</span> *<span style="color: #af8700;">provinces</span>[] = { <span style="color: #af8787;">"British Columbia"</span>, <span style="color: #af8787;">"Alberta"</span>, <span style="color: #af8787;">"Saskatchewan"</span>, 
-                        <span style="color: #af8787;">"Manitoba"</span>, <span style="color: #af8787;">"Ontario"</span>, <span style="color: #af8787;">"Quebec"</span>, <span style="color: #af8787;">"New Brunswick"</span>,
-                        <span style="color: #af8787;">"Nova Scotia"</span>, <span style="color: #af8787;">"Prince Edward Island"</span>, <span style="color: #af8787;">"Newfoundland"</span>,
-                        <span style="color: #af8787;">"Yukon"</span>, <span style="color: #af8787;">"Northwest Territories"</span>, <span style="color: #af8787;">"Nunavut"</span> };
-  <span style="color: #008700;">int</span> <span style="color: #af8700;">i</span>;
+  <span style="color: #008700;">char</span> *<span style="color: #af5f00;">provinces</span>[] = { <span style="color: #87005f;">"British Columbia"</span>, <span style="color: #87005f;">"Alberta"</span>, <span style="color: #87005f;">"Saskatchewan"</span>, 
+                        <span style="color: #87005f;">"Manitoba"</span>, <span style="color: #87005f;">"Ontario"</span>, <span style="color: #87005f;">"Quebec"</span>, <span style="color: #87005f;">"New Brunswick"</span>,
+                        <span style="color: #87005f;">"Nova Scotia"</span>, <span style="color: #87005f;">"Prince Edward Island"</span>, <span style="color: #87005f;">"Newfoundland"</span>,
+                        <span style="color: #87005f;">"Yukon"</span>, <span style="color: #87005f;">"Northwest Territories"</span>, <span style="color: #87005f;">"Nunavut"</span> };
+  <span style="color: #008700;">int</span> <span style="color: #af5f00;">i</span>;
   <span style="color: #af00ff;">for</span> (i=0; i&lt;13; i++) {
-    printf(<span style="color: #af8787;">"provinces[%d] = %s\n"</span>, <span style="color: #008700;">i</span> <span style="color: #af8700;">provinces</span>[i]);
+    printf(<span style="color: #87005f;">"provinces[%d] = %s\n"</span>, <span style="color: #008700;">i</span> <span style="color: #af5f00;">provinces</span>[i]);
   }
   <span style="color: #af00ff;">return</span> 0;
 }
@@ -631,12 +655,12 @@ provinces[12] = Nunavut
 
 
 
-<pre class="src src-c"><span style="color: #d75fd7;">#include</span> <span style="color: #af8787;">&lt;stdio.h&gt;</span>
+<pre class="src src-c"><span style="color: #5f5f87;">#include</span> <span style="color: #87005f;">&lt;stdio.h&gt;</span>
 
-<span style="color: #008700;">int</span> <span style="color: #0000ee;">main</span>(<span style="color: #008700;">int</span> <span style="color: #af8700;">argc</span>, <span style="color: #008700;">char</span> *<span style="color: #af8700;">argv</span>[])
+<span style="color: #008700;">int</span> <span style="color: #0000ff;">main</span>(<span style="color: #008700;">int</span> <span style="color: #af5f00;">argc</span>, <span style="color: #008700;">char</span> *<span style="color: #af5f00;">argv</span>[])
 {
-  <span style="color: #008700;">char</span> <span style="color: #af8700;">c</span> = <span style="color: #af8787;">'a'</span>;
-  printf(<span style="color: #af8787;">"%c - 32 = %c\n"</span>, c, c-32);
+  <span style="color: #008700;">char</span> <span style="color: #af5f00;">c</span> = <span style="color: #87005f;">'a'</span>;
+  printf(<span style="color: #87005f;">"%c - 32 = %c\n"</span>, c, c-32);
   <span style="color: #af00ff;">return</span> 0;
 }
 </pre>

@@ -61,6 +61,30 @@
   /*]]>*/-->
 </style><link rel="stylesheet" type="text/css" href="mystyle.css" />
 <script type="text/javascript">
+/*
+@licstart  The following is the entire license notice for the
+JavaScript code in this tag.
+
+Copyright (C) 2012  Free Software Foundation, Inc.
+
+The JavaScript code in this tag is free software: you can
+redistribute it and/or modify it under the terms of the GNU
+General Public License (GNU GPL) as published by the Free Software
+Foundation, either version 3 of the License, or (at your option)
+any later version.  The code is distributed WITHOUT ANY WARRANTY;
+without even the implied warranty of MERCHANTABILITY or FITNESS
+FOR A PARTICULAR PURPOSE.  See the GNU GPL for more details.
+
+As additional permission under GNU GPL version 3 section 7, you
+may distribute non-source (e.g., minimized or compacted) forms of
+that code without the copy of the GNU GPL normally required by
+section 4, provided you include this license notice and a URL
+through which recipients can access the Corresponding Source.
+
+
+@licend  The above is the entire license notice
+for the JavaScript code in this tag.
+*/
 <!--/*--><![CDATA[/*><!--*/
  function CodeHighlightOn(elem, id)
  {
@@ -83,6 +107,56 @@
 /*]]>*///-->
 </script>
 <script type="text/javascript" src="http://orgmode.org/mathjax/MathJax.js">
+/**
+ *
+ * @source: http://orgmode.org/mathjax/MathJax.js
+ *
+ * @licstart  The following is the entire license notice for the
+ *  JavaScript code in http://orgmode.org/mathjax/MathJax.js.
+ *
+ * Copyright (C) 2012  MathJax
+ *
+ * Licensed under the Apache License, Version 2.0 (the "License");
+ * you may not use this file except in compliance with the License.
+ * You may obtain a copy of the License at
+ *
+ *     http://www.apache.org/licenses/LICENSE-2.0
+ *
+ * Unless required by applicable law or agreed to in writing, software
+ * distributed under the License is distributed on an "AS IS" BASIS,
+ * WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied.
+ * See the License for the specific language governing permissions and
+ * limitations under the License.
+ *
+ * @licend  The above is the entire license notice
+ * for the JavaScript code in http://orgmode.org/mathjax/MathJax.js.
+ *
+ */
+
+/*
+@licstart  The following is the entire license notice for the
+JavaScript code below.
+
+Copyright (C) 2012  Free Software Foundation, Inc.
+
+The JavaScript code below is free software: you can
+redistribute it and/or modify it under the terms of the GNU
+General Public License (GNU GPL) as published by the Free Software
+Foundation, either version 3 of the License, or (at your option)
+any later version.  The code is distributed WITHOUT ANY WARRANTY;
+without even the implied warranty of MERCHANTABILITY or FITNESS
+FOR A PARTICULAR PURPOSE.  See the GNU GPL for more details.
+
+As additional permission under GNU GPL version 3 section 7, you
+may distribute non-source (e.g., minimized or compacted) forms of
+that code without the copy of the GNU GPL normally required by
+section 4, provided you include this license notice and a URL
+through which recipients can access the Corresponding Source.
+
+
+@licend  The above is the entire license notice
+for the JavaScript code below.
+*/
 <!--/*--><![CDATA[/*><!--*/
     MathJax.Hub.Config({
         // Only one of the two following lines, depending on user settings
@@ -228,7 +302,6 @@ Here is a list of <b>reserved keywords</b> in C that cannot be used as
 variable names:
 </p>
 <table border="2" cellspacing="0" cellpadding="6" rules="groups" frame="hsides">
-<caption></caption>
 <colgroup><col class="left" /><col class="left" /><col class="left" /><col class="left" /><col class="left" />
 </colgroup>
 <tbody>
@@ -260,7 +333,6 @@ There are four basic data types in C, their meaning, and their size
 (on my MacBook Pro 15-inch, Mid 2010):
 </p>
 <table border="2" cellspacing="0" cellpadding="6" rules="groups" frame="hsides">
-<caption></caption>
 <colgroup><col class="left" /><col class="left" /><col class="left" /><col class="left" />
 </colgroup>
 <thead>
@@ -288,7 +360,6 @@ There are also qualifiers <code>short</code>, <code>long</code>, <code>signed</c
 that can be applied to these basic types.
 </p>
 <table border="2" cellspacing="0" cellpadding="6" rules="groups" frame="hsides">
-<caption></caption>
 <colgroup><col class="left" /><col class="left" /><col class="left" />
 </colgroup>
 <thead>
@@ -340,16 +411,16 @@ it to a file called <a href="my_types.c"><code>my_types.c</code></a>
 
 
 
-<pre class="src src-c"><span style="color: #d75fd7;">#include</span> <span style="color: #af8787;">&lt;stdio.h&gt;</span>
+<pre class="src src-c"><span style="color: #5f5f87;">#include</span> <span style="color: #87005f;">&lt;stdio.h&gt;</span>
 
-<span style="color: #008700;">int</span> <span style="color: #0000ee;">main</span>(<span style="color: #008700;">int</span> <span style="color: #af8700;">argc</span>, <span style="color: #008700;">char</span> *<span style="color: #af8700;">argv</span>[]) {
-        printf(<span style="color: #af8787;">"a char is %ld bytes\n"</span>, <span style="color: #af00ff;">sizeof</span>(<span style="color: #008700;">char</span>));
-        printf(<span style="color: #af8787;">"an int is %ld bytes\n"</span>, <span style="color: #af00ff;">sizeof</span>(<span style="color: #008700;">int</span>));
-        printf(<span style="color: #af8787;">"an float is %ld bytes\n"</span>, <span style="color: #af00ff;">sizeof</span>(<span style="color: #008700;">float</span>));
-        printf(<span style="color: #af8787;">"a double is %ld bytes\n"</span>, <span style="color: #af00ff;">sizeof</span>(<span style="color: #008700;">double</span>));
-        printf(<span style="color: #af8787;">"a short int is %ld bytes\n"</span>, <span style="color: #af00ff;">sizeof</span>(<span style="color: #008700;">short</span> <span style="color: #008700;">int</span>));
-        printf(<span style="color: #af8787;">"a long int is %ld bytes\n"</span>, <span style="color: #af00ff;">sizeof</span>(<span style="color: #008700;">long</span> <span style="color: #008700;">int</span>));
-        printf(<span style="color: #af8787;">"a long double is %ld bytes\n"</span>, <span style="color: #af00ff;">sizeof</span>(<span style="color: #008700;">long</span> <span style="color: #008700;">double</span>));
+<span style="color: #008700;">int</span> <span style="color: #0000ff;">main</span>(<span style="color: #008700;">int</span> <span style="color: #af5f00;">argc</span>, <span style="color: #008700;">char</span> *<span style="color: #af5f00;">argv</span>[]) {
+        printf(<span style="color: #87005f;">"a char is %ld bytes\n"</span>, <span style="color: #af00ff;">sizeof</span>(<span style="color: #008700;">char</span>));
+        printf(<span style="color: #87005f;">"an int is %ld bytes\n"</span>, <span style="color: #af00ff;">sizeof</span>(<span style="color: #008700;">int</span>));
+        printf(<span style="color: #87005f;">"an float is %ld bytes\n"</span>, <span style="color: #af00ff;">sizeof</span>(<span style="color: #008700;">float</span>));
+        printf(<span style="color: #87005f;">"a double is %ld bytes\n"</span>, <span style="color: #af00ff;">sizeof</span>(<span style="color: #008700;">double</span>));
+        printf(<span style="color: #87005f;">"a short int is %ld bytes\n"</span>, <span style="color: #af00ff;">sizeof</span>(<span style="color: #008700;">short</span> <span style="color: #008700;">int</span>));
+        printf(<span style="color: #87005f;">"a long int is %ld bytes\n"</span>, <span style="color: #af00ff;">sizeof</span>(<span style="color: #008700;">long</span> <span style="color: #008700;">int</span>));
+        printf(<span style="color: #87005f;">"a long double is %ld bytes\n"</span>, <span style="color: #af00ff;">sizeof</span>(<span style="color: #008700;">long</span> <span style="color: #008700;">double</span>));
         <span style="color: #af00ff;">return</span> 0;
 }
 </pre>
@@ -416,9 +487,9 @@ numeric constants:
 
 
 
-<pre class="src src-c"><span style="color: #008700;">int</span> <span style="color: #af8700;">year</span> = 1984;       <span style="color: #af0000;">// </span><span style="color: #af0000;">integer constant 1984</span>
-<span style="color: #008700;">int</span> <span style="color: #af8700;">octalYear</span> = 03700; <span style="color: #af0000;">// </span><span style="color: #af0000;">1984 in octal</span>
-<span style="color: #008700;">int</span> <span style="color: #af8700;">hexYear</span> = 0x7c0;   <span style="color: #af0000;">// </span><span style="color: #af0000;">1984 in hexadecimal</span>
+<pre class="src src-c"><span style="color: #008700;">int</span> <span style="color: #af5f00;">year</span> = 1984;       <span style="color: #af0000;">// </span><span style="color: #af0000;">integer constant 1984</span>
+<span style="color: #008700;">int</span> <span style="color: #af5f00;">octalYear</span> = 03700; <span style="color: #af0000;">// </span><span style="color: #af0000;">1984 in octal</span>
+<span style="color: #008700;">int</span> <span style="color: #af5f00;">hexYear</span> = 0x7c0;   <span style="color: #af0000;">// </span><span style="color: #af0000;">1984 in hexadecimal</span>
 </pre>
 
 
@@ -430,14 +501,14 @@ representations. Type it into your source code editor, and save it as
 
 
 
-<pre class="src src-c"><span style="color: #d75fd7;">#include</span> <span style="color: #af8787;">&lt;stdio.h&gt;</span>
+<pre class="src src-c"><span style="color: #5f5f87;">#include</span> <span style="color: #87005f;">&lt;stdio.h&gt;</span>
 
-<span style="color: #008700;">int</span> <span style="color: #0000ee;">main</span>() {
-  printf(<span style="color: #af8787;">"1984 in decimal is %d\n"</span>, 1984);
-  printf(<span style="color: #af8787;">"1984 in octal is 0%o\n"</span>, 1984);
-  printf(<span style="color: #af8787;">"1984 in hexadecimal is 0x%x\n"</span>, 1984);
-  printf(<span style="color: #af8787;">"0123 is octal for %d\n"</span>, 0123);
-  printf(<span style="color: #af8787;">"0x12f is hexadecimal for %d\n"</span>, 0x12f);
+<span style="color: #008700;">int</span> <span style="color: #0000ff;">main</span>() {
+  printf(<span style="color: #87005f;">"1984 in decimal is %d\n"</span>, 1984);
+  printf(<span style="color: #87005f;">"1984 in octal is 0%o\n"</span>, 1984);
+  printf(<span style="color: #87005f;">"1984 in hexadecimal is 0x%x\n"</span>, 1984);
+  printf(<span style="color: #87005f;">"0123 is octal for %d\n"</span>, 0123);
+  printf(<span style="color: #87005f;">"0x12f is hexadecimal for %d\n"</span>, 0x12f);
   <span style="color: #af00ff;">return</span> 0;
 }
 </pre>
@@ -516,8 +587,8 @@ months of the year like this:
 
 
 
-<pre class="src src-c"><span style="color: #af00ff;">enum</span> <span style="color: #008700;">months</span> { <span style="color: #af8700;">JAN</span>=1, <span style="color: #af8700;">FEB</span>, <span style="color: #af8700;">MAR</span>, <span style="color: #af8700;">APR</span>, <span style="color: #af8700;">MAY</span>, <span style="color: #af8700;">JUN</span>,
-              <span style="color: #af8700;">JUL</span>, <span style="color: #af8700;">AUG</span>, <span style="color: #af8700;">SEP</span>, <span style="color: #af8700;">OCT</span>, <span style="color: #af8700;">NOV</span>, <span style="color: #af8700;">DEC</span> };
+<pre class="src src-c"><span style="color: #af00ff;">enum</span> <span style="color: #008700;">months</span> { <span style="color: #af5f00;">JAN</span>=1, <span style="color: #af5f00;">FEB</span>, <span style="color: #af5f00;">MAR</span>, <span style="color: #af5f00;">APR</span>, <span style="color: #af5f00;">MAY</span>, <span style="color: #af5f00;">JUN</span>,
+              <span style="color: #af5f00;">JUL</span>, <span style="color: #af5f00;">AUG</span>, <span style="color: #af5f00;">SEP</span>, <span style="color: #af5f00;">OCT</span>, <span style="color: #af5f00;">NOV</span>, <span style="color: #af5f00;">DEC</span> };
 </pre>
 
 
@@ -530,10 +601,10 @@ their integer counterparts, for example like this:
 
 
 
-<pre class="src src-c"><span style="color: #008700;">months</span> <span style="color: #af8700;">the_month</span>;
+<pre class="src src-c"><span style="color: #008700;">months</span> <span style="color: #af5f00;">the_month</span>;
 ...
 <span style="color: #af00ff;">if</span> (the_month == JAN) {
-  printf(<span style="color: #af8787;">"it's January\n"</span>);
+  printf(<span style="color: #87005f;">"it's January\n"</span>);
 }
 </pre>
 
@@ -554,8 +625,8 @@ on them&hellip; so for example you could do something clever like:
 
 
 <pre class="src src-c"><span style="color: #af00ff;">if</span> ((the_month &gt; APR) &amp;&amp; (the_month &lt; SEP)) {
-  printf(<span style="color: #cd0000; font-weight: bold;">"</span><span style="color: #af8787;">it's summer!\");</span>
-<span style="color: #af8787;">}</span>
+  printf(<span style="color: #ff0000; font-weight: bold;">"</span><span style="color: #87005f;">it's summer!\");</span>
+<span style="color: #87005f;">}</span>
 </pre>
 
 
@@ -601,14 +672,14 @@ variable like this:
 
 
 
-<pre class="src src-c"><span style="color: #d75fd7;">#include</span> <span style="color: #af8787;">&lt;stdio.h&gt;</span>
+<pre class="src src-c"><span style="color: #5f5f87;">#include</span> <span style="color: #87005f;">&lt;stdio.h&gt;</span>
 
-<span style="color: #008700;">int</span> <span style="color: #0000ee;">main</span>() {
-        <span style="color: #008700;">double</span> <span style="color: #af8700;">a</span> = 123.456;
-        <span style="color: #008700;">double</span> <span style="color: #af8700;">b</span> = 50.2;
-        <span style="color: #008700;">double</span> <span style="color: #af8700;">c</span> = 100.0;
-        <span style="color: #008700;">double</span> <span style="color: #af8700;">d</span>[] = {a, b, c};
-        printf(<span style="color: #af8787;">"a=%.3f, b=%.3f, c=%.3f, d=[%.3f, %.3f, %.3f]\n"</span>, 
+<span style="color: #008700;">int</span> <span style="color: #0000ff;">main</span>() {
+        <span style="color: #008700;">double</span> <span style="color: #af5f00;">a</span> = 123.456;
+        <span style="color: #008700;">double</span> <span style="color: #af5f00;">b</span> = 50.2;
+        <span style="color: #008700;">double</span> <span style="color: #af5f00;">c</span> = 100.0;
+        <span style="color: #008700;">double</span> <span style="color: #af5f00;">d</span>[] = {a, b, c};
+        printf(<span style="color: #87005f;">"a=%.3f, b=%.3f, c=%.3f, d=[%.3f, %.3f, %.3f]\n"</span>, 
                 a, b, c, d[0], d[1], d[2]);
         <span style="color: #af00ff;">return</span> 0;
 }
@@ -663,7 +734,7 @@ arithmetic expressions. So instead of writing:
 
 
 
-<pre class="src src-c"><span style="color: #008700;">double</span> <span style="color: #af8700;">q</span> = a*x*x+b*x+c;
+<pre class="src src-c"><span style="color: #008700;">double</span> <span style="color: #af5f00;">q</span> = a*x*x+b*x+c;
 </pre>
 
 
@@ -682,7 +753,7 @@ I would rather code it like this:
 
 
 
-<pre class="src src-c"><span style="color: #008700;">double</span> <span style="color: #af8700;">q</span> = (a*x*x) + (b*x) + c;
+<pre class="src src-c"><span style="color: #008700;">double</span> <span style="color: #af5f00;">q</span> = (a*x*x) + (b*x) + c;
 </pre>
 
 
@@ -694,14 +765,14 @@ code?
 
 
 
-<pre class="src src-c"><span style="color: #d75fd7;">#include</span> <span style="color: #af8787;">&lt;stdio.h&gt;</span>
-<span style="color: #008700;">int</span> <span style="color: #0000ee;">main</span>() {
-  <span style="color: #008700;">int</span> <span style="color: #af8700;">a</span>=100, <span style="color: #af8700;">b</span>=2, <span style="color: #af8700;">c</span>=25, <span style="color: #af8700;">d</span>=4;
-  <span style="color: #008700;">int</span> <span style="color: #af8700;">result1</span>, <span style="color: #af8700;">result2</span>, <span style="color: #af8700;">result3</span>;
+<pre class="src src-c"><span style="color: #5f5f87;">#include</span> <span style="color: #87005f;">&lt;stdio.h&gt;</span>
+<span style="color: #008700;">int</span> <span style="color: #0000ff;">main</span>() {
+  <span style="color: #008700;">int</span> <span style="color: #af5f00;">a</span>=100, <span style="color: #af5f00;">b</span>=2, <span style="color: #af5f00;">c</span>=25, <span style="color: #af5f00;">d</span>=4;
+  <span style="color: #008700;">int</span> <span style="color: #af5f00;">result1</span>, <span style="color: #af5f00;">result2</span>, <span style="color: #af5f00;">result3</span>;
   result1 = a * b + c * d;
   result2 = (a * b) + (c * d);
   result3 = a * (b + c) * d;
-  printf(<span style="color: #af8787;">"result1=%d, result2=%d, result3=%d\n"</span>,
+  printf(<span style="color: #87005f;">"result1=%d, result2=%d, result3=%d\n"</span>,
          result1, result2, result3);
   <span style="color: #af00ff;">return</span> 0;
 }
@@ -776,19 +847,19 @@ operands. For example in the following code snippet, we increment the
 
 
 
-<pre class="src src-c"><span style="color: #d75fd7;">#include</span> <span style="color: #af8787;">&lt;stdio.h&gt;</span>
+<pre class="src src-c"><span style="color: #5f5f87;">#include</span> <span style="color: #87005f;">&lt;stdio.h&gt;</span>
 
-<span style="color: #008700;">int</span> <span style="color: #0000ee;">main</span>(<span style="color: #008700;">int</span> <span style="color: #af8700;">argc</span>, <span style="color: #008700;">char</span> *<span style="color: #af8700;">argv</span>[]) {
+<span style="color: #008700;">int</span> <span style="color: #0000ff;">main</span>(<span style="color: #008700;">int</span> <span style="color: #af5f00;">argc</span>, <span style="color: #008700;">char</span> *<span style="color: #af5f00;">argv</span>[]) {
 
-        <span style="color: #008700;">int</span> <span style="color: #af8700;">a</span> = 0;
-        <span style="color: #008700;">int</span> <span style="color: #af8700;">b</span> = 0;
+        <span style="color: #008700;">int</span> <span style="color: #af5f00;">a</span> = 0;
+        <span style="color: #008700;">int</span> <span style="color: #af5f00;">b</span> = 0;
 
-        printf(<span style="color: #af8787;">"a=%d, b=%d\n"</span>, a, b);
+        printf(<span style="color: #87005f;">"a=%d, b=%d\n"</span>, a, b);
 
         a++;
         b--;
 
-        printf(<span style="color: #af8787;">"a=%d, b=%d\n"</span>, a, b);
+        printf(<span style="color: #87005f;">"a=%d, b=%d\n"</span>, a, b);
 
         <span style="color: #af00ff;">return</span> 0;
 }
@@ -814,23 +885,23 @@ value has been used. Here is a concrete example:
 
 
 
-<pre class="src src-c"><span style="color: #d75fd7;">#include</span> <span style="color: #af8787;">&lt;stdio.h&gt;</span>
+<pre class="src src-c"><span style="color: #5f5f87;">#include</span> <span style="color: #87005f;">&lt;stdio.h&gt;</span>
 
-<span style="color: #008700;">int</span> <span style="color: #0000ee;">main</span>(<span style="color: #008700;">int</span> <span style="color: #af8700;">argc</span>, <span style="color: #008700;">char</span> *<span style="color: #af8700;">argv</span>[]) {
+<span style="color: #008700;">int</span> <span style="color: #0000ff;">main</span>(<span style="color: #008700;">int</span> <span style="color: #af5f00;">argc</span>, <span style="color: #008700;">char</span> *<span style="color: #af5f00;">argv</span>[]) {
 
-        <span style="color: #008700;">int</span> <span style="color: #af8700;">n</span>, <span style="color: #af8700;">x</span>;
+        <span style="color: #008700;">int</span> <span style="color: #af5f00;">n</span>, <span style="color: #af5f00;">x</span>;
 
         n = 3;
         x = 0;
-        printf(<span style="color: #af8787;">"n=%d, x=%d\n"</span>, n, x);
+        printf(<span style="color: #87005f;">"n=%d, x=%d\n"</span>, n, x);
         x = n++;
-        printf(<span style="color: #af8787;">"n=%d, x=%d\n\n"</span>, n, x);
+        printf(<span style="color: #87005f;">"n=%d, x=%d\n\n"</span>, n, x);
 
         n = 3;
         x = 0;
-        printf(<span style="color: #af8787;">"n=%d, x=%d\n"</span>, n, x);
+        printf(<span style="color: #87005f;">"n=%d, x=%d\n"</span>, n, x);
         x = ++n;
-        printf(<span style="color: #af8787;">"n=%d, x=%d\n"</span>, n, x);
+        printf(<span style="color: #87005f;">"n=%d, x=%d\n"</span>, n, x);
 
         <span style="color: #af00ff;">return</span> 0;
 }
@@ -860,7 +931,7 @@ by 1, I just write it out explicitly:
 
 
 
-<pre class="src src-c"><span style="color: #008700;">int</span> <span style="color: #af8700;">x</span>;
+<pre class="src src-c"><span style="color: #008700;">int</span> <span style="color: #af5f00;">x</span>;
 x = x + 1;
 </pre>
 
@@ -912,15 +983,15 @@ these effects:
 
 
 
-<pre class="src src-c"><span style="color: #d75fd7;">#include</span> <span style="color: #af8787;">&lt;stdio.h&gt;</span>
-<span style="color: #008700;">int</span> <span style="color: #0000ee;">main</span>() {
-        <span style="color: #008700;">int</span> <span style="color: #af8700;">a</span> = 2;
-        <span style="color: #008700;">double</span> <span style="color: #af8700;">b</span> = 3.5;
-        <span style="color: #008700;">double</span> <span style="color: #af8700;">c</span> = a * b;
-        <span style="color: #008700;">double</span> <span style="color: #af8700;">d</span> = a / b;
-        <span style="color: #008700;">int</span> <span style="color: #af8700;">e</span> = a * b;
-        <span style="color: #008700;">int</span> <span style="color: #af8700;">f</span> = a / b;
-        printf(<span style="color: #af8787;">"a=%d, b=%.3f, c=%.3f, d=%.3f, e=%d, f=%d\n"</span>,
+<pre class="src src-c"><span style="color: #5f5f87;">#include</span> <span style="color: #87005f;">&lt;stdio.h&gt;</span>
+<span style="color: #008700;">int</span> <span style="color: #0000ff;">main</span>() {
+        <span style="color: #008700;">int</span> <span style="color: #af5f00;">a</span> = 2;
+        <span style="color: #008700;">double</span> <span style="color: #af5f00;">b</span> = 3.5;
+        <span style="color: #008700;">double</span> <span style="color: #af5f00;">c</span> = a * b;
+        <span style="color: #008700;">double</span> <span style="color: #af5f00;">d</span> = a / b;
+        <span style="color: #008700;">int</span> <span style="color: #af5f00;">e</span> = a * b;
+        <span style="color: #008700;">int</span> <span style="color: #af5f00;">f</span> = a / b;
+        printf(<span style="color: #87005f;">"a=%d, b=%.3f, c=%.3f, d=%.3f, e=%d, f=%d\n"</span>,
                 a, b, c, d, e, f);
         <span style="color: #af00ff;">return</span> 0;
 }
@@ -953,13 +1024,13 @@ expression to be coerced. Look at the following example code:
 
 
 
-<pre class="src src-c"><span style="color: #d75fd7;">#include</span> <span style="color: #af8787;">&lt;stdio.h&gt;</span>
-<span style="color: #d75fd7;">#include</span> <span style="color: #af8787;">&lt;stdio.h&gt;</span>
-<span style="color: #008700;">int</span> <span style="color: #0000ee;">main</span>() {
-        <span style="color: #008700;">int</span> <span style="color: #af8700;">a</span> = 2;
-        <span style="color: #008700;">int</span> <span style="color: #af8700;">b</span> = 3;
-        printf(<span style="color: #af8787;">"a / b = %.3f\n"</span>, a/b);
-        printf(<span style="color: #af8787;">"a / b = %.3f\n"</span>, (<span style="color: #008700;">double</span>) a/b);
+<pre class="src src-c"><span style="color: #5f5f87;">#include</span> <span style="color: #87005f;">&lt;stdio.h&gt;</span>
+<span style="color: #5f5f87;">#include</span> <span style="color: #87005f;">&lt;stdio.h&gt;</span>
+<span style="color: #008700;">int</span> <span style="color: #0000ff;">main</span>() {
+        <span style="color: #008700;">int</span> <span style="color: #af5f00;">a</span> = 2;
+        <span style="color: #008700;">int</span> <span style="color: #af5f00;">b</span> = 3;
+        printf(<span style="color: #87005f;">"a / b = %.3f\n"</span>, a/b);
+        printf(<span style="color: #87005f;">"a / b = %.3f\n"</span>, (<span style="color: #008700;">double</span>) a/b);
         <span style="color: #af00ff;">return</span> 0;
 }
 </pre>
@@ -994,24 +1065,24 @@ strings to numerics, and vice-versa:
 
 
 
-<pre class="src src-c"><span style="color: #d75fd7;">#include</span> <span style="color: #af8787;">&lt;stdio.h&gt;</span>
-<span style="color: #d75fd7;">#include</span> <span style="color: #af8787;">&lt;stdlib.h&gt;</span>
+<pre class="src src-c"><span style="color: #5f5f87;">#include</span> <span style="color: #87005f;">&lt;stdio.h&gt;</span>
+<span style="color: #5f5f87;">#include</span> <span style="color: #87005f;">&lt;stdlib.h&gt;</span>
 
-<span style="color: #008700;">int</span> <span style="color: #0000ee;">main</span>() {
-        <span style="color: #008700;">char</span> <span style="color: #af8700;">intString</span>[] = <span style="color: #af8787;">"1234"</span>;
-        <span style="color: #008700;">char</span> <span style="color: #af8700;">floatString</span>[] = <span style="color: #af8787;">"328.4"</span>;
-        <span style="color: #008700;">int</span> <span style="color: #af8700;">myInt</span> = atoi(intString);
-        <span style="color: #008700;">double</span> <span style="color: #af8700;">myDouble</span> = atof(floatString);
-        printf(<span style="color: #af8787;">"intString=%s, floatString=%s\n"</span>, intString, floatString);
-        printf(<span style="color: #af8787;">"myInt=%d, myDouble=%.1f\n\n"</span>, myInt, myDouble);
+<span style="color: #008700;">int</span> <span style="color: #0000ff;">main</span>() {
+        <span style="color: #008700;">char</span> <span style="color: #af5f00;">intString</span>[] = <span style="color: #87005f;">"1234"</span>;
+        <span style="color: #008700;">char</span> <span style="color: #af5f00;">floatString</span>[] = <span style="color: #87005f;">"328.4"</span>;
+        <span style="color: #008700;">int</span> <span style="color: #af5f00;">myInt</span> = atoi(intString);
+        <span style="color: #008700;">double</span> <span style="color: #af5f00;">myDouble</span> = atof(floatString);
+        printf(<span style="color: #87005f;">"intString=%s, floatString=%s\n"</span>, intString, floatString);
+        printf(<span style="color: #87005f;">"myInt=%d, myDouble=%.1f\n\n"</span>, myInt, myDouble);
 
-        <span style="color: #008700;">int</span> <span style="color: #af8700;">a</span> = 2;
-        <span style="color: #008700;">double</span> <span style="color: #af8700;">b</span> = 3.14;
-        <span style="color: #008700;">char</span> <span style="color: #af8700;">myString1</span>[64], <span style="color: #af8700;">myString2</span>[64];
-        sprintf(myString1, <span style="color: #af8787;">"%d"</span>, a);
-        sprintf(myString2, <span style="color: #af8787;">"%.2f"</span>, b);
-        printf(<span style="color: #af8787;">"a=%d, b=%.2f\n"</span>, a, b);
-        printf(<span style="color: #af8787;">"myString1=%s, myString2=%s"</span>, myString1, myString2);
+        <span style="color: #008700;">int</span> <span style="color: #af5f00;">a</span> = 2;
+        <span style="color: #008700;">double</span> <span style="color: #af5f00;">b</span> = 3.14;
+        <span style="color: #008700;">char</span> <span style="color: #af5f00;">myString1</span>[64], <span style="color: #af5f00;">myString2</span>[64];
+        sprintf(myString1, <span style="color: #87005f;">"%d"</span>, a);
+        sprintf(myString2, <span style="color: #87005f;">"%.2f"</span>, b);
+        printf(<span style="color: #87005f;">"a=%d, b=%.2f\n"</span>, a, b);
+        printf(<span style="color: #87005f;">"myString1=%s, myString2=%s"</span>, myString1, myString2);
         <span style="color: #af00ff;">return</span> 0;
 }
 </pre>
@@ -1059,7 +1130,7 @@ Now we can declare variables to be of type "Counter":
 
 
 <pre class="src src-c"><span style="color: #af00ff;">typedef</span> <span style="color: #008700;">int</span> <span style="color: #008700;">Counter</span>;
-<span style="color: #008700;">Counter</span> <span style="color: #af8700;">i</span>, <span style="color: #af8700;">j</span>, <span style="color: #af8700;">k</span>;
+<span style="color: #008700;">Counter</span> <span style="color: #af5f00;">i</span>, <span style="color: #af5f00;">j</span>, <span style="color: #af5f00;">k</span>;
 </pre>
 
 

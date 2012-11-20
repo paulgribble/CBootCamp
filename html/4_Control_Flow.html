@@ -61,6 +61,30 @@
   /*]]>*/-->
 </style><link rel="stylesheet" type="text/css" href="mystyle.css" />
 <script type="text/javascript">
+/*
+@licstart  The following is the entire license notice for the
+JavaScript code in this tag.
+
+Copyright (C) 2012  Free Software Foundation, Inc.
+
+The JavaScript code in this tag is free software: you can
+redistribute it and/or modify it under the terms of the GNU
+General Public License (GNU GPL) as published by the Free Software
+Foundation, either version 3 of the License, or (at your option)
+any later version.  The code is distributed WITHOUT ANY WARRANTY;
+without even the implied warranty of MERCHANTABILITY or FITNESS
+FOR A PARTICULAR PURPOSE.  See the GNU GPL for more details.
+
+As additional permission under GNU GPL version 3 section 7, you
+may distribute non-source (e.g., minimized or compacted) forms of
+that code without the copy of the GNU GPL normally required by
+section 4, provided you include this license notice and a URL
+through which recipients can access the Corresponding Source.
+
+
+@licend  The above is the entire license notice
+for the JavaScript code in this tag.
+*/
 <!--/*--><![CDATA[/*><!--*/
  function CodeHighlightOn(elem, id)
  {
@@ -83,6 +107,56 @@
 /*]]>*///-->
 </script>
 <script type="text/javascript" src="http://orgmode.org/mathjax/MathJax.js">
+/**
+ *
+ * @source: http://orgmode.org/mathjax/MathJax.js
+ *
+ * @licstart  The following is the entire license notice for the
+ *  JavaScript code in http://orgmode.org/mathjax/MathJax.js.
+ *
+ * Copyright (C) 2012  MathJax
+ *
+ * Licensed under the Apache License, Version 2.0 (the "License");
+ * you may not use this file except in compliance with the License.
+ * You may obtain a copy of the License at
+ *
+ *     http://www.apache.org/licenses/LICENSE-2.0
+ *
+ * Unless required by applicable law or agreed to in writing, software
+ * distributed under the License is distributed on an "AS IS" BASIS,
+ * WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied.
+ * See the License for the specific language governing permissions and
+ * limitations under the License.
+ *
+ * @licend  The above is the entire license notice
+ * for the JavaScript code in http://orgmode.org/mathjax/MathJax.js.
+ *
+ */
+
+/*
+@licstart  The following is the entire license notice for the
+JavaScript code below.
+
+Copyright (C) 2012  Free Software Foundation, Inc.
+
+The JavaScript code below is free software: you can
+redistribute it and/or modify it under the terms of the GNU
+General Public License (GNU GPL) as published by the Free Software
+Foundation, either version 3 of the License, or (at your option)
+any later version.  The code is distributed WITHOUT ANY WARRANTY;
+without even the implied warranty of MERCHANTABILITY or FITNESS
+FOR A PARTICULAR PURPOSE.  See the GNU GPL for more details.
+
+As additional permission under GNU GPL version 3 section 7, you
+may distribute non-source (e.g., minimized or compacted) forms of
+that code without the copy of the GNU GPL normally required by
+section 4, provided you include this license notice and a URL
+through which recipients can access the Corresponding Source.
+
+
+@licend  The above is the entire license notice
+for the JavaScript code below.
+*/
 <!--/*--><![CDATA[/*><!--*/
     MathJax.Hub.Config({
         // Only one of the two following lines, depending on user settings
@@ -193,7 +267,7 @@ of integers between 1 and 100. We could write code like the following:
 
 
 
-<pre class="src src-c"><span style="color: #008700;">int</span> <span style="color: #af8700;">cumsum</span> = 0;
+<pre class="src src-c"><span style="color: #008700;">int</span> <span style="color: #af5f00;">cumsum</span> = 0;
 cumsum = cumsum + 1;
 cumsum = cumsum + 2;
 cumsum = cumsum + 3;
@@ -246,15 +320,15 @@ loop to implement the cumulative sum as above.
 
 
 
-<pre class="src src-c"><span style="color: #d75fd7;">#include</span> <span style="color: #af8787;">&lt;stdio.h&gt;</span>
+<pre class="src src-c"><span style="color: #5f5f87;">#include</span> <span style="color: #87005f;">&lt;stdio.h&gt;</span>
 
-<span style="color: #008700;">int</span> <span style="color: #0000ee;">main</span>() {
-        <span style="color: #008700;">int</span> <span style="color: #af8700;">cumsum</span> = 0;
-        <span style="color: #008700;">int</span> <span style="color: #af8700;">i</span>;
+<span style="color: #008700;">int</span> <span style="color: #0000ff;">main</span>() {
+        <span style="color: #008700;">int</span> <span style="color: #af5f00;">cumsum</span> = 0;
+        <span style="color: #008700;">int</span> <span style="color: #af5f00;">i</span>;
         <span style="color: #af00ff;">for</span> (i=1; i&lt;=100; i++) {
                 cumsum = cumsum + i;
         }
-        printf(<span style="color: #af8787;">"the cumulative sum up to 100 is %d\n"</span>, cumsum);
+        printf(<span style="color: #87005f;">"the cumulative sum up to 100 is %d\n"</span>, cumsum);
 }
 </pre>
 
@@ -332,14 +406,14 @@ Here is a simple program that demonstrates the use of a while-loop:
 
 
 
-<pre class="src src-c"><span style="color: #d75fd7;">#include</span> <span style="color: #af8787;">&lt;stdio.h&gt;</span>
+<pre class="src src-c"><span style="color: #5f5f87;">#include</span> <span style="color: #87005f;">&lt;stdio.h&gt;</span>
 
-<span style="color: #008700;">int</span> <span style="color: #0000ee;">main</span>() {
-        <span style="color: #008700;">int</span> <span style="color: #af8700;">number</span> = 0;
+<span style="color: #008700;">int</span> <span style="color: #0000ff;">main</span>() {
+        <span style="color: #008700;">int</span> <span style="color: #af5f00;">number</span> = 0;
         <span style="color: #af00ff;">while</span>(number != 999) {
-                printf(<span style="color: #af8787;">"Enter an integer or 999 to stop: "</span>);
-                scanf (<span style="color: #af8787;">"%i"</span>, &amp;number);
-                printf(<span style="color: #af8787;">"%d x 10 = %d\n"</span>, number, number*10);
+                printf(<span style="color: #87005f;">"Enter an integer or 999 to stop: "</span>);
+                scanf (<span style="color: #87005f;">"%i"</span>, &amp;number);
+                printf(<span style="color: #87005f;">"%d x 10 = %d\n"</span>, number, number*10);
         }
 }
 </pre>
@@ -368,14 +442,14 @@ and <code>conditional_expression</code>:
 
 
 
-<pre class="src src-c"><span style="color: #d75fd7;">#include</span> <span style="color: #af8787;">&lt;stdio.h&gt;</span>
+<pre class="src src-c"><span style="color: #5f5f87;">#include</span> <span style="color: #87005f;">&lt;stdio.h&gt;</span>
 
-<span style="color: #008700;">int</span> <span style="color: #0000ee;">main</span>() {
-        <span style="color: #008700;">int</span> <span style="color: #af8700;">number</span> = 0;
+<span style="color: #008700;">int</span> <span style="color: #0000ff;">main</span>() {
+        <span style="color: #008700;">int</span> <span style="color: #af5f00;">number</span> = 0;
         <span style="color: #af00ff;">do</span> {
-                printf(<span style="color: #af8787;">"Enter an integer or 999 to stop: "</span>);
-                scanf (<span style="color: #af8787;">"%i"</span>, &amp;number);
-                printf(<span style="color: #af8787;">"%d x 10 = %d\n"</span>, number, number*10);
+                printf(<span style="color: #87005f;">"Enter an integer or 999 to stop: "</span>);
+                scanf (<span style="color: #87005f;">"%i"</span>, &amp;number);
+                printf(<span style="color: #87005f;">"%d x 10 = %d\n"</span>, number, number*10);
         }
         <span style="color: #af00ff;">while</span> (number != 999);
 }
@@ -435,13 +509,13 @@ between 1 and 10 and prints to the screen the integers that are odd
 
 
 
-<pre class="src src-c"><span style="color: #d75fd7;">#include</span> <span style="color: #af8787;">&lt;stdio.h&gt;</span>
+<pre class="src src-c"><span style="color: #5f5f87;">#include</span> <span style="color: #87005f;">&lt;stdio.h&gt;</span>
 
-<span style="color: #008700;">int</span> <span style="color: #0000ee;">main</span>() {
-  <span style="color: #008700;">int</span> <span style="color: #af8700;">i</span>;
+<span style="color: #008700;">int</span> <span style="color: #0000ff;">main</span>() {
+  <span style="color: #008700;">int</span> <span style="color: #af5f00;">i</span>;
   <span style="color: #af00ff;">for</span> (i=1; i&lt;=10; i++) {
     <span style="color: #af00ff;">if</span> ((i % 2) != 0) {
-      printf(<span style="color: #af8787;">"%d is odd\n"</span>, i);
+      printf(<span style="color: #87005f;">"%d is odd\n"</span>, i);
     }
   }
 }
@@ -473,16 +547,16 @@ block if the value of the <code>conditional_expression</code> is zero:
 
 
 
-<pre class="src src-c"><span style="color: #d75fd7;">#include</span> <span style="color: #af8787;">&lt;stdio.h&gt;</span>
+<pre class="src src-c"><span style="color: #5f5f87;">#include</span> <span style="color: #87005f;">&lt;stdio.h&gt;</span>
 
-<span style="color: #008700;">int</span> <span style="color: #0000ee;">main</span>() {
-  <span style="color: #008700;">int</span> <span style="color: #af8700;">i</span>;
+<span style="color: #008700;">int</span> <span style="color: #0000ff;">main</span>() {
+  <span style="color: #008700;">int</span> <span style="color: #af5f00;">i</span>;
   <span style="color: #af00ff;">for</span> (i=1; i&lt;=10; i++) {
     <span style="color: #af00ff;">if</span> ((i % 2) != 0) {
-      printf(<span style="color: #af8787;">"%d is odd\n"</span>, i);
+      printf(<span style="color: #87005f;">"%d is odd\n"</span>, i);
     }
     <span style="color: #af00ff;">else</span> {
-      printf(<span style="color: #af8787;">"%d is even\n"</span>, i);
+      printf(<span style="color: #87005f;">"%d is even\n"</span>, i);
     }
   }
 }
@@ -521,23 +595,23 @@ the screen whether that integer is positive, negative, or zero:
 
 
 
-<pre class="src src-c"><span style="color: #d75fd7;">#include</span> <span style="color: #af8787;">&lt;stdio.h&gt;</span>
+<pre class="src src-c"><span style="color: #5f5f87;">#include</span> <span style="color: #87005f;">&lt;stdio.h&gt;</span>
 
-<span style="color: #008700;">int</span> <span style="color: #0000ee;">main</span>() {
-        <span style="color: #008700;">int</span> <span style="color: #af8700;">number</span>;
-        printf(<span style="color: #af8787;">"enter an integer: "</span>);
-        scanf (<span style="color: #af8787;">"%i"</span>, &amp;number);
+<span style="color: #008700;">int</span> <span style="color: #0000ff;">main</span>() {
+        <span style="color: #008700;">int</span> <span style="color: #af5f00;">number</span>;
+        printf(<span style="color: #87005f;">"enter an integer: "</span>);
+        scanf (<span style="color: #87005f;">"%i"</span>, &amp;number);
         <span style="color: #af00ff;">if</span> (number &lt; 0) {
-                printf(<span style="color: #af8787;">"the integer %d is negative\n"</span>, number);
+                printf(<span style="color: #87005f;">"the integer %d is negative\n"</span>, number);
         }
         <span style="color: #af00ff;">else</span> <span style="color: #af00ff;">if</span> (number &gt; 0) {
-                printf(<span style="color: #af8787;">"the integer %d is positive\n"</span>, number);
+                printf(<span style="color: #87005f;">"the integer %d is positive\n"</span>, number);
         }
         <span style="color: #af00ff;">else</span> <span style="color: #af00ff;">if</span> (number == 0) {
-                printf(<span style="color: #af8787;">"the integer %d is zero\n"</span>, number);
+                printf(<span style="color: #87005f;">"the integer %d is zero\n"</span>, number);
         }
         <span style="color: #af00ff;">else</span> {
-                printf(<span style="color: #af8787;">"this statement should never be executed!\n"</span>);
+                printf(<span style="color: #87005f;">"this statement should never be executed!\n"</span>);
         }
 }
 </pre>
@@ -577,12 +651,12 @@ give you any additional functionality, it's just a shorthand:
 
 
 
-<pre class="src src-c"><span style="color: #d75fd7;">#include</span> <span style="color: #af8787;">&lt;stdio.h&gt;</span>
+<pre class="src src-c"><span style="color: #5f5f87;">#include</span> <span style="color: #87005f;">&lt;stdio.h&gt;</span>
 
-<span style="color: #008700;">int</span> <span style="color: #0000ee;">main</span>() {
-  <span style="color: #008700;">int</span> <span style="color: #af8700;">i</span>;
+<span style="color: #008700;">int</span> <span style="color: #0000ff;">main</span>() {
+  <span style="color: #008700;">int</span> <span style="color: #af5f00;">i</span>;
   <span style="color: #af00ff;">for</span> (i=1; i&lt;=10; i++) {
-        (i % 2) ? printf(<span style="color: #af8787;">"%d is odd\n"</span>, i) : printf(<span style="color: #af8787;">"%d is even\n"</span>, i);
+        (i % 2) ? printf(<span style="color: #87005f;">"%d is odd\n"</span>, i) : printf(<span style="color: #87005f;">"%d is even\n"</span>, i);
   }
 }
 </pre>
@@ -624,23 +698,23 @@ provided for this case:
 <pre class="src src-c"><span style="color: #af00ff;">switch</span> (expression)
 {
    <span style="color: #af00ff;">case</span> value1:
-              <span style="color: #008700;">program</span> <span style="color: #af8700;">statement</span>;
-              <span style="color: #008700;">program</span> <span style="color: #af8700;">statement</span>;
+              <span style="color: #008700;">program</span> <span style="color: #af5f00;">statement</span>;
+              <span style="color: #008700;">program</span> <span style="color: #af5f00;">statement</span>;
               ...
               <span style="color: #af00ff;">break</span>;
    <span style="color: #af00ff;">case</span> value2:
-              <span style="color: #008700;">program</span> <span style="color: #af8700;">statement</span>;
-              <span style="color: #008700;">program</span> <span style="color: #af8700;">statement</span>;
+              <span style="color: #008700;">program</span> <span style="color: #af5f00;">statement</span>;
+              <span style="color: #008700;">program</span> <span style="color: #af5f00;">statement</span>;
               ...
               <span style="color: #af00ff;">break</span>;
    <span style="color: #af00ff;">case</span> value3:
-              <span style="color: #008700;">program</span> <span style="color: #af8700;">statement</span>;
-              <span style="color: #008700;">program</span> <span style="color: #af8700;">statement</span>;
+              <span style="color: #008700;">program</span> <span style="color: #af5f00;">statement</span>;
+              <span style="color: #008700;">program</span> <span style="color: #af5f00;">statement</span>;
               ...
               <span style="color: #af00ff;">break</span>;
    <span style="color: #af00ff;">default</span>:
-              <span style="color: #008700;">program</span> <span style="color: #af8700;">statement</span>;
-              <span style="color: #008700;">program</span> <span style="color: #af8700;">statement</span>;
+              <span style="color: #008700;">program</span> <span style="color: #af5f00;">statement</span>;
+              <span style="color: #008700;">program</span> <span style="color: #af5f00;">statement</span>;
               ...
               <span style="color: #af00ff;">break</span>;
 }
@@ -654,23 +728,23 @@ This is equivalent to the following series of if-else statements:
 
 
 <pre class="src src-c"><span style="color: #af00ff;">if</span> (expression == value1) {
-   <span style="color: #008700;">program</span> <span style="color: #af8700;">statement</span>;
-   <span style="color: #008700;">program</span> <span style="color: #af8700;">statement</span>;
+   <span style="color: #008700;">program</span> <span style="color: #af5f00;">statement</span>;
+   <span style="color: #008700;">program</span> <span style="color: #af5f00;">statement</span>;
    ...
 }
 <span style="color: #af00ff;">else</span> <span style="color: #af00ff;">if</span> (expression == value2) {
-   <span style="color: #008700;">program</span> <span style="color: #af8700;">statement</span>;
-   <span style="color: #008700;">program</span> <span style="color: #af8700;">statement</span>;
+   <span style="color: #008700;">program</span> <span style="color: #af5f00;">statement</span>;
+   <span style="color: #008700;">program</span> <span style="color: #af5f00;">statement</span>;
    ...
 }
 <span style="color: #af00ff;">else</span> <span style="color: #af00ff;">if</span> (expression == value3) {
-   <span style="color: #008700;">program</span> <span style="color: #af8700;">statement</span>;
-   <span style="color: #008700;">program</span> <span style="color: #af8700;">statement</span>;
+   <span style="color: #008700;">program</span> <span style="color: #af5f00;">statement</span>;
+   <span style="color: #008700;">program</span> <span style="color: #af5f00;">statement</span>;
    ...
 }
 <span style="color: #af00ff;">else</span> {
-   <span style="color: #008700;">program</span> <span style="color: #af8700;">statement</span>;
-   <span style="color: #008700;">program</span> <span style="color: #af8700;">statement</span>;
+   <span style="color: #008700;">program</span> <span style="color: #af5f00;">statement</span>;
+   <span style="color: #008700;">program</span> <span style="color: #af5f00;">statement</span>;
    ...
 }
 </pre>

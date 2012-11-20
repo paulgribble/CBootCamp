@@ -61,6 +61,30 @@
   /*]]>*/-->
 </style><link rel="stylesheet" type="text/css" href="mystyle.css" />
 <script type="text/javascript">
+/*
+@licstart  The following is the entire license notice for the
+JavaScript code in this tag.
+
+Copyright (C) 2012  Free Software Foundation, Inc.
+
+The JavaScript code in this tag is free software: you can
+redistribute it and/or modify it under the terms of the GNU
+General Public License (GNU GPL) as published by the Free Software
+Foundation, either version 3 of the License, or (at your option)
+any later version.  The code is distributed WITHOUT ANY WARRANTY;
+without even the implied warranty of MERCHANTABILITY or FITNESS
+FOR A PARTICULAR PURPOSE.  See the GNU GPL for more details.
+
+As additional permission under GNU GPL version 3 section 7, you
+may distribute non-source (e.g., minimized or compacted) forms of
+that code without the copy of the GNU GPL normally required by
+section 4, provided you include this license notice and a URL
+through which recipients can access the Corresponding Source.
+
+
+@licend  The above is the entire license notice
+for the JavaScript code in this tag.
+*/
 <!--/*--><![CDATA[/*><!--*/
  function CodeHighlightOn(elem, id)
  {
@@ -300,20 +324,20 @@ looks like the other programs we have seen so far.
 
 
 
-<pre class="src src-c"><span style="color: #d75fd7;">#include</span> <span style="color: #af8787;">&lt;stdio.h&gt;</span>
+<pre class="src src-c"><span style="color: #5f5f87;">#include</span> <span style="color: #87005f;">&lt;stdio.h&gt;</span>
 
-<span style="color: #008700;">double</span> <span style="color: #0000ee;">multiplyByTwo</span> (<span style="color: #008700;">double</span> <span style="color: #af8700;">input</span>) {
-  <span style="color: #008700;">double</span> <span style="color: #af8700;">twice</span> = input * 2.0;
+<span style="color: #008700;">double</span> <span style="color: #0000ff;">multiplyByTwo</span> (<span style="color: #008700;">double</span> <span style="color: #af5f00;">input</span>) {
+  <span style="color: #008700;">double</span> <span style="color: #af5f00;">twice</span> = input * 2.0;
   <span style="color: #af00ff;">return</span> twice;
 }
 
-<span style="color: #008700;">int</span> <span style="color: #0000ee;">main</span> (<span style="color: #008700;">int</span> <span style="color: #af8700;">argc</span>, <span style="color: #008700;">char</span> *<span style="color: #af8700;">argv</span>[])
+<span style="color: #008700;">int</span> <span style="color: #0000ff;">main</span> (<span style="color: #008700;">int</span> <span style="color: #af5f00;">argc</span>, <span style="color: #008700;">char</span> *<span style="color: #af5f00;">argv</span>[])
 {
-  <span style="color: #008700;">int</span> <span style="color: #af8700;">age</span> = 30;
-  <span style="color: #008700;">double</span> <span style="color: #af8700;">salary</span> = 12345.67;
-  <span style="color: #008700;">double</span> <span style="color: #af8700;">myList</span>[3] = {1.2, 2.3, 3.4};
+  <span style="color: #008700;">int</span> <span style="color: #af5f00;">age</span> = 30;
+  <span style="color: #008700;">double</span> <span style="color: #af5f00;">salary</span> = 12345.67;
+  <span style="color: #008700;">double</span> <span style="color: #af5f00;">myList</span>[3] = {1.2, 2.3, 3.4};
 
-  printf(<span style="color: #af8787;">"double your salary is %.3f\n"</span>, multiplyByTwo(salary));
+  printf(<span style="color: #87005f;">"double your salary is %.3f\n"</span>, multiplyByTwo(salary));
 
   <span style="color: #af00ff;">return</span> 0;
 }
@@ -351,29 +375,29 @@ Here is another version of this program that allocates all of its variables on t
 
 
 
-<pre class="src src-c"><span style="color: #d75fd7;">#include</span> <span style="color: #af8787;">&lt;stdio.h&gt;</span>
-<span style="color: #d75fd7;">#include</span> <span style="color: #af8787;">&lt;stdlib.h&gt;</span>
+<pre class="src src-c"><span style="color: #5f5f87;">#include</span> <span style="color: #87005f;">&lt;stdio.h&gt;</span>
+<span style="color: #5f5f87;">#include</span> <span style="color: #87005f;">&lt;stdlib.h&gt;</span>
 
-<span style="color: #008700;">double</span> *<span style="color: #0000ee;">multiplyByTwo</span> (<span style="color: #008700;">double</span> *<span style="color: #af8700;">input</span>) {
-  <span style="color: #008700;">double</span> *<span style="color: #af8700;">twice</span> = malloc(<span style="color: #af00ff;">sizeof</span>(<span style="color: #008700;">double</span>));
+<span style="color: #008700;">double</span> *<span style="color: #0000ff;">multiplyByTwo</span> (<span style="color: #008700;">double</span> *<span style="color: #af5f00;">input</span>) {
+  <span style="color: #008700;">double</span> *<span style="color: #af5f00;">twice</span> = malloc(<span style="color: #af00ff;">sizeof</span>(<span style="color: #008700;">double</span>));
   *twice = *input * 2.0;
   <span style="color: #af00ff;">return</span> twice;
 }
 
-<span style="color: #008700;">int</span> <span style="color: #0000ee;">main</span> (<span style="color: #008700;">int</span> <span style="color: #af8700;">argc</span>, <span style="color: #008700;">char</span> *<span style="color: #af8700;">argv</span>[])
+<span style="color: #008700;">int</span> <span style="color: #0000ff;">main</span> (<span style="color: #008700;">int</span> <span style="color: #af5f00;">argc</span>, <span style="color: #008700;">char</span> *<span style="color: #af5f00;">argv</span>[])
 {
-  <span style="color: #008700;">int</span> *<span style="color: #af8700;">age</span> = malloc(<span style="color: #af00ff;">sizeof</span>(<span style="color: #008700;">int</span>));
+  <span style="color: #008700;">int</span> *<span style="color: #af5f00;">age</span> = malloc(<span style="color: #af00ff;">sizeof</span>(<span style="color: #008700;">int</span>));
   *age = 30;
-  <span style="color: #008700;">double</span> *<span style="color: #af8700;">salary</span> = malloc(<span style="color: #af00ff;">sizeof</span>(<span style="color: #008700;">double</span>));
+  <span style="color: #008700;">double</span> *<span style="color: #af5f00;">salary</span> = malloc(<span style="color: #af00ff;">sizeof</span>(<span style="color: #008700;">double</span>));
   *salary = 12345.67;
-  <span style="color: #008700;">double</span> *<span style="color: #af8700;">myList</span> = malloc(3 * <span style="color: #af00ff;">sizeof</span>(<span style="color: #008700;">double</span>));
+  <span style="color: #008700;">double</span> *<span style="color: #af5f00;">myList</span> = malloc(3 * <span style="color: #af00ff;">sizeof</span>(<span style="color: #008700;">double</span>));
   myList[0] = 1.2;
   myList[1] = 2.3;
   myList[2] = 3.4;
 
-  <span style="color: #008700;">double</span> *<span style="color: #af8700;">twiceSalary</span> = multiplyByTwo(salary);
+  <span style="color: #008700;">double</span> *<span style="color: #af5f00;">twiceSalary</span> = multiplyByTwo(salary);
 
-  printf(<span style="color: #af8787;">"double your salary is %.3f\n"</span>, *twiceSalary);
+  printf(<span style="color: #87005f;">"double your salary is %.3f\n"</span>, *twiceSalary);
 
   free(age);
   free(salary);

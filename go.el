@@ -1,4 +1,3 @@
-(color-theme-standard)
 (require 'org-publish)
 (setq org-publish-project-alist
       '(

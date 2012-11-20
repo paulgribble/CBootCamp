@@ -61,6 +61,30 @@
   /*]]>*/-->
 </style><link rel="stylesheet" type="text/css" href="mystyle.css" />
 <script type="text/javascript">
+/*
+@licstart  The following is the entire license notice for the
+JavaScript code in this tag.
+
+Copyright (C) 2012  Free Software Foundation, Inc.
+
+The JavaScript code in this tag is free software: you can
+redistribute it and/or modify it under the terms of the GNU
+General Public License (GNU GPL) as published by the Free Software
+Foundation, either version 3 of the License, or (at your option)
+any later version.  The code is distributed WITHOUT ANY WARRANTY;
+without even the implied warranty of MERCHANTABILITY or FITNESS
+FOR A PARTICULAR PURPOSE.  See the GNU GPL for more details.
+
+As additional permission under GNU GPL version 3 section 7, you
+may distribute non-source (e.g., minimized or compacted) forms of
+that code without the copy of the GNU GPL normally required by
+section 4, provided you include this license notice and a URL
+through which recipients can access the Corresponding Source.
+
+
+@licend  The above is the entire license notice
+for the JavaScript code in this tag.
+*/
 <!--/*--><![CDATA[/*><!--*/
  function CodeHighlightOn(elem, id)
  {
@@ -197,12 +221,12 @@ character at a time to standard output.
 
 
 
-<pre class="src src-C"><span style="color: #d75fd7;">#include</span> <span style="color: #af8787;">&lt;stdio.h&gt;</span>
+<pre class="src src-C"><span style="color: #5f5f87;">#include</span> <span style="color: #87005f;">&lt;stdio.h&gt;</span>
 
-<span style="color: #008700;">void</span> <span style="color: #0000ee;">main</span>() {
-  <span style="color: #008700;">char</span> <span style="color: #af8700;">c</span> = getchar();
+<span style="color: #008700;">void</span> <span style="color: #0000ff;">main</span>() {
+  <span style="color: #008700;">char</span> <span style="color: #af5f00;">c</span> = getchar();
   putchar(c);
-  putchar(<span style="color: #af8787;">'\n'</span>);
+  putchar(<span style="color: #87005f;">'\n'</span>);
   <span style="color: #af00ff;">return</span> 0;
 }
 </pre>
@@ -245,13 +269,13 @@ Here is an example where we print a sentence that contains a formatted integer, 
 
 
 
-<pre class="src src-c"><span style="color: #d75fd7;">#include</span> <span style="color: #af8787;">&lt;stdio.h&gt;</span>
+<pre class="src src-c"><span style="color: #5f5f87;">#include</span> <span style="color: #87005f;">&lt;stdio.h&gt;</span>
 
-<span style="color: #008700;">int</span> <span style="color: #0000ee;">main</span>() {
-  <span style="color: #008700;">int</span> <span style="color: #af8700;">i</span> = 42;
-  <span style="color: #008700;">char</span> <span style="color: #af8700;">str</span>[] = <span style="color: #af8787;">"the meaning of life"</span>;
-  <span style="color: #008700;">double</span> <span style="color: #af8700;">p</span> = 3.14159265;
-  printf(<span style="color: #af8787;">"pi is about %12.8f and %s is %d\n"</span>, p, str, i);
+<span style="color: #008700;">int</span> <span style="color: #0000ff;">main</span>() {
+  <span style="color: #008700;">int</span> <span style="color: #af5f00;">i</span> = 42;
+  <span style="color: #008700;">char</span> <span style="color: #af5f00;">str</span>[] = <span style="color: #87005f;">"the meaning of life"</span>;
+  <span style="color: #008700;">double</span> <span style="color: #af5f00;">p</span> = 3.14159265;
+  printf(<span style="color: #87005f;">"pi is about %12.8f and %s is %d\n"</span>, p, str, i);
 }
 </pre>
 
@@ -303,13 +327,13 @@ which we expect to be in the following format:
 
 
 
-<pre class="src src-c"><span style="color: #d75fd7;">#include</span> <span style="color: #af8787;">&lt;stdio.h&gt;</span>
+<pre class="src src-c"><span style="color: #5f5f87;">#include</span> <span style="color: #87005f;">&lt;stdio.h&gt;</span>
 
-<span style="color: #008700;">int</span> <span style="color: #0000ee;">main</span>() {
-  <span style="color: #008700;">int</span> <span style="color: #af8700;">day</span>, <span style="color: #af8700;">year</span>;
-  <span style="color: #008700;">char</span> <span style="color: #af8700;">monthname</span>[20];
-  scanf(<span style="color: #af8787;">"%d %s %d"</span>, &amp;day, monthname, &amp;year);
-  printf(<span style="color: #af8787;">"the date is %s %d, %d\n"</span>, monthname, day, year);
+<span style="color: #008700;">int</span> <span style="color: #0000ff;">main</span>() {
+  <span style="color: #008700;">int</span> <span style="color: #af5f00;">day</span>, <span style="color: #af5f00;">year</span>;
+  <span style="color: #008700;">char</span> <span style="color: #af5f00;">monthname</span>[20];
+  scanf(<span style="color: #87005f;">"%d %s %d"</span>, &amp;day, monthname, &amp;year);
+  printf(<span style="color: #87005f;">"the date is %s %d, %d\n"</span>, monthname, day, year);
   <span style="color: #af00ff;">return</span> 0;
 }
 </pre>
@@ -393,28 +417,28 @@ Here is an example program that outputs a table of temperature values in Fahrenh
 
 
 
-<pre class="src src-c"><span style="color: #d75fd7;">#include</span> <span style="color: #af8787;">&lt;stdio.h&gt;</span>
+<pre class="src src-c"><span style="color: #5f5f87;">#include</span> <span style="color: #87005f;">&lt;stdio.h&gt;</span>
 
-<span style="color: #008700;">int</span> <span style="color: #0000ee;">main</span>(<span style="color: #008700;">int</span> <span style="color: #af8700;">argc</span>, <span style="color: #008700;">char</span> *<span style="color: #af8700;">argv</span>[]) {
+<span style="color: #008700;">int</span> <span style="color: #0000ff;">main</span>(<span style="color: #008700;">int</span> <span style="color: #af5f00;">argc</span>, <span style="color: #008700;">char</span> *<span style="color: #af5f00;">argv</span>[]) {
 
-  <span style="color: #008700;">FILE</span> *<span style="color: #af8700;">fp</span>;
-  <span style="color: #008700;">double</span> <span style="color: #af8700;">tmpC</span>[11] = {-10.0, -8.0, -6.0,
+  <span style="color: #008700;">FILE</span> *<span style="color: #af5f00;">fp</span>;
+  <span style="color: #008700;">double</span> <span style="color: #af5f00;">tmpC</span>[11] = {-10.0, -8.0, -6.0,
                       -4.0, -2.0,  0.0,  2.0,
                        4.0,  6.0,  8.0, 10.0};
-  <span style="color: #008700;">double</span> <span style="color: #af8700;">tmpF</span>;
-  <span style="color: #008700;">int</span> <span style="color: #af8700;">i</span>;
+  <span style="color: #008700;">double</span> <span style="color: #af5f00;">tmpF</span>;
+  <span style="color: #008700;">int</span> <span style="color: #af5f00;">i</span>;
 
-  fp = fopen(<span style="color: #af8787;">"outfile.txt"</span>, <span style="color: #af8787;">"w"</span>);
-  <span style="color: #af00ff;">if</span> (fp == <span style="color: #5fafaf;">NULL</span>) {
-    printf(<span style="color: #af8787;">"sorry can't open outfile.txt\n"</span>);
+  fp = fopen(<span style="color: #87005f;">"outfile.txt"</span>, <span style="color: #87005f;">"w"</span>);
+  <span style="color: #af00ff;">if</span> (fp == <span style="color: #008787;">NULL</span>) {
+    printf(<span style="color: #87005f;">"sorry can't open outfile.txt\n"</span>);
     <span style="color: #af00ff;">return</span> 1;
   }
   <span style="color: #af00ff;">else</span> {
     <span style="color: #af0000;">// </span><span style="color: #af0000;">print a table header</span>
-    fprintf(fp, <span style="color: #af8787;">"%10s %10s\n"</span>, <span style="color: #af8787;">"Celsius"</span>, <span style="color: #af8787;">"Fahrenheit"</span>);
+    fprintf(fp, <span style="color: #87005f;">"%10s %10s\n"</span>, <span style="color: #87005f;">"Celsius"</span>, <span style="color: #87005f;">"Fahrenheit"</span>);
     <span style="color: #af00ff;">for</span> (i=0; i&lt;11; i++) {
       tmpF = ((tmpC[i] * (9.0/5.0)) + 32.0);
-      fprintf(fp, <span style="color: #af8787;">"%10.2f %10.2f\n"</span>, tmpC[i], tmpF);
+      fprintf(fp, <span style="color: #87005f;">"%10.2f %10.2f\n"</span>, tmpC[i], tmpF);
     }
     fclose(fp);
   }
@@ -464,34 +488,34 @@ some arithmetic on them.
 
 
 
-<pre class="src src-c"><span style="color: #d75fd7;">#include</span> <span style="color: #af8787;">&lt;stdio.h&gt;</span>
+<pre class="src src-c"><span style="color: #5f5f87;">#include</span> <span style="color: #87005f;">&lt;stdio.h&gt;</span>
 
-<span style="color: #008700;">int</span> <span style="color: #0000ee;">main</span>(<span style="color: #008700;">int</span> <span style="color: #af8700;">argc</span>, <span style="color: #008700;">char</span> *<span style="color: #af8700;">argv</span>[]) {
+<span style="color: #008700;">int</span> <span style="color: #0000ff;">main</span>(<span style="color: #008700;">int</span> <span style="color: #af5f00;">argc</span>, <span style="color: #008700;">char</span> *<span style="color: #af5f00;">argv</span>[]) {
 
-  <span style="color: #008700;">FILE</span> *<span style="color: #af8700;">fp</span>;
-  <span style="color: #008700;">char</span> <span style="color: #af8700;">buffer</span>[256];
-  <span style="color: #008700;">double</span> <span style="color: #af8700;">tempC</span>, <span style="color: #af8700;">tempF</span>;
-  <span style="color: #008700;">double</span> <span style="color: #af8700;">sumC</span> = 0.0;
-  <span style="color: #008700;">double</span> <span style="color: #af8700;">sumF</span> = 0.0;
-  <span style="color: #008700;">int</span> <span style="color: #af8700;">numread</span> = 0;
+  <span style="color: #008700;">FILE</span> *<span style="color: #af5f00;">fp</span>;
+  <span style="color: #008700;">char</span> <span style="color: #af5f00;">buffer</span>[256];
+  <span style="color: #008700;">double</span> <span style="color: #af5f00;">tempC</span>, <span style="color: #af5f00;">tempF</span>;
+  <span style="color: #008700;">double</span> <span style="color: #af5f00;">sumC</span> = 0.0;
+  <span style="color: #008700;">double</span> <span style="color: #af5f00;">sumF</span> = 0.0;
+  <span style="color: #008700;">int</span> <span style="color: #af5f00;">numread</span> = 0;
 
-  fp = fopen(<span style="color: #af8787;">"outfile.txt"</span>, <span style="color: #af8787;">"r"</span>);
-  <span style="color: #af00ff;">if</span> (fp == <span style="color: #5fafaf;">NULL</span>) {
-    printf(<span style="color: #af8787;">"there was an error opening outfile.txt\n"</span>);
+  fp = fopen(<span style="color: #87005f;">"outfile.txt"</span>, <span style="color: #87005f;">"r"</span>);
+  <span style="color: #af00ff;">if</span> (fp == <span style="color: #008787;">NULL</span>) {
+    printf(<span style="color: #87005f;">"there was an error opening outfile.txt\n"</span>);
     <span style="color: #af00ff;">return</span> 1;
   }
   <span style="color: #af00ff;">else</span> {
     <span style="color: #af0000;">// </span><span style="color: #af0000;">read in the header line first</span>
     fgets(buffer, 256, fp);
     <span style="color: #af00ff;">while</span> (!feof(fp)) {
-      fscanf(fp, <span style="color: #af8787;">"%lf %lf\n"</span>, &amp;tempC, &amp;tempF);
-      printf(<span style="color: #af8787;">"tempC=%.2f, tempF=%.2f\n"</span>, tempC, tempF);
+      fscanf(fp, <span style="color: #87005f;">"%lf %lf\n"</span>, &amp;tempC, &amp;tempF);
+      printf(<span style="color: #87005f;">"tempC=%.2f, tempF=%.2f\n"</span>, tempC, tempF);
       sumC += tempC;
       sumF += tempF;
       numread++;
     }
     fclose(fp);
-    printf(<span style="color: #af8787;">"%d values read, sumC=%.2f and sumF=%.2f\n"</span>, numread, sumC, sumF);
+    printf(<span style="color: #87005f;">"%d values read, sumC=%.2f and sumF=%.2f\n"</span>, numread, sumC, sumF);
   }
 
   <span style="color: #af00ff;">return</span> 0;
@@ -562,24 +586,24 @@ element. In this example the data are integer values.
 
 
 
-<pre class="src src-c"><span style="color: #d75fd7;">#include</span> <span style="color: #af8787;">&lt;stdio.h&gt;</span>
+<pre class="src src-c"><span style="color: #5f5f87;">#include</span> <span style="color: #87005f;">&lt;stdio.h&gt;</span>
 
-<span style="color: #008700;">int</span> <span style="color: #0000ee;">main</span>(<span style="color: #008700;">int</span> <span style="color: #af8700;">argc</span>, <span style="color: #008700;">char</span> *<span style="color: #af8700;">argv</span>[]) {
+<span style="color: #008700;">int</span> <span style="color: #0000ff;">main</span>(<span style="color: #008700;">int</span> <span style="color: #af5f00;">argc</span>, <span style="color: #008700;">char</span> *<span style="color: #af5f00;">argv</span>[]) {
 
-  <span style="color: #008700;">FILE</span> *<span style="color: #af8700;">fp</span>;
-  <span style="color: #008700;">int</span> <span style="color: #af8700;">year</span> = 2012;
-  <span style="color: #008700;">int</span> <span style="color: #af8700;">month</span> = 8;
-  <span style="color: #008700;">int</span> <span style="color: #af8700;">day</span> = 26;
-  <span style="color: #008700;">int</span> <span style="color: #af8700;">mydata</span>[5] = {2, 4, 6, 8, 10};
+  <span style="color: #008700;">FILE</span> *<span style="color: #af5f00;">fp</span>;
+  <span style="color: #008700;">int</span> <span style="color: #af5f00;">year</span> = 2012;
+  <span style="color: #008700;">int</span> <span style="color: #af5f00;">month</span> = 8;
+  <span style="color: #008700;">int</span> <span style="color: #af5f00;">day</span> = 26;
+  <span style="color: #008700;">int</span> <span style="color: #af5f00;">mydata</span>[5] = {2, 4, 6, 8, 10};
 
-  fp = fopen(<span style="color: #af8787;">"data.bin"</span>, <span style="color: #af8787;">"w"</span>);
-  <span style="color: #af00ff;">if</span> (fp == <span style="color: #5fafaf;">NULL</span>) {
-    printf(<span style="color: #af8787;">"error opening data.bin\n"</span>);
+  fp = fopen(<span style="color: #87005f;">"data.bin"</span>, <span style="color: #87005f;">"w"</span>);
+  <span style="color: #af00ff;">if</span> (fp == <span style="color: #008787;">NULL</span>) {
+    printf(<span style="color: #87005f;">"error opening data.bin\n"</span>);
     <span style="color: #af00ff;">return</span> 1;
   }
   <span style="color: #af00ff;">else</span> {
     <span style="color: #af0000;">// </span><span style="color: #af0000;">write out the header</span>
-    <span style="color: #008700;">int</span> <span style="color: #af8700;">bytesout</span>;
+    <span style="color: #008700;">int</span> <span style="color: #af5f00;">bytesout</span>;
     bytesout = fwrite(&amp;year, <span style="color: #af00ff;">sizeof</span>(year), 1, fp);
     bytesout = fwrite(&amp;month, <span style="color: #af00ff;">sizeof</span>(month), 1, fp);
     bytesout = fwrite(&amp;day, <span style="color: #af00ff;">sizeof</span>(day), 1, fp);
@@ -599,18 +623,18 @@ Here is an example program to read from the binary data file:
 
 
 
-<pre class="src src-c"><span style="color: #d75fd7;">#include</span> <span style="color: #af8787;">&lt;stdio.h&gt;</span>
+<pre class="src src-c"><span style="color: #5f5f87;">#include</span> <span style="color: #87005f;">&lt;stdio.h&gt;</span>
 
-<span style="color: #008700;">int</span> <span style="color: #0000ee;">main</span>(<span style="color: #008700;">int</span> <span style="color: #af8700;">argc</span>, <span style="color: #008700;">char</span> *<span style="color: #af8700;">argv</span>[]) {
+<span style="color: #008700;">int</span> <span style="color: #0000ff;">main</span>(<span style="color: #008700;">int</span> <span style="color: #af5f00;">argc</span>, <span style="color: #008700;">char</span> *<span style="color: #af5f00;">argv</span>[]) {
 
-  <span style="color: #008700;">FILE</span> *<span style="color: #af8700;">fp</span>;
-  <span style="color: #008700;">int</span> <span style="color: #af8700;">bytesread</span>;
-  <span style="color: #008700;">int</span> <span style="color: #af8700;">yy</span>, <span style="color: #af8700;">mm</span>, <span style="color: #af8700;">dd</span>;
-  <span style="color: #008700;">int</span> <span style="color: #af8700;">thedata</span>[5];
+  <span style="color: #008700;">FILE</span> *<span style="color: #af5f00;">fp</span>;
+  <span style="color: #008700;">int</span> <span style="color: #af5f00;">bytesread</span>;
+  <span style="color: #008700;">int</span> <span style="color: #af5f00;">yy</span>, <span style="color: #af5f00;">mm</span>, <span style="color: #af5f00;">dd</span>;
+  <span style="color: #008700;">int</span> <span style="color: #af5f00;">thedata</span>[5];
 
-  fp = fopen(<span style="color: #af8787;">"data.bin"</span>, <span style="color: #af8787;">"r"</span>);
-  <span style="color: #af00ff;">if</span> (fp == <span style="color: #5fafaf;">NULL</span>) {
-    printf(<span style="color: #af8787;">"error opening data.bin\n"</span>);
+  fp = fopen(<span style="color: #87005f;">"data.bin"</span>, <span style="color: #87005f;">"r"</span>);
+  <span style="color: #af00ff;">if</span> (fp == <span style="color: #008787;">NULL</span>) {
+    printf(<span style="color: #87005f;">"error opening data.bin\n"</span>);
     <span style="color: #af00ff;">return</span> 1;
   }
   <span style="color: #af00ff;">else</span> {
@@ -618,10 +642,10 @@ Here is an example program to read from the binary data file:
     bytesread = fread(&amp;yy, <span style="color: #af00ff;">sizeof</span>(<span style="color: #008700;">int</span>), 1, fp);
     bytesread = fread(&amp;mm, <span style="color: #af00ff;">sizeof</span>(<span style="color: #008700;">int</span>), 1, fp);
     bytesread = fread(&amp;dd, <span style="color: #af00ff;">sizeof</span>(<span style="color: #008700;">int</span>), 1, fp);
-    printf(<span style="color: #af8787;">"year=%d, month=%d, day=%d\n"</span>, yy, mm, dd);
+    printf(<span style="color: #87005f;">"year=%d, month=%d, day=%d\n"</span>, yy, mm, dd);
     <span style="color: #af0000;">// </span><span style="color: #af0000;">read the data</span>
     bytesread = fread(thedata, <span style="color: #af00ff;">sizeof</span>(<span style="color: #008700;">int</span>), 5, fp);
-    printf(<span style="color: #af8787;">"data = [%d,%d,%d,%d,%d]\n"</span>,
+    printf(<span style="color: #87005f;">"data = [%d,%d,%d,%d,%d]\n"</span>,
            thedata[0], thedata[1],thedata[2],thedata[3],thedata[4]); 
     fclose(fp);
   }

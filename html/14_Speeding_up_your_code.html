@@ -61,6 +61,30 @@
   /*]]>*/-->
 </style><link rel="stylesheet" type="text/css" href="mystyle.css" />
 <script type="text/javascript">
+/*
+@licstart  The following is the entire license notice for the
+JavaScript code in this tag.
+
+Copyright (C) 2012  Free Software Foundation, Inc.
+
+The JavaScript code in this tag is free software: you can
+redistribute it and/or modify it under the terms of the GNU
+General Public License (GNU GPL) as published by the Free Software
+Foundation, either version 3 of the License, or (at your option)
+any later version.  The code is distributed WITHOUT ANY WARRANTY;
+without even the implied warranty of MERCHANTABILITY or FITNESS
+FOR A PARTICULAR PURPOSE.  See the GNU GPL for more details.
+
+As additional permission under GNU GPL version 3 section 7, you
+may distribute non-source (e.g., minimized or compacted) forms of
+that code without the copy of the GNU GPL normally required by
+section 4, provided you include this license notice and a URL
+through which recipients can access the Corresponding Source.
+
+
+@licend  The above is the entire license notice
+for the JavaScript code in this tag.
+*/
 <!--/*--><![CDATA[/*><!--*/
  function CodeHighlightOn(elem, id)
  {
@@ -158,35 +182,35 @@ Here is an example program that we wish to profile:
 
 
 
-<pre class="src src-c"><span style="color: #d75fd7;">#include</span> <span style="color: #af8787;">&lt;stdio.h&gt;</span>
-<span style="color: #d75fd7;">#include</span> <span style="color: #af8787;">&lt;math.h&gt;</span>
+<pre class="src src-c"><span style="color: #5f5f87;">#include</span> <span style="color: #87005f;">&lt;stdio.h&gt;</span>
+<span style="color: #5f5f87;">#include</span> <span style="color: #87005f;">&lt;math.h&gt;</span>
 
-<span style="color: #d75fd7;">#define</span> <span style="color: #af8700;">MAXLOOP</span> 1e7
+<span style="color: #5f5f87;">#define</span> <span style="color: #af5f00;">MAXLOOP</span> 1e7
 
-<span style="color: #008700;">double</span> <span style="color: #0000ee;">myFun1</span>(<span style="color: #008700;">double</span> <span style="color: #af8700;">x</span>) {
-  <span style="color: #008700;">double</span> <span style="color: #af8700;">a</span> = sin(x);
+<span style="color: #008700;">double</span> <span style="color: #0000ff;">myFun1</span>(<span style="color: #008700;">double</span> <span style="color: #af5f00;">x</span>) {
+  <span style="color: #008700;">double</span> <span style="color: #af5f00;">a</span> = sin(x);
   <span style="color: #af00ff;">return</span> a;
 }
 
-<span style="color: #008700;">double</span> <span style="color: #0000ee;">myFun2</span>(<span style="color: #008700;">double</span> <span style="color: #af8700;">x</span>) {
-  <span style="color: #008700;">double</span> <span style="color: #af8700;">a</span> = pow(x,3);
+<span style="color: #008700;">double</span> <span style="color: #0000ff;">myFun2</span>(<span style="color: #008700;">double</span> <span style="color: #af5f00;">x</span>) {
+  <span style="color: #008700;">double</span> <span style="color: #af5f00;">a</span> = pow(x,3);
   <span style="color: #af00ff;">return</span> a;
 }
 
-<span style="color: #008700;">double</span> <span style="color: #0000ee;">myFun3</span>(<span style="color: #008700;">double</span> <span style="color: #af8700;">x</span>) {
-  <span style="color: #008700;">double</span> <span style="color: #af8700;">a</span> = sqrt(x);
+<span style="color: #008700;">double</span> <span style="color: #0000ff;">myFun3</span>(<span style="color: #008700;">double</span> <span style="color: #af5f00;">x</span>) {
+  <span style="color: #008700;">double</span> <span style="color: #af5f00;">a</span> = sqrt(x);
   <span style="color: #af00ff;">return</span> a;
 }
 
-<span style="color: #008700;">int</span> <span style="color: #0000ee;">main</span>(<span style="color: #008700;">int</span> <span style="color: #af8700;">argc</span>, <span style="color: #008700;">char</span> *<span style="color: #af8700;">argv</span>[]) {
-  <span style="color: #008700;">int</span> <span style="color: #af8700;">i</span>;
-  <span style="color: #008700;">double</span> <span style="color: #af8700;">x</span>;
-  <span style="color: #008700;">double</span> <span style="color: #af8700;">xsum</span> = 0.0;
+<span style="color: #008700;">int</span> <span style="color: #0000ff;">main</span>(<span style="color: #008700;">int</span> <span style="color: #af5f00;">argc</span>, <span style="color: #008700;">char</span> *<span style="color: #af5f00;">argv</span>[]) {
+  <span style="color: #008700;">int</span> <span style="color: #af5f00;">i</span>;
+  <span style="color: #008700;">double</span> <span style="color: #af5f00;">x</span>;
+  <span style="color: #008700;">double</span> <span style="color: #af5f00;">xsum</span> = 0.0;
   <span style="color: #af00ff;">for</span> (i=1; i&lt;MAXLOOP; i++) {
     x = myFun1(i) + myFun2(i) + myFun3(i);
     xsum += x;
   }
-  printf(<span style="color: #af8787;">"xsum = %.6f\n"</span>, xsum);
+  printf(<span style="color: #87005f;">"xsum = %.6f\n"</span>, xsum);
   <span style="color: #af00ff;">return</span> 0;
 }
 </pre>
@@ -301,8 +325,8 @@ When using <code>pow()</code> with integers, just use basic operators instead. F
 
 
 
-<pre class="src src-c"><span style="color: #008700;">double</span> <span style="color: #af8700;">y</span> = 3.14;
-<span style="color: #008700;">double</span> <span style="color: #af8700;">x</span> = pow(y, 3);
+<pre class="src src-c"><span style="color: #008700;">double</span> <span style="color: #af5f00;">y</span> = 3.14;
+<span style="color: #008700;">double</span> <span style="color: #af5f00;">x</span> = pow(y, 3);
 </pre>
 
 
@@ -312,8 +336,8 @@ Use the <code>*</code> operator instead:
 
 
 
-<pre class="src src-c"><span style="color: #008700;">double</span> <span style="color: #af8700;">y</span> = 3.14;
-<span style="color: #008700;">double</span> <span style="color: #af8700;">x</span> = y*y*y;
+<pre class="src src-c"><span style="color: #008700;">double</span> <span style="color: #af5f00;">y</span> = 3.14;
+<span style="color: #008700;">double</span> <span style="color: #af5f00;">x</span> = y*y*y;
 </pre>
 
 
@@ -324,9 +348,9 @@ squaring instead (but not using <code>pow()</code>). For example, let's say we'r
 
 
 
-<pre class="src src-c"><span style="color: #008700;">double</span> <span style="color: #af8700;">the_dist</span> = sqrt( pow(x2-x1,2) + pow(y2-y1,2) );
+<pre class="src src-c"><span style="color: #008700;">double</span> <span style="color: #af5f00;">the_dist</span> = sqrt( pow(x2-x1,2) + pow(y2-y1,2) );
 <span style="color: #af00ff;">if</span> (the_dist &lt; mindist) {
-  printf(<span style="color: #af8787;">"it is less\n"</span>);
+  printf(<span style="color: #87005f;">"it is less\n"</span>);
 }
 </pre>
 
@@ -337,11 +361,11 @@ You can test the squared distance against the squared mindist:
 
 
 
-<pre class="src src-c"><span style="color: #008700;">double</span> <span style="color: #af8700;">xdif</span> = x2-x1;
-<span style="color: #008700;">double</span> <span style="color: #af8700;">ydif</span> = y2-y1;
-<span style="color: #008700;">double</span> <span style="color: #af8700;">the_dist_squared</span> = (xdif*xdif) + (ydif*ydif);
+<pre class="src src-c"><span style="color: #008700;">double</span> <span style="color: #af5f00;">xdif</span> = x2-x1;
+<span style="color: #008700;">double</span> <span style="color: #af5f00;">ydif</span> = y2-y1;
+<span style="color: #008700;">double</span> <span style="color: #af5f00;">the_dist_squared</span> = (xdif*xdif) + (ydif*ydif);
 <span style="color: #af00ff;">if</span> (the_dist_squared &lt; (mindist*mindist)) {
-  printf(<span style="color: #af8787;">"it is less\n"</span>);
+  printf(<span style="color: #87005f;">"it is less\n"</span>);
 }
 </pre>
 

@@ -61,6 +61,30 @@
   /*]]>*/-->
 </style><link rel="stylesheet" type="text/css" href="mystyle.css" />
 <script type="text/javascript">
+/*
+@licstart  The following is the entire license notice for the
+JavaScript code in this tag.
+
+Copyright (C) 2012  Free Software Foundation, Inc.
+
+The JavaScript code in this tag is free software: you can
+redistribute it and/or modify it under the terms of the GNU
+General Public License (GNU GPL) as published by the Free Software
+Foundation, either version 3 of the License, or (at your option)
+any later version.  The code is distributed WITHOUT ANY WARRANTY;
+without even the implied warranty of MERCHANTABILITY or FITNESS
+FOR A PARTICULAR PURPOSE.  See the GNU GPL for more details.
+
+As additional permission under GNU GPL version 3 section 7, you
+may distribute non-source (e.g., minimized or compacted) forms of
+that code without the copy of the GNU GPL normally required by
+section 4, provided you include this license notice and a URL
+through which recipients can access the Corresponding Source.
+
+
+@licend  The above is the entire license notice
+for the JavaScript code in this tag.
+*/
 <!--/*--><![CDATA[/*><!--*/
  function CodeHighlightOn(elem, id)
  {
@@ -83,6 +107,56 @@
 /*]]>*///-->
 </script>
 <script type="text/javascript" src="http://orgmode.org/mathjax/MathJax.js">
+/**
+ *
+ * @source: http://orgmode.org/mathjax/MathJax.js
+ *
+ * @licstart  The following is the entire license notice for the
+ *  JavaScript code in http://orgmode.org/mathjax/MathJax.js.
+ *
+ * Copyright (C) 2012  MathJax
+ *
+ * Licensed under the Apache License, Version 2.0 (the "License");
+ * you may not use this file except in compliance with the License.
+ * You may obtain a copy of the License at
+ *
+ *     http://www.apache.org/licenses/LICENSE-2.0
+ *
+ * Unless required by applicable law or agreed to in writing, software
+ * distributed under the License is distributed on an "AS IS" BASIS,
+ * WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied.
+ * See the License for the specific language governing permissions and
+ * limitations under the License.
+ *
+ * @licend  The above is the entire license notice
+ * for the JavaScript code in http://orgmode.org/mathjax/MathJax.js.
+ *
+ */
+
+/*
+@licstart  The following is the entire license notice for the
+JavaScript code below.
+
+Copyright (C) 2012  Free Software Foundation, Inc.
+
+The JavaScript code below is free software: you can
+redistribute it and/or modify it under the terms of the GNU
+General Public License (GNU GPL) as published by the Free Software
+Foundation, either version 3 of the License, or (at your option)
+any later version.  The code is distributed WITHOUT ANY WARRANTY;
+without even the implied warranty of MERCHANTABILITY or FITNESS
+FOR A PARTICULAR PURPOSE.  See the GNU GPL for more details.
+
+As additional permission under GNU GPL version 3 section 7, you
+may distribute non-source (e.g., minimized or compacted) forms of
+that code without the copy of the GNU GPL normally required by
+section 4, provided you include this license notice and a URL
+through which recipients can access the Corresponding Source.
+
+
+@licend  The above is the entire license notice
+for the JavaScript code below.
+*/
 <!--/*--><![CDATA[/*><!--*/
     MathJax.Hub.Config({
         // Only one of the two following lines, depending on user settings
@@ -251,13 +325,13 @@ the glibc library, the gcc compiler already knows to look for it.
 
 
 <pre class="src src-c"><span style="color: #af0000;">// </span><span style="color: #af0000;">gcc -o go go.c</span>
-<span style="color: #d75fd7;">#include</span> <span style="color: #af8787;">&lt;stdio.h&gt;</span>
-<span style="color: #d75fd7;">#include</span> <span style="color: #af8787;">&lt;string.h&gt;</span>
+<span style="color: #5f5f87;">#include</span> <span style="color: #87005f;">&lt;stdio.h&gt;</span>
+<span style="color: #5f5f87;">#include</span> <span style="color: #87005f;">&lt;string.h&gt;</span>
 
-<span style="color: #008700;">int</span> <span style="color: #0000ee;">main</span>(<span style="color: #008700;">int</span> <span style="color: #af8700;">argc</span>, <span style="color: #008700;">char</span> *<span style="color: #af8700;">argv</span>[])
+<span style="color: #008700;">int</span> <span style="color: #0000ff;">main</span>(<span style="color: #008700;">int</span> <span style="color: #af5f00;">argc</span>, <span style="color: #008700;">char</span> *<span style="color: #af5f00;">argv</span>[])
  {                                                                             
-   <span style="color: #008700;">char</span> <span style="color: #af8700;">mystring</span>[] = <span style="color: #af8787;">"the dude"</span>;
-   printf(<span style="color: #af8787;">"%s is %ld characters long\n"</span>, mystring, strlen(mystring));
+   <span style="color: #008700;">char</span> <span style="color: #af5f00;">mystring</span>[] = <span style="color: #87005f;">"the dude"</span>;
+   printf(<span style="color: #87005f;">"%s is %ld characters long\n"</span>, mystring, strlen(mystring));
    <span style="color: #af00ff;">return</span> 0;                                                                   
 }
 </pre>
@@ -354,36 +428,36 @@ uses linear algebra routines to solve a linear system \(Ax=b\):
 
 <pre class="src src-c"><span style="color: #af0000;">// </span><span style="color: #af0000;">gcc -o go go.c -lgsl -lgslcblas</span>
 
-<span style="color: #d75fd7;">#include</span> <span style="color: #af8787;">&lt;stdio.h&gt;</span>
-<span style="color: #d75fd7;">#include</span> <span style="color: #af8787;">&lt;gsl/gsl_linalg.h&gt;</span>
+<span style="color: #5f5f87;">#include</span> <span style="color: #87005f;">&lt;stdio.h&gt;</span>
+<span style="color: #5f5f87;">#include</span> <span style="color: #87005f;">&lt;gsl/gsl_linalg.h&gt;</span>
 
-<span style="color: #008700;">int</span> <span style="color: #0000ee;">main</span> (<span style="color: #008700;">void</span>)
+<span style="color: #008700;">int</span> <span style="color: #0000ff;">main</span> (<span style="color: #008700;">void</span>)
 {
-  <span style="color: #008700;">double</span> <span style="color: #af8700;">a_data</span>[] = { 0.18, 0.60, 0.57, 0.96,
+  <span style="color: #008700;">double</span> <span style="color: #af5f00;">a_data</span>[] = { 0.18, 0.60, 0.57, 0.96,
                       0.41, 0.24, 0.99, 0.58,
                       0.14, 0.30, 0.97, 0.66,
                       0.51, 0.13, 0.19, 0.85 };
 
-  <span style="color: #008700;">double</span> <span style="color: #af8700;">b_data</span>[] = { 1.0, 2.0, 3.0, 4.0 };
+  <span style="color: #008700;">double</span> <span style="color: #af5f00;">b_data</span>[] = { 1.0, 2.0, 3.0, 4.0 };
 
-  <span style="color: #008700;">gsl_matrix_view</span> <span style="color: #af8700;">m</span> 
+  <span style="color: #008700;">gsl_matrix_view</span> <span style="color: #af5f00;">m</span> 
     = gsl_matrix_view_array (a_data, 4, 4);
 
-  <span style="color: #008700;">gsl_vector_view</span> <span style="color: #af8700;">b</span>
+  <span style="color: #008700;">gsl_vector_view</span> <span style="color: #af5f00;">b</span>
     = gsl_vector_view_array (b_data, 4);
 
-  <span style="color: #008700;">gsl_vector</span> *<span style="color: #af8700;">x</span> = gsl_vector_alloc (4);
+  <span style="color: #008700;">gsl_vector</span> *<span style="color: #af5f00;">x</span> = gsl_vector_alloc (4);
 
-  <span style="color: #008700;">int</span> <span style="color: #af8700;">s</span>;
+  <span style="color: #008700;">int</span> <span style="color: #af5f00;">s</span>;
 
-  <span style="color: #008700;">gsl_permutation</span> * <span style="color: #af8700;">p</span> = gsl_permutation_alloc (4);
+  <span style="color: #008700;">gsl_permutation</span> * <span style="color: #af5f00;">p</span> = gsl_permutation_alloc (4);
 
   gsl_linalg_LU_decomp (&amp;m.matrix, p, &amp;s);
 
   gsl_linalg_LU_solve (&amp;m.matrix, p, &amp;b.vector, x);
 
-  printf (<span style="color: #af8787;">"x = \n"</span>);
-  gsl_vector_fprintf (stdout, x, <span style="color: #af8787;">"%g"</span>);
+  printf (<span style="color: #87005f;">"x = \n"</span>);
+  gsl_vector_fprintf (stdout, x, <span style="color: #87005f;">"%g"</span>);
 
   gsl_permutation_free (p);
   gsl_vector_free (x);
