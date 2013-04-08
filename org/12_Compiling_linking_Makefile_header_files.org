@@ -74,7 +74,7 @@ this calculation, and that the code is stored in a file called
 
 Here is our main program which is called [[file:code/neurons/go.c][go.c]]:
 
-#+INCLUDE: "~/Desktop/CBootCamp/code/neurons/go.c" src c
+#+INCLUDE: "../code/neurons/go.c" src c
 
 What we can see is that on line 6, we use an =#include= statement to
 include the neuron.h header file (shown below). This is a way of
@@ -92,7 +92,7 @@ library (since the =#include <math.h>= directive appears in
 
 Here is the header file [[file:code/neurons/neuron.h][neuron.h]]:
 
-#+INCLUDE: "~/Desktop/CBootCamp/code/neurons/neuron.h" src c
+#+INCLUDE: "../code/neurons/neuron.h" src c
 
 What you can see is that this is simply a listing of the functions
 that are defined in neuron.c, and we simply list the function
@@ -127,7 +127,7 @@ friend, who you know has written such a function already. She sends
 you a pair of files ([[file:code/primes/primes.h][primes.h]] and [[file:code/primes/primes.c][primes.c]]). Her header file
 ([[file:code/primes/primes.h][primes.h]]) looks like this:
 
-#+INCLUDE: "~/Desktop/CBootCamp/code/primes/primes.h" src c
+#+INCLUDE: "../code/primes/primes.h" src c
 
 So we know a couple of things from this header file. First, it
 requires the =math.h= standard C library, so we will need to add the
@@ -141,11 +141,11 @@ resides in =primes.c=).
 
 Here is what the [[file:code/primes/primes.c][primes.c]] file look like:
 
-#+INCLUDE: "~/Desktop/CBootCamp/code/primes/primes.c" src c
+#+INCLUDE: "../code/primes/primes.c" src c
 
 Here is what our program [[file:code/primes/go.c][go.c]] looks like:
 
-#+INCLUDE: "~/Desktop/CBootCamp/code/primes/go.c" src c
+#+INCLUDE: "../code/primes/go.c" src c
 
 Here is the result of running the program on a small selection of
 input values:
@@ -203,10 +203,10 @@ has to reside in the same directory as your program, and has to be
 called =Makefile=. You can think of a Makefile as a *recipe* for
 making your program (i.e. linking and compiling).
 
-A simple Makefile ([[file:code/primes/Makefile1.txt][Makefile1.txt]]) for our prime number program above
-might look like this:
+A simple Makefile for our prime number program above might look like
+this:
 
-#+INCLUDE: "~/Desktop/CBootCamp/code/primes/Makefile1.txt" src sh
+#+INCLUDE: "../code/primes/Makefile1.txt" src sh
 
 The first word and colon ~go:~ on line 1 represents the *name* of a
 recipe called *go*. The list of files after the colon (~go.c
@@ -239,10 +239,10 @@ There are a number of features of a Makefile we can utilize to make
 the whole idea more useful. We can introduce "macros" (like a
 variable) to generalize the name of the C compiler to use, the flags
 to pass the compiler, the location of any library files, etc etc. Here
-is what a more generalized Makefile ([[file:code/primes/Makefile2.txt][Makefile2.txt]]) might look like for
-our primes example from above:
+is what a more generalized Makefile might look like for our primes
+example from above:
 
-#+INCLUDE: "~/Desktop/CBootCamp/code/primes/Makefile2.txt" src sh
+#+INCLUDE: "../code/primes/Makefile2.txt" src sh
 
 You can see we have moved all the specific details (filenames,
 compiler flags, etc) into the macros on the top, and what remains

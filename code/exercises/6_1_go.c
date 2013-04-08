@@ -48,4 +48,3 @@ Matrix matrixmult(Matrix A, Matrix B)
   Matrix C;
   return C;
 }
-

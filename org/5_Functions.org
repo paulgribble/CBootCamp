@@ -409,7 +409,7 @@ your own function that doesn't use recursion, but uses a loop instead.
 I should be able to paste your function at the bottom of this C
 program [ [[file:code/exercises/5_1_go.c][code]] ] and it should run:
 
-#+INCLUDE: "~/Desktop/CBootCamp/code/exercises/5_1_go.c" src c
+#+INCLUDE: "../code/exercises/5_1_go.c" src c
 
 #+BEGIN_EXAMPLE
 $ gcc -o go 5_1_go.c
@@ -424,7 +424,7 @@ input is prime, and a 0 if it is not.
 I should be able to paste your function at the bottom of this C
 program [ [[file:code/exercises/5_2_go.c][code]] ] and it should run:
 
-#+INCLUDE: "~/Desktop/CBootCamp/code/exercises/5_2_go.c" src c
+#+INCLUDE: "../code/exercises/5_2_go.c" src c
 
 #+BEGIN_EXAMPLE
 $ gcc -o go 5_2_go.c

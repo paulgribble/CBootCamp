@@ -48,7 +48,7 @@ special compiler flag, =-g=. Here is a simple example of a program we
 will use to illustrate the gdb debugger, you can download it here:
 [[file:code/debug/go.c][go.c]]:
 
-#+INCLUDE: "~/Desktop/CBootCamp/code/debug/go.c" src c
+#+INCLUDE: "../code/debug/go.c" src c
 
 Here is an example of what it does:
 

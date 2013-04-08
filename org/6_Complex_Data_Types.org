@@ -579,7 +579,7 @@ typedef struct {
    Your first task is to write a function that prints a matrix to the
    screen. A function skeleton is provided (=printmat()=).
 
-#+INCLUDE: "~/Desktop/CBootCamp/code/exercises/6_1_go.c" src c
+#+INCLUDE: "../code/exercises/6_1_go.c" src c
 
 - 2 Your next task is to write a function that performs matrix
    multiplication. A function skeleton is provided (=matrixmult()=).
