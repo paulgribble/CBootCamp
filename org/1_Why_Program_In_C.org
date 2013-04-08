@@ -204,3 +204,4 @@ languages for *prototyping*, and C for *performance*.
 - A tip-a-day on C [[http://modelingwithdata.org/arch/00000049.htm][here]] by Ben Klemens
 - [[http://shop.oreilly.com/product/0636920025108.do][21st Century C]] by Ben Klemens, excellent demos of modern use of C in
   the age of scripting languages like Python, R, etc
+- [[http://pragprog.com/magazines/2011-03/punk-rock-languages][Punk Rock Languages]] A Polemic by Chris Adamson
