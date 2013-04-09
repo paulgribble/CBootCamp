@@ -1,4 +1,4 @@
-#+STARTUP: showall
+x#+STARTUP: showall
 
 #+TITLE:     C Programming Boot Camp
 #+AUTHOR:    Paul Gribble
@@ -40,7 +40,7 @@ int main(int argc, char *argv[]) {
    [[http://www.netlib.org/lapack/][LAPACK]], [[http://apophenia.sourceforge.net/][Apophenia]], [[http://www.gnuplot.info/][GNUplot]] }
 2. [[file:A2_Parallel_Programming_in_C.html][Parallel programming in C]]
 
-* Example programs
+* Example Code
 
 - [[https://github.com/paulgribble/psychometric][psychometric]]: estimating psychometric functions in C (aka logistic regression)
 

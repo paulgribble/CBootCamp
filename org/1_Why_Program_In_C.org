@@ -205,3 +205,4 @@ languages for *prototyping*, and C for *performance*.
 - [[http://shop.oreilly.com/product/0636920025108.do][21st Century C]] by Ben Klemens, excellent demos of modern use of C in
   the age of scripting languages like Python, R, etc
 - [[http://pragprog.com/magazines/2011-03/punk-rock-languages][Punk Rock Languages]] A Polemic by Chris Adamson
+- [[http://www.paulgraham.com/head.html][Holding a Program in One's Head]] by Paul Graham
