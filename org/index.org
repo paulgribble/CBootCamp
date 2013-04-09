@@ -40,6 +40,10 @@ int main(int argc, char *argv[]) {
    [[http://www.netlib.org/lapack/][LAPACK]], [[http://apophenia.sourceforge.net/][Apophenia]], [[http://www.gnuplot.info/][GNUplot]] }
 2. [[file:A2_Parallel_Programming_in_C.html][Parallel programming in C]]
 
+* Example programs
+
+- [[https://github.com/paulgribble/psychometric][psychometric]]: estimating psychometric functions in C (aka logistic regression)
+
 * Topics Not Covered Here (yet)
 
 - UNIX tools
