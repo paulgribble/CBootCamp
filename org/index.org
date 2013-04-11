@@ -1,4 +1,4 @@
-x#+STARTUP: showall
+#+STARTUP: showall
 
 #+TITLE:     C Programming Boot Camp
 #+AUTHOR:    Paul Gribble
