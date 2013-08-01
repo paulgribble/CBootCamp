@@ -1,5 +1,4 @@
 (require 'org-publish)
-(setq org-src-fontify-natively t) 
 (setq org-publish-project-alist
       '(
 	("CBootCamp"
