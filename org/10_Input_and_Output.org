@@ -9,6 +9,12 @@
 [TABLE-OF-CONTENTS]
 -----
 
+* Command-line arguments
+
+When you run a C program from the command line, you can pass it input
+arguments.
+
+
 * I/O Streams
 
 The standard C library (linked to using =#include <stdio.h>=)

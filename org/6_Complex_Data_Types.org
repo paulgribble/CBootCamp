@@ -416,6 +416,54 @@ to *integer*, in order to convert the command-line argument (the
 second one, hence =argv[1]=) which is an ascii string, into an integer
 =n=. We then declare an array =grades[n]= to be of length =n=.
 
+Here is some code that does nothing except output to the screen the
+number of input arguments, and their value:
+
+#+BEGIN_SRC C
+#include <stdio.h>
+    
+int main(int argc, char* argv[]) {
+  char** argp;
+  int i;
+  printf("argc = %d\n", argc);
+  for (i=0; i<argc; i++) {
+    printf("argv[%d] = %s\n", i, argv[i]);
+  }
+  return 0;
+}
+#+END_SRC C
+
+So for example:
+
+#+BEGIN_EXAMPLE
+plg:Desktop plg$ gcc -o dryrun dryrun.c
+plg:Desktop plg$ ./dryrun
+argc = 1
+argv[0] = ./dryrun
+plg:Desktop plg$ 
+plg:Desktop plg$ ./dryrun hello
+argc = 2
+argv[0] = ./dryrun
+argv[1] = hello
+plg:Desktop plg$ 
+plg:Desktop plg$ ./dryrun 1 2 3 hi "the dude" 3.14159
+argc = 7
+argv[0] = ./dryrun
+argv[1] = 1
+argv[2] = 2
+argv[3] = 3
+argv[4] = hi
+argv[5] = the dude
+argv[6] = 3.14159
+#+END_EXAMPLE
+
+Remember, all inputs are treated as null-terminated strings, so if you
+want to pass integers or floating point values in, you will have to
+convert them from strings in your code. Also remember that the first
+argument is always the name of the program, so if you expect to have
+to pass =n= input arguments to your program, then expect =argc= to be
+=n+1=.
+
 * Structures
 
 Structures are another way of grouping together different elements of

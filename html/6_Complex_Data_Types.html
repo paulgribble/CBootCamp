@@ -705,6 +705,63 @@ to <b>integer</b>, in order to convert the command-line argument (the
 second one, hence <code>argv[1]</code>) which is an ascii string, into an integer
 <code>n</code>. We then declare an array <code>grades[n]</code> to be of length <code>n</code>.
 </p>
+<p>
+Here is some code that does nothing except output to the screen the
+number of input arguments, and their value:
+</p>
+
+
+
+<pre class="src src-C"><span style="color: #5f5f87;">#include</span> <span style="color: #87005f;">&lt;stdio.h&gt;</span>
+
+<span style="color: #008700;">int</span> <span style="color: #0000ff;">main</span>(<span style="color: #008700;">int</span> <span style="color: #af5f00;">argc</span>, <span style="color: #008700;">char</span>* <span style="color: #af5f00;">argv</span>[]) {
+  <span style="color: #008700;">char</span>** <span style="color: #af5f00;">argp</span>;
+  <span style="color: #008700;">int</span> <span style="color: #af5f00;">i</span>;
+  printf(<span style="color: #87005f;">"argc = %d\n"</span>, argc);
+  <span style="color: #af00ff;">for</span> (i=0; i&lt;argc; i++) {
+    printf(<span style="color: #87005f;">"argv[%d] = %s\n"</span>, i, argv[i]);
+  }
+  <span style="color: #af00ff;">return</span> 0;
+}
+</pre>
+
+
+<p>
+So for example:
+</p>
+
+
+
+<pre class="example">plg:Desktop plg$ gcc -o dryrun dryrun.c
+plg:Desktop plg$ ./dryrun
+argc = 1
+argv[0] = ./dryrun
+plg:Desktop plg$ 
+plg:Desktop plg$ ./dryrun hello
+argc = 2
+argv[0] = ./dryrun
+argv[1] = hello
+plg:Desktop plg$ 
+plg:Desktop plg$ ./dryrun 1 2 3 hi "the dude" 3.14159
+argc = 7
+argv[0] = ./dryrun
+argv[1] = 1
+argv[2] = 2
+argv[3] = 3
+argv[4] = hi
+argv[5] = the dude
+argv[6] = 3.14159
+</pre>
+
+
+<p>
+Remember, all inputs are treated as null-terminated strings, so if you
+want to pass integers or floating point values in, you will have to
+convert them from strings in your code. Also remember that the first
+argument is always the name of the program, so if you expect to have
+to pass <code>n</code> input arguments to your program, then expect <code>argc</code> to be
+<code>n+1</code>.
+</p>
 </div>
 
 </div>

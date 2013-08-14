@@ -129,30 +129,31 @@ for the JavaScript code in this tag.
 <h2>Table of Contents</h2>
 <div id="text-table-of-contents">
 <ul>
-<li><a href="#sec-1">I/O Streams</a>
+<li><a href="#sec-1">Command-line arguments</a></li>
+<li><a href="#sec-2">I/O Streams</a>
 <ul>
-<li><a href="#sec-1-1">Character I/O: <code>getchar()</code> and <code>putchar()</code></a></li>
-<li><a href="#sec-1-2">Formatted I/O: <code>printf()</code> and <code>scanf()</code></a>
+<li><a href="#sec-2-1">Character I/O: <code>getchar()</code> and <code>putchar()</code></a></li>
+<li><a href="#sec-2-2">Formatted I/O: <code>printf()</code> and <code>scanf()</code></a>
 <ul>
-<li><a href="#sec-1-2-1">The <code>printf()</code> function</a></li>
-<li><a href="#sec-1-2-2">The <code>scanf()</code> function</a></li>
+<li><a href="#sec-2-2-1">The <code>printf()</code> function</a></li>
+<li><a href="#sec-2-2-2">The <code>scanf()</code> function</a></li>
 </ul></li>
 </ul>
 </li>
-<li><a href="#sec-2">Input and Output with Files</a>
+<li><a href="#sec-3">Input and Output with Files</a>
 <ul>
-<li><a href="#sec-2-1">Opening and Closing files with <code>fopen()</code> and <code>fclose()</code></a></li>
-<li><a href="#sec-2-2">Reading and Writing to files</a>
+<li><a href="#sec-3-1">Opening and Closing files with <code>fopen()</code> and <code>fclose()</code></a></li>
+<li><a href="#sec-3-2">Reading and Writing to files</a>
 <ul>
-<li><a href="#sec-2-2-1">Ascii Files (plain text)</a></li>
-<li><a href="#sec-2-2-2">Binary Files (raw bytes)</a></li>
+<li><a href="#sec-3-2-1">Ascii Files (plain text)</a></li>
+<li><a href="#sec-3-2-2">Binary Files (raw bytes)</a></li>
 </ul></li>
 </ul>
 </li>
-<li><a href="#sec-3">Links</a></li>
-<li><a href="#sec-4">Exercises</a>
+<li><a href="#sec-4">Links</a></li>
+<li><a href="#sec-5">Exercises</a>
 <ul>
-<li><a href="#sec-4-1">Solutions</a></li>
+<li><a href="#sec-5-1">Solutions</a></li>
 </ul>
 </li>
 </ul>
@@ -163,8 +164,22 @@ for the JavaScript code in this tag.
 
 
 <div id="outline-container-1" class="outline-2">
-<h2 id="sec-1">I/O Streams</h2>
+<h2 id="sec-1">Command-line arguments</h2>
 <div class="outline-text-2" id="text-1">
+
+
+<p>
+When you run a C program from the command line, you can pass it input
+arguments.
+</p>
+
+</div>
+
+</div>
+
+<div id="outline-container-2" class="outline-2">
+<h2 id="sec-2">I/O Streams</h2>
+<div class="outline-text-2" id="text-2">
 
 
 <p>
@@ -208,9 +223,9 @@ a C book, or <a href="http://www.acm.uiuc.edu/webmonkeys/book/c_guide/2.12.html#
 
 </div>
 
-<div id="outline-container-1-1" class="outline-3">
-<h3 id="sec-1-1">Character I/O: <code>getchar()</code> and <code>putchar()</code></h3>
-<div class="outline-text-3" id="text-1-1">
+<div id="outline-container-2-1" class="outline-3">
+<h3 id="sec-2-1">Character I/O: <code>getchar()</code> and <code>putchar()</code></h3>
+<div class="outline-text-3" id="text-2-1">
 
 
 <p>
@@ -242,17 +257,17 @@ x
 
 </div>
 
-<div id="outline-container-1-2" class="outline-3">
-<h3 id="sec-1-2">Formatted I/O: <code>printf()</code> and <code>scanf()</code></h3>
-<div class="outline-text-3" id="text-1-2">
+<div id="outline-container-2-2" class="outline-3">
+<h3 id="sec-2-2">Formatted I/O: <code>printf()</code> and <code>scanf()</code></h3>
+<div class="outline-text-3" id="text-2-2">
 
 
 
 </div>
 
-<div id="outline-container-1-2-1" class="outline-4">
-<h4 id="sec-1-2-1">The <code>printf()</code> function</h4>
-<div class="outline-text-4" id="text-1-2-1">
+<div id="outline-container-2-2-1" class="outline-4">
+<h4 id="sec-2-2-1">The <code>printf()</code> function</h4>
+<div class="outline-text-4" id="text-2-2-1">
 
 
 <p>
@@ -301,9 +316,9 @@ Consult a reference manual (or a website like <a href="http://www.acm.uiuc.edu/w
 
 </div>
 
-<div id="outline-container-1-2-2" class="outline-4">
-<h4 id="sec-1-2-2">The <code>scanf()</code> function</h4>
-<div class="outline-text-4" id="text-1-2-2">
+<div id="outline-container-2-2-2" class="outline-4">
+<h4 id="sec-2-2-2">The <code>scanf()</code> function</h4>
+<div class="outline-text-4" id="text-2-2-2">
 
 
 <p>
@@ -362,17 +377,17 @@ looks for input values.
 
 </div>
 
-<div id="outline-container-2" class="outline-2">
-<h2 id="sec-2">Input and Output with Files</h2>
-<div class="outline-text-2" id="text-2">
+<div id="outline-container-3" class="outline-2">
+<h2 id="sec-3">Input and Output with Files</h2>
+<div class="outline-text-2" id="text-3">
 
 
 
 </div>
 
-<div id="outline-container-2-1" class="outline-3">
-<h3 id="sec-2-1">Opening and Closing files with <code>fopen()</code> and <code>fclose()</code></h3>
-<div class="outline-text-3" id="text-2-1">
+<div id="outline-container-3-1" class="outline-3">
+<h3 id="sec-3-1">Opening and Closing files with <code>fopen()</code> and <code>fclose()</code></h3>
+<div class="outline-text-3" id="text-3-1">
 
 
 <p>
@@ -388,9 +403,9 @@ to <b>close</b> it using the <code>fclose()</code> function.
 
 </div>
 
-<div id="outline-container-2-2" class="outline-3">
-<h3 id="sec-2-2">Reading and Writing to files</h3>
-<div class="outline-text-3" id="text-2-2">
+<div id="outline-container-3-2" class="outline-3">
+<h3 id="sec-3-2">Reading and Writing to files</h3>
+<div class="outline-text-3" id="text-3-2">
 
 
 <p>
@@ -400,9 +415,9 @@ files. There is a collection of functions for reading and writing ascii (text) d
 
 </div>
 
-<div id="outline-container-2-2-1" class="outline-4">
-<h4 id="sec-2-2-1">Ascii Files (plain text)</h4>
-<div class="outline-text-4" id="text-2-2-1">
+<div id="outline-container-3-2-1" class="outline-4">
+<h4 id="sec-3-2-1">Ascii Files (plain text)</h4>
+<div class="outline-text-4" id="text-3-2-1">
 
 
 <p>
@@ -555,9 +570,9 @@ file, and FALSE otherwise.
 
 </div>
 
-<div id="outline-container-2-2-2" class="outline-4">
-<h4 id="sec-2-2-2">Binary Files (raw bytes)</h4>
-<div class="outline-text-4" id="text-2-2-2">
+<div id="outline-container-3-2-2" class="outline-4">
+<h4 id="sec-3-2-2">Binary Files (raw bytes)</h4>
+<div class="outline-text-4" id="text-3-2-2">
 
 
 <p>
@@ -672,9 +687,9 @@ write them in "raw" binary using <code>fread()</code> and <code>fwrite()</code>.
 
 </div>
 
-<div id="outline-container-3" class="outline-2">
-<h2 id="sec-3">Links</h2>
-<div class="outline-text-2" id="text-3">
+<div id="outline-container-4" class="outline-2">
+<h2 id="sec-4">Links</h2>
+<div class="outline-text-2" id="text-4">
 
 
 <ul>
@@ -690,9 +705,9 @@ write them in "raw" binary using <code>fread()</code> and <code>fwrite()</code>.
 
 </div>
 
-<div id="outline-container-4" class="outline-2">
-<h2 id="sec-4">Exercises</h2>
-<div class="outline-text-2" id="text-4">
+<div id="outline-container-5" class="outline-2">
+<h2 id="sec-5">Exercises</h2>
+<div class="outline-text-2" id="text-5">
 
 
 <ul>
@@ -718,9 +733,9 @@ write them in "raw" binary using <code>fread()</code> and <code>fwrite()</code>.
 
 </div>
 
-<div id="outline-container-4-1" class="outline-3">
-<h3 id="sec-4-1">Solutions</h3>
-<div class="outline-text-3" id="text-4-1">
+<div id="outline-container-5-1" class="outline-3">
+<h3 id="sec-5-1">Solutions</h3>
+<div class="outline-text-3" id="text-5-1">
 
 
 <ul>
