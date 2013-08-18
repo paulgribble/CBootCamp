@@ -38,6 +38,16 @@ Other useful ones include [[http://www.gnu.org/software/libc/manual/html_node/Se
 functions. I suggest you have a look at the full list and familiarize
 yourself with what's available.
 
+** Data Structures
+
+Here is a link to a guide taking you through how to use GLib to manage
+data structures of the sort that you get "for free" in languages like
+Matlab, Python, etc... things like lists, hash tables (otherwise known
+as dictionaries), arrays, trees, etc.
+
+[[http://www.ibm.com/developerworks/linux/tutorials/l-glib/][Manage C data using the GLib collections]]
+
+
 ** Linking to glibc
 
 Depending on which function(s) you want to use in your program, you
