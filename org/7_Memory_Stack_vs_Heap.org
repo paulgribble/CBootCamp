@@ -13,8 +13,9 @@
 
 So far we have seen how to declare basic type variables such as =int=,
 =double=, etc, and complex types such as arrays and structs. The way
-we have been declaring them so far, which is most like other languages
-such as MATLAB, Python, etc, puts these variables on the *stack*.
+we have been declaring them so far, with a syntax that is like other
+languages such as MATLAB, Python, etc, puts these variables on
+the *stack* in C.
 
 * The Stack
 
