@@ -325,22 +325,22 @@ looks like the other programs we have seen so far.
 
 
 
-<pre class="src src-c"><span style="color: #5f5f87;">#include</span> <span style="color: #87005f;">&lt;stdio.h&gt;</span>
+<pre class="src src-c"><span style="color: #483d8b;">#include</span> <span style="color: #8b2252;">&lt;stdio.h&gt;</span>
 
-<span style="color: #008700;">double</span> <span style="color: #0000ff;">multiplyByTwo</span> (<span style="color: #008700;">double</span> <span style="color: #af5f00;">input</span>) {
-  <span style="color: #008700;">double</span> <span style="color: #af5f00;">twice</span> = input * 2.0;
-  <span style="color: #af00ff;">return</span> twice;
+<span style="color: #228b22;">double</span> <span style="color: #0000ff;">multiplyByTwo</span> (<span style="color: #228b22;">double</span> <span style="color: #a0522d;">input</span>) {
+  <span style="color: #228b22;">double</span> <span style="color: #a0522d;">twice</span> = input * 2.0;
+  <span style="color: #a020f0;">return</span> twice;
 }
 
-<span style="color: #008700;">int</span> <span style="color: #0000ff;">main</span> (<span style="color: #008700;">int</span> <span style="color: #af5f00;">argc</span>, <span style="color: #008700;">char</span> *<span style="color: #af5f00;">argv</span>[])
+<span style="color: #228b22;">int</span> <span style="color: #0000ff;">main</span> (<span style="color: #228b22;">int</span> <span style="color: #a0522d;">argc</span>, <span style="color: #228b22;">char</span> *<span style="color: #a0522d;">argv</span>[])
 {
-  <span style="color: #008700;">int</span> <span style="color: #af5f00;">age</span> = 30;
-  <span style="color: #008700;">double</span> <span style="color: #af5f00;">salary</span> = 12345.67;
-  <span style="color: #008700;">double</span> <span style="color: #af5f00;">myList</span>[3] = {1.2, 2.3, 3.4};
+  <span style="color: #228b22;">int</span> <span style="color: #a0522d;">age</span> = 30;
+  <span style="color: #228b22;">double</span> <span style="color: #a0522d;">salary</span> = 12345.67;
+  <span style="color: #228b22;">double</span> <span style="color: #a0522d;">myList</span>[3] = {1.2, 2.3, 3.4};
 
-  printf(<span style="color: #87005f;">"double your salary is %.3f\n"</span>, multiplyByTwo(salary));
+  printf(<span style="color: #8b2252;">"double your salary is %.3f\n"</span>, multiplyByTwo(salary));
 
-  <span style="color: #af00ff;">return</span> 0;
+  <span style="color: #a020f0;">return</span> 0;
 }
 </pre>
 
@@ -376,36 +376,36 @@ Here is another version of this program that allocates all of its variables on t
 
 
 
-<pre class="src src-c"><span style="color: #5f5f87;">#include</span> <span style="color: #87005f;">&lt;stdio.h&gt;</span>
-<span style="color: #5f5f87;">#include</span> <span style="color: #87005f;">&lt;stdlib.h&gt;</span>
+<pre class="src src-c"><span style="color: #483d8b;">#include</span> <span style="color: #8b2252;">&lt;stdio.h&gt;</span>
+<span style="color: #483d8b;">#include</span> <span style="color: #8b2252;">&lt;stdlib.h&gt;</span>
 
-<span style="color: #008700;">double</span> *<span style="color: #0000ff;">multiplyByTwo</span> (<span style="color: #008700;">double</span> *<span style="color: #af5f00;">input</span>) {
-  <span style="color: #008700;">double</span> *<span style="color: #af5f00;">twice</span> = malloc(<span style="color: #af00ff;">sizeof</span>(<span style="color: #008700;">double</span>));
+<span style="color: #228b22;">double</span> *<span style="color: #0000ff;">multiplyByTwo</span> (<span style="color: #228b22;">double</span> *<span style="color: #a0522d;">input</span>) {
+  <span style="color: #228b22;">double</span> *<span style="color: #a0522d;">twice</span> = malloc(<span style="color: #a020f0;">sizeof</span>(<span style="color: #228b22;">double</span>));
   *twice = *input * 2.0;
-  <span style="color: #af00ff;">return</span> twice;
+  <span style="color: #a020f0;">return</span> twice;
 }
 
-<span style="color: #008700;">int</span> <span style="color: #0000ff;">main</span> (<span style="color: #008700;">int</span> <span style="color: #af5f00;">argc</span>, <span style="color: #008700;">char</span> *<span style="color: #af5f00;">argv</span>[])
+<span style="color: #228b22;">int</span> <span style="color: #0000ff;">main</span> (<span style="color: #228b22;">int</span> <span style="color: #a0522d;">argc</span>, <span style="color: #228b22;">char</span> *<span style="color: #a0522d;">argv</span>[])
 {
-  <span style="color: #008700;">int</span> *<span style="color: #af5f00;">age</span> = malloc(<span style="color: #af00ff;">sizeof</span>(<span style="color: #008700;">int</span>));
+  <span style="color: #228b22;">int</span> *<span style="color: #a0522d;">age</span> = malloc(<span style="color: #a020f0;">sizeof</span>(<span style="color: #228b22;">int</span>));
   *age = 30;
-  <span style="color: #008700;">double</span> *<span style="color: #af5f00;">salary</span> = malloc(<span style="color: #af00ff;">sizeof</span>(<span style="color: #008700;">double</span>));
+  <span style="color: #228b22;">double</span> *<span style="color: #a0522d;">salary</span> = malloc(<span style="color: #a020f0;">sizeof</span>(<span style="color: #228b22;">double</span>));
   *salary = 12345.67;
-  <span style="color: #008700;">double</span> *<span style="color: #af5f00;">myList</span> = malloc(3 * <span style="color: #af00ff;">sizeof</span>(<span style="color: #008700;">double</span>));
+  <span style="color: #228b22;">double</span> *<span style="color: #a0522d;">myList</span> = malloc(3 * <span style="color: #a020f0;">sizeof</span>(<span style="color: #228b22;">double</span>));
   myList[0] = 1.2;
   myList[1] = 2.3;
   myList[2] = 3.4;
 
-  <span style="color: #008700;">double</span> *<span style="color: #af5f00;">twiceSalary</span> = multiplyByTwo(salary);
+  <span style="color: #228b22;">double</span> *<span style="color: #a0522d;">twiceSalary</span> = multiplyByTwo(salary);
 
-  printf(<span style="color: #87005f;">"double your salary is %.3f\n"</span>, *twiceSalary);
+  printf(<span style="color: #8b2252;">"double your salary is %.3f\n"</span>, *twiceSalary);
 
   free(age);
   free(salary);
   free(myList);
   free(twiceSalary);
 
-  <span style="color: #af00ff;">return</span> 0;
+  <span style="color: #a020f0;">return</span> 0;
 }
 </pre>
 

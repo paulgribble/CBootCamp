@@ -268,16 +268,16 @@ look like this:
 
 
 
-<pre class="src src-c"><span style="color: #5f5f87;">#include</span> <span style="color: #87005f;">&lt;stdio.h&gt;</span>
+<pre class="src src-c"><span style="color: #483d8b;">#include</span> <span style="color: #8b2252;">&lt;stdio.h&gt;</span>
 
-<span style="color: #008700;">int</span> <span style="color: #0000ff;">main</span>() {
+<span style="color: #228b22;">int</span> <span style="color: #0000ff;">main</span>() {
      loadSubjects();
      excludeSubject(12);
      lowpassFilterData();
      collectMeansWithBinSize(8);
      pval = performANOVA();
-     printf(<span style="color: #87005f;">"my hypothesis is correct, p &lt; %.3f\n"</span>, pval);
-     <span style="color: #af00ff;">return</span> 0;
+     printf(<span style="color: #8b2252;">"my hypothesis is correct, p &lt; %.3f\n"</span>, pval);
+     <span style="color: #a020f0;">return</span> 0;
 }
 </pre>
 
@@ -331,10 +331,10 @@ A function must be defined in the following way:
 
 
 
-<pre class="src src-c"><span style="color: #008700;">returnType</span> <span style="color: #0000ff;">functionName</span> (<span style="color: #008700;">arg1Type</span> <span style="color: #af5f00;">arg1Name</span>, <span style="color: #008700;">arg1Type</span> <span style="color: #af5f00;">arg2Name</span>) {
+<pre class="src src-c"><span style="color: #228b22;">returnType</span> <span style="color: #0000ff;">functionName</span> (<span style="color: #228b22;">arg1Type</span> <span style="color: #a0522d;">arg1Name</span>, <span style="color: #228b22;">arg1Type</span> <span style="color: #a0522d;">arg2Name</span>) {
    function_statement;
    function_statement;
-   <span style="color: #af00ff;">return</span> returnVar;
+   <span style="color: #a020f0;">return</span> returnVar;
 }
 </pre>
 
@@ -359,8 +359,8 @@ that writes a message to the screen, "Hello, Paul":
 
 
 
-<pre class="src src-c"><span style="color: #008700;">void</span> <span style="color: #0000ff;">writeMessage</span>(<span style="color: #008700;">void</span>) {
-   printf(<span style="color: #87005f;">"Hello, Paul\n"</span>);
+<pre class="src src-c"><span style="color: #228b22;">void</span> <span style="color: #0000ff;">writeMessage</span>(<span style="color: #228b22;">void</span>) {
+   printf(<span style="color: #8b2252;">"Hello, Paul\n"</span>);
 }
 </pre>
 
@@ -373,15 +373,15 @@ expect any inputs. We can call the function in a program like this:
 
 
 
-<pre class="src src-c"><span style="color: #5f5f87;">#include</span> <span style="color: #87005f;">&lt;stdio.h&gt;</span>
+<pre class="src src-c"><span style="color: #483d8b;">#include</span> <span style="color: #8b2252;">&lt;stdio.h&gt;</span>
 
-<span style="color: #008700;">void</span> <span style="color: #0000ff;">writeMessage</span>(<span style="color: #008700;">void</span>) {
-   printf(<span style="color: #87005f;">"Hello, Paul\n"</span>);
+<span style="color: #228b22;">void</span> <span style="color: #0000ff;">writeMessage</span>(<span style="color: #228b22;">void</span>) {
+   printf(<span style="color: #8b2252;">"Hello, Paul\n"</span>);
 }
 
-<span style="color: #008700;">int</span> <span style="color: #0000ff;">main</span>() {
+<span style="color: #228b22;">int</span> <span style="color: #0000ff;">main</span>() {
         writeMessage();
-        <span style="color: #af00ff;">return</span> 0;
+        <span style="color: #a020f0;">return</span> 0;
 }
 </pre>
 
@@ -410,16 +410,16 @@ would print to the screen <code>Hello, Dave</code>, or we could call it with
 
 
 
-<pre class="src src-C"><span style="color: #5f5f87;">#include</span> <span style="color: #87005f;">&lt;stdio.h&gt;</span>
+<pre class="src src-C"><span style="color: #483d8b;">#include</span> <span style="color: #8b2252;">&lt;stdio.h&gt;</span>
 
-<span style="color: #008700;">void</span> <span style="color: #0000ff;">writeMessage</span>(<span style="color: #008700;">char</span> <span style="color: #af5f00;">name</span>[]) {
-   printf(<span style="color: #87005f;">"Hello, %s\n"</span>, name);
+<span style="color: #228b22;">void</span> <span style="color: #0000ff;">writeMessage</span>(<span style="color: #228b22;">char</span> <span style="color: #a0522d;">name</span>[]) {
+   printf(<span style="color: #8b2252;">"Hello, %s\n"</span>, name);
 }
 
-<span style="color: #008700;">int</span> <span style="color: #0000ff;">main</span>() {
-        writeMessage(<span style="color: #87005f;">"Dave"</span>);
-        writeMessage(<span style="color: #87005f;">"Victoria"</span>);
-        <span style="color: #af00ff;">return</span> 0;
+<span style="color: #228b22;">int</span> <span style="color: #0000ff;">main</span>() {
+        writeMessage(<span style="color: #8b2252;">"Dave"</span>);
+        writeMessage(<span style="color: #8b2252;">"Victoria"</span>);
+        <span style="color: #a020f0;">return</span> 0;
 }
 </pre>
 
@@ -440,16 +440,16 @@ Let's give our function two input arguments now, just to see how this is done:
 
 
 
-<pre class="src src-C"><span style="color: #5f5f87;">#include</span> <span style="color: #87005f;">&lt;stdio.h&gt;</span>
+<pre class="src src-C"><span style="color: #483d8b;">#include</span> <span style="color: #8b2252;">&lt;stdio.h&gt;</span>
 
-<span style="color: #008700;">void</span> <span style="color: #0000ff;">writeMessage</span>(<span style="color: #008700;">char</span> <span style="color: #af5f00;">name</span>[], <span style="color: #008700;">int</span> <span style="color: #af5f00;">n</span>) {
-   printf(<span style="color: #87005f;">"Hello, %s %d\n"</span>, name, n);
+<span style="color: #228b22;">void</span> <span style="color: #0000ff;">writeMessage</span>(<span style="color: #228b22;">char</span> <span style="color: #a0522d;">name</span>[], <span style="color: #228b22;">int</span> <span style="color: #a0522d;">n</span>) {
+   printf(<span style="color: #8b2252;">"Hello, %s %d\n"</span>, name, n);
 }
 
-<span style="color: #008700;">int</span> <span style="color: #0000ff;">main</span>() {
-        writeMessage(<span style="color: #87005f;">"Dave"</span>, 123);
-        writeMessage(<span style="color: #87005f;">"Victoria"</span>, 444);
-        <span style="color: #af00ff;">return</span> 0;
+<span style="color: #228b22;">int</span> <span style="color: #0000ff;">main</span>() {
+        writeMessage(<span style="color: #8b2252;">"Dave"</span>, 123);
+        writeMessage(<span style="color: #8b2252;">"Victoria"</span>, 444);
+        <span style="color: #a020f0;">return</span> 0;
 }
 </pre>
 
@@ -486,19 +486,19 @@ where \(F_{0}=0\) and \(F_{1}=1\).
 
 
 
-<pre class="src src-c"><span style="color: #5f5f87;">#include</span> <span style="color: #87005f;">&lt;stdio.h&gt;</span>
+<pre class="src src-c"><span style="color: #483d8b;">#include</span> <span style="color: #8b2252;">&lt;stdio.h&gt;</span>
 
-<span style="color: #008700;">int</span> <span style="color: #0000ff;">Fibonacci</span>(<span style="color: #008700;">int</span> <span style="color: #af5f00;">n</span>) {
-        <span style="color: #af00ff;">if</span> (n==0) <span style="color: #af00ff;">return</span> 0;
-        <span style="color: #af00ff;">else</span> <span style="color: #af00ff;">if</span> (n==1) <span style="color: #af00ff;">return</span> 1;
-        <span style="color: #af00ff;">else</span> <span style="color: #af00ff;">return</span> Fibonacci(n-1) + Fibonacci(n-2);
+<span style="color: #228b22;">int</span> <span style="color: #0000ff;">Fibonacci</span>(<span style="color: #228b22;">int</span> <span style="color: #a0522d;">n</span>) {
+        <span style="color: #a020f0;">if</span> (n==0) <span style="color: #a020f0;">return</span> 0;
+        <span style="color: #a020f0;">else</span> <span style="color: #a020f0;">if</span> (n==1) <span style="color: #a020f0;">return</span> 1;
+        <span style="color: #a020f0;">else</span> <span style="color: #a020f0;">return</span> Fibonacci(n-1) + Fibonacci(n-2);
 }
 
-<span style="color: #008700;">int</span> <span style="color: #0000ff;">main</span>() {
-        <span style="color: #008700;">int</span> <span style="color: #af5f00;">n</span> = 10;
-        <span style="color: #008700;">int</span> <span style="color: #af5f00;">Fn</span> = Fibonacci(n);
-        printf(<span style="color: #87005f;">"Fibonacci(%d) = %d\n"</span>, n, Fn);
-    <span style="color: #af00ff;">return</span> 0;
+<span style="color: #228b22;">int</span> <span style="color: #0000ff;">main</span>() {
+        <span style="color: #228b22;">int</span> <span style="color: #a0522d;">n</span> = 10;
+        <span style="color: #228b22;">int</span> <span style="color: #a0522d;">Fn</span> = Fibonacci(n);
+        printf(<span style="color: #8b2252;">"Fibonacci(%d) = %d\n"</span>, n, Fn);
+    <span style="color: #a020f0;">return</span> 0;
 }
 </pre>
 
@@ -592,24 +592,24 @@ accessed outside of <code>myFunc()</code> (for example within
 
 
 
-<pre class="src src-c"><span style="color: #5f5f87;">#include</span> <span style="color: #87005f;">&lt;stdio.h&gt;</span>
+<pre class="src src-c"><span style="color: #483d8b;">#include</span> <span style="color: #8b2252;">&lt;stdio.h&gt;</span>
 
-<span style="color: #008700;">float</span> <span style="color: #af5f00;">myGlob</span> = 3.14;
+<span style="color: #228b22;">float</span> <span style="color: #a0522d;">myGlob</span> = 3.14;
 
-<span style="color: #008700;">void</span> <span style="color: #0000ff;">myFunc</span>(<span style="color: #008700;">void</span>) {
-        <span style="color: #008700;">int</span> <span style="color: #af5f00;">myInt</span> = 8;
-        printf(<span style="color: #87005f;">"my favourite number is %d\n"</span>, myInt);
-        printf(<span style="color: #87005f;">"my favourite float is %.2f\n"</span>, myGlob);
-<span style="color: #af0000;">//      </span><span style="color: #af0000;">printf("my favourite letter is $c\n", myChar); // THIS WOULD NOT WORK</span>
+<span style="color: #228b22;">void</span> <span style="color: #0000ff;">myFunc</span>(<span style="color: #228b22;">void</span>) {
+        <span style="color: #228b22;">int</span> <span style="color: #a0522d;">myInt</span> = 8;
+        printf(<span style="color: #8b2252;">"my favourite number is %d\n"</span>, myInt);
+        printf(<span style="color: #8b2252;">"my favourite float is %.2f\n"</span>, myGlob);
+<span style="color: #b22222;">//      </span><span style="color: #b22222;">printf("my favourite letter is $c\n", myChar); // THIS WOULD NOT WORK</span>
 }
 
-<span style="color: #008700;">int</span> <span style="color: #0000ff;">main</span>() {
-        <span style="color: #008700;">char</span> <span style="color: #af5f00;">myChar</span> = <span style="color: #87005f;">'x'</span>;
-        printf(<span style="color: #87005f;">"my favourite letter is %c\n"</span>, myChar);
+<span style="color: #228b22;">int</span> <span style="color: #0000ff;">main</span>() {
+        <span style="color: #228b22;">char</span> <span style="color: #a0522d;">myChar</span> = <span style="color: #8b2252;">'x'</span>;
+        printf(<span style="color: #8b2252;">"my favourite letter is %c\n"</span>, myChar);
         myFunc();
-        printf(<span style="color: #87005f;">"my favourite float is %.2f\n"</span>, myGlob);
-<span style="color: #af0000;">//      </span><span style="color: #af0000;">printf("my favourite number is %d", myInt); // THIS WOULD NOT WORK</span>
-        <span style="color: #af00ff;">return</span> 0;
+        printf(<span style="color: #8b2252;">"my favourite float is %.2f\n"</span>, myGlob);
+<span style="color: #b22222;">//      </span><span style="color: #b22222;">printf("my favourite number is %d", myInt); // THIS WOULD NOT WORK</span>
+        <span style="color: #a020f0;">return</span> 0;
 }
 </pre>
 
@@ -659,20 +659,20 @@ of times the function <code>myFun()</code> has been called.
 
 
 
-<pre class="src src-c"><span style="color: #5f5f87;">#include</span> <span style="color: #87005f;">&lt;stdio.h&gt;</span>
+<pre class="src src-c"><span style="color: #483d8b;">#include</span> <span style="color: #8b2252;">&lt;stdio.h&gt;</span>
 
-<span style="color: #008700;">void</span> <span style="color: #0000ff;">myFunc</span>(<span style="color: #008700;">void</span>) {
-        <span style="color: #af00ff;">static</span> <span style="color: #008700;">int</span> <span style="color: #af5f00;">num</span> = 0;
+<span style="color: #228b22;">void</span> <span style="color: #0000ff;">myFunc</span>(<span style="color: #228b22;">void</span>) {
+        <span style="color: #a020f0;">static</span> <span style="color: #228b22;">int</span> <span style="color: #a0522d;">num</span> = 0;
         num++;
-        printf(<span style="color: #87005f;">"myFunc() has been called %d times so far\n"</span>, num);
+        printf(<span style="color: #8b2252;">"myFunc() has been called %d times so far\n"</span>, num);
 }
 
-<span style="color: #008700;">int</span> <span style="color: #0000ff;">main</span>() {
+<span style="color: #228b22;">int</span> <span style="color: #0000ff;">main</span>() {
         myFunc();
         myFunc();
         myFunc();
-<span style="color: #af0000;">//      </span><span style="color: #af0000;">printf("num = %d\n", num);  // THIS WOULD NOT WORK</span>
-        <span style="color: #af00ff;">return</span> 0;
+<span style="color: #b22222;">//      </span><span style="color: #b22222;">printf("num = %d\n", num);  // THIS WOULD NOT WORK</span>
+        <span style="color: #a020f0;">return</span> 0;
 }
 </pre>
 
@@ -714,35 +714,35 @@ Here is a simple example of how one would do this, taken from
 
 
 
-<pre class="src src-c"><span style="color: #5f5f87;">#include</span> <span style="color: #87005f;">&lt;stdarg.h&gt;</span>
-<span style="color: #5f5f87;">#include</span> <span style="color: #87005f;">&lt;stdio.h&gt;</span>
+<pre class="src src-c"><span style="color: #483d8b;">#include</span> <span style="color: #8b2252;">&lt;stdarg.h&gt;</span>
+<span style="color: #483d8b;">#include</span> <span style="color: #8b2252;">&lt;stdio.h&gt;</span>
 
-<span style="color: #008700;">int</span>
-<span style="color: #0000ff;">add_em_up</span> (<span style="color: #008700;">int</span> <span style="color: #af5f00;">count</span>,...)
+<span style="color: #228b22;">int</span>
+<span style="color: #0000ff;">add_em_up</span> (<span style="color: #228b22;">int</span> <span style="color: #a0522d;">count</span>,...)
 {
-  <span style="color: #008700;">va_list</span> <span style="color: #af5f00;">ap</span>;
-  <span style="color: #008700;">int</span> <span style="color: #af5f00;">i</span>, <span style="color: #af5f00;">sum</span>;
+  <span style="color: #228b22;">va_list</span> <span style="color: #a0522d;">ap</span>;
+  <span style="color: #228b22;">int</span> <span style="color: #a0522d;">i</span>, <span style="color: #a0522d;">sum</span>;
 
-  va_start (ap, count);         <span style="color: #af0000;">/* </span><span style="color: #af0000;">Initialize the argument list. </span><span style="color: #af0000;">*/</span>
+  va_start (ap, count);         <span style="color: #b22222;">/* </span><span style="color: #b22222;">Initialize the argument list. </span><span style="color: #b22222;">*/</span>
 
   sum = 0;
-  <span style="color: #af00ff;">for</span> (i = 0; i &lt; count; i++)
-    sum += va_arg (ap, <span style="color: #008700;">int</span>);    <span style="color: #af0000;">/* </span><span style="color: #af0000;">Get the next argument value. </span><span style="color: #af0000;">*/</span>
+  <span style="color: #a020f0;">for</span> (i = 0; i &lt; count; i++)
+    sum += va_arg (ap, <span style="color: #228b22;">int</span>);    <span style="color: #b22222;">/* </span><span style="color: #b22222;">Get the next argument value. </span><span style="color: #b22222;">*/</span>
 
-  va_end (ap);                  <span style="color: #af0000;">/* </span><span style="color: #af0000;">Clean up. </span><span style="color: #af0000;">*/</span>
-  <span style="color: #af00ff;">return</span> sum;
+  va_end (ap);                  <span style="color: #b22222;">/* </span><span style="color: #b22222;">Clean up. </span><span style="color: #b22222;">*/</span>
+  <span style="color: #a020f0;">return</span> sum;
 }
 
-<span style="color: #008700;">int</span>
-<span style="color: #0000ff;">main</span> (<span style="color: #008700;">void</span>)
+<span style="color: #228b22;">int</span>
+<span style="color: #0000ff;">main</span> (<span style="color: #228b22;">void</span>)
 {
-  <span style="color: #af0000;">/* </span><span style="color: #af0000;">This call prints 16. </span><span style="color: #af0000;">*/</span>
-  printf (<span style="color: #87005f;">"%d\n"</span>, add_em_up (3, 5, 5, 6));
+  <span style="color: #b22222;">/* </span><span style="color: #b22222;">This call prints 16. </span><span style="color: #b22222;">*/</span>
+  printf (<span style="color: #8b2252;">"%d\n"</span>, add_em_up (3, 5, 5, 6));
 
-  <span style="color: #af0000;">/* </span><span style="color: #af0000;">This call prints 55. </span><span style="color: #af0000;">*/</span>
-  printf (<span style="color: #87005f;">"%d\n"</span>, add_em_up (10, 1, 2, 3, 4, 5, 6, 7, 8, 9, 10));
+  <span style="color: #b22222;">/* </span><span style="color: #b22222;">This call prints 55. </span><span style="color: #b22222;">*/</span>
+  printf (<span style="color: #8b2252;">"%d\n"</span>, add_em_up (10, 1, 2, 3, 4, 5, 6, 7, 8, 9, 10));
 
-  <span style="color: #af00ff;">return</span> 0;
+  <span style="color: #a020f0;">return</span> 0;
 }
 </pre>
 
@@ -792,20 +792,20 @@ program [ <a href="code/exercises/5_1_go.c">code</a> ] and it should run:
 
 
 
-<pre class="src src-c"><span style="color: #af0000;">// </span><span style="color: #af0000;">gcc -Wall -o go 5_1_go.c</span>
+<pre class="src src-c"><span style="color: #b22222;">// </span><span style="color: #b22222;">gcc -Wall -o go 5_1_go.c</span>
 
-<span style="color: #5f5f87;">#include</span> <span style="color: #87005f;">&lt;stdio.h&gt;</span>
+<span style="color: #483d8b;">#include</span> <span style="color: #8b2252;">&lt;stdio.h&gt;</span>
 
-<span style="color: #008700;">int</span> <span style="color: #0000ff;">fib</span>(<span style="color: #008700;">int</span> <span style="color: #af5f00;">n</span>);
+<span style="color: #228b22;">int</span> <span style="color: #0000ff;">fib</span>(<span style="color: #228b22;">int</span> <span style="color: #a0522d;">n</span>);
 
-<span style="color: #008700;">int</span> <span style="color: #0000ff;">main</span>(<span style="color: #008700;">int</span> <span style="color: #af5f00;">argc</span>, <span style="color: #008700;">char</span> *<span style="color: #af5f00;">argv</span>[])
+<span style="color: #228b22;">int</span> <span style="color: #0000ff;">main</span>(<span style="color: #228b22;">int</span> <span style="color: #a0522d;">argc</span>, <span style="color: #228b22;">char</span> *<span style="color: #a0522d;">argv</span>[])
 {
-  printf(<span style="color: #87005f;">"fib(%d)=%d\n"</span>, 10, fib(10));
-  <span style="color: #af00ff;">return</span> 0;
+  printf(<span style="color: #8b2252;">"fib(%d)=%d\n"</span>, 10, fib(10));
+  <span style="color: #a020f0;">return</span> 0;
 }
 
-<span style="color: #008700;">int</span> <span style="color: #0000ff;">fib</span>(<span style="color: #008700;">int</span> <span style="color: #af5f00;">n</span>) {
-  <span style="color: #af0000;">// </span><span style="color: #af0000;">your code goes here</span>
+<span style="color: #228b22;">int</span> <span style="color: #0000ff;">fib</span>(<span style="color: #228b22;">int</span> <span style="color: #a0522d;">n</span>) {
+  <span style="color: #b22222;">// </span><span style="color: #b22222;">your code goes here</span>
 }
 
 </pre>
@@ -833,21 +833,21 @@ program [ <a href="code/exercises/5_2_go.c">code</a> ] and it should run:
 
 
 
-<pre class="src src-c"><span style="color: #af0000;">// </span><span style="color: #af0000;">gcc -Wall -o go 5_2_go.c</span>
+<pre class="src src-c"><span style="color: #b22222;">// </span><span style="color: #b22222;">gcc -Wall -o go 5_2_go.c</span>
 
-<span style="color: #5f5f87;">#include</span> <span style="color: #87005f;">&lt;stdio.h&gt;</span>
+<span style="color: #483d8b;">#include</span> <span style="color: #8b2252;">&lt;stdio.h&gt;</span>
 
-<span style="color: #008700;">int</span> <span style="color: #0000ff;">isprime</span>(<span style="color: #008700;">int</span> <span style="color: #af5f00;">n</span>);
+<span style="color: #228b22;">int</span> <span style="color: #0000ff;">isprime</span>(<span style="color: #228b22;">int</span> <span style="color: #a0522d;">n</span>);
 
-<span style="color: #008700;">int</span> <span style="color: #0000ff;">main</span>(<span style="color: #008700;">int</span> <span style="color: #af5f00;">argc</span>, <span style="color: #008700;">char</span> *<span style="color: #af5f00;">argv</span>[])
+<span style="color: #228b22;">int</span> <span style="color: #0000ff;">main</span>(<span style="color: #228b22;">int</span> <span style="color: #a0522d;">argc</span>, <span style="color: #228b22;">char</span> *<span style="color: #a0522d;">argv</span>[])
 {
-  printf(<span style="color: #87005f;">"isprime(%d)=%d\n"</span>, 12, isprime(12));
-  printf(<span style="color: #87005f;">"isprime(%d)=%d\n"</span>, 17, isprime(17));
-  <span style="color: #af00ff;">return</span> 0;
+  printf(<span style="color: #8b2252;">"isprime(%d)=%d\n"</span>, 12, isprime(12));
+  printf(<span style="color: #8b2252;">"isprime(%d)=%d\n"</span>, 17, isprime(17));
+  <span style="color: #a020f0;">return</span> 0;
 }
 
-<span style="color: #008700;">int</span> <span style="color: #0000ff;">isprime</span>(<span style="color: #008700;">int</span> <span style="color: #af5f00;">n</span>) {
-  <span style="color: #af0000;">// </span><span style="color: #af0000;">your code goes here</span>
+<span style="color: #228b22;">int</span> <span style="color: #0000ff;">isprime</span>(<span style="color: #228b22;">int</span> <span style="color: #a0522d;">n</span>) {
+  <span style="color: #b22222;">// </span><span style="color: #b22222;">your code goes here</span>
 }
 </pre>
 

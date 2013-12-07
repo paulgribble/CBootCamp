@@ -196,6 +196,7 @@ languages for *prototyping*, and C for *performance*.
 - [[http://shop.oreilly.com/product/0636920015482.do][Head First C]] (very "tutorial" style, slightly annoying)
 - [[http://mortoray.com/2012/06/11/whats-to-love-about-c/][What's to love about C?]]
 - [[http://c.learncodethehardway.org/book/][Learn C The Hard Way]]
+- [[http://masters-of-the-void.com/][Masters of the Void]] Mac tutorial for Xcode and C 
 - [[http://en.wikipedia.org/wiki/C_standard_library][C standard library]]
 - A book on doing statistics with C using the [[http://apophenia.sourceforge.net/][Apophenia]] library:
   [[http://modelingwithdata.org/about_the_book.html][Modeling With Data]] by Ben Klemens (see Chapter 1 for an argument in

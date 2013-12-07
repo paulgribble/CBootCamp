@@ -302,21 +302,21 @@ Here is how to declare a pointer:
 
 
 
-<pre class="src src-c"><span style="color: #5f5f87;">#include</span> <span style="color: #87005f;">&lt;stdio.h&gt;</span>
+<pre class="src src-c"><span style="color: #483d8b;">#include</span> <span style="color: #8b2252;">&lt;stdio.h&gt;</span>
 
-<span style="color: #008700;">int</span> <span style="color: #0000ff;">main</span> (<span style="color: #008700;">int</span> <span style="color: #af5f00;">argc</span>, <span style="color: #008700;">char</span> *<span style="color: #af5f00;">argv</span>[])
+<span style="color: #228b22;">int</span> <span style="color: #0000ff;">main</span> (<span style="color: #228b22;">int</span> <span style="color: #a0522d;">argc</span>, <span style="color: #228b22;">char</span> *<span style="color: #a0522d;">argv</span>[])
 {
-  <span style="color: #008700;">int</span> <span style="color: #af5f00;">age</span> = 30;
-  <span style="color: #008700;">int</span> *<span style="color: #af5f00;">p</span>;
+  <span style="color: #228b22;">int</span> <span style="color: #a0522d;">age</span> = 30;
+  <span style="color: #228b22;">int</span> *<span style="color: #a0522d;">p</span>;
   p = &amp;age;
-  printf(<span style="color: #87005f;">"age=%d\n"</span>, age);
-  printf(<span style="color: #87005f;">"p=%p\n"</span>, p);
-  printf(<span style="color: #87005f;">"*p=%d\n"</span>, *p);
-  printf(<span style="color: #87005f;">"sizeof(p)=%ld\n"</span>, <span style="color: #af00ff;">sizeof</span>(p));
+  printf(<span style="color: #8b2252;">"age=%d\n"</span>, age);
+  printf(<span style="color: #8b2252;">"p=%p\n"</span>, p);
+  printf(<span style="color: #8b2252;">"*p=%d\n"</span>, *p);
+  printf(<span style="color: #8b2252;">"sizeof(p)=%ld\n"</span>, <span style="color: #a020f0;">sizeof</span>(p));
   *p = 40;
-  printf(<span style="color: #87005f;">"*p=%d\n"</span>, *p);
-  printf(<span style="color: #87005f;">"age=%d\n"</span>, age);
-  <span style="color: #af00ff;">return</span> 0;
+  printf(<span style="color: #8b2252;">"*p=%d\n"</span>, *p);
+  printf(<span style="color: #8b2252;">"age=%d\n"</span>, age);
+  <span style="color: #a020f0;">return</span> 0;
 }
 </pre>
 
@@ -428,18 +428,18 @@ use pointer arithmetic to read off the 3rd value:
 
 
 
-<pre class="src src-C"><span style="color: #5f5f87;">#include</span> <span style="color: #87005f;">&lt;stdio.h&gt;</span>
-<span style="color: #5f5f87;">#include</span> <span style="color: #87005f;">&lt;stdlib.h&gt;</span>
+<pre class="src src-C"><span style="color: #483d8b;">#include</span> <span style="color: #8b2252;">&lt;stdio.h&gt;</span>
+<span style="color: #483d8b;">#include</span> <span style="color: #8b2252;">&lt;stdlib.h&gt;</span>
 
-<span style="color: #008700;">int</span> <span style="color: #0000ff;">main</span>(<span style="color: #008700;">void</span>) {
-  <span style="color: #008700;">int</span> *<span style="color: #af5f00;">vec</span>;
-  vec = malloc(<span style="color: #af00ff;">sizeof</span>(<span style="color: #008700;">int</span>) * 3);
+<span style="color: #228b22;">int</span> <span style="color: #0000ff;">main</span>(<span style="color: #228b22;">void</span>) {
+  <span style="color: #228b22;">int</span> *<span style="color: #a0522d;">vec</span>;
+  vec = malloc(<span style="color: #a020f0;">sizeof</span>(<span style="color: #228b22;">int</span>) * 3);
   vec[0] = 1;
   vec[1] = 2;
   vec[2] = 3;
-  printf(<span style="color: #87005f;">"vec[2]=%d\n"</span>, *(vec+2));
+  printf(<span style="color: #8b2252;">"vec[2]=%d\n"</span>, *(vec+2));
   free(vec);
-  <span style="color: #af00ff;">return</span> 0;
+  <span style="color: #a020f0;">return</span> 0;
 }
 </pre>
 
@@ -463,18 +463,18 @@ readable way) is to use the <code>vec[2]</code> notation:
 
 
 
-<pre class="src src-C"><span style="color: #5f5f87;">#include</span> <span style="color: #87005f;">&lt;stdio.h&gt;</span>
-<span style="color: #5f5f87;">#include</span> <span style="color: #87005f;">&lt;stdlib.h&gt;</span>
+<pre class="src src-C"><span style="color: #483d8b;">#include</span> <span style="color: #8b2252;">&lt;stdio.h&gt;</span>
+<span style="color: #483d8b;">#include</span> <span style="color: #8b2252;">&lt;stdlib.h&gt;</span>
 
-<span style="color: #008700;">int</span> <span style="color: #0000ff;">main</span>(<span style="color: #008700;">void</span>) {
-  <span style="color: #008700;">int</span> *<span style="color: #af5f00;">vec</span>;
-  vec = malloc(<span style="color: #af00ff;">sizeof</span>(<span style="color: #008700;">int</span>) * 3);
+<span style="color: #228b22;">int</span> <span style="color: #0000ff;">main</span>(<span style="color: #228b22;">void</span>) {
+  <span style="color: #228b22;">int</span> *<span style="color: #a0522d;">vec</span>;
+  vec = malloc(<span style="color: #a020f0;">sizeof</span>(<span style="color: #228b22;">int</span>) * 3);
   vec[0] = 1;
   vec[1] = 2;
   vec[2] = 3;
-  printf(<span style="color: #87005f;">"vec[2]=%d\n"</span>, vec[2]);
+  printf(<span style="color: #8b2252;">"vec[2]=%d\n"</span>, vec[2]);
   free(vec);
-  <span style="color: #af00ff;">return</span> 0;
+  <span style="color: #a020f0;">return</span> 0;
 }
 </pre>
 
@@ -496,35 +496,35 @@ be done:
 
 
 
-<pre class="src src-c"><span style="color: #5f5f87;">#include</span> <span style="color: #87005f;">&lt;stdio.h&gt;</span>
-<span style="color: #5f5f87;">#include</span> <span style="color: #87005f;">&lt;stdlib.h&gt;</span>
+<pre class="src src-c"><span style="color: #483d8b;">#include</span> <span style="color: #8b2252;">&lt;stdio.h&gt;</span>
+<span style="color: #483d8b;">#include</span> <span style="color: #8b2252;">&lt;stdlib.h&gt;</span>
 
-<span style="color: #af00ff;">typedef</span> <span style="color: #af00ff;">struct</span> {
-  <span style="color: #008700;">int</span> <span style="color: #af5f00;">year</span>;
-  <span style="color: #008700;">int</span> <span style="color: #af5f00;">month</span>;
-  <span style="color: #008700;">int</span> <span style="color: #af5f00;">day</span>;
-} <span style="color: #008700;">date</span>;
+<span style="color: #a020f0;">typedef</span> <span style="color: #a020f0;">struct</span> {
+  <span style="color: #228b22;">int</span> <span style="color: #a0522d;">year</span>;
+  <span style="color: #228b22;">int</span> <span style="color: #a0522d;">month</span>;
+  <span style="color: #228b22;">int</span> <span style="color: #a0522d;">day</span>;
+} <span style="color: #228b22;">date</span>;
 
-<span style="color: #008700;">int</span> <span style="color: #0000ff;">main</span>(<span style="color: #008700;">void</span>) {
+<span style="color: #228b22;">int</span> <span style="color: #0000ff;">main</span>(<span style="color: #228b22;">void</span>) {
 
-  <span style="color: #008700;">date</span> *<span style="color: #af5f00;">today</span>;
-  today = malloc(<span style="color: #af00ff;">sizeof</span>(date));
+  <span style="color: #228b22;">date</span> *<span style="color: #a0522d;">today</span>;
+  today = malloc(<span style="color: #a020f0;">sizeof</span>(date));
 
-  <span style="color: #af0000;">// </span><span style="color: #af0000;">the explicit way of accessing fields of our struct</span>
+  <span style="color: #b22222;">// </span><span style="color: #b22222;">the explicit way of accessing fields of our struct</span>
   (*today).day = 15;
   (*today).month = 6;
   (*today).year = 2012;
 
-  <span style="color: #af0000;">// </span><span style="color: #af0000;">the more readable shorthand way of doing it</span>
+  <span style="color: #b22222;">// </span><span style="color: #b22222;">the more readable shorthand way of doing it</span>
   today-&gt;day = 15;
   today-&gt;month = 6;
   today-&gt;year = 2012;
 
-  printf(<span style="color: #87005f;">"the date is %d/%d/%d\n"</span>, today-&gt;day, today-&gt;month, today-&gt;year);
+  printf(<span style="color: #8b2252;">"the date is %d/%d/%d\n"</span>, today-&gt;day, today-&gt;month, today-&gt;year);
 
   free(today);
 
-  <span style="color: #af00ff;">return</span> 0;
+  <span style="color: #a020f0;">return</span> 0;
 }
 </pre>
 
@@ -561,25 +561,25 @@ of the heap:
 
 
 
-<pre class="src src-c"><span style="color: #5f5f87;">#include</span> <span style="color: #87005f;">&lt;stdio.h&gt;</span>
+<pre class="src src-c"><span style="color: #483d8b;">#include</span> <span style="color: #8b2252;">&lt;stdio.h&gt;</span>
 
-<span style="color: #af00ff;">typedef</span> <span style="color: #af00ff;">struct</span> {
-  <span style="color: #008700;">int</span> <span style="color: #af5f00;">year</span>;
-  <span style="color: #008700;">int</span> <span style="color: #af5f00;">month</span>;
-  <span style="color: #008700;">int</span> <span style="color: #af5f00;">day</span>;
-} <span style="color: #008700;">date</span>;
+<span style="color: #a020f0;">typedef</span> <span style="color: #a020f0;">struct</span> {
+  <span style="color: #228b22;">int</span> <span style="color: #a0522d;">year</span>;
+  <span style="color: #228b22;">int</span> <span style="color: #a0522d;">month</span>;
+  <span style="color: #228b22;">int</span> <span style="color: #a0522d;">day</span>;
+} <span style="color: #228b22;">date</span>;
 
-<span style="color: #008700;">int</span> <span style="color: #0000ff;">main</span>(<span style="color: #008700;">void</span>) {
+<span style="color: #228b22;">int</span> <span style="color: #0000ff;">main</span>(<span style="color: #228b22;">void</span>) {
 
-  <span style="color: #008700;">date</span> <span style="color: #af5f00;">today</span>;
+  <span style="color: #228b22;">date</span> <span style="color: #a0522d;">today</span>;
 
   today.day = 15;
   today.month = 6;
   today.year = 2012;
 
-  printf(<span style="color: #87005f;">"the date is %d/%d/%d\n"</span>, today.day, today.month, today.year);
+  printf(<span style="color: #8b2252;">"the date is %d/%d/%d\n"</span>, today.day, today.month, today.year);
 
-  <span style="color: #af00ff;">return</span> 0;
+  <span style="color: #a020f0;">return</span> 0;
 }
 </pre>
 
@@ -604,35 +604,35 @@ One of the handy things you can do in C, is to use a pointer to point to a funct
 
 
 
-<pre class="src src-c"><span style="color: #5f5f87;">#include</span> <span style="color: #87005f;">&lt;stdio.h&gt;</span>
+<pre class="src src-c"><span style="color: #483d8b;">#include</span> <span style="color: #8b2252;">&lt;stdio.h&gt;</span>
 
-<span style="color: #008700;">int</span> <span style="color: #0000ff;">add</span>( <span style="color: #008700;">int</span> <span style="color: #af5f00;">a</span>, <span style="color: #008700;">int</span> <span style="color: #af5f00;">b</span> ) {
-  <span style="color: #af00ff;">return</span> a + b;
+<span style="color: #228b22;">int</span> <span style="color: #0000ff;">add</span>( <span style="color: #228b22;">int</span> <span style="color: #a0522d;">a</span>, <span style="color: #228b22;">int</span> <span style="color: #a0522d;">b</span> ) {
+  <span style="color: #a020f0;">return</span> a + b;
 }
 
-<span style="color: #008700;">int</span> <span style="color: #0000ff;">subtract</span>( <span style="color: #008700;">int</span> <span style="color: #af5f00;">a</span>, <span style="color: #008700;">int</span> <span style="color: #af5f00;">b</span> ) {
-  <span style="color: #af00ff;">return</span> a - b;
+<span style="color: #228b22;">int</span> <span style="color: #0000ff;">subtract</span>( <span style="color: #228b22;">int</span> <span style="color: #a0522d;">a</span>, <span style="color: #228b22;">int</span> <span style="color: #a0522d;">b</span> ) {
+  <span style="color: #a020f0;">return</span> a - b;
 }
 
-<span style="color: #008700;">int</span> <span style="color: #0000ff;">multiply</span>( <span style="color: #008700;">int</span> <span style="color: #af5f00;">a</span>, <span style="color: #008700;">int</span> <span style="color: #af5f00;">b</span> ) {
-  <span style="color: #af00ff;">return</span> a * b;
+<span style="color: #228b22;">int</span> <span style="color: #0000ff;">multiply</span>( <span style="color: #228b22;">int</span> <span style="color: #a0522d;">a</span>, <span style="color: #228b22;">int</span> <span style="color: #a0522d;">b</span> ) {
+  <span style="color: #a020f0;">return</span> a * b;
 }
 
-<span style="color: #008700;">void</span> <span style="color: #0000ff;">doMath</span>( <span style="color: #008700;">int</span> (*<span style="color: #af5f00;">fn</span>)(<span style="color: #008700;">int</span> <span style="color: #af5f00;">a</span>, <span style="color: #008700;">int</span> <span style="color: #af5f00;">b</span>), <span style="color: #008700;">int</span> <span style="color: #af5f00;">a</span>, <span style="color: #008700;">int</span> <span style="color: #af5f00;">b</span> ) {
-  <span style="color: #008700;">int</span> <span style="color: #af5f00;">result</span> = fn(a, b);
-  printf(<span style="color: #87005f;">"result = %d\n"</span>, result);
+<span style="color: #228b22;">void</span> <span style="color: #0000ff;">doMath</span>( <span style="color: #228b22;">int</span> (*<span style="color: #a0522d;">fn</span>)(<span style="color: #228b22;">int</span> <span style="color: #a0522d;">a</span>, <span style="color: #228b22;">int</span> <span style="color: #a0522d;">b</span>), <span style="color: #228b22;">int</span> <span style="color: #a0522d;">a</span>, <span style="color: #228b22;">int</span> <span style="color: #a0522d;">b</span> ) {
+  <span style="color: #228b22;">int</span> <span style="color: #a0522d;">result</span> = fn(a, b);
+  printf(<span style="color: #8b2252;">"result = %d\n"</span>, result);
 }
 
-<span style="color: #008700;">int</span> <span style="color: #0000ff;">main</span>(<span style="color: #008700;">void</span>) {
+<span style="color: #228b22;">int</span> <span style="color: #0000ff;">main</span>(<span style="color: #228b22;">void</span>) {
 
-  <span style="color: #008700;">int</span> <span style="color: #af5f00;">a</span> = 2;
-  <span style="color: #008700;">int</span> <span style="color: #af5f00;">b</span> = 3;
+  <span style="color: #228b22;">int</span> <span style="color: #a0522d;">a</span> = 2;
+  <span style="color: #228b22;">int</span> <span style="color: #a0522d;">b</span> = 3;
 
   doMath(add, a, b);
   doMath(subtract, a, b);
   doMath(multiply, a, b);
 
-  <span style="color: #af00ff;">return</span> 0;
+  <span style="color: #a020f0;">return</span> 0;
 }
 </pre>
 
@@ -650,7 +650,7 @@ On lines 15-18 we define a function <code>doMath</code> which returns nothing
 
 
 
-<pre class="src src-C"><span style="color: #008700;">int</span> (*<span style="color: #0000ff;">fn</span>)(<span style="color: #008700;">int</span> <span style="color: #af5f00;">a</span>, <span style="color: #008700;">int</span> <span style="color: #af5f00;">b</span>)
+<pre class="src src-C"><span style="color: #228b22;">int</span> (*<span style="color: #0000ff;">fn</span>)(<span style="color: #228b22;">int</span> <span style="color: #a0522d;">a</span>, <span style="color: #228b22;">int</span> <span style="color: #a0522d;">b</span>)
 </pre>
 
 
@@ -698,18 +698,18 @@ Here is some code illustrating passing by value, first:
 
 
 
-<pre class="src src-c"><span style="color: #5f5f87;">#include</span> <span style="color: #87005f;">&lt;stdio.h&gt;</span>
+<pre class="src src-c"><span style="color: #483d8b;">#include</span> <span style="color: #8b2252;">&lt;stdio.h&gt;</span>
 
-<span style="color: #008700;">void</span> <span style="color: #0000ff;">myFun</span>(<span style="color: #008700;">int</span> <span style="color: #af5f00;">x</span>) {
+<span style="color: #228b22;">void</span> <span style="color: #0000ff;">myFun</span>(<span style="color: #228b22;">int</span> <span style="color: #a0522d;">x</span>) {
   x = x * 2;
 }
 
-<span style="color: #008700;">int</span> <span style="color: #0000ff;">main</span>(<span style="color: #008700;">void</span>) {
-  <span style="color: #008700;">int</span> <span style="color: #af5f00;">y</span> = 50;
-  printf(<span style="color: #87005f;">"y=%d\n"</span>, y);
+<span style="color: #228b22;">int</span> <span style="color: #0000ff;">main</span>(<span style="color: #228b22;">void</span>) {
+  <span style="color: #228b22;">int</span> <span style="color: #a0522d;">y</span> = 50;
+  printf(<span style="color: #8b2252;">"y=%d\n"</span>, y);
   myFun(y);
-  printf(<span style="color: #87005f;">"y=%d\n"</span>, y);
-  <span style="color: #af00ff;">return</span> 0;
+  printf(<span style="color: #8b2252;">"y=%d\n"</span>, y);
+  <span style="color: #a020f0;">return</span> 0;
 }
 </pre>
 
@@ -732,18 +732,18 @@ function call to <code>myFun()</code>, it is still 50 (not 100).
 
 
 
-<pre class="src src-c"><span style="color: #5f5f87;">#include</span> <span style="color: #87005f;">&lt;stdio.h&gt;</span>
+<pre class="src src-c"><span style="color: #483d8b;">#include</span> <span style="color: #8b2252;">&lt;stdio.h&gt;</span>
 
-<span style="color: #008700;">void</span> <span style="color: #0000ff;">myFun</span>(<span style="color: #008700;">int</span> *<span style="color: #af5f00;">x</span>) {
+<span style="color: #228b22;">void</span> <span style="color: #0000ff;">myFun</span>(<span style="color: #228b22;">int</span> *<span style="color: #a0522d;">x</span>) {
   *x = *x * 2;
 }
 
-<span style="color: #008700;">int</span> <span style="color: #0000ff;">main</span>(<span style="color: #008700;">void</span>) {
-  <span style="color: #008700;">int</span> <span style="color: #af5f00;">y</span> = 50;
-  printf(<span style="color: #87005f;">"y=%d\n"</span>, y);
+<span style="color: #228b22;">int</span> <span style="color: #0000ff;">main</span>(<span style="color: #228b22;">void</span>) {
+  <span style="color: #228b22;">int</span> <span style="color: #a0522d;">y</span> = 50;
+  printf(<span style="color: #8b2252;">"y=%d\n"</span>, y);
   myFun(&amp;y);
-  printf(<span style="color: #87005f;">"y=%d\n"</span>, y);
-  <span style="color: #af00ff;">return</span> 0;
+  printf(<span style="color: #8b2252;">"y=%d\n"</span>, y);
+  <span style="color: #a020f0;">return</span> 0;
 }
 </pre>
 
@@ -834,36 +834,36 @@ array of 10 structs:
 
 
 
-<pre class="src src-c"><span style="color: #5f5f87;">#include</span> <span style="color: #87005f;">&lt;stdio.h&gt;</span>
-<span style="color: #5f5f87;">#include</span> <span style="color: #87005f;">&lt;stdlib.h&gt;</span>
+<pre class="src src-c"><span style="color: #483d8b;">#include</span> <span style="color: #8b2252;">&lt;stdio.h&gt;</span>
+<span style="color: #483d8b;">#include</span> <span style="color: #8b2252;">&lt;stdlib.h&gt;</span>
 
-<span style="color: #af00ff;">typedef</span> <span style="color: #af00ff;">struct</span> {
-  <span style="color: #008700;">int</span> <span style="color: #af5f00;">year</span>;
-  <span style="color: #008700;">int</span> <span style="color: #af5f00;">month</span>;
-  <span style="color: #008700;">int</span> <span style="color: #af5f00;">day</span>;
-} <span style="color: #008700;">date</span>;
+<span style="color: #a020f0;">typedef</span> <span style="color: #a020f0;">struct</span> {
+  <span style="color: #228b22;">int</span> <span style="color: #a0522d;">year</span>;
+  <span style="color: #228b22;">int</span> <span style="color: #a0522d;">month</span>;
+  <span style="color: #228b22;">int</span> <span style="color: #a0522d;">day</span>;
+} <span style="color: #228b22;">date</span>;
 
-<span style="color: #008700;">int</span> <span style="color: #0000ff;">main</span>(<span style="color: #008700;">void</span>) {
+<span style="color: #228b22;">int</span> <span style="color: #0000ff;">main</span>(<span style="color: #228b22;">void</span>) {
 
-  <span style="color: #008700;">date</span> *<span style="color: #af5f00;">mylist</span> = malloc(<span style="color: #af00ff;">sizeof</span>(date) * 10);
+  <span style="color: #228b22;">date</span> *<span style="color: #a0522d;">mylist</span> = malloc(<span style="color: #a020f0;">sizeof</span>(date) * 10);
 
   mylist[0].year = 2012;
   mylist[0].month = 1;
   mylist[0].day = 15;
 
-  <span style="color: #008700;">int</span> <span style="color: #af5f00;">i</span>;
-  <span style="color: #af00ff;">for</span> (i=1; i&lt;10; i++) {
+  <span style="color: #228b22;">int</span> <span style="color: #a0522d;">i</span>;
+  <span style="color: #a020f0;">for</span> (i=1; i&lt;10; i++) {
     mylist[i].year = 2012-i;
     mylist[i].month = 1 + i;
     mylist[i].day = 15 + i;
   }
 
-  <span style="color: #af00ff;">for</span> (i=0; i&lt;10; i++) {
-    printf(<span style="color: #87005f;">"mylist[%d] = %d/%d/%d\n"</span>, i, mylist[i].day, mylist[i].month, mylist[i].year);
+  <span style="color: #a020f0;">for</span> (i=0; i&lt;10; i++) {
+    printf(<span style="color: #8b2252;">"mylist[%d] = %d/%d/%d\n"</span>, i, mylist[i].day, mylist[i].month, mylist[i].year);
   }
 
   free(mylist);
-  <span style="color: #af00ff;">return</span> 0;
+  <span style="color: #a020f0;">return</span> 0;
 }
 </pre>
 
@@ -899,32 +899,32 @@ array to hold 5 values. Here's how you could do it using <code>realloc()</code>:
 
 
 
-<pre class="src src-c"><span style="color: #5f5f87;">#include</span> <span style="color: #87005f;">&lt;stdio.h&gt;</span>
-<span style="color: #5f5f87;">#include</span> <span style="color: #87005f;">&lt;stdlib.h&gt;</span>
+<pre class="src src-c"><span style="color: #483d8b;">#include</span> <span style="color: #8b2252;">&lt;stdio.h&gt;</span>
+<span style="color: #483d8b;">#include</span> <span style="color: #8b2252;">&lt;stdlib.h&gt;</span>
 
-<span style="color: #008700;">void</span> <span style="color: #0000ff;">showVec</span>(<span style="color: #008700;">double</span> <span style="color: #af5f00;">vec</span>[], <span style="color: #008700;">int</span> <span style="color: #af5f00;">n</span>) {
-  <span style="color: #008700;">int</span> <span style="color: #af5f00;">i</span>;
-  <span style="color: #af00ff;">for</span> (i=0; i&lt;n; i++) {
-    printf(<span style="color: #87005f;">"vec[%d]=%.3f\n"</span>, i, vec[i]);
+<span style="color: #228b22;">void</span> <span style="color: #0000ff;">showVec</span>(<span style="color: #228b22;">double</span> <span style="color: #a0522d;">vec</span>[], <span style="color: #228b22;">int</span> <span style="color: #a0522d;">n</span>) {
+  <span style="color: #228b22;">int</span> <span style="color: #a0522d;">i</span>;
+  <span style="color: #a020f0;">for</span> (i=0; i&lt;n; i++) {
+    printf(<span style="color: #8b2252;">"vec[%d]=%.3f\n"</span>, i, vec[i]);
   }
-  printf(<span style="color: #87005f;">"\n"</span>);
+  printf(<span style="color: #8b2252;">"\n"</span>);
 }
 
-<span style="color: #008700;">int</span> <span style="color: #0000ff;">main</span>(<span style="color: #008700;">void</span>) {
+<span style="color: #228b22;">int</span> <span style="color: #0000ff;">main</span>(<span style="color: #228b22;">void</span>) {
 
-  <span style="color: #008700;">double</span> *<span style="color: #af5f00;">vec</span> = calloc(3, <span style="color: #af00ff;">sizeof</span>(<span style="color: #008700;">double</span>));
+  <span style="color: #228b22;">double</span> *<span style="color: #a0522d;">vec</span> = calloc(3, <span style="color: #a020f0;">sizeof</span>(<span style="color: #228b22;">double</span>));
 
   vec[1] = 3.14;
   showVec(vec, 3);
 
-  vec = realloc(vec, <span style="color: #af00ff;">sizeof</span>(<span style="color: #008700;">double</span>)*5);
+  vec = realloc(vec, <span style="color: #a020f0;">sizeof</span>(<span style="color: #228b22;">double</span>)*5);
   showVec(vec, 5);
 
   vec[3] = 7.77;
   showVec(vec, 5);
 
   free(vec);
-  <span style="color: #af00ff;">return</span> 0;
+  <span style="color: #a020f0;">return</span> 0;
 }
 </pre>
 
@@ -1029,23 +1029,23 @@ use <code>free()</code>.
 
 
 
-<pre class="src src-c"><span style="color: #5f5f87;">#include</span> <span style="color: #87005f;">&lt;stdio.h&gt;</span>
-<span style="color: #5f5f87;">#include</span> <span style="color: #87005f;">&lt;stdlib.h&gt;</span>
+<pre class="src src-c"><span style="color: #483d8b;">#include</span> <span style="color: #8b2252;">&lt;stdio.h&gt;</span>
+<span style="color: #483d8b;">#include</span> <span style="color: #8b2252;">&lt;stdlib.h&gt;</span>
 
-<span style="color: #af00ff;">typedef</span> <span style="color: #af00ff;">struct</span> {
-  <span style="color: #008700;">double</span> *<span style="color: #af5f00;">data</span>;
-  <span style="color: #008700;">int</span> <span style="color: #af5f00;">nrows</span>;
-  <span style="color: #008700;">int</span> <span style="color: #af5f00;">ncols</span>;
-} <span style="color: #008700;">Matrix</span>;
+<span style="color: #a020f0;">typedef</span> <span style="color: #a020f0;">struct</span> {
+  <span style="color: #228b22;">double</span> *<span style="color: #a0522d;">data</span>;
+  <span style="color: #228b22;">int</span> <span style="color: #a0522d;">nrows</span>;
+  <span style="color: #228b22;">int</span> <span style="color: #a0522d;">ncols</span>;
+} <span style="color: #228b22;">Matrix</span>;
 
-<span style="color: #008700;">void</span> <span style="color: #0000ff;">printmat</span>(<span style="color: #008700;">Matrix</span> *<span style="color: #af5f00;">M</span>);
-<span style="color: #008700;">void</span> <span style="color: #0000ff;">matrixmult</span>(<span style="color: #008700;">Matrix</span> *<span style="color: #af5f00;">A</span>, <span style="color: #008700;">Matrix</span> *<span style="color: #af5f00;">B</span>, <span style="color: #008700;">Matrix</span> *<span style="color: #af5f00;">C</span>);
-<span style="color: #008700;">Matrix</span> *<span style="color: #0000ff;">createMatrix</span>(<span style="color: #008700;">int</span> <span style="color: #af5f00;">nrows</span>, <span style="color: #008700;">int</span> <span style="color: #af5f00;">ncols</span>);
-<span style="color: #008700;">void</span> <span style="color: #0000ff;">destroyMatrix</span>(<span style="color: #008700;">Matrix</span> *<span style="color: #af5f00;">M</span>);
+<span style="color: #228b22;">void</span> <span style="color: #0000ff;">printmat</span>(<span style="color: #228b22;">Matrix</span> *<span style="color: #a0522d;">M</span>);
+<span style="color: #228b22;">void</span> <span style="color: #0000ff;">matrixmult</span>(<span style="color: #228b22;">Matrix</span> *<span style="color: #a0522d;">A</span>, <span style="color: #228b22;">Matrix</span> *<span style="color: #a0522d;">B</span>, <span style="color: #228b22;">Matrix</span> *<span style="color: #a0522d;">C</span>);
+<span style="color: #228b22;">Matrix</span> *<span style="color: #0000ff;">createMatrix</span>(<span style="color: #228b22;">int</span> <span style="color: #a0522d;">nrows</span>, <span style="color: #228b22;">int</span> <span style="color: #a0522d;">ncols</span>);
+<span style="color: #228b22;">void</span> <span style="color: #0000ff;">destroyMatrix</span>(<span style="color: #228b22;">Matrix</span> *<span style="color: #a0522d;">M</span>);
 
-<span style="color: #008700;">int</span> <span style="color: #0000ff;">main</span>(<span style="color: #008700;">int</span> <span style="color: #af5f00;">argc</span>, <span style="color: #008700;">char</span> *<span style="color: #af5f00;">argv</span>[])
+<span style="color: #228b22;">int</span> <span style="color: #0000ff;">main</span>(<span style="color: #228b22;">int</span> <span style="color: #a0522d;">argc</span>, <span style="color: #228b22;">char</span> *<span style="color: #a0522d;">argv</span>[])
 {
-  <span style="color: #008700;">Matrix</span> *<span style="color: #af5f00;">A</span> = createMatrix(3, 2);
+  <span style="color: #228b22;">Matrix</span> *<span style="color: #a0522d;">A</span> = createMatrix(3, 2);
   A-&gt;data[0] = 1.2;
   A-&gt;data[1] = 2.3;
   A-&gt;data[2] = 3.4;
@@ -1054,7 +1054,7 @@ use <code>free()</code>.
   A-&gt;data[5] = 6.7;
   printmat(A);
 
-  <span style="color: #008700;">Matrix</span> *<span style="color: #af5f00;">B</span> = createMatrix(2, 3);
+  <span style="color: #228b22;">Matrix</span> *<span style="color: #a0522d;">B</span> = createMatrix(2, 3);
   B-&gt;data[0] = 5.5;
   B-&gt;data[1] = 6.6;
   B-&gt;data[2] = 7.7;
@@ -1063,39 +1063,39 @@ use <code>free()</code>.
   B-&gt;data[5] = 3.3;
   printmat(B);
 
-  <span style="color: #008700;">Matrix</span> *<span style="color: #af5f00;">C</span> = createMatrix(3, 3);
+  <span style="color: #228b22;">Matrix</span> *<span style="color: #a0522d;">C</span> = createMatrix(3, 3);
   matrixmult(A, B, C);
   printmat(C);
 
   destroyMatrix(A);
   destroyMatrix(B);
   destroyMatrix(C);
-  <span style="color: #af00ff;">return</span> 0;
+  <span style="color: #a020f0;">return</span> 0;
 }
 
-<span style="color: #af0000;">// </span><span style="color: #af0000;">your code goes below...</span>
+<span style="color: #b22222;">// </span><span style="color: #b22222;">your code goes below...</span>
 
 
-<span style="color: #008700;">Matrix</span> *<span style="color: #0000ff;">createMatrix</span>(<span style="color: #008700;">int</span> <span style="color: #af5f00;">nrows</span>, <span style="color: #008700;">int</span> <span style="color: #af5f00;">ncols</span>)
+<span style="color: #228b22;">Matrix</span> *<span style="color: #0000ff;">createMatrix</span>(<span style="color: #228b22;">int</span> <span style="color: #a0522d;">nrows</span>, <span style="color: #228b22;">int</span> <span style="color: #a0522d;">ncols</span>)
 {
-  <span style="color: #af0000;">// </span><span style="color: #af0000;">fill in the code here</span>
+  <span style="color: #b22222;">// </span><span style="color: #b22222;">fill in the code here</span>
 }
 
-<span style="color: #008700;">void</span> <span style="color: #0000ff;">destroyMatrix</span>(<span style="color: #008700;">Matrix</span> *<span style="color: #af5f00;">M</span>)
+<span style="color: #228b22;">void</span> <span style="color: #0000ff;">destroyMatrix</span>(<span style="color: #228b22;">Matrix</span> *<span style="color: #a0522d;">M</span>)
 {
-  <span style="color: #af0000;">// </span><span style="color: #af0000;">fill in the code here</span>
+  <span style="color: #b22222;">// </span><span style="color: #b22222;">fill in the code here</span>
 }
 
-<span style="color: #008700;">void</span> <span style="color: #0000ff;">printmat</span>(<span style="color: #008700;">Matrix</span> *<span style="color: #af5f00;">M</span>)
+<span style="color: #228b22;">void</span> <span style="color: #0000ff;">printmat</span>(<span style="color: #228b22;">Matrix</span> *<span style="color: #a0522d;">M</span>)
 {
-  <span style="color: #af0000;">// </span><span style="color: #af0000;">fill in the code here</span>
-  printf(<span style="color: #87005f;">"so far printmat does nothing\n"</span>);
+  <span style="color: #b22222;">// </span><span style="color: #b22222;">fill in the code here</span>
+  printf(<span style="color: #8b2252;">"so far printmat does nothing\n"</span>);
 }
 
-<span style="color: #008700;">void</span> <span style="color: #0000ff;">matrixmult</span>(<span style="color: #008700;">Matrix</span> *<span style="color: #af5f00;">A</span>, <span style="color: #008700;">Matrix</span> *<span style="color: #af5f00;">B</span>, <span style="color: #008700;">Matrix</span> *<span style="color: #af5f00;">C</span>)
+<span style="color: #228b22;">void</span> <span style="color: #0000ff;">matrixmult</span>(<span style="color: #228b22;">Matrix</span> *<span style="color: #a0522d;">A</span>, <span style="color: #228b22;">Matrix</span> *<span style="color: #a0522d;">B</span>, <span style="color: #228b22;">Matrix</span> *<span style="color: #a0522d;">C</span>)
 {
-  <span style="color: #af0000;">// </span><span style="color: #af0000;">fill in the code here</span>
-  printf(<span style="color: #87005f;">"so far matrixmult does nothing\n"</span>);
+  <span style="color: #b22222;">// </span><span style="color: #b22222;">fill in the code here</span>
+  printf(<span style="color: #8b2252;">"so far matrixmult does nothing\n"</span>);
 }
 
 
