@@ -425,3 +425,7 @@ write them in "raw" binary using =fread()= and =fwrite()=.
 - x
 - x
 
+* Donate
+
+- BTC: 1PzsZLQBD4n815Qh2eQxuGvkPjK3SK7Lko
+- DOGE: DTimvGXReVV57abbg4oT7sEYgZ3i9EmDTM

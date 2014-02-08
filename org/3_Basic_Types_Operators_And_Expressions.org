@@ -625,3 +625,8 @@ see later).
 
 -  [[file:code/exercises/3_1.c][1]]
 -  [[file:code/exercises/3_2.c][2]] 
+
+* Donate
+
+- BTC: 1PzsZLQBD4n815Qh2eQxuGvkPjK3SK7Lko
+- DOGE: DTimvGXReVV57abbg4oT7sEYgZ3i9EmDTM

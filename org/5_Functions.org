@@ -456,3 +456,7 @@ can find a list to verify the correctness of your program [[http://primes.utm.ed
 - [[file:code/exercises/5_2.c][2]]
 - [[file:code/exercises/5_3.c][3]]
 
+* Donate
+
+- BTC: 1PzsZLQBD4n815Qh2eQxuGvkPjK3SK7Lko
+- DOGE: DTimvGXReVV57abbg4oT7sEYgZ3i9EmDTM

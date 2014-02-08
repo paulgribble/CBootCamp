@@ -511,3 +511,7 @@ gcc -lm eastman.c -o eastman
 - [[http://courses.cs.vt.edu/~cs3214/fall2011/projects/esh3-debugging.php][debugging tips using gdb and valgrind]]
 
 
+* Donate
+
+- BTC: 1PzsZLQBD4n815Qh2eQxuGvkPjK3SK7Lko
+- DOGE: DTimvGXReVV57abbg4oT7sEYgZ3i9EmDTM

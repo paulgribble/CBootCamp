@@ -216,3 +216,8 @@ twice as fast.
 - [[http://www.linuxjournal.com/article/7269][Optimization in GCC]]
 
 
+* Donate
+
+- BTC: 1PzsZLQBD4n815Qh2eQxuGvkPjK3SK7Lko
+- DOGE: DTimvGXReVV57abbg4oT7sEYgZ3i9EmDTM
+

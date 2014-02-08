@@ -216,4 +216,7 @@ we talk about pointers.
 - [[http://www.learncpp.com/cpp-tutorial/79-the-stack-and-the-heap/][The Stack and the Heap]]
 - [[http://stackoverflow.com/questions/79923/what-and-where-are-the-stack-and-heap][What and Where are the stack and heap]]
 
+* Donate
 
+- BTC: 1PzsZLQBD4n815Qh2eQxuGvkPjK3SK7Lko
+- DOGE: DTimvGXReVV57abbg4oT7sEYgZ3i9EmDTM
