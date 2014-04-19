@@ -126,8 +126,4 @@ look at some examples [[http://gcc.gnu.org/onlinedocs/gcc-3.0.1/cpp_4.html][here
 - [[http://en.wikipedia.org/wiki/C_preprocessor][C preprocessor]]
 - [[http://gcc.gnu.org/onlinedocs/cpp/Macros.html][Macros]]
 
-* Donate
-
-- BTC: 1PzsZLQBD4n815Qh2eQxuGvkPjK3SK7Lko
-- DOGE: DTimvGXReVV57abbg4oT7sEYgZ3i9EmDTM
 

@@ -232,7 +232,3 @@ There is also good online [[http://www.gnuplot.info/documentation.html][document
 of GNUplot functionality. Anything you can do with Matlab,
 Python/Matplotlib, R, etc you can likely also do in GNUplot.
 
-* Donate
-
-- BTC: 1PzsZLQBD4n815Qh2eQxuGvkPjK3SK7Lko
-- DOGE: DTimvGXReVV57abbg4oT7sEYgZ3i9EmDTM

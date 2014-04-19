@@ -415,7 +415,3 @@ statement to "do nothing, just continue".
 - [[file:code/exercises/4_2.c][2]]
 - [[file:code/exercises/4_3.c][3]]
 
-* Donate
-
-- BTC: 1PzsZLQBD4n815Qh2eQxuGvkPjK3SK7Lko
-- DOGE: DTimvGXReVV57abbg4oT7sEYgZ3i9EmDTM

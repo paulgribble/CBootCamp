@@ -208,7 +208,3 @@ languages for *prototyping*, and C for *performance*.
 - [[http://pragprog.com/magazines/2011-03/punk-rock-languages][Punk Rock Languages]] A Polemic by Chris Adamson
 - [[http://www.paulgraham.com/head.html][Holding a Program in One's Head]] by Paul Graham
 
-* Donate
-
-- BTC: 1PzsZLQBD4n815Qh2eQxuGvkPjK3SK7Lko
-- DOGE: DTimvGXReVV57abbg4oT7sEYgZ3i9EmDTM
