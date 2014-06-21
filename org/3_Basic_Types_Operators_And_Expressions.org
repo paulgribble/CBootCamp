@@ -89,7 +89,7 @@ on values between 0 and 4,294,967,295.
 
 Here is a small C program that will print out the size of some basic C
 types on your machine. Enter it into your source code editor, and save
-it to a file called [[file:my_types.c][=my\_types.c=]]
+it to a file called [[file:code/my_types.c][=my\_types.c=]]
 
 #+BEGIN_SRC c
 #include <stdio.h>

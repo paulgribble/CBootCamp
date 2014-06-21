@@ -18,14 +18,14 @@
 	("CBootCamp_html"
 	 :base-directory "html/"
 	 :base-extension "css\\|html"
-	 :publishing-directory "/ssh:admin@leviathan.ssc.uwo.ca:~/gribblelab.org/CBootCamp/"
+	 :publishing-directory "/ssh:plg@toro.ssc.uwo.ca:~/gribblelab.org/CBootCamp/"
 	 :publishing-function org-publish-attachment
 	 :recursive t
 	 )
 	("CBootCamp_code"
 	 :base-directory "code/"
 	 :base-extension "c\\|h\\|txt\\|csv"
-	 :publishing-directory "/ssh:admin@leviathan.ssc.uwo.ca:~/gribblelab.org/CBootCamp/code/"
+	 :publishing-directory "/ssh:plg@toro.ssc.uwo.ca:~/gribblelab.org/CBootCamp/code/"
 	 :publishing-function org-publish-attachment
 	 :recursive t
 	 )
