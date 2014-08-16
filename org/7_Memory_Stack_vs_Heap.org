@@ -6,7 +6,7 @@
 #+DATE:      Summer 2012
 
 -----
-support this project with bitcoin: 1FTSaJh7JbqArgGhMMWz1yiUWsoCrM8nsQ
+support this project with bitcoin: 1Nh3UDeJX1zhcnHNS5jd6EnfqTKZakyJhU
 
 -----
 [TABLE-OF-CONTENTS]
