@@ -423,7 +423,6 @@ number of input arguments, and their value:
 #include <stdio.h>
     
 int main(int argc, char* argv[]) {
-  char** argp;
   int i;
   printf("argc = %d\n", argc);
   for (i=0; i<argc; i++) {
