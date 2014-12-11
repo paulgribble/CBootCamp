@@ -24,7 +24,7 @@ the *stack* in C.
 
 What is the stack? It's a special region of your computer's memory
 that stores temporary variables created by each function (including
-the =main()= function). The stack is a "FILO" (first in, last out)
+the =main()= function). The stack is a "LIFO" (last in, first out)
 data structure, that is managed and optimized by the CPU quite
 closely. Every time a function declares a new variable, it is "pushed"
 onto the stack. Then every time a function exits, *all* of the
