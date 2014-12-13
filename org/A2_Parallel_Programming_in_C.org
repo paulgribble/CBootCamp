@@ -518,7 +518,7 @@ MPI programs need to be compiled using ~mpicc~, and need to be run
 using ~mpirun~ with a flag indicating the number of processors to
 spawn (4, in the above example).
 
-*** MPI\_Reduce
+*** MPI_Reduce
 
 We saw with OpenMP that we can use a *reduce* directive to sum values
 across all threads. A similar function exists in MPI called
