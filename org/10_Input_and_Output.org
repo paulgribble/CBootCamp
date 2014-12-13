@@ -5,10 +5,6 @@
 #+EMAIL:     paul@gribblelab.org
 #+DATE:      Summer 2012
 
------
-[TABLE-OF-CONTENTS]
------
-
 * Command-line arguments
 
 When you run a C program from the command line, you can pass it input

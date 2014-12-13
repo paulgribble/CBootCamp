@@ -1,65 +1,94 @@
-<?xml version="1.0" encoding="iso-8859-1"?>
+<?xml version="1.0" encoding="utf-8"?>
 <!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Strict//EN"
-               "http://www.w3.org/TR/xhtml1/DTD/xhtml1-strict.dtd">
+"http://www.w3.org/TR/xhtml1/DTD/xhtml1-strict.dtd">
 <html xmlns="http://www.w3.org/1999/xhtml" lang="en" xml:lang="en">
 <head>
 <title>14. Speeding up your code</title>
-<meta http-equiv="Content-Type" content="text/html;charset=iso-8859-1"/>
-<meta name="title" content="14. Speeding up your code"/>
-<meta name="generator" content="Org-mode"/>
-<meta name="generated" content="Summer 2012"/>
-<meta name="author" content="Paul Gribble"/>
-<meta name="description" content=""/>
-<meta name="keywords" content=""/>
+<!-- 2014-12-12 Fri 21:22 -->
+<meta  http-equiv="Content-Type" content="text/html;charset=utf-8" />
+<meta  name="generator" content="Org-mode" />
+<meta  name="author" content="Paul Gribble" />
 <style type="text/css">
  <!--/*--><![CDATA[/*><!--*/
-  html { font-family: Times, serif; font-size: 12pt; }
   .title  { text-align: center; }
-  .todo   { color: red; }
+  .todo   { font-family: monospace; color: red; }
   .done   { color: green; }
-  .tag    { background-color: #add8e6; font-weight:normal }
-  .target { }
+  .tag    { background-color: #eee; font-family: monospace;
+            padding: 2px; font-size: 80%; font-weight: normal; }
   .timestamp { color: #bebebe; }
   .timestamp-kwd { color: #5f9ea0; }
-  .right  {margin-left:auto; margin-right:0px;  text-align:right;}
-  .left   {margin-left:0px;  margin-right:auto; text-align:left;}
-  .center {margin-left:auto; margin-right:auto; text-align:center;}
-  p.verse { margin-left: 3% }
+  .right  { margin-left: auto; margin-right: 0px;  text-align: right; }
+  .left   { margin-left: 0px;  margin-right: auto; text-align: left; }
+  .center { margin-left: auto; margin-right: auto; text-align: center; }
+  .underline { text-decoration: underline; }
+  #postamble p, #preamble p { font-size: 90%; margin: .2em; }
+  p.verse { margin-left: 3%; }
   pre {
-	border: 1pt solid #AEBDCC;
-	background-color: #F3F5F7;
-	padding: 5pt;
-	font-family: courier, monospace;
-        font-size: 90%;
-        overflow:auto;
+    border: 1px solid #ccc;
+    box-shadow: 3px 3px 3px #eee;
+    padding: 8pt;
+    font-family: monospace;
+    overflow: auto;
+    margin: 1.2em;
   }
-  table { border-collapse: collapse; }
-  td, th { vertical-align: top;  }
-  th.right  { text-align:center;  }
-  th.left   { text-align:center;   }
-  th.center { text-align:center; }
-  td.right  { text-align:right;  }
-  td.left   { text-align:left;   }
-  td.center { text-align:center; }
+  pre.src {
+    position: relative;
+    overflow: visible;
+    padding-top: 1.2em;
+  }
+  pre.src:before {
+    display: none;
+    position: absolute;
+    background-color: white;
+    top: -10px;
+    right: 10px;
+    padding: 3px;
+    border: 1px solid black;
+  }
+  pre.src:hover:before { display: inline;}
+  pre.src-sh:before    { content: 'sh'; }
+  pre.src-bash:before  { content: 'sh'; }
+  pre.src-emacs-lisp:before { content: 'Emacs Lisp'; }
+  pre.src-R:before     { content: 'R'; }
+  pre.src-perl:before  { content: 'Perl'; }
+  pre.src-java:before  { content: 'Java'; }
+  pre.src-sql:before   { content: 'SQL'; }
+
+  table { border-collapse:collapse; }
+  caption.t-above { caption-side: top; }
+  caption.t-bottom { caption-side: bottom; }
+  td, th { vertical-align:top;  }
+  th.right  { text-align: center;  }
+  th.left   { text-align: center;   }
+  th.center { text-align: center; }
+  td.right  { text-align: right;  }
+  td.left   { text-align: left;   }
+  td.center { text-align: center; }
   dt { font-weight: bold; }
-  div.figure { padding: 0.5em; }
-  div.figure p { text-align: center; }
-  div.inlinetask {
-    padding:10px;
-    border:2px solid gray;
-    margin:10px;
+  .footpara:nth-child(2) { display: inline; }
+  .footpara { display: block; }
+  .footdef  { margin-bottom: 1em; }
+  .figure { padding: 1em; }
+  .figure p { text-align: center; }
+  .inlinetask {
+    padding: 10px;
+    border: 2px solid gray;
+    margin: 10px;
     background: #ffffcc;
   }
+  #org-div-home-and-up
+   { text-align: right; font-size: 70%; white-space: nowrap; }
   textarea { overflow-x: auto; }
-  .linenr { font-size:smaller }
-  .code-highlighted {background-color:#ffff00;}
-  .org-info-js_info-navigation { border-style:none; }
-  #org-info-js_console-label { font-size:10px; font-weight:bold;
-                               white-space:nowrap; }
-  .org-info-js_search-highlight {background-color:#ffff00; color:#000000;
-                                 font-weight:bold; }
+  .linenr { font-size: smaller }
+  .code-highlighted { background-color: #ffff00; }
+  .org-info-js_info-navigation { border-style: none; }
+  #org-info-js_console-label
+    { font-size: 10px; font-weight: bold; white-space: nowrap; }
+  .org-info-js_search-highlight
+    { background-color: #ffff00; color: #000000; font-weight: bold; }
   /*]]>*/-->
-</style><link rel="stylesheet" type="text/css" href="mystyle.css" /><script>(function(i,s,o,g,r,a,m){i['GoogleAnalyticsObject']=r;i[r]=i[r]||function(){(i[r].q=i[r].q||[]).push(arguments)},i[r].l=1*new Date();a=s.createElement(o),m=s.getElementsByTagName(o)[0];a.async=1;a.src=g;m.parentNode.insertBefore(a,m)})(window,document,'script','//www.google-analytics.com/analytics.js','ga');ga('create', 'UA-52544521-1', 'auto');ga('send', 'pageview');</script>
+</style>
+<link rel="stylesheet" type="text/css" href="mystyle.css" /><script>(function(i,s,o,g,r,a,m){i['GoogleAnalyticsObject']=r;i[r]=i[r]||function(){(i[r].q=i[r].q||[]).push(arguments)},i[r].l=1*new Date();a=s.createElement(o),m=s.getElementsByTagName(o)[0];a.async=1;a.src=g;m.parentNode.insertBefore(a,m)})(window,document,'script','//www.google-analytics.com/analytics.js','ga');ga('create', 'UA-52544521-1', 'auto');ga('send', 'pageview');</script>
 <script type="text/javascript">
 /*
 @licstart  The following is the entire license notice for the
@@ -106,25 +135,10 @@ for the JavaScript code in this tag.
  }
 /*]]>*///-->
 </script>
-
 </head>
 <body>
-<div id="org-div-home-and-up" style="text-align:right;font-size:70%;white-space:nowrap;">
- <a accesskey="h" href="index.html"> UP </a>
- |
- <a accesskey="H" href="index.html"> HOME </a>
-</div>
-
-<div id="preamble">
-
-</div>
-
 <div id="content">
 <h1 class="title">14. Speeding up your code</h1>
-
-
-
-<hr/>
 <div id="table-of-contents">
 <h2>Table of Contents</h2>
 <div id="text-table-of-contents">
@@ -149,23 +163,20 @@ for the JavaScript code in this tag.
 </div>
 </div>
 
-<hr/>
-
-
-<div id="outline-container-1" class="outline-2">
+<div id="outline-container-sec-1" class="outline-2">
 <h2 id="sec-1">Profiling your code using <code>gprof</code></h2>
 <div class="outline-text-2" id="text-1">
-
-
 <p>
 There is a unix utility program called <code>gprof</code> (<a href="http://www.cs.utah.edu/dept/old/texinfo/as/gprof.html">GNU profiler</a>) that can
 help you determine which parts of your program are taking most
 execution time.
 </p>
+
 <p>
 The basic steps are:
 </p>
-<ol>
+
+<ol class="org-ol">
 <li>compile your program with profiling enabled (using the <code>-pg</code>
    compiler flag)
 </li>
@@ -175,12 +186,11 @@ The basic steps are:
 </li>
 </ol>
 
-
 <p>
 Here is an example program that we wish to profile:
 </p>
 
-
+<div class="org-src-container">
 
 <pre class="src src-c"><span style="color: #483d8b;">#include</span> <span style="color: #8b2252;">&lt;stdio.h&gt;</span>
 <span style="color: #483d8b;">#include</span> <span style="color: #8b2252;">&lt;math.h&gt;</span>
@@ -214,27 +224,25 @@ Here is an example program that we wish to profile:
   <span style="color: #a020f0;">return</span> 0;
 }
 </pre>
+</div>
 
-
-
-<pre class="example">plg@wildebeest:~/Desktop$ gcc -o go go.c -lm
+<pre class="example">
+plg@wildebeest:~/Desktop$ gcc -o go go.c -lm
 plg@wildebeest:~/Desktop$ time ./go
 xsum = 2499999499999934350004060160.000000
 
-real    0m1.576s
-user    0m1.572s
-sys     0m0.000s
+real	0m1.576s
+user	0m1.572s
+sys	0m0.000s
 </pre>
-
 
 <p>
 Now let's recompile the program for the profiler, execute it once, and
 then run <code>gprof</code> to look at the profile data:
 </p>
 
-
-
-<pre class="example">plg@wildebeest:~/Desktop$ gcc -o go go.c -lm -pg
+<pre class="example">
+plg@wildebeest:~/Desktop$ gcc -o go go.c -lm -pg
 plg@wildebeest:~/Desktop$ ./go
 xsum = 2499999499999934350004060160.000000
 plg@wildebeest:~/Desktop$ gprof go -p
@@ -264,28 +272,23 @@ calls      the number of times this function was invoked, if
  
  self      the average number of milliseconds spent in this
 ms/call    function per call, if this function is profiled,
-           else blank.
+	   else blank.
 
  total     the average number of milliseconds spent in this
 ms/call    function and its descendents per call, if this 
-           function is profiled, else blank.
+	   function is profiled, else blank.
 
 name       the name of the function.  This is the minor sort
            for this listing. The index shows the location of
-           the function in the gprof listing. If the index is
-           in parenthesis it shows where it would appear in
-           the gprof listing if it were to be printed.
+	   the function in the gprof listing. If the index is
+	   in parenthesis it shows where it would appear in
+	   the gprof listing if it were to be printed.
 </pre>
-
-
-
 </div>
 
-<div id="outline-container-1-1" class="outline-3">
+<div id="outline-container-sec-1-1" class="outline-3">
 <h3 id="sec-1-1">Examining gprof data</h3>
 <div class="outline-text-3" id="text-1-1">
-
-
 <p>
 The very first section of the <code>gprof</code> output gives us important
 information. It's telling us that we are spending <code>40.35%</code> of our time
@@ -293,73 +296,68 @@ in <code>myFun3()</code> compared with only <code>13.45%</code> and <code>3.36%<
 and <code>myFun3()</code>. The obvious thing to try to do now is to speed up
 <code>myFun3()</code>.
 </p>
-
 </div>
 </div>
-
 </div>
 
-<div id="outline-container-2" class="outline-2">
+
+<div id="outline-container-sec-2" class="outline-2">
 <h2 id="sec-2">Known slugs</h2>
 <div class="outline-text-2" id="text-2">
-
-
 <p>
 There are some C functions that are known to be slow.
 </p>
-
 </div>
 
-<div id="outline-container-2-1" class="outline-3">
+<div id="outline-container-sec-2-1" class="outline-3">
 <h3 id="sec-2-1">Slow math functions</h3>
 <div class="outline-text-3" id="text-2-1">
-
-
 <p>
 <code>pow()</code>, <code>sqrt()</code>, and trigonometric functions (e.g. <code>sin()</code>, <code>cos()</code>,
 <code>tan()</code>, etc.
 </p>
+
 <p>
 When using <code>pow()</code> with integers, just use basic operators instead. For example instead of this:
 </p>
 
-
+<div class="org-src-container">
 
 <pre class="src src-c"><span style="color: #228b22;">double</span> <span style="color: #a0522d;">y</span> = 3.14;
 <span style="color: #228b22;">double</span> <span style="color: #a0522d;">x</span> = pow(y, 3);
 </pre>
-
+</div>
 
 <p>
 Use the <code>*</code> operator instead:
 </p>
 
-
+<div class="org-src-container">
 
 <pre class="src src-c"><span style="color: #228b22;">double</span> <span style="color: #a0522d;">y</span> = 3.14;
 <span style="color: #228b22;">double</span> <span style="color: #a0522d;">x</span> = y*y*y;
 </pre>
-
+</div>
 
 <p>
 You can sometimes get around having to compute <code>sqrt()</code>, e.g. by
 squaring instead (but not using <code>pow()</code>). For example, let's say we're testing whether the distance of a point (x1,y1) from another point (x2,y2) is less than some minimum (mindist). Instead of computing the actual distance like this:
 </p>
 
-
+<div class="org-src-container">
 
 <pre class="src src-c"><span style="color: #228b22;">double</span> <span style="color: #a0522d;">the_dist</span> = sqrt( pow(x2-x1,2) + pow(y2-y1,2) );
 <span style="color: #a020f0;">if</span> (the_dist &lt; mindist) {
   printf(<span style="color: #8b2252;">"it is less\n"</span>);
 }
 </pre>
-
+</div>
 
 <p>
 You can test the squared distance against the squared mindist:
 </p>
 
-
+<div class="org-src-container">
 
 <pre class="src src-c"><span style="color: #228b22;">double</span> <span style="color: #a0522d;">xdif</span> = x2-x1;
 <span style="color: #228b22;">double</span> <span style="color: #a0522d;">ydif</span> = y2-y1;
@@ -368,12 +366,13 @@ You can test the squared distance against the squared mindist:
   printf(<span style="color: #8b2252;">"it is less\n"</span>);
 }
 </pre>
-
+</div>
 
 <p>
 Note how we have also replaced <code>pow()</code>, and we have made temporary
 variables <code>xdif</code> and <code>ydif</code> so we only compute each difference once.
 </p>
+
 <p>
 In our lab, we got rid of a bunch of <code>pow()</code> function calls in a C
 function that represented a muscle model in an arm model simulation,
@@ -381,14 +380,11 @@ and we sped up the code by a factor of about two (twice as fast).
 </p>
 </div>
 </div>
-
 </div>
 
-<div id="outline-container-3" class="outline-2">
+<div id="outline-container-sec-3" class="outline-2">
 <h2 id="sec-3">Using the Optimizer compiler flags</h2>
 <div class="outline-text-2" id="text-3">
-
-
 <p>
 There are a number of levels of "optimization" that you can request of
 the <code>gcc</code> compiler at compile time. You can read about them
@@ -397,15 +393,16 @@ improve the performance (speed) of the code, typically at the expense
 of compilation time, (sometimes code size), and (usually) debugging
 ease.
 </p>
+
 <p>
 If you type this:
 </p>
 
-
+<div class="org-src-container">
 
 <pre class="src src-sh">gcc -Q --help=optimizers
 </pre>
-
+</div>
 
 <p>
 You will get a long list of all of the various optimization options
@@ -413,17 +410,15 @@ that are possible. Typically they are grouped into several "levels" of
 optimization which can be requested with a flag like <code>-On</code> where <code>n</code>
 is 1, 2, 3, etc.
 </p>
+
 <p>
 See the gcc <a href="http://gcc.gnu.org/onlinedocs/gcc/Optimize-Options.html">Optimize-Options</a> for a full listing of what's turned on when you request <code>-O</code>, <code>-O1</code>, <code>-O2</code>, <code>-O3</code>, etc.
 </p>
-
 </div>
 
-<div id="outline-container-3-1" class="outline-3">
+<div id="outline-container-sec-3-1" class="outline-3">
 <h3 id="sec-3-1">Effects on debugging</h3>
 <div class="outline-text-3" id="text-3-1">
-
-
 <p>
 As a general rule, in fact, you should <b>not</b> use optimization flags
 when you are still debugging your code with <code>gdb</code>. When your code is
@@ -432,6 +427,7 @@ example, variables you have defined may no longer be present, some
 statements may be executed in different places than where they are
 coded (and sometimes not at all), etc.
 </p>
+
 <p>
 Sometimes you can get impressive speedups with optimization, simply by
 compiling with an optimizer flag, you might get a speedup even of
@@ -439,29 +435,21 @@ twice as fast.
 </p>
 </div>
 </div>
-
 </div>
 
-<div id="outline-container-4" class="outline-2">
+<div id="outline-container-sec-4" class="outline-2">
 <h2 id="sec-4">Links</h2>
 <div class="outline-text-2" id="text-4">
-
-
-<ul>
+<ul class="org-ul">
 <li><a href="http://www.ibm.com/developerworks/library/l-gnuprof.html">Speed your code with the GNU profiler</a>
 </li>
 <li><a href="http://www.linuxjournal.com/article/7269">Optimization in GCC</a>
 </li>
 </ul>
-
-
-
-
 </div>
 </div>
 </div>
-
-<div id="postamble">
+<div id="postamble" class="status">
 <hr />Paul Gribble | Summer 2012<br><b>support this project with bitcoin</b>:1Nh3UDeJX1zhcnHNS5jd6EnfqTKZakyJhU<br>This <span xmlns:dct="http://purl.org/dc/terms/" href="http://purl.org/dc/dcmitype/Text" rel="dct:type">work</span> is licensed under a <a rel="license" href="http://creativecommons.org/licenses/by-nc-sa/3.0/">Creative Commons Attribution-NonCommercial-ShareAlike 3.0 Unported License</a><br><a rel="license" href="http://creativecommons.org/licenses/by-nc-sa/3.0/"><img alt="Creative Commons License" style="border-width:0" src="http://i.creativecommons.org/l/by-nc-sa/3.0/80x15.png" /></a><br />
 </div>
 </body>

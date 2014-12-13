@@ -5,10 +5,6 @@
 #+EMAIL:     paul@gribblelab.org
 #+DATE:      Summer 2012
 
------
-[TABLE-OF-CONTENTS]
------
-
 * Pointers
 
 Pointers represent one of the more powerful features of the C

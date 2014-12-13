@@ -5,10 +5,6 @@
 #+EMAIL:     paul@gribblelab.org
 #+DATE:      Summer 2012
 
------
-[TABLE-OF-CONTENTS]
------
-
 * Arrays
 
 Just as in MATLAB, or Python, or any number of other high-level
@@ -419,11 +415,10 @@ second one, hence =argv[1]=) which is an ascii string, into an integer
 Here is some code that does nothing except output to the screen the
 number of input arguments, and their value:
 
-#+BEGIN_SRC C
+#+BEGIN_SRC c
 #include <stdio.h>
     
 int main(int argc, char* argv[]) {
-  char** argp;
   int i;
   printf("argc = %d\n", argc);
   for (i=0; i<argc; i++) {
@@ -431,7 +426,7 @@ int main(int argc, char* argv[]) {
   }
   return 0;
 }
-#+END_SRC C
+#+END_SRC
 
 So for example:
 

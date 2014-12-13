@@ -1,65 +1,94 @@
-<?xml version="1.0" encoding="iso-8859-1"?>
+<?xml version="1.0" encoding="utf-8"?>
 <!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Strict//EN"
-               "http://www.w3.org/TR/xhtml1/DTD/xhtml1-strict.dtd">
+"http://www.w3.org/TR/xhtml1/DTD/xhtml1-strict.dtd">
 <html xmlns="http://www.w3.org/1999/xhtml" lang="en" xml:lang="en">
 <head>
 <title>12. Compiling, linking, Makefile, header files</title>
-<meta http-equiv="Content-Type" content="text/html;charset=iso-8859-1"/>
-<meta name="title" content="12. Compiling, linking, Makefile, header files"/>
-<meta name="generator" content="Org-mode"/>
-<meta name="generated" content="Summer 2012"/>
-<meta name="author" content="Paul Gribble"/>
-<meta name="description" content=""/>
-<meta name="keywords" content=""/>
+<!-- 2014-12-12 Fri 21:22 -->
+<meta  http-equiv="Content-Type" content="text/html;charset=utf-8" />
+<meta  name="generator" content="Org-mode" />
+<meta  name="author" content="Paul Gribble" />
 <style type="text/css">
  <!--/*--><![CDATA[/*><!--*/
-  html { font-family: Times, serif; font-size: 12pt; }
   .title  { text-align: center; }
-  .todo   { color: red; }
+  .todo   { font-family: monospace; color: red; }
   .done   { color: green; }
-  .tag    { background-color: #add8e6; font-weight:normal }
-  .target { }
+  .tag    { background-color: #eee; font-family: monospace;
+            padding: 2px; font-size: 80%; font-weight: normal; }
   .timestamp { color: #bebebe; }
   .timestamp-kwd { color: #5f9ea0; }
-  .right  {margin-left:auto; margin-right:0px;  text-align:right;}
-  .left   {margin-left:0px;  margin-right:auto; text-align:left;}
-  .center {margin-left:auto; margin-right:auto; text-align:center;}
-  p.verse { margin-left: 3% }
+  .right  { margin-left: auto; margin-right: 0px;  text-align: right; }
+  .left   { margin-left: 0px;  margin-right: auto; text-align: left; }
+  .center { margin-left: auto; margin-right: auto; text-align: center; }
+  .underline { text-decoration: underline; }
+  #postamble p, #preamble p { font-size: 90%; margin: .2em; }
+  p.verse { margin-left: 3%; }
   pre {
-	border: 1pt solid #AEBDCC;
-	background-color: #F3F5F7;
-	padding: 5pt;
-	font-family: courier, monospace;
-        font-size: 90%;
-        overflow:auto;
+    border: 1px solid #ccc;
+    box-shadow: 3px 3px 3px #eee;
+    padding: 8pt;
+    font-family: monospace;
+    overflow: auto;
+    margin: 1.2em;
   }
-  table { border-collapse: collapse; }
-  td, th { vertical-align: top;  }
-  th.right  { text-align:center;  }
-  th.left   { text-align:center;   }
-  th.center { text-align:center; }
-  td.right  { text-align:right;  }
-  td.left   { text-align:left;   }
-  td.center { text-align:center; }
+  pre.src {
+    position: relative;
+    overflow: visible;
+    padding-top: 1.2em;
+  }
+  pre.src:before {
+    display: none;
+    position: absolute;
+    background-color: white;
+    top: -10px;
+    right: 10px;
+    padding: 3px;
+    border: 1px solid black;
+  }
+  pre.src:hover:before { display: inline;}
+  pre.src-sh:before    { content: 'sh'; }
+  pre.src-bash:before  { content: 'sh'; }
+  pre.src-emacs-lisp:before { content: 'Emacs Lisp'; }
+  pre.src-R:before     { content: 'R'; }
+  pre.src-perl:before  { content: 'Perl'; }
+  pre.src-java:before  { content: 'Java'; }
+  pre.src-sql:before   { content: 'SQL'; }
+
+  table { border-collapse:collapse; }
+  caption.t-above { caption-side: top; }
+  caption.t-bottom { caption-side: bottom; }
+  td, th { vertical-align:top;  }
+  th.right  { text-align: center;  }
+  th.left   { text-align: center;   }
+  th.center { text-align: center; }
+  td.right  { text-align: right;  }
+  td.left   { text-align: left;   }
+  td.center { text-align: center; }
   dt { font-weight: bold; }
-  div.figure { padding: 0.5em; }
-  div.figure p { text-align: center; }
-  div.inlinetask {
-    padding:10px;
-    border:2px solid gray;
-    margin:10px;
+  .footpara:nth-child(2) { display: inline; }
+  .footpara { display: block; }
+  .footdef  { margin-bottom: 1em; }
+  .figure { padding: 1em; }
+  .figure p { text-align: center; }
+  .inlinetask {
+    padding: 10px;
+    border: 2px solid gray;
+    margin: 10px;
     background: #ffffcc;
   }
+  #org-div-home-and-up
+   { text-align: right; font-size: 70%; white-space: nowrap; }
   textarea { overflow-x: auto; }
-  .linenr { font-size:smaller }
-  .code-highlighted {background-color:#ffff00;}
-  .org-info-js_info-navigation { border-style:none; }
-  #org-info-js_console-label { font-size:10px; font-weight:bold;
-                               white-space:nowrap; }
-  .org-info-js_search-highlight {background-color:#ffff00; color:#000000;
-                                 font-weight:bold; }
+  .linenr { font-size: smaller }
+  .code-highlighted { background-color: #ffff00; }
+  .org-info-js_info-navigation { border-style: none; }
+  #org-info-js_console-label
+    { font-size: 10px; font-weight: bold; white-space: nowrap; }
+  .org-info-js_search-highlight
+    { background-color: #ffff00; color: #000000; font-weight: bold; }
   /*]]>*/-->
-</style><link rel="stylesheet" type="text/css" href="mystyle.css" /><script>(function(i,s,o,g,r,a,m){i['GoogleAnalyticsObject']=r;i[r]=i[r]||function(){(i[r].q=i[r].q||[]).push(arguments)},i[r].l=1*new Date();a=s.createElement(o),m=s.getElementsByTagName(o)[0];a.async=1;a.src=g;m.parentNode.insertBefore(a,m)})(window,document,'script','//www.google-analytics.com/analytics.js','ga');ga('create', 'UA-52544521-1', 'auto');ga('send', 'pageview');</script>
+</style>
+<link rel="stylesheet" type="text/css" href="mystyle.css" /><script>(function(i,s,o,g,r,a,m){i['GoogleAnalyticsObject']=r;i[r]=i[r]||function(){(i[r].q=i[r].q||[]).push(arguments)},i[r].l=1*new Date();a=s.createElement(o),m=s.getElementsByTagName(o)[0];a.async=1;a.src=g;m.parentNode.insertBefore(a,m)})(window,document,'script','//www.google-analytics.com/analytics.js','ga');ga('create', 'UA-52544521-1', 'auto');ga('send', 'pageview');</script>
 <script type="text/javascript">
 /*
 @licstart  The following is the entire license notice for the
@@ -106,25 +135,10 @@ for the JavaScript code in this tag.
  }
 /*]]>*///-->
 </script>
-
 </head>
 <body>
-<div id="org-div-home-and-up" style="text-align:right;font-size:70%;white-space:nowrap;">
- <a accesskey="h" href="index.html"> UP </a>
- |
- <a accesskey="H" href="index.html"> HOME </a>
-</div>
-
-<div id="preamble">
-
-</div>
-
 <div id="content">
 <h1 class="title">12. Compiling, linking, Makefile, header files</h1>
-
-
-
-<hr/>
 <div id="table-of-contents">
 <h2>Table of Contents</h2>
 <div id="text-table-of-contents">
@@ -148,14 +162,9 @@ for the JavaScript code in this tag.
 </div>
 </div>
 
-<hr/>
-
-
-<div id="outline-container-1" class="outline-2">
+<div id="outline-container-sec-1" class="outline-2">
 <h2 id="sec-1">Splitting your program into multiple files</h2>
 <div class="outline-text-2" id="text-1">
-
-
 <p>
 The programs we have seen so far have all been stored in a single
 source file. As your programs become larger, and as you start to deal
@@ -166,6 +175,7 @@ re-use in your own scientific programming and data analysis. Here we
 will see how to place C functions and data structures in their own
 file(s) and how to incorporate them into a new program.
 </p>
+
 <p>
 We saw in the section on functions, that one way of including
 custom-written functions in your C code, is to simply place them in
@@ -177,22 +187,21 @@ compiled, it's just like copying and pasting the code above <code>main()</code>,
 but for the purpose of editing and writing your code, this allows you
 to keep things in separate files. It also means that if you ever
 decide to <b>change</b> one of those re-usable functions (for example if
-you find and fix an error) that you only have to change it in <b>one place</b>, and you don't have to go searching through all of your
+you find and fix an error) that you only have to change it in <b>one
+place</b>, and you don't have to go searching through all of your
 programs and change each one.
 </p>
-
 </div>
 
-<div id="outline-container-1-1" class="outline-3">
+<div id="outline-container-sec-1-1" class="outline-3">
 <h3 id="sec-1-1">Header files</h3>
 <div class="outline-text-3" id="text-1-1">
-
-
 <p>
 A common convention in C programs is to write a header file (with <b>.h</b>
 suffix) for each source file (<b>.c</b> suffix) that you link to your main
 source code. The logic is that the .c source file contains all of the code and the header file contains the function <b>prototypes</b>, that is, just a declaration of which functions can be found in the source file.
 </p>
+
 <p>
 This is done for libraries that are provided by others, sometimes only
 as compiled binary "blobs" (i.e. you can't look at the source
@@ -200,14 +209,11 @@ code). Pairing them with plain-text header files allows you see what
 functions are defined, and what arguments they take (and return).
 </p>
 </div>
-
 </div>
 
-<div id="outline-container-1-2" class="outline-3">
+<div id="outline-container-sec-1-2" class="outline-3">
 <h3 id="sec-1-2">An example</h3>
 <div class="outline-text-3" id="text-1-2">
-
-
 <p>
 Here is a program that computes the preferred direction of a neuron
 recorded in primary motor cortex of rhesus macaques, during a
@@ -217,6 +223,7 @@ targets around the circumference of a circle. Movements to each of the
 8 targets were repeated 5 times for a total of 40 movements. The order
 of target directions was randomized.
 </p>
+
 <p>
 The data for each neuron are represented by two sets of values: first,
 an array of 40 values that indicate for each movement, the <b>direction</b>
@@ -226,6 +233,7 @@ velocity vector at peak hand velocity), and second, another array of
 per second averaged over a window starting 150ms before movement onset
 and ending at peak hand velocity.
 </p>
+
 <p>
 For each neuron, the goal is to compute a <b>preferred direction</b>. That
 is, the direction of movement for which the neuron fires most
@@ -236,11 +244,12 @@ provided us with) a C function called <code>compute_PD()</code> that performs
 this calculation, and that the code is stored in a file called
 <a href="code/neurons/neuron.c">neuron.c</a>, with a header file <a href="code/neurons/neuron.h">neuron.h</a>.
 </p>
+
 <p>
 Here is our main program which is called <a href="code/neurons/go.c">go.c</a>:
 </p>
 
-
+<div class="org-src-container">
 
 <pre class="src src-c"><span style="color: #b22222;">// </span><span style="color: #b22222;">gcc -std=c99 -o go go.c neuron.c -lm</span>
 
@@ -283,18 +292,17 @@ Here is our main program which is called <a href="code/neurons/go.c">go.c</a>:
 
   <span style="color: #a020f0;">return</span> 0;
 }
-
-
 </pre>
-
+</div>
 
 <p>
 What we can see is that on line 6, we use an <code>#include</code> statement to
 include the neuron.h header file (shown below). This is a way of
 essentially telling the compiler, that these functions (in neurons.h)
-will be described fully later &hellip; and for now, "trust" that they are
+will be described fully later &#x2026; and for now, "trust" that they are
 defined, and in this particular way (inputs and outputs).
 </p>
+
 <p>
 On line 1 (commented out) I show the gcc command to compile this
 program, and you can see that we simple add neuron.c to the list of
@@ -304,11 +312,12 @@ integrates the code in neuron.c into our program. We also need the
 library (since the <code>#include &lt;math.h&gt;</code> directive appears in
 <code>neuron.h</code>).
 </p>
+
 <p>
 Here is the header file <a href="code/neurons/neuron.h">neuron.h</a>:
 </p>
 
-
+<div class="org-src-container">
 
 <pre class="src src-c"><span style="color: #483d8b;">#include</span> <span style="color: #8b2252;">&lt;stdlib.h&gt;</span>
 <span style="color: #483d8b;">#include</span> <span style="color: #8b2252;">&lt;stdio.h&gt;</span>
@@ -342,7 +351,7 @@ Here is the header file <a href="code/neurons/neuron.h">neuron.h</a>:
 
 <span style="color: #228b22;">double</span> <span style="color: #0000ff;">compute_PD</span>(<span style="color: #228b22;">double</span> <span style="color: #a0522d;">celldirs</span>[], <span style="color: #228b22;">double</span> <span style="color: #a0522d;">cellspks</span>[], <span style="color: #228b22;">int</span> <span style="color: #a0522d;">ntrials</span>);
 </pre>
-
+</div>
 
 <p>
 What you can see is that this is simply a listing of the functions
@@ -353,6 +362,7 @@ function prototypes are loaded in, so that the code in the main
 program "knows about" these functions. Note that there are some
 functions in here that we do not use in the <code>go.c</code> code above.
 </p>
+
 <p>
 An important point to remember is that as long as we can look at the
 header file, we have all the information about what functions are
@@ -362,28 +372,25 @@ want to look "inside" those functions, we can look at the source
 file. The header file then can be thought of as an <b>interface</b> between
 the source code and the programmer.
 </p>
+
 <p>
 To summarize then, in order to include external code in your C program
 (code that is located in a separate file), you need to make sure two things happen:
 </p>
-<ol>
-<li>The external C source code is passed to the compiler at compile time
 
+<ol class="org-ol">
+<li>The external C source code is passed to the compiler at compile time
 </li>
+
 <li>Your own C program has access to the function prototypes associated with the external code
 </li>
 </ol>
-
-
+</div>
 </div>
 
-</div>
-
-<div id="outline-container-1-3" class="outline-3">
+<div id="outline-container-sec-1-3" class="outline-3">
 <h3 id="sec-1-3">Another example</h3>
 <div class="outline-text-3" id="text-1-3">
-
-
 <p>
 Another small example: let's say you want to write a program that
 takes at the command-line one integer input, and determines whether
@@ -394,12 +401,11 @@ you a pair of files (<a href="code/primes/primes.h">primes.h</a> and <a href="co
 (<a href="code/primes/primes.h">primes.h</a>) looks like this:
 </p>
 
-
+<div class="org-src-container">
 
 <pre class="src src-c"><span style="color: #228b22;">int</span> <span style="color: #0000ff;">isPrime</span>(<span style="color: #228b22;">int</span> <span style="color: #a0522d;">n</span>); <span style="color: #b22222;">// </span><span style="color: #b22222;">returns 0 if n is not prime, 1 if n is prime</span>
-
 </pre>
-
+</div>
 
 <p>
 So we know a couple of things from this header file. First, it
@@ -412,11 +418,12 @@ returns an integer value: 0 if the input value is a prime number, and
 function (without even looking at the function's source code, which
 resides in <code>primes.c</code>).
 </p>
+
 <p>
 Here is what the <a href="code/primes/primes.c">primes.c</a> file look like:
 </p>
 
-
+<div class="org-src-container">
 
 <pre class="src src-c"><span style="color: #228b22;">int</span> <span style="color: #0000ff;">isPrime</span>(<span style="color: #228b22;">int</span> <span style="color: #a0522d;">n</span>) {
 
@@ -435,13 +442,13 @@ Here is what the <a href="code/primes/primes.c">primes.c</a> file look like:
   <span style="color: #a020f0;">return</span> 1;
 }
 </pre>
-
+</div>
 
 <p>
 Here is what our program <a href="code/primes/go.c">go.c</a> looks like:
 </p>
 
-
+<div class="org-src-container">
 
 <pre class="src src-c"><span style="color: #b22222;">/* </span><span style="color: #b22222;">go.c</span>
 <span style="color: #b22222;">   Takes one input argument from the command line, an integer,</span>
@@ -466,18 +473,16 @@ Here is what our program <a href="code/primes/go.c">go.c</a> looks like:
     <span style="color: #a020f0;">return</span> 0;
   }
 }
-
 </pre>
-
+</div>
 
 <p>
 Here is the result of running the program on a small selection of
 input values:
 </p>
 
-
-
-<pre class="example">plg@wildebeest:~/Desktop$ gcc -o go go.c primes.c
+<pre class="example">
+plg@wildebeest:~/Desktop$ gcc -o go go.c primes.c
 plg@wildebeest:~/Desktop$ ./go 1
 isPrime(1) = 0
 plg@wildebeest:~/Desktop$ ./go 2
@@ -491,17 +496,12 @@ isPrime(67) = 1
 plg@wildebeest:~/Desktop$ ./go 12347
 isPrime(12347) = 1
 </pre>
-
-
+</div>
 </div>
 
-</div>
-
-<div id="outline-container-1-4" class="outline-3">
+<div id="outline-container-sec-1-4" class="outline-3">
 <h3 id="sec-1-4">Search path</h3>
 <div class="outline-text-3" id="text-1-4">
-
-
 <p>
 The compiler will look in several places for header files that you
 include with the <code>#include</code> directive, depending on how you use it. If
@@ -517,31 +517,25 @@ standard C library, and does not reside in the usual "system" default
 locations.
 </p>
 </div>
-
 </div>
 
-<div id="outline-container-1-5" class="outline-3">
+<div id="outline-container-sec-1-5" class="outline-3">
 <h3 id="sec-1-5">External variables</h3>
 <div class="outline-text-3" id="text-1-5">
-
-
 <p>
 Just as we can include external code in our C programs, we can make a
 declaration in our C program that a variable exists and has been
 declared elsewhere (e.g. in some other source file). This is done
 using the <code>extern</code> keyword. See <a href="http://en.wikipedia.org/wiki/External_variable">here</a> for more details.
 </p>
-
 </div>
 </div>
-
 </div>
 
-<div id="outline-container-2" class="outline-2">
+
+<div id="outline-container-sec-2" class="outline-2">
 <h2 id="sec-2">The GNU <code>make</code> utility and Makefiles</h2>
 <div class="outline-text-2" id="text-2">
-
-
 <p>
 There is a UNIX tool called <code>make</code> that is commonly used to compile C
 programs that are made up of several files, and (sometimes) involve
@@ -550,32 +544,36 @@ but what I want to introduce here is a simple use of it, which lets
 you avoid having to remember a long, complicated compile command
 (e.g. in line 1 of the output from the prime number program above).
 </p>
+
 <p>
 The <code>make</code> utility uses a special plain-text file that you write that
 has to reside in the same directory as your program, and has to be
 called <code>Makefile</code>. You can think of a Makefile as a <b>recipe</b> for
 making your program (i.e. linking and compiling).
 </p>
+
 <p>
 A simple Makefile for our prime number program above might look like
 this:
 </p>
 
-
+<div class="org-src-container">
 
 <pre class="src src-sh">go: go.c primes.c
-        gcc -o go go.c primes.c 
+        gcc -o go go.c primes.c
 </pre>
-
+</div>
 
 <p>
 The first word and colon <code>go:</code> on line 1 represents the <b>name</b> of a
-recipe called <b>go</b>. The list of files after the colon (<code>go.c primes.c</code>) represent all of the things that go <b>depends upon</b>. On the
+recipe called <b>go</b>. The list of files after the colon (<code>go.c
+primes.c</code>) represent all of the things that go <b>depends upon</b>. On the
 next line, there is a <code>TAB</code> (not spaces) followed by a compile
 command. This represents the step (there could be more lines for more
 steps if there were any) that are required to "make" the "go"
 recipe. Here we simply have put our compile command.
 </p>
+
 <p>
 Now all we have to do from the command-line is type <code>make</code>, and make
 will "make" the recipe for "go". (Running <code>make</code> with no arguments
@@ -583,30 +581,26 @@ executes the first rule (recipe) in the Makefile). The <code>make</code> program
 knows that the "go" rule needs to be executed if any of the files that
 it depends upon, (because they follow the colon on line 1) changes.
 </p>
+
 <p>
 Here is what it looks like when we run <code>make</code> using <a href="code/primes/Makefile1.txt">Makefile1.txt</a>:
 </p>
 
-
-
-<pre class="example">plg@wildebeest:~/Desktop/CBootCamp/code/primes$ cp Makefile1.txt Makefile
+<pre class="example">
+plg@wildebeest:~/Desktop/CBootCamp/code/primes$ cp Makefile1.txt Makefile
 plg@wildebeest:~/Desktop/CBootCamp/code/primes$ make
-gcc -o go go.c primes.c -lm 
+gcc -o go go.c primes.c -lm
 </pre>
-
 
 <p>
 You can see the command (line 3) that ends up being executed by
 <code>make</code>.
 </p>
-
 </div>
 
-<div id="outline-container-2-1" class="outline-3">
+<div id="outline-container-sec-2-1" class="outline-3">
 <h3 id="sec-2-1">Introducing more generalization to the Makefile</h3>
 <div class="outline-text-3" id="text-2-1">
-
-
 <p>
 There are a number of features of a Makefile we can utilize to make
 the whole idea more useful. We can introduce "macros" (like a
@@ -616,7 +610,7 @@ is what a more generalized Makefile might look like for our primes
 example from above:
 </p>
 
-
+<div class="org-src-container">
 
 <pre class="src src-sh">CC = gcc
 CFLAGS = -Wall
@@ -629,7 +623,7 @@ OBJ = go.o primes.o
 go: $(<span style="color: #ff00ff;">OBJ</span>)
         gcc $(<span style="color: #ff00ff;">CFLAGS</span>) -o $<span style="color: #a0522d;">@</span> $^
 </pre>
-
+</div>
 
 <p>
 You can see we have moved all the specific details (filenames,
@@ -638,12 +632,13 @@ below in the rules themselves, is expressed only in terms of those
 macros. There's nothing wrong with using a Makefile that is simple (as
 in <a href="code/primes/Makefile1.txt">Makefile1.txt</a>, it is a choice for you about how fancy to get. The one
 limitation of <a href="code/primes/Makefile1.txt">Makefile1.txt</a> is that the header file <code>primes.h</code> doesn't
-appear anywhere &hellip; this means if that file changes, then <code>make</code> will
+appear anywhere &#x2026; this means if that file changes, then <code>make</code> will
 not think it has to recompile anything (because nothing in the rule
 "go" depends on <code>primes.h</code>). In <a href="code/primes/Makefile2.txt">Makefile2.txt</a>, we introduce a dependency
 of <code>.o</code> files (on line 6) on <code>$(DEPS)</code>, which is defined above on line
 3, and includes the header file <code>primes.h</code>.
 </p>
+
 <p>
 Note that we have term in the <code>CFLAGS</code> macro that looks like this:
 <code>-Wall</code>. This is a flag to the compiler to turn on all <a href="http://gcc.gnu.org/onlinedocs/gcc/Warning-Options.html">Warnings</a>. There
@@ -651,34 +646,32 @@ are many warnings that the compiler will tell you about, like
 variables that are never used, uninitialized variables, etc. Consult
 the documentation for full details.
 </p>
+
 <p>
 Here is what it looks like when we run <code>make</code> using <a href="code/primes/Makefile2.txt">Makefile2.txt</a>:
 </p>
 
-
-
-<pre class="example">plg@wildebeest:~/Desktop/CBootCamp/code/primes$ cp Makefile2.txt Makefile
+<pre class="example">
+plg@wildebeest:~/Desktop/CBootCamp/code/primes$ cp Makefile2.txt Makefile
 plg@wildebeest:~/Desktop/CBootCamp/code/primes$ make
 gcc -c -o go.o go.c -lm
 gcc -c -o primes.o primes.c -lm
 gcc -o go go.o primes.o -lm
 </pre>
 
-
 <p>
 You can see that in this case, three commands end up being run (lines
 3-5).
 </p>
+
 <p>
 Now the neat thing is, if we type <code>make</code> again (without changing anything) we get this:
 </p>
 
-
-
-<pre class="example">plg@wildebeest:~/Desktop/CBootCamp/code/primes$ make
+<pre class="example">
+plg@wildebeest:~/Desktop/CBootCamp/code/primes$ make
 make: `go' is up to date.
 </pre>
-
 
 <p>
 We are told that the "go" rule is "up to date". The <code>make</code> program
@@ -687,36 +680,34 @@ executes the step in the rule(s) (if any) that need to be done (it
 figures this out based on the dependencies that you set up in the
 rules).
 </p>
+
 <p>
 In the long run, using Makefiles is a good idea, because:
 </p>
-<ul>
+
+<ul class="org-ul">
 <li>it's faster to recompile things (less typing, and it only recompiles
-  based on what's changed and leaves the rest)
+based on what's changed and leaves the rest)
 </li>
 <li>it organizes all the "steps" in a (potentially complex) compilation
-  into one place (the Makefile), which makes it easier for other
-  people to compile your code
+into one place (the Makefile), which makes it easier for other
+people to compile your code
 </li>
 </ul>
-
 
 <p>
 See the links below for more details and more examples of how GNU make
 can be used to your advantage.
 </p>
-
 </div>
 </div>
-
 </div>
 
-<div id="outline-container-3" class="outline-2">
+
+<div id="outline-container-sec-3" class="outline-2">
 <h2 id="sec-3">Links</h2>
 <div class="outline-text-2" id="text-3">
-
-
-<ul>
+<ul class="org-ul">
 <li><a href="http://gcc.gnu.org/onlinedocs/cpp/Header-Files.html">GNU C Compiler (gcc): Header Files</a>
 </li>
 <li><a href="http://gcc.gnu.org/onlinedocs/cpp/Search-Path.html#Search-Path">Wikipedia: Header Files</a>
@@ -732,14 +723,10 @@ can be used to your advantage.
 <li><a href="http://www.csee.umbc.edu/courses/undergraduate/313/spring12/Resources/UnixProgrammingTools.pdf">UNIX Programming Tools</a>
 </li>
 </ul>
-
-
-
 </div>
 </div>
 </div>
-
-<div id="postamble">
+<div id="postamble" class="status">
 <hr />Paul Gribble | Summer 2012<br><b>support this project with bitcoin</b>:1Nh3UDeJX1zhcnHNS5jd6EnfqTKZakyJhU<br>This <span xmlns:dct="http://purl.org/dc/terms/" href="http://purl.org/dc/dcmitype/Text" rel="dct:type">work</span> is licensed under a <a rel="license" href="http://creativecommons.org/licenses/by-nc-sa/3.0/">Creative Commons Attribution-NonCommercial-ShareAlike 3.0 Unported License</a><br><a rel="license" href="http://creativecommons.org/licenses/by-nc-sa/3.0/"><img alt="Creative Commons License" style="border-width:0" src="http://i.creativecommons.org/l/by-nc-sa/3.0/80x15.png" /></a><br />
 </div>
 </body>

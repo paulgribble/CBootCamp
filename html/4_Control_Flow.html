@@ -1,65 +1,94 @@
-<?xml version="1.0" encoding="iso-8859-1"?>
+<?xml version="1.0" encoding="utf-8"?>
 <!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Strict//EN"
-               "http://www.w3.org/TR/xhtml1/DTD/xhtml1-strict.dtd">
+"http://www.w3.org/TR/xhtml1/DTD/xhtml1-strict.dtd">
 <html xmlns="http://www.w3.org/1999/xhtml" lang="en" xml:lang="en">
 <head>
 <title>4. Control Flow</title>
-<meta http-equiv="Content-Type" content="text/html;charset=iso-8859-1"/>
-<meta name="title" content="4. Control Flow"/>
-<meta name="generator" content="Org-mode"/>
-<meta name="generated" content="Summer 2012"/>
-<meta name="author" content="Paul Gribble"/>
-<meta name="description" content=""/>
-<meta name="keywords" content=""/>
+<!-- 2014-12-12 Fri 21:22 -->
+<meta  http-equiv="Content-Type" content="text/html;charset=utf-8" />
+<meta  name="generator" content="Org-mode" />
+<meta  name="author" content="Paul Gribble" />
 <style type="text/css">
  <!--/*--><![CDATA[/*><!--*/
-  html { font-family: Times, serif; font-size: 12pt; }
   .title  { text-align: center; }
-  .todo   { color: red; }
+  .todo   { font-family: monospace; color: red; }
   .done   { color: green; }
-  .tag    { background-color: #add8e6; font-weight:normal }
-  .target { }
+  .tag    { background-color: #eee; font-family: monospace;
+            padding: 2px; font-size: 80%; font-weight: normal; }
   .timestamp { color: #bebebe; }
   .timestamp-kwd { color: #5f9ea0; }
-  .right  {margin-left:auto; margin-right:0px;  text-align:right;}
-  .left   {margin-left:0px;  margin-right:auto; text-align:left;}
-  .center {margin-left:auto; margin-right:auto; text-align:center;}
-  p.verse { margin-left: 3% }
+  .right  { margin-left: auto; margin-right: 0px;  text-align: right; }
+  .left   { margin-left: 0px;  margin-right: auto; text-align: left; }
+  .center { margin-left: auto; margin-right: auto; text-align: center; }
+  .underline { text-decoration: underline; }
+  #postamble p, #preamble p { font-size: 90%; margin: .2em; }
+  p.verse { margin-left: 3%; }
   pre {
-	border: 1pt solid #AEBDCC;
-	background-color: #F3F5F7;
-	padding: 5pt;
-	font-family: courier, monospace;
-        font-size: 90%;
-        overflow:auto;
+    border: 1px solid #ccc;
+    box-shadow: 3px 3px 3px #eee;
+    padding: 8pt;
+    font-family: monospace;
+    overflow: auto;
+    margin: 1.2em;
   }
-  table { border-collapse: collapse; }
-  td, th { vertical-align: top;  }
-  th.right  { text-align:center;  }
-  th.left   { text-align:center;   }
-  th.center { text-align:center; }
-  td.right  { text-align:right;  }
-  td.left   { text-align:left;   }
-  td.center { text-align:center; }
+  pre.src {
+    position: relative;
+    overflow: visible;
+    padding-top: 1.2em;
+  }
+  pre.src:before {
+    display: none;
+    position: absolute;
+    background-color: white;
+    top: -10px;
+    right: 10px;
+    padding: 3px;
+    border: 1px solid black;
+  }
+  pre.src:hover:before { display: inline;}
+  pre.src-sh:before    { content: 'sh'; }
+  pre.src-bash:before  { content: 'sh'; }
+  pre.src-emacs-lisp:before { content: 'Emacs Lisp'; }
+  pre.src-R:before     { content: 'R'; }
+  pre.src-perl:before  { content: 'Perl'; }
+  pre.src-java:before  { content: 'Java'; }
+  pre.src-sql:before   { content: 'SQL'; }
+
+  table { border-collapse:collapse; }
+  caption.t-above { caption-side: top; }
+  caption.t-bottom { caption-side: bottom; }
+  td, th { vertical-align:top;  }
+  th.right  { text-align: center;  }
+  th.left   { text-align: center;   }
+  th.center { text-align: center; }
+  td.right  { text-align: right;  }
+  td.left   { text-align: left;   }
+  td.center { text-align: center; }
   dt { font-weight: bold; }
-  div.figure { padding: 0.5em; }
-  div.figure p { text-align: center; }
-  div.inlinetask {
-    padding:10px;
-    border:2px solid gray;
-    margin:10px;
+  .footpara:nth-child(2) { display: inline; }
+  .footpara { display: block; }
+  .footdef  { margin-bottom: 1em; }
+  .figure { padding: 1em; }
+  .figure p { text-align: center; }
+  .inlinetask {
+    padding: 10px;
+    border: 2px solid gray;
+    margin: 10px;
     background: #ffffcc;
   }
+  #org-div-home-and-up
+   { text-align: right; font-size: 70%; white-space: nowrap; }
   textarea { overflow-x: auto; }
-  .linenr { font-size:smaller }
-  .code-highlighted {background-color:#ffff00;}
-  .org-info-js_info-navigation { border-style:none; }
-  #org-info-js_console-label { font-size:10px; font-weight:bold;
-                               white-space:nowrap; }
-  .org-info-js_search-highlight {background-color:#ffff00; color:#000000;
-                                 font-weight:bold; }
+  .linenr { font-size: smaller }
+  .code-highlighted { background-color: #ffff00; }
+  .org-info-js_info-navigation { border-style: none; }
+  #org-info-js_console-label
+    { font-size: 10px; font-weight: bold; white-space: nowrap; }
+  .org-info-js_search-highlight
+    { background-color: #ffff00; color: #000000; font-weight: bold; }
   /*]]>*/-->
-</style><link rel="stylesheet" type="text/css" href="mystyle.css" /><script>(function(i,s,o,g,r,a,m){i['GoogleAnalyticsObject']=r;i[r]=i[r]||function(){(i[r].q=i[r].q||[]).push(arguments)},i[r].l=1*new Date();a=s.createElement(o),m=s.getElementsByTagName(o)[0];a.async=1;a.src=g;m.parentNode.insertBefore(a,m)})(window,document,'script','//www.google-analytics.com/analytics.js','ga');ga('create', 'UA-52544521-1', 'auto');ga('send', 'pageview');</script>
+</style>
+<link rel="stylesheet" type="text/css" href="mystyle.css" /><script>(function(i,s,o,g,r,a,m){i['GoogleAnalyticsObject']=r;i[r]=i[r]||function(){(i[r].q=i[r].q||[]).push(arguments)},i[r].l=1*new Date();a=s.createElement(o),m=s.getElementsByTagName(o)[0];a.async=1;a.src=g;m.parentNode.insertBefore(a,m)})(window,document,'script','//www.google-analytics.com/analytics.js','ga');ga('create', 'UA-52544521-1', 'auto');ga('send', 'pageview');</script>
 <script type="text/javascript">
 /*
 @licstart  The following is the entire license notice for the
@@ -106,57 +135,8 @@ for the JavaScript code in this tag.
  }
 /*]]>*///-->
 </script>
-<script type="text/javascript" src="http://orgmode.org/mathjax/MathJax.js">
-/**
- *
- * @source: http://orgmode.org/mathjax/MathJax.js
- *
- * @licstart  The following is the entire license notice for the
- *  JavaScript code in http://orgmode.org/mathjax/MathJax.js.
- *
- * Copyright (C) 2012-2013  MathJax
- *
- * Licensed under the Apache License, Version 2.0 (the "License");
- * you may not use this file except in compliance with the License.
- * You may obtain a copy of the License at
- *
- *     http://www.apache.org/licenses/LICENSE-2.0
- *
- * Unless required by applicable law or agreed to in writing, software
- * distributed under the License is distributed on an "AS IS" BASIS,
- * WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied.
- * See the License for the specific language governing permissions and
- * limitations under the License.
- *
- * @licend  The above is the entire license notice
- * for the JavaScript code in http://orgmode.org/mathjax/MathJax.js.
- *
- */
-
-/*
-@licstart  The following is the entire license notice for the
-JavaScript code below.
-
-Copyright (C) 2012-2013 Free Software Foundation, Inc.
-
-The JavaScript code below is free software: you can
-redistribute it and/or modify it under the terms of the GNU
-General Public License (GNU GPL) as published by the Free Software
-Foundation, either version 3 of the License, or (at your option)
-any later version.  The code is distributed WITHOUT ANY WARRANTY;
-without even the implied warranty of MERCHANTABILITY or FITNESS
-FOR A PARTICULAR PURPOSE.  See the GNU GPL for more details.
-
-As additional permission under GNU GPL version 3 section 7, you
-may distribute non-source (e.g., minimized or compacted) forms of
-that code without the copy of the GNU GPL normally required by
-section 4, provided you include this license notice and a URL
-through which recipients can access the Corresponding Source.
-
-
-@licend  The above is the entire license notice
-for the JavaScript code below.
-*/
+<script type="text/javascript" src="http://orgmode.org/mathjax/MathJax.js"></script>
+<script type="text/javascript">
 <!--/*--><![CDATA[/*><!--*/
     MathJax.Hub.Config({
         // Only one of the two following lines, depending on user settings
@@ -199,22 +179,8 @@ for the JavaScript code below.
 </script>
 </head>
 <body>
-<div id="org-div-home-and-up" style="text-align:right;font-size:70%;white-space:nowrap;">
- <a accesskey="h" href="index.html"> UP </a>
- |
- <a accesskey="H" href="index.html"> HOME </a>
-</div>
-
-<div id="preamble">
-
-</div>
-
 <div id="content">
 <h1 class="title">4. Control Flow</h1>
-
-
-
-<hr/>
 <div id="table-of-contents">
 <h2>Table of Contents</h2>
 <div id="text-table-of-contents">
@@ -245,14 +211,9 @@ for the JavaScript code below.
 </div>
 </div>
 
-<hr/>
-
-
-<div id="outline-container-1" class="outline-2">
+<div id="outline-container-sec-1" class="outline-2">
 <h2 id="sec-1">Loops</h2>
 <div class="outline-text-2" id="text-1">
-
-
 <p>
 One of the most useful properties of progammable computers is that you
 can ask them to repeat a calculation and/or operation many many times,
@@ -260,12 +221,13 @@ and they will not (usually) complain. The looping constructs in <code>C</code>
 allow us to repeatedly execute a block of code many times, without
 having to manually re-type or re-list the code by hand.
 </p>
+
 <p>
 As a simple example, let's say we want to compute the cumulative sum
 of integers between 1 and 100. We could write code like the following:
 </p>
 
-
+<div class="org-src-container">
 
 <pre class="src src-c"><span style="color: #228b22;">int</span> <span style="color: #a0522d;">cumsum</span> = 0;
 cumsum = cumsum + 1;
@@ -274,7 +236,7 @@ cumsum = cumsum + 3;
 ...
 cumsum = cumsum + 100;
 </pre>
-
+</div>
 
 <p>
 As you can see, not very efficient. As a general rule of programming,
@@ -284,25 +246,22 @@ there must be a way to specify this code more abstractly so that it's
 more compact and reusable. Here, we can use a for-loop to achieve what
 we need.
 </p>
-
 </div>
 
-<div id="outline-container-1-1" class="outline-3">
+<div id="outline-container-sec-1-1" class="outline-3">
 <h3 id="sec-1-1">For Loop</h3>
 <div class="outline-text-3" id="text-1-1">
-
-
 <p>
 A generic for-loop looks like this:
 </p>
 
-
+<div class="org-src-container">
 
 <pre class="src src-c"><span style="color: #a020f0;">for</span> (init_expression; loop_condition; loop_expression) {
   program_statements
 }
 </pre>
-
+</div>
 
 <p>
 The three expressions inside the round brackets set up the environment
@@ -318,7 +277,7 @@ is all very abstract, so let's see a concrete example, by coding a
 loop to implement the cumulative sum as above.
 </p>
 
-
+<div class="org-src-container">
 
 <pre class="src src-c"><span style="color: #483d8b;">#include</span> <span style="color: #8b2252;">&lt;stdio.h&gt;</span>
 
@@ -331,12 +290,11 @@ loop to implement the cumulative sum as above.
         printf(<span style="color: #8b2252;">"the cumulative sum up to 100 is %d\n"</span>, cumsum);
 }
 </pre>
+</div>
 
-
-
-<pre class="example">the cumulative sum up to 100 is 5050
+<pre class="example">
+the cumulative sum up to 100 is 5050
 </pre>
-
 
 <p>
 Let's go through the code for the for-loop and understand what is
@@ -353,6 +311,7 @@ expression in the round brackets, <code>i++</code> is executed <b>after</b> each
 iteration of the loop. In this case, we increment the <code>i</code> variable by
 one.
 </p>
+
 <p>
 On line 7 is the code block that forms the body of the loop. This is
 code that is executed on each iteration of the loop. In this case we
@@ -361,6 +320,7 @@ loop) to the <code>cumsum</code> variable. On line 8 the closing bracket <code>}
 specifies the end of the body of the loop. On line 9 we print to the
 screen the value of the <code>cumsum</code> variable.
 </p>
+
 <p>
 As you can see, the use of a for-loop enables us to write the code for
 incrementing the <code>cumsum</code> variable just <b>once</b>, and place it inside a
@@ -368,27 +328,24 @@ loop, that is constructed so that it executes that code 100 times, and
 each time, uses a different value of <code>i</code>.
 </p>
 </div>
-
 </div>
 
-<div id="outline-container-1-2" class="outline-3">
+<div id="outline-container-sec-1-2" class="outline-3">
 <h3 id="sec-1-2">While Loop</h3>
 <div class="outline-text-3" id="text-1-2">
-
-
 <p>
 The while-loop is another looping construct that you might find more
 appropriate than a for-loop under some circumstances. A while-loop
 looks like this:
 </p>
 
-
+<div class="org-src-container">
 
 <pre class="src src-c"><span style="color: #a020f0;">while</span> (conditional_expression) {
    program_statements;
 }
 </pre>
-
+</div>
 
 <p>
 The while-loop will first check the value of the
@@ -400,11 +357,12 @@ and if it returns a non-zero result, the <code>program_statment</code> (or
 multiple statements) will be executed again, and so on. The while-loop
 will stop <b>only</b> when the <code>conditional_expression</code> returns <b>zero</b>.
 </p>
+
 <p>
 Here is a simple program that demonstrates the use of a while-loop:
 </p>
 
-
+<div class="org-src-container">
 
 <pre class="src src-c"><span style="color: #483d8b;">#include</span> <span style="color: #8b2252;">&lt;stdio.h&gt;</span>
 
@@ -413,11 +371,11 @@ Here is a simple program that demonstrates the use of a while-loop:
         <span style="color: #a020f0;">while</span>(number != 999) {
                 printf(<span style="color: #8b2252;">"Enter an integer or 999 to stop: "</span>);
                 scanf (<span style="color: #8b2252;">"%i"</span>, &amp;number);
-                printf(<span style="color: #8b2252;">"%d x 10 = %d\n"</span>, number, number*10);
+                printf(<span style="color: #8b2252;">"%d x 10 = %d\n"</span>, number, <span style="color: #228b22;">number</span>*10);
         }
 }
 </pre>
-
+</div>
 
 <p>
 The program asks the user to enter an integer, and then the program
@@ -426,21 +384,18 @@ user enters <code>999</code> then the program terminates. Enter it into your cod
 editor and compile and run it, to see how it works.
 </p>
 </div>
-
 </div>
 
-<div id="outline-container-1-3" class="outline-3">
+<div id="outline-container-sec-1-3" class="outline-3">
 <h3 id="sec-1-3">Do-While Loop</h3>
 <div class="outline-text-3" id="text-1-3">
-
-
 <p>
 There is another version of a while-loop that is essentially the same
 as a while-loop but it reverses the order of the <code>program_statement</code>
 and <code>conditional_expression</code>:
 </p>
 
-
+<div class="org-src-container">
 
 <pre class="src src-c"><span style="color: #483d8b;">#include</span> <span style="color: #8b2252;">&lt;stdio.h&gt;</span>
 
@@ -449,12 +404,12 @@ and <code>conditional_expression</code>:
         <span style="color: #a020f0;">do</span> {
                 printf(<span style="color: #8b2252;">"Enter an integer or 999 to stop: "</span>);
                 scanf (<span style="color: #8b2252;">"%i"</span>, &amp;number);
-                printf(<span style="color: #8b2252;">"%d x 10 = %d\n"</span>, number, number*10);
+                printf(<span style="color: #8b2252;">"%d x 10 = %d\n"</span>, number, <span style="color: #228b22;">number</span>*10);
         }
         <span style="color: #a020f0;">while</span> (number != 999);
 }
 </pre>
-
+</div>
 
 <p>
 The choice of a for-loop, a while-loop, or a do-while-loop, is up to
@@ -462,52 +417,47 @@ you and the best one to use may differ depending on circumstance.
 </p>
 </div>
 </div>
-
 </div>
 
-<div id="outline-container-2" class="outline-2">
+<div id="outline-container-sec-2" class="outline-2">
 <h2 id="sec-2">Conditionals</h2>
 <div class="outline-text-2" id="text-2">
-
-
 <p>
 One of the most important constructs in programming is the ability to
 execute (or not execute) pieces of code, or execute different pieces
 of code, depending on the outcome of some decision or question about
 data. The if-else construct lets us to this in C.
 </p>
-
 </div>
 
-<div id="outline-container-2-1" class="outline-3">
+<div id="outline-container-sec-2-1" class="outline-3">
 <h3 id="sec-2-1">If Statement</h3>
 <div class="outline-text-3" id="text-2-1">
-
-
 <p>
 The basic if statement looks like this:
 </p>
 
-
+<div class="org-src-container">
 
 <pre class="src src-c"><span style="color: #a020f0;">if</span> (conditional_expression) {
    program_statements;
 }
 </pre>
-
+</div>
 
 <p>
 The <code>program_statements</code> are <b>only</b> executed if the
 <code>conditional_expression</code> returns a non-zero value, i.e. if it returns
 a value that is <b>not FALSE</b> (FALSE = zero).
 </p>
+
 <p>
 For example, here is a simple program that loops through the integers
 between 1 and 10 and prints to the screen the integers that are odd
 (that are not divisible by 2 with zero remainder):
 </p>
 
-
+<div class="org-src-container">
 
 <pre class="src src-c"><span style="color: #483d8b;">#include</span> <span style="color: #8b2252;">&lt;stdio.h&gt;</span>
 
@@ -520,32 +470,27 @@ between 1 and 10 and prints to the screen the integers that are odd
   }
 }
 </pre>
+</div>
 
-
-
-<pre class="example">1 is odd
+<pre class="example">
+1 is odd
 3 is odd
 5 is odd
 7 is odd
 9 is odd
 </pre>
-
-
+</div>
 </div>
 
-</div>
-
-<div id="outline-container-2-2" class="outline-3">
+<div id="outline-container-sec-2-2" class="outline-3">
 <h3 id="sec-2-2">Else</h3>
 <div class="outline-text-3" id="text-2-2">
-
-
 <p>
 We can add an <b>else</b> to our if statement, to execute a different code
 block if the value of the <code>conditional_expression</code> is zero:
 </p>
 
-
+<div class="org-src-container">
 
 <pre class="src src-c"><span style="color: #483d8b;">#include</span> <span style="color: #8b2252;">&lt;stdio.h&gt;</span>
 
@@ -561,10 +506,10 @@ block if the value of the <code>conditional_expression</code> is zero:
   }
 }
 </pre>
+</div>
 
-
-
-<pre class="example">1 is odd
+<pre class="example">
+1 is odd
 2 is even
 3 is odd
 4 is even
@@ -575,17 +520,12 @@ block if the value of the <code>conditional_expression</code> is zero:
 9 is odd
 10 is even
 </pre>
-
-
+</div>
 </div>
 
-</div>
-
-<div id="outline-container-2-3" class="outline-3">
+<div id="outline-container-sec-2-3" class="outline-3">
 <h3 id="sec-2-3">Else If</h3>
 <div class="outline-text-3" id="text-2-3">
-
-
 <p>
 You can string together several conditional tests and execute
 different pieces of code by using the <code>else if</code> construct. Here is a
@@ -593,7 +533,7 @@ simple program that asks the user to enter an integer, and prints to
 the screen whether that integer is positive, negative, or zero:
 </p>
 
-
+<div class="org-src-container">
 
 <pre class="src src-c"><span style="color: #483d8b;">#include</span> <span style="color: #8b2252;">&lt;stdio.h&gt;</span>
 
@@ -615,41 +555,36 @@ the screen whether that integer is positive, negative, or zero:
         }
 }
 </pre>
+</div>
 
-
-
-<pre class="example">enter an integer: 123
+<pre class="example">
+enter an integer: 123
 the integer 123 is positive
 </pre>
-
-
-
+</div>
 </div>
 
-</div>
 
-<div id="outline-container-2-4" class="outline-3">
+<div id="outline-container-sec-2-4" class="outline-3">
 <h3 id="sec-2-4">The Conditional Operator</h3>
 <div class="outline-text-3" id="text-2-4">
-
-
 <p>
 There is a convenient shorthand for simple if-else constructs, using
 the so-called <b>conditional operator</b>:
 </p>
 
-
+<div class="org-src-container">
 
 <pre class="src src-c">condition ? expression1 : expression2
 </pre>
-
+</div>
 
 <p>
 It enables you to shorten your code a bit, but that's all. It doesn't
 give you any additional functionality, it's just a shorthand:
 </p>
 
-
+<div class="org-src-container">
 
 <pre class="src src-c"><span style="color: #483d8b;">#include</span> <span style="color: #8b2252;">&lt;stdio.h&gt;</span>
 
@@ -660,10 +595,10 @@ give you any additional functionality, it's just a shorthand:
   }
 }
 </pre>
+</div>
 
-
-
-<pre class="example">1 is odd
+<pre class="example">
+1 is odd
 2 is even
 3 is odd
 4 is even
@@ -674,18 +609,13 @@ give you any additional functionality, it's just a shorthand:
 9 is odd
 10 is even
 </pre>
-
-
 </div>
 </div>
-
 </div>
 
-<div id="outline-container-3" class="outline-2">
+<div id="outline-container-sec-3" class="outline-2">
 <h2 id="sec-3">Switch</h2>
 <div class="outline-text-2" id="text-3">
-
-
 <p>
 The case of multiple if-else statements strung together to test for
 different values, and execute different code, is common enough that
@@ -693,7 +623,7 @@ there is a special construct called the <b>switch statment</b> that is
 provided for this case:
 </p>
 
-
+<div class="org-src-container">
 
 <pre class="src src-c"><span style="color: #a020f0;">switch</span> (expression)
 {
@@ -719,13 +649,13 @@ provided for this case:
               <span style="color: #a020f0;">break</span>;
 }
 </pre>
-
+</div>
 
 <p>
 This is equivalent to the following series of if-else statements:
 </p>
 
-
+<div class="org-src-container">
 
 <pre class="src src-c"><span style="color: #a020f0;">if</span> (expression == value1) {
    <span style="color: #228b22;">program</span> <span style="color: #a0522d;">statement</span>;
@@ -748,7 +678,7 @@ This is equivalent to the following series of if-else statements:
    ...
 }
 </pre>
-
+</div>
 
 <p>
 From my point of view the decision to use a switch statement versus a
@@ -756,70 +686,57 @@ series of if-else statements is purely stylistic and is up to
 you. They accomplish the same thing.
 </p>
 </div>
-
 </div>
 
-<div id="outline-container-4" class="outline-2">
+<div id="outline-container-sec-4" class="outline-2">
 <h2 id="sec-4">Break &amp; Continue</h2>
 <div class="outline-text-2" id="text-4">
-
-
 <p>
 There is a special statement in C called <code>break</code> that allows you to
 exit from a loop other than by testing at the top or bottom. As we saw
 above in switch statements we also use <code>break</code> to exit from each case.
 </p>
+
 <p>
 The <code>continue</code> statement is not used very often. It causes the next
 iteration of a loop to begin. You can think of it as a sort of a
 statement to "do nothing, just continue".
 </p>
 </div>
-
 </div>
 
-<div id="outline-container-5" class="outline-2">
+<div id="outline-container-sec-5" class="outline-2">
 <h2 id="sec-5">Exercises</h2>
 <div class="outline-text-2" id="text-5">
-
-
-<ul>
+<ul class="org-ul">
 <li>1 <a href="http://imranontech.com/2007/01/24/using-fizzbuzz-to-find-developers-who-grok-coding/">FizzBuzz</a> : Write a program that prints the numbers from 1
-  to 100. For multiples of three print "Fizz" instead of the number
-  and for the multiples of five print "Buzz". For numbers which are
-  multiples of both three and five print "FizzBuzz".
-
+to 100. For multiples of three print "Fizz" instead of the number
+and for the multiples of five print "Buzz". For numbers which are
+multiples of both three and five print "FizzBuzz".
 </li>
+
 <li>2 Write a program to estimate the square root of 612 using <a href="http://en.wikipedia.org/wiki/Newton's_method#Square_root_of_a_number">Newton's method</a>, using 5 iterations.
-
 </li>
+
 <li>3 Write a program that displays a triangle with height \(n\) and width \(2n-1\). The output for \(n=6\) would be:
 </li>
 </ul>
 
-
-
-
-
-<pre class="example">     *
+<pre class="example">
+     *
     ***
    *****
   *******
  *********
 ***********
 </pre>
-
-
-
-
 </div>
 
-<div id="outline-container-5-1" class="outline-3">
+
+<div id="outline-container-sec-5-1" class="outline-3">
 <h3 id="sec-5-1">Solutions</h3>
 <div class="outline-text-3" id="text-5-1">
-
-
-<ul>
+<ul class="org-ul">
 <li><a href="code/exercises/4_1.c">1</a>
 </li>
 <li><a href="code/exercises/4_2.c">2</a>
@@ -827,14 +744,11 @@ statement to "do nothing, just continue".
 <li><a href="code/exercises/4_3.c">3</a>
 </li>
 </ul>
-
-
 </div>
 </div>
 </div>
 </div>
-
-<div id="postamble">
+<div id="postamble" class="status">
 <hr />Paul Gribble | Summer 2012<br><b>support this project with bitcoin</b>:1Nh3UDeJX1zhcnHNS5jd6EnfqTKZakyJhU<br>This <span xmlns:dct="http://purl.org/dc/terms/" href="http://purl.org/dc/dcmitype/Text" rel="dct:type">work</span> is licensed under a <a rel="license" href="http://creativecommons.org/licenses/by-nc-sa/3.0/">Creative Commons Attribution-NonCommercial-ShareAlike 3.0 Unported License</a><br><a rel="license" href="http://creativecommons.org/licenses/by-nc-sa/3.0/"><img alt="Creative Commons License" style="border-width:0" src="http://i.creativecommons.org/l/by-nc-sa/3.0/80x15.png" /></a><br />
 </div>
 </body>

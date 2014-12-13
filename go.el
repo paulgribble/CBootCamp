@@ -1,11 +1,12 @@
-(require 'org-publish)
+(require 'ox-publish)
+(setq org-export-with-sub-superscripts nil)
 (setq org-publish-project-alist
       '(
 	("CBootCamp"
 	 :base-directory "org/"
 	 :base-extension "org"
-	 :publishing-directory "html"
-	 :publishing-function org-publish-org-to-html
+	 :publishing-directory "~/Documents/github/CBootCamp/html"
+	 :publishing-function org-html-publish-to-html
 	 :recursive t
 	 :htmlized-source t
 	 :section-numbers nil
@@ -13,7 +14,7 @@
 	 :language en
 	 :link-home "index.html"
 	 :link-up "index.html"
-	 :style "<link rel=\"stylesheet\" type=\"text/css\" href=\"mystyle.css\" /><script>(function(i,s,o,g,r,a,m){i['GoogleAnalyticsObject']=r;i[r]=i[r]||function(){(i[r].q=i[r].q||[]).push(arguments)},i[r].l=1*new Date();a=s.createElement(o),m=s.getElementsByTagName(o)[0];a.async=1;a.src=g;m.parentNode.insertBefore(a,m)})(window,document,'script','//www.google-analytics.com/analytics.js','ga');ga('create', 'UA-52544521-1', 'auto');ga('send', 'pageview');</script>"
+	 :html-head "<link rel=\"stylesheet\" type=\"text/css\" href=\"mystyle.css\" /><script>(function(i,s,o,g,r,a,m){i['GoogleAnalyticsObject']=r;i[r]=i[r]||function(){(i[r].q=i[r].q||[]).push(arguments)},i[r].l=1*new Date();a=s.createElement(o),m=s.getElementsByTagName(o)[0];a.async=1;a.src=g;m.parentNode.insertBefore(a,m)})(window,document,'script','//www.google-analytics.com/analytics.js','ga');ga('create', 'UA-52544521-1', 'auto');ga('send', 'pageview');</script>"
 	 )
 	("CBootCamp_html"
 	 :base-directory "html/"

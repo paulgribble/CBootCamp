@@ -1,65 +1,94 @@
-<?xml version="1.0" encoding="iso-8859-1"?>
+<?xml version="1.0" encoding="utf-8"?>
 <!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Strict//EN"
-               "http://www.w3.org/TR/xhtml1/DTD/xhtml1-strict.dtd">
+"http://www.w3.org/TR/xhtml1/DTD/xhtml1-strict.dtd">
 <html xmlns="http://www.w3.org/1999/xhtml" lang="en" xml:lang="en">
 <head>
 <title>7. Memory : Stack vs Heap</title>
-<meta http-equiv="Content-Type" content="text/html;charset=iso-8859-1"/>
-<meta name="title" content="7. Memory : Stack vs Heap"/>
-<meta name="generator" content="Org-mode"/>
-<meta name="generated" content="Summer 2012"/>
-<meta name="author" content="Paul Gribble"/>
-<meta name="description" content=""/>
-<meta name="keywords" content=""/>
+<!-- 2014-12-12 Fri 21:22 -->
+<meta  http-equiv="Content-Type" content="text/html;charset=utf-8" />
+<meta  name="generator" content="Org-mode" />
+<meta  name="author" content="Paul Gribble" />
 <style type="text/css">
  <!--/*--><![CDATA[/*><!--*/
-  html { font-family: Times, serif; font-size: 12pt; }
   .title  { text-align: center; }
-  .todo   { color: red; }
+  .todo   { font-family: monospace; color: red; }
   .done   { color: green; }
-  .tag    { background-color: #add8e6; font-weight:normal }
-  .target { }
+  .tag    { background-color: #eee; font-family: monospace;
+            padding: 2px; font-size: 80%; font-weight: normal; }
   .timestamp { color: #bebebe; }
   .timestamp-kwd { color: #5f9ea0; }
-  .right  {margin-left:auto; margin-right:0px;  text-align:right;}
-  .left   {margin-left:0px;  margin-right:auto; text-align:left;}
-  .center {margin-left:auto; margin-right:auto; text-align:center;}
-  p.verse { margin-left: 3% }
+  .right  { margin-left: auto; margin-right: 0px;  text-align: right; }
+  .left   { margin-left: 0px;  margin-right: auto; text-align: left; }
+  .center { margin-left: auto; margin-right: auto; text-align: center; }
+  .underline { text-decoration: underline; }
+  #postamble p, #preamble p { font-size: 90%; margin: .2em; }
+  p.verse { margin-left: 3%; }
   pre {
-	border: 1pt solid #AEBDCC;
-	background-color: #F3F5F7;
-	padding: 5pt;
-	font-family: courier, monospace;
-        font-size: 90%;
-        overflow:auto;
+    border: 1px solid #ccc;
+    box-shadow: 3px 3px 3px #eee;
+    padding: 8pt;
+    font-family: monospace;
+    overflow: auto;
+    margin: 1.2em;
   }
-  table { border-collapse: collapse; }
-  td, th { vertical-align: top;  }
-  th.right  { text-align:center;  }
-  th.left   { text-align:center;   }
-  th.center { text-align:center; }
-  td.right  { text-align:right;  }
-  td.left   { text-align:left;   }
-  td.center { text-align:center; }
+  pre.src {
+    position: relative;
+    overflow: visible;
+    padding-top: 1.2em;
+  }
+  pre.src:before {
+    display: none;
+    position: absolute;
+    background-color: white;
+    top: -10px;
+    right: 10px;
+    padding: 3px;
+    border: 1px solid black;
+  }
+  pre.src:hover:before { display: inline;}
+  pre.src-sh:before    { content: 'sh'; }
+  pre.src-bash:before  { content: 'sh'; }
+  pre.src-emacs-lisp:before { content: 'Emacs Lisp'; }
+  pre.src-R:before     { content: 'R'; }
+  pre.src-perl:before  { content: 'Perl'; }
+  pre.src-java:before  { content: 'Java'; }
+  pre.src-sql:before   { content: 'SQL'; }
+
+  table { border-collapse:collapse; }
+  caption.t-above { caption-side: top; }
+  caption.t-bottom { caption-side: bottom; }
+  td, th { vertical-align:top;  }
+  th.right  { text-align: center;  }
+  th.left   { text-align: center;   }
+  th.center { text-align: center; }
+  td.right  { text-align: right;  }
+  td.left   { text-align: left;   }
+  td.center { text-align: center; }
   dt { font-weight: bold; }
-  div.figure { padding: 0.5em; }
-  div.figure p { text-align: center; }
-  div.inlinetask {
-    padding:10px;
-    border:2px solid gray;
-    margin:10px;
+  .footpara:nth-child(2) { display: inline; }
+  .footpara { display: block; }
+  .footdef  { margin-bottom: 1em; }
+  .figure { padding: 1em; }
+  .figure p { text-align: center; }
+  .inlinetask {
+    padding: 10px;
+    border: 2px solid gray;
+    margin: 10px;
     background: #ffffcc;
   }
+  #org-div-home-and-up
+   { text-align: right; font-size: 70%; white-space: nowrap; }
   textarea { overflow-x: auto; }
-  .linenr { font-size:smaller }
-  .code-highlighted {background-color:#ffff00;}
-  .org-info-js_info-navigation { border-style:none; }
-  #org-info-js_console-label { font-size:10px; font-weight:bold;
-                               white-space:nowrap; }
-  .org-info-js_search-highlight {background-color:#ffff00; color:#000000;
-                                 font-weight:bold; }
+  .linenr { font-size: smaller }
+  .code-highlighted { background-color: #ffff00; }
+  .org-info-js_info-navigation { border-style: none; }
+  #org-info-js_console-label
+    { font-size: 10px; font-weight: bold; white-space: nowrap; }
+  .org-info-js_search-highlight
+    { background-color: #ffff00; color: #000000; font-weight: bold; }
   /*]]>*/-->
-</style><link rel="stylesheet" type="text/css" href="mystyle.css" /><script>(function(i,s,o,g,r,a,m){i['GoogleAnalyticsObject']=r;i[r]=i[r]||function(){(i[r].q=i[r].q||[]).push(arguments)},i[r].l=1*new Date();a=s.createElement(o),m=s.getElementsByTagName(o)[0];a.async=1;a.src=g;m.parentNode.insertBefore(a,m)})(window,document,'script','//www.google-analytics.com/analytics.js','ga');ga('create', 'UA-52544521-1', 'auto');ga('send', 'pageview');</script>
+</style>
+<link rel="stylesheet" type="text/css" href="mystyle.css" /><script>(function(i,s,o,g,r,a,m){i['GoogleAnalyticsObject']=r;i[r]=i[r]||function(){(i[r].q=i[r].q||[]).push(arguments)},i[r].l=1*new Date();a=s.createElement(o),m=s.getElementsByTagName(o)[0];a.async=1;a.src=g;m.parentNode.insertBefore(a,m)})(window,document,'script','//www.google-analytics.com/analytics.js','ga');ga('create', 'UA-52544521-1', 'auto');ga('send', 'pageview');</script>
 <script type="text/javascript">
 /*
 @licstart  The following is the entire license notice for the
@@ -106,30 +135,10 @@ for the JavaScript code in this tag.
  }
 /*]]>*///-->
 </script>
-
 </head>
 <body>
-<div id="org-div-home-and-up" style="text-align:right;font-size:70%;white-space:nowrap;">
- <a accesskey="h" href="index.html"> UP </a>
- |
- <a accesskey="H" href="index.html"> HOME </a>
-</div>
-
-<div id="preamble">
-
-</div>
-
 <div id="content">
 <h1 class="title">7. Memory : Stack vs Heap</h1>
-
-
-
-<hr/>
-<p>
-support this project with bitcoin: 1Nh3UDeJX1zhcnHNS5jd6EnfqTKZakyJhU
-</p>
-
-<hr/>
 <div id="table-of-contents">
 <h2>Table of Contents</h2>
 <div id="text-table-of-contents">
@@ -149,15 +158,14 @@ support this project with bitcoin: 1Nh3UDeJX1zhcnHNS5jd6EnfqTKZakyJhU
 </ul>
 </div>
 </div>
+<hr  />
+<p>
+support this project with bitcoin: 1Nh3UDeJX1zhcnHNS5jd6EnfqTKZakyJhU
+</p>
 
-<hr/>
-
-
-<div id="outline-container-1" class="outline-2">
+<div id="outline-container-sec-1" class="outline-2">
 <h2 id="sec-1">Stack vs Heap</h2>
 <div class="outline-text-2" id="text-1">
-
-
 <p>
 So far we have seen how to declare basic type variables such as <code>int</code>,
 <code>double</code>, etc, and complex types such as arrays and structs. The way
@@ -166,14 +174,11 @@ languages such as MATLAB, Python, etc, puts these variables on
 the <b>stack</b> in C.
 </p>
 </div>
-
 </div>
 
-<div id="outline-container-2" class="outline-2">
+<div id="outline-container-sec-2" class="outline-2">
 <h2 id="sec-2">The Stack</h2>
 <div class="outline-text-2" id="text-2">
-
-
 <p>
 What is the stack? It's a special region of your computer's memory
 that stores temporary variables created by each function (including
@@ -185,6 +190,7 @@ variables pushed onto the stack by that function, are freed (that is
 to say, they are deleted). Once a stack variable is freed, that region
 of memory becomes available for other stack variables.
 </p>
+
 <p>
 The advantage of using the stack to store variables, is that memory is
 managed for you. You don't have to allocate memory by hand, or free it
@@ -192,8 +198,10 @@ once you don't need it any more. What's more, because the CPU
 organizes stack memory so efficiently, reading from and writing to
 stack variables is very fast.
 </p>
+
 <p>
-A key to understanding the stack is the notion that <b>when a function exits</b>, all of its variables are popped off of the stack (and hence
+A key to understanding the stack is the notion that <b>when a function
+exits</b>, all of its variables are popped off of the stack (and hence
 lost forever). Thus stack variables are <b>local</b> in nature. This is
 related to a concept we saw earlier known as <b>variable scope</b>, or
 local vs global variables. A common bug in C programming is attempting
@@ -201,15 +209,18 @@ to access a variable that was created on the stack inside some
 function, from a place in your program outside of that function
 (i.e. after that function has exited).
 </p>
+
 <p>
 Another feature of the stack to keep in mind, is that there is a limit
 (varies with OS) on the size of variables that can be store on the
 stack. This is not the case for variables allocated on the <b>heap</b>.
 </p>
+
 <p>
 To summarize the stack:
 </p>
-<ul>
+
+<ul class="org-ul">
 <li>the stack grows and shrinks as functions push and pop local variables
 </li>
 <li>there is no need to manage the memory yourself, variables are allocated and freed automatically
@@ -219,17 +230,12 @@ To summarize the stack:
 <li>stack variables only exist while the function that created them, is running
 </li>
 </ul>
-
-
+</div>
 </div>
 
-</div>
-
-<div id="outline-container-3" class="outline-2">
+<div id="outline-container-sec-3" class="outline-2">
 <h2 id="sec-3">The Heap</h2>
 <div class="outline-text-2" id="text-3">
-
-
 <p>
 The heap is a region of your computer's memory that is not managed
 automatically for you, and is not as tightly managed by the CPU. It is
@@ -243,6 +249,7 @@ still be set aside (and won't be available to other processes). As we
 will see in the debugging section, there is a tool called <code>valgrind</code>
 that can help you detect memory leaks.
 </p>
+
 <p>
 Unlike the stack, the heap does not have size restrictions on variable
 size (apart from the obvious physical limitations of your
@@ -250,29 +257,22 @@ computer). Heap memory is slightly slower to be read from and written
 to, because one has to use <b>pointers</b> to access memory on the heap. We
 will talk about pointers shortly.
 </p>
+
 <p>
 Unlike the stack, variables created on the heap are accessible by any
 function, anywhere in your program. Heap variables are essentially
 global in scope.
 </p>
 </div>
-
 </div>
 
-<div id="outline-container-4" class="outline-2">
+<div id="outline-container-sec-4" class="outline-2">
 <h2 id="sec-4">Stack vs Heap Pros and Cons</h2>
 <div class="outline-text-2" id="text-4">
-
-
-
-</div>
-
-<div id="outline-container-4-1" class="outline-3">
+</div><div id="outline-container-sec-4-1" class="outline-3">
 <h3 id="sec-4-1">Stack</h3>
 <div class="outline-text-3" id="text-4-1">
-
-
-<ul>
+<ul class="org-ul">
 <li>very fast access
 </li>
 <li>don't have to explicitly de-allocate variables
@@ -286,18 +286,13 @@ global in scope.
 <li>variables cannot be resized
 </li>
 </ul>
-
-
+</div>
 </div>
 
-</div>
-
-<div id="outline-container-4-2" class="outline-3">
+<div id="outline-container-sec-4-2" class="outline-3">
 <h3 id="sec-4-2">Heap</h3>
 <div class="outline-text-3" id="text-4-2">
-
-
-<ul>
+<ul class="org-ul">
 <li>variables can be accessed globally
 </li>
 <li>no limit on memory size
@@ -311,24 +306,19 @@ global in scope.
 <li>variables can be resized using <code>realloc()</code>
 </li>
 </ul>
-
-
 </div>
 </div>
-
 </div>
 
-<div id="outline-container-5" class="outline-2">
+<div id="outline-container-sec-5" class="outline-2">
 <h2 id="sec-5">Examples</h2>
 <div class="outline-text-2" id="text-5">
-
-
 <p>
 Here is a short program that creates its variables on the <b>stack</b>. It
 looks like the other programs we have seen so far.
 </p>
 
-
+<div class="org-src-container">
 
 <pre class="src src-c"><span style="color: #483d8b;">#include</span> <span style="color: #8b2252;">&lt;stdio.h&gt;</span>
 
@@ -348,12 +338,11 @@ looks like the other programs we have seen so far.
   <span style="color: #a020f0;">return</span> 0;
 }
 </pre>
+</div>
 
-
-
-<pre class="example">double your salary is 24691.340
+<pre class="example">
+double your salary is 24691.340
 </pre>
-
 
 <p>
 On lines 10, 11 and 12 we declare variables: an <code>int</code>, a <code>double</code>, and
@@ -366,6 +355,7 @@ soon as the <code>multiplyByTwo()</code> function allocates it. As soon as the
 <code>multiplyByTwo()</code> function exits, the <code>twice</code> variable is popped off
 of the stack, and is gone forever.
 </p>
+
 <p>
 As a side note, there is a way to tell C to keep a stack variable
 around, even after its creator function exits, and that is to use the
@@ -375,11 +365,12 @@ but one that is only visible inside the function that created it. It's
 a strange construction, one that you probably won't need except under
 very specific circumstances.
 </p>
+
 <p>
 Here is another version of this program that allocates all of its variables on the <b>heap</b> instead of the stack:
 </p>
 
-
+<div class="org-src-container">
 
 <pre class="src src-c"><span style="color: #483d8b;">#include</span> <span style="color: #8b2252;">&lt;stdio.h&gt;</span>
 <span style="color: #483d8b;">#include</span> <span style="color: #8b2252;">&lt;stdlib.h&gt;</span>
@@ -413,7 +404,7 @@ Here is another version of this program that allocates all of its variables on t
   <span style="color: #a020f0;">return</span> 0;
 }
 </pre>
-
+</div>
 
 <p>
 As you can see, using <code>malloc()</code> to allocate memory on the heap and
@@ -429,14 +420,11 @@ double, but is a <b>pointer to a double</b>. It's an address in memory
 where the <code>double</code> is stored.
 </p>
 </div>
-
 </div>
 
-<div id="outline-container-6" class="outline-2">
+<div id="outline-container-sec-6" class="outline-2">
 <h2 id="sec-6">When to use the Heap?</h2>
 <div class="outline-text-2" id="text-6">
-
-
 <p>
 When should you use the heap, and when should you use the stack? If
 you need to allocate a large block of memory (e.g. a large array, or a
@@ -452,29 +440,23 @@ heap, and use dynamic memory allocation functions like <code>malloc()</code>,
 hand". We will talk about dynamically allocated data structures after
 we talk about pointers.
 </p>
-
+</div>
 </div>
 
-</div>
 
-<div id="outline-container-7" class="outline-2">
+<div id="outline-container-sec-7" class="outline-2">
 <h2 id="sec-7">Links</h2>
 <div class="outline-text-2" id="text-7">
-
-
-<ul>
+<ul class="org-ul">
 <li><a href="http://www.learncpp.com/cpp-tutorial/79-the-stack-and-the-heap/">The Stack and the Heap</a>
 </li>
 <li><a href="http://stackoverflow.com/questions/79923/what-and-where-are-the-stack-and-heap">What and Where are the stack and heap</a>
 </li>
 </ul>
-
-
 </div>
 </div>
 </div>
-
-<div id="postamble">
+<div id="postamble" class="status">
 <hr />Paul Gribble | Summer 2012<br><b>support this project with bitcoin</b>:1Nh3UDeJX1zhcnHNS5jd6EnfqTKZakyJhU<br>This <span xmlns:dct="http://purl.org/dc/terms/" href="http://purl.org/dc/dcmitype/Text" rel="dct:type">work</span> is licensed under a <a rel="license" href="http://creativecommons.org/licenses/by-nc-sa/3.0/">Creative Commons Attribution-NonCommercial-ShareAlike 3.0 Unported License</a><br><a rel="license" href="http://creativecommons.org/licenses/by-nc-sa/3.0/"><img alt="Creative Commons License" style="border-width:0" src="http://i.creativecommons.org/l/by-nc-sa/3.0/80x15.png" /></a><br />
 </div>
 </body>

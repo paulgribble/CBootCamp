@@ -8,10 +8,6 @@
 -----
 support this project with bitcoin: 1Nh3UDeJX1zhcnHNS5jd6EnfqTKZakyJhU
 
------
-[TABLE-OF-CONTENTS]
------
-
 * Stack vs Heap
 
 So far we have seen how to declare basic type variables such as =int=,

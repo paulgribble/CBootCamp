@@ -1,65 +1,94 @@
-<?xml version="1.0" encoding="iso-8859-1"?>
+<?xml version="1.0" encoding="utf-8"?>
 <!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Strict//EN"
-               "http://www.w3.org/TR/xhtml1/DTD/xhtml1-strict.dtd">
+"http://www.w3.org/TR/xhtml1/DTD/xhtml1-strict.dtd">
 <html xmlns="http://www.w3.org/1999/xhtml" lang="en" xml:lang="en">
 <head>
 <title>8. Pointers</title>
-<meta http-equiv="Content-Type" content="text/html;charset=iso-8859-1"/>
-<meta name="title" content="8. Pointers"/>
-<meta name="generator" content="Org-mode"/>
-<meta name="generated" content="Summer 2012"/>
-<meta name="author" content="Paul Gribble"/>
-<meta name="description" content=""/>
-<meta name="keywords" content=""/>
+<!-- 2014-12-12 Fri 21:22 -->
+<meta  http-equiv="Content-Type" content="text/html;charset=utf-8" />
+<meta  name="generator" content="Org-mode" />
+<meta  name="author" content="Paul Gribble" />
 <style type="text/css">
  <!--/*--><![CDATA[/*><!--*/
-  html { font-family: Times, serif; font-size: 12pt; }
   .title  { text-align: center; }
-  .todo   { color: red; }
+  .todo   { font-family: monospace; color: red; }
   .done   { color: green; }
-  .tag    { background-color: #add8e6; font-weight:normal }
-  .target { }
+  .tag    { background-color: #eee; font-family: monospace;
+            padding: 2px; font-size: 80%; font-weight: normal; }
   .timestamp { color: #bebebe; }
   .timestamp-kwd { color: #5f9ea0; }
-  .right  {margin-left:auto; margin-right:0px;  text-align:right;}
-  .left   {margin-left:0px;  margin-right:auto; text-align:left;}
-  .center {margin-left:auto; margin-right:auto; text-align:center;}
-  p.verse { margin-left: 3% }
+  .right  { margin-left: auto; margin-right: 0px;  text-align: right; }
+  .left   { margin-left: 0px;  margin-right: auto; text-align: left; }
+  .center { margin-left: auto; margin-right: auto; text-align: center; }
+  .underline { text-decoration: underline; }
+  #postamble p, #preamble p { font-size: 90%; margin: .2em; }
+  p.verse { margin-left: 3%; }
   pre {
-	border: 1pt solid #AEBDCC;
-	background-color: #F3F5F7;
-	padding: 5pt;
-	font-family: courier, monospace;
-        font-size: 90%;
-        overflow:auto;
+    border: 1px solid #ccc;
+    box-shadow: 3px 3px 3px #eee;
+    padding: 8pt;
+    font-family: monospace;
+    overflow: auto;
+    margin: 1.2em;
   }
-  table { border-collapse: collapse; }
-  td, th { vertical-align: top;  }
-  th.right  { text-align:center;  }
-  th.left   { text-align:center;   }
-  th.center { text-align:center; }
-  td.right  { text-align:right;  }
-  td.left   { text-align:left;   }
-  td.center { text-align:center; }
+  pre.src {
+    position: relative;
+    overflow: visible;
+    padding-top: 1.2em;
+  }
+  pre.src:before {
+    display: none;
+    position: absolute;
+    background-color: white;
+    top: -10px;
+    right: 10px;
+    padding: 3px;
+    border: 1px solid black;
+  }
+  pre.src:hover:before { display: inline;}
+  pre.src-sh:before    { content: 'sh'; }
+  pre.src-bash:before  { content: 'sh'; }
+  pre.src-emacs-lisp:before { content: 'Emacs Lisp'; }
+  pre.src-R:before     { content: 'R'; }
+  pre.src-perl:before  { content: 'Perl'; }
+  pre.src-java:before  { content: 'Java'; }
+  pre.src-sql:before   { content: 'SQL'; }
+
+  table { border-collapse:collapse; }
+  caption.t-above { caption-side: top; }
+  caption.t-bottom { caption-side: bottom; }
+  td, th { vertical-align:top;  }
+  th.right  { text-align: center;  }
+  th.left   { text-align: center;   }
+  th.center { text-align: center; }
+  td.right  { text-align: right;  }
+  td.left   { text-align: left;   }
+  td.center { text-align: center; }
   dt { font-weight: bold; }
-  div.figure { padding: 0.5em; }
-  div.figure p { text-align: center; }
-  div.inlinetask {
-    padding:10px;
-    border:2px solid gray;
-    margin:10px;
+  .footpara:nth-child(2) { display: inline; }
+  .footpara { display: block; }
+  .footdef  { margin-bottom: 1em; }
+  .figure { padding: 1em; }
+  .figure p { text-align: center; }
+  .inlinetask {
+    padding: 10px;
+    border: 2px solid gray;
+    margin: 10px;
     background: #ffffcc;
   }
+  #org-div-home-and-up
+   { text-align: right; font-size: 70%; white-space: nowrap; }
   textarea { overflow-x: auto; }
-  .linenr { font-size:smaller }
-  .code-highlighted {background-color:#ffff00;}
-  .org-info-js_info-navigation { border-style:none; }
-  #org-info-js_console-label { font-size:10px; font-weight:bold;
-                               white-space:nowrap; }
-  .org-info-js_search-highlight {background-color:#ffff00; color:#000000;
-                                 font-weight:bold; }
+  .linenr { font-size: smaller }
+  .code-highlighted { background-color: #ffff00; }
+  .org-info-js_info-navigation { border-style: none; }
+  #org-info-js_console-label
+    { font-size: 10px; font-weight: bold; white-space: nowrap; }
+  .org-info-js_search-highlight
+    { background-color: #ffff00; color: #000000; font-weight: bold; }
   /*]]>*/-->
-</style><link rel="stylesheet" type="text/css" href="mystyle.css" /><script>(function(i,s,o,g,r,a,m){i['GoogleAnalyticsObject']=r;i[r]=i[r]||function(){(i[r].q=i[r].q||[]).push(arguments)},i[r].l=1*new Date();a=s.createElement(o),m=s.getElementsByTagName(o)[0];a.async=1;a.src=g;m.parentNode.insertBefore(a,m)})(window,document,'script','//www.google-analytics.com/analytics.js','ga');ga('create', 'UA-52544521-1', 'auto');ga('send', 'pageview');</script>
+</style>
+<link rel="stylesheet" type="text/css" href="mystyle.css" /><script>(function(i,s,o,g,r,a,m){i['GoogleAnalyticsObject']=r;i[r]=i[r]||function(){(i[r].q=i[r].q||[]).push(arguments)},i[r].l=1*new Date();a=s.createElement(o),m=s.getElementsByTagName(o)[0];a.async=1;a.src=g;m.parentNode.insertBefore(a,m)})(window,document,'script','//www.google-analytics.com/analytics.js','ga');ga('create', 'UA-52544521-1', 'auto');ga('send', 'pageview');</script>
 <script type="text/javascript">
 /*
 @licstart  The following is the entire license notice for the
@@ -106,57 +135,8 @@ for the JavaScript code in this tag.
  }
 /*]]>*///-->
 </script>
-<script type="text/javascript" src="http://orgmode.org/mathjax/MathJax.js">
-/**
- *
- * @source: http://orgmode.org/mathjax/MathJax.js
- *
- * @licstart  The following is the entire license notice for the
- *  JavaScript code in http://orgmode.org/mathjax/MathJax.js.
- *
- * Copyright (C) 2012-2013  MathJax
- *
- * Licensed under the Apache License, Version 2.0 (the "License");
- * you may not use this file except in compliance with the License.
- * You may obtain a copy of the License at
- *
- *     http://www.apache.org/licenses/LICENSE-2.0
- *
- * Unless required by applicable law or agreed to in writing, software
- * distributed under the License is distributed on an "AS IS" BASIS,
- * WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied.
- * See the License for the specific language governing permissions and
- * limitations under the License.
- *
- * @licend  The above is the entire license notice
- * for the JavaScript code in http://orgmode.org/mathjax/MathJax.js.
- *
- */
-
-/*
-@licstart  The following is the entire license notice for the
-JavaScript code below.
-
-Copyright (C) 2012-2013 Free Software Foundation, Inc.
-
-The JavaScript code below is free software: you can
-redistribute it and/or modify it under the terms of the GNU
-General Public License (GNU GPL) as published by the Free Software
-Foundation, either version 3 of the License, or (at your option)
-any later version.  The code is distributed WITHOUT ANY WARRANTY;
-without even the implied warranty of MERCHANTABILITY or FITNESS
-FOR A PARTICULAR PURPOSE.  See the GNU GPL for more details.
-
-As additional permission under GNU GPL version 3 section 7, you
-may distribute non-source (e.g., minimized or compacted) forms of
-that code without the copy of the GNU GPL normally required by
-section 4, provided you include this license notice and a URL
-through which recipients can access the Corresponding Source.
-
-
-@licend  The above is the entire license notice
-for the JavaScript code below.
-*/
+<script type="text/javascript" src="http://orgmode.org/mathjax/MathJax.js"></script>
+<script type="text/javascript">
 <!--/*--><![CDATA[/*><!--*/
     MathJax.Hub.Config({
         // Only one of the two following lines, depending on user settings
@@ -199,22 +179,8 @@ for the JavaScript code below.
 </script>
 </head>
 <body>
-<div id="org-div-home-and-up" style="text-align:right;font-size:70%;white-space:nowrap;">
- <a accesskey="h" href="index.html"> UP </a>
- |
- <a accesskey="H" href="index.html"> HOME </a>
-</div>
-
-<div id="preamble">
-
-</div>
-
 <div id="content">
 <h1 class="title">8. Pointers</h1>
-
-
-
-<hr/>
 <div id="table-of-contents">
 <h2>Table of Contents</h2>
 <div id="text-table-of-contents">
@@ -246,14 +212,9 @@ for the JavaScript code below.
 </div>
 </div>
 
-<hr/>
-
-
-<div id="outline-container-1" class="outline-2">
+<div id="outline-container-sec-1" class="outline-2">
 <h2 id="sec-1">Pointers</h2>
 <div class="outline-text-2" id="text-1">
-
-
 <p>
 Pointers represent one of the more powerful features of the C
 language, but also one of the most feared. Some of this fear and
@@ -265,12 +226,14 @@ may have seen bizarre looking pointer syntax, (and you may see it
 again), but typically, pointers do not have to be used in a horribly
 complicated way. Typically pointers are pretty straightforward.
 </p>
+
 <p>
 The bottom line is, pointers allow you to work with dynamically
 allocated memory blocks. You will use pointers to deal with variables
 that have been allocated on the <b>heap</b>. (You can use pointers to deal
 with stack variables, but in most cases this just isn't necessary).
 </p>
+
 <p>
 The basic idea is, a <b>pointer</b> is a special data type in C, that
 contains an <b>address</b> to a location in memory. Think of a pointer as
@@ -278,6 +241,7 @@ an arrow that points to the location of a block of memory that in turn
 contains actual data of interest. It's not unlike the concept of a
 phone number, or a house address.
 </p>
+
 <p>
 The purpose of pointers is to allow you to manually, directly access a
 block of memory. Pointers are used a lot for <b>strings</b> and
@@ -285,22 +249,20 @@ block of memory. Pointers are used a lot for <b>strings</b> and
 a large block of memory (such as a struct that contains many things)
 to a function, is more efficient than making a copy of it and passing
 in that copy, only to delete that copy when your function is done with
-it. This is known as <b>passing by reference</b> versus <b>passing by value</b>. There is a code example below that illustrates this more
+it. This is known as <b>passing by reference</b> versus <b>passing by
+value</b>. There is a code example below that illustrates this more
 clearly.
 </p>
-
 </div>
 
-<div id="outline-container-1-1" class="outline-3">
+<div id="outline-container-sec-1-1" class="outline-3">
 <h3 id="sec-1-1">Declaring a pointer</h3>
 <div class="outline-text-3" id="text-1-1">
-
-
 <p>
 Here is how to declare a pointer:
 </p>
 
-
+<div class="org-src-container">
 
 <pre class="src src-c"><span style="color: #483d8b;">#include</span> <span style="color: #8b2252;">&lt;stdio.h&gt;</span>
 
@@ -319,10 +281,10 @@ Here is how to declare a pointer:
   <span style="color: #a020f0;">return</span> 0;
 }
 </pre>
+</div>
 
-
-
-<pre class="example">age=30
+<pre class="example">
+age=30
 p=0x7fff197ceb1c
 *p=30
 sizeof(p)=8
@@ -330,24 +292,26 @@ sizeof(p)=8
 age=40
 </pre>
 
-
 <p>
 On line 5 we declare an <code>int</code> variable <code>age</code> and initialize it to
-<code>30</code>. On line 6 we declare a variable <code>p</code> whose type is a <b>pointer to an int</b>. The star * syntax is how to declare the type as a pointer
+<code>30</code>. On line 6 we declare a variable <code>p</code> whose type is a <b>pointer to
+an int</b>. The star * syntax is how to declare the type as a pointer
 <b>to</b> a particular other type. Usually you need to declare pointers as
 pointing to a particular type, but the exception is a so-called <b>void</b>
 pointer, which is a pointer to an unknown type. Don't worry about void
 pointers for now.
 </p>
+
 <p>
 So we have a pointer variable <code>p</code> that is a pointer to an <code>int</code>. So
-far, it doesn't point anywhere&hellip; we have only declared that we want a
+far, it doesn't point anywhere&#x2026; we have only declared that we want a
 space in memory to hold a pointer to an int. On line 7 is where we
 assign a value to our pointer <code>p</code>. We assign to <code>p</code> the <b>address</b> (the
 location) of the other variable <code>age</code>. So now at this point in the
 program, we have the following (which we can see in the output):
 </p>
-<ul>
+
+<ul class="org-ul">
 <li>the value of <code>age</code> is the integer <code>30</code>
 </li>
 <li>the value of <code>p</code> is the address of the <code>age</code> variable
@@ -356,27 +320,24 @@ program, we have the following (which we can see in the output):
 </li>
 </ul>
 
-
 <p>
 On line 2 of the output we see that the value of the <code>p</code> pointer is a
 long strange looking string of letters and numbers. This is in fact a
 <a href="http://en.wikipedia.org/wiki/Hexadecimal">hexidecimal</a> (base 16) <b>memory address</b>.
 </p>
 </div>
-
 </div>
 
-<div id="outline-container-1-2" class="outline-3">
+<div id="outline-container-sec-1-2" class="outline-3">
 <h3 id="sec-1-2">Dereferencing a Pointer</h3>
 <div class="outline-text-3" id="text-1-2">
-
-
 <p>
 On line 10, we see how to access the <b>value</b> that a pointer points to,
 by using the star * syntax. So <code>p</code> is the address of an <code>int</code>, whereas
 <code>*p</code> is the value of the <code>int</code> that <code>p</code> points to. Accessing the value
 that a pointer points to is called <b>dereferencing</b> a pointer.
 </p>
+
 <p>
 Finally, on line 11 (and on the last line of the output) we can see
 that our pointer <code>p</code> is 8 bytes. Remember, there are 8 bits in a byte,
@@ -389,6 +350,7 @@ memory. It will be a <b>long time</b> before your computer has that much
 RAM (16 <a href="http://en.wikipedia.org/wiki/Exabyte">exabytes</a> in principle, which is 1 billion gigabytes or 1
 million terabytes).
 </p>
+
 <p>
 Take note of what happens in the code example above on line 12 of the
 code listing, and the values output on lines 5 and 6 of the output. On
@@ -398,14 +360,11 @@ the <code>age</code> variable, we are setting the value of the address in memory
 corresponding to the <code>age</code> variable to <code>40</code>.
 </p>
 </div>
-
 </div>
 
-<div id="outline-container-1-3" class="outline-3">
+<div id="outline-container-sec-1-3" class="outline-3">
 <h3 id="sec-1-3">Pointers and Arrays</h3>
 <div class="outline-text-3" id="text-1-3">
-
-
 <p>
 When you declare an array using an expression like <code>int vec[5];</code>, what
 is really happening behind the scenes, is that a block of memory is
@@ -420,13 +379,14 @@ up in. So if you ask for the 3rd element of the <code>vec</code> array using
 (the first element of the array), and stepping <b>two integers</b> forward,
 and then reading the value it finds there (<code>vec[2]</code>).
 </p>
+
 <p>
 The explicit way of doing this would be to use <code>malloc()</code> or
 <code>calloc()</code> to allocate the array (in this case on the heap) and then
 use pointer arithmetic to read off the 3rd value:
 </p>
 
-
+<div class="org-src-container">
 
 <pre class="src src-C"><span style="color: #483d8b;">#include</span> <span style="color: #8b2252;">&lt;stdio.h&gt;</span>
 <span style="color: #483d8b;">#include</span> <span style="color: #8b2252;">&lt;stdlib.h&gt;</span>
@@ -442,7 +402,7 @@ use pointer arithmetic to read off the 3rd value:
   <span style="color: #a020f0;">return</span> 0;
 }
 </pre>
-
+</div>
 
 <p>
 The expression <code>*(vec+2)</code> essentially says, go to the location that
@@ -453,6 +413,7 @@ have to declare the type that it points to. So when we declared our
 <code>vec</code> pointer, we declared it as a pointer to <code>int</code>. This means when
 you use pointer arithmetic, C knows the size of each step.
 </p>
+
 <p>
 The <code>*(vec+2)</code> notation is really just as a demonstration of what is
 happening behind the scenes, there is rarely a need to use such an
@@ -461,7 +422,7 @@ arrays. The more common way of indexing into arrays (and the more
 readable way) is to use the <code>vec[2]</code> notation:
 </p>
 
-
+<div class="org-src-container">
 
 <pre class="src src-C"><span style="color: #483d8b;">#include</span> <span style="color: #8b2252;">&lt;stdio.h&gt;</span>
 <span style="color: #483d8b;">#include</span> <span style="color: #8b2252;">&lt;stdlib.h&gt;</span>
@@ -477,24 +438,20 @@ readable way) is to use the <code>vec[2]</code> notation:
   <span style="color: #a020f0;">return</span> 0;
 }
 </pre>
-
-
-
+</div>
+</div>
 </div>
 
-</div>
 
-<div id="outline-container-1-4" class="outline-3">
+<div id="outline-container-sec-1-4" class="outline-3">
 <h3 id="sec-1-4">Pointer to a struct</h3>
 <div class="outline-text-3" id="text-1-4">
-
-
 <p>
 Pointers can also be used to point to a struct. Here is how this would
 be done:
 </p>
 
-
+<div class="org-src-container">
 
 <pre class="src src-c"><span style="color: #483d8b;">#include</span> <span style="color: #8b2252;">&lt;stdio.h&gt;</span>
 <span style="color: #483d8b;">#include</span> <span style="color: #8b2252;">&lt;stdlib.h&gt;</span>
@@ -527,39 +484,42 @@ be done:
   <span style="color: #a020f0;">return</span> 0;
 }
 </pre>
+</div>
 
-
-
-<pre class="example">the date is 15/6/2012
+<pre class="example">
+the date is 15/6/2012
 </pre>
-
 
 <p>
 Let's go through this step by step. On lines 4-8 we define a struct
 that contains three <code>int</code> values: <code>year</code>, <code>month</code> and <code>day</code>. We use
 typedef to name our new struct type <code>date</code>.
 </p>
+
 <p>
 On line 12 we declare a new variable <code>today</code> to be a pointer to
 <code>date</code>. On line 13 we use <code>malloc()</code> to allocate a block of memory (on
 the heap) to store one <code>date</code> struct.
 </p>
+
 <p>
 On lines 16-18 I show how to access fields of our <code>date</code> struct, using
 explicit pointer syntax. So for example the expression <code>(*today).day</code>
 means, dereference the <code>today</code> pointer and then access the <code>day</code> field
 of the thing you find there (which will be a <code>date</code> struct).
 </p>
+
 <p>
 On lines 21-23 I show you the more common (and more readable)
 shorthand for using pointers with structs.
 </p>
+
 <p>
 Just as a reminder: here is how one would do this on the stack instead
 of the heap:
 </p>
 
-
+<div class="org-src-container">
 
 <pre class="src src-c"><span style="color: #483d8b;">#include</span> <span style="color: #8b2252;">&lt;stdio.h&gt;</span>
 
@@ -582,27 +542,24 @@ of the heap:
   <span style="color: #a020f0;">return</span> 0;
 }
 </pre>
-
+</div>
 
 <p>
 Gone is all of the pointer stuff, at least on the surface. Under the
 hood, C is still using pointers to accomplish this.
 </p>
-
+</div>
 </div>
 
-</div>
 
-<div id="outline-container-1-5" class="outline-3">
+<div id="outline-container-sec-1-5" class="outline-3">
 <h3 id="sec-1-5">Pointers to Functions</h3>
 <div class="outline-text-3" id="text-1-5">
-
-
 <p>
 One of the handy things you can do in C, is to use a pointer to point to a function. Then you can pass this function pointer to other functions as an argument, you can store it in a struct, etc. Here is a small example:
 </p>
 
-
+<div class="org-src-container">
 
 <pre class="src src-c"><span style="color: #483d8b;">#include</span> <span style="color: #8b2252;">&lt;stdio.h&gt;</span>
 
@@ -635,7 +592,7 @@ One of the handy things you can do in C, is to use a pointer to point to a funct
   <span style="color: #a020f0;">return</span> 0;
 }
 </pre>
-
+</div>
 
 <p>
 Let's go through this to understand what's happening. On lines 3-5,
@@ -643,16 +600,17 @@ Let's go through this to understand what's happening. On lines 3-5,
 <code>multiply</code>. These functions return an <code>int</code> and take two <code>int</code> values
 as input arguments.
 </p>
+
 <p>
 On lines 15-18 we define a function <code>doMath</code> which returns nothing
 (hence <code>void</code>) and which takes three input arguments. The first input argument is:
 </p>
 
-
+<div class="org-src-container">
 
 <pre class="src src-C"><span style="color: #228b22;">int</span> (*<span style="color: #0000ff;">fn</span>)(<span style="color: #228b22;">int</span> <span style="color: #a0522d;">a</span>, <span style="color: #228b22;">int</span> <span style="color: #a0522d;">b</span>)
 </pre>
-
+</div>
 
 <p>
 This first argument is a <b>pointer to a function</b>. It's actually more
@@ -664,6 +622,7 @@ function, and we shall refer to that function as <code>fn</code>. The preceding
 <code>(int a, int b)</code> says it's a function that takes two <code>int</code> arguments
 as inputs.
 </p>
+
 <p>
 On lines 25-27, we call our <code>doMath()</code> function, each time passing it
 the three input arguments that it requires. First, a pointer to a
@@ -674,14 +633,11 @@ requirements of the first input argument of <code>doMath()</code>: they all
 return an <code>int</code>, and they all take two <code>int</code> values as inputs.
 </p>
 </div>
-
 </div>
 
-<div id="outline-container-1-6" class="outline-3">
+<div id="outline-container-sec-1-6" class="outline-3">
 <h3 id="sec-1-6">Function Arguments: Passing By Value vs Passing By Reference</h3>
 <div class="outline-text-3" id="text-1-6">
-
-
 <p>
 Typically when you think about passing arguments to functions, you
 think about passing the function the <b>value</b> of some variable. A
@@ -692,11 +648,12 @@ inefficient to make a copy of the whole thing, and passing that copy
 to a function. Instead, in passing by reference, you simply pass a
 pointer to the data, to the function.
 </p>
+
 <p>
 Here is some code illustrating passing by value, first:
 </p>
 
-
+<div class="org-src-container">
 
 <pre class="src src-c"><span style="color: #483d8b;">#include</span> <span style="color: #8b2252;">&lt;stdio.h&gt;</span>
 
@@ -712,13 +669,12 @@ Here is some code illustrating passing by value, first:
   <span style="color: #a020f0;">return</span> 0;
 }
 </pre>
+</div>
 
-
-
-<pre class="example">y=50
+<pre class="example">
+y=50
 y=50
 </pre>
-
 
 <p>
 In the above code example, on line 8, we assign the value <code>50</code> to the
@@ -730,7 +686,7 @@ by <code>2</code> and exit. In <code>main()</code> when we print the value of <c
 function call to <code>myFun()</code>, it is still 50 (not 100).
 </p>
 
-
+<div class="org-src-container">
 
 <pre class="src src-c"><span style="color: #483d8b;">#include</span> <span style="color: #8b2252;">&lt;stdio.h&gt;</span>
 
@@ -746,13 +702,12 @@ function call to <code>myFun()</code>, it is still 50 (not 100).
   <span style="color: #a020f0;">return</span> 0;
 }
 </pre>
+</div>
 
-
-
-<pre class="example">y=50
+<pre class="example">
+y=50
 y=100
 </pre>
-
 
 <p>
 Here, we rewrite <code>myFun()</code> so that it take an input argument that is
@@ -767,6 +722,7 @@ value pointed to by <code>x</code> is the value that we assigned to <code>y</cod
 <code>50</code>. So <code>myFun()</code> multiplies that value by 2 and <b>assigns</b> it using
 pointer dereferencing to <code>*x</code>, which is the value associated with <code>y</code>.
 </p>
+
 <p>
 Make sure you understand these two code examples above, and why they
 do different things. If you understand this, then you basically
@@ -774,20 +730,18 @@ understand pointers.
 </p>
 </div>
 </div>
-
 </div>
 
-<div id="outline-container-2" class="outline-2">
+<div id="outline-container-sec-2" class="outline-2">
 <h2 id="sec-2">Dynamically Allocated Memory</h2>
 <div class="outline-text-2" id="text-2">
-
-
 <p>
 Languages like MATLAB, Python, etc, allow you to work with data
 structures like arrays, lists, etc, that you can dynamically
 resize. That is to say, you can make them longer, shorter, etc, even
 after they are created. In C this is not so easy.
 </p>
+
 <p>
 Once you have allocated a variable such as an array on the stack, it
 is fixed in its size. You cannot make it longer or shorter. In
@@ -796,12 +750,14 @@ the heap, you can use <code>realloc()</code> to resize it at some later time. In
 order to use these functions you will need to <code>#include &lt;stdlib.h&gt;</code> at
 the top of your C file.
 </p>
+
 <p>
 The built-in functions <code>malloc()</code>, <code>calloc()</code>, <code>realloc()</code> <code>memcpy()</code>
 and <code>free()</code> are what you will use to manage dynamically allocated
 data structures on the heap, "by hand". The life cycle of a heap variable involves three stages:
 </p>
-<ol>
+
+<ol class="org-ol">
 <li>allocating the heap variable using <code>malloc()</code> or <code>calloc()</code>
 </li>
 <li>(optionally) resizing the heap variable using <code>realloc()</code>
@@ -809,16 +765,11 @@ data structures on the heap, "by hand". The life cycle of a heap variable involv
 <li>releasing the memory from the heap using <code>free()</code>
 </li>
 </ol>
-
-
-
 </div>
 
-<div id="outline-container-2-1" class="outline-3">
+<div id="outline-container-sec-2-1" class="outline-3">
 <h3 id="sec-2-1">Allocating memory using <code>malloc()</code> or <code>calloc()</code></h3>
 <div class="outline-text-3" id="text-2-1">
-
-
 <p>
 These functions are used to allocate memory at runtime. The <code>malloc()</code>
 function takes as input the size of the memory block to be
@@ -827,12 +778,13 @@ also initializes all elements to zero. The <code>calloc()</code> function takes
 two input arguments, the number of elements and the size of each
 element.
 </p>
+
 <p>
 Here's an example of using <code>malloc()</code> to allocate memory to hold an
 array of 10 structs:
 </p>
 
-
+<div class="org-src-container">
 
 <pre class="src src-c"><span style="color: #483d8b;">#include</span> <span style="color: #8b2252;">&lt;stdio.h&gt;</span>
 <span style="color: #483d8b;">#include</span> <span style="color: #8b2252;">&lt;stdlib.h&gt;</span>
@@ -866,10 +818,10 @@ array of 10 structs:
   <span style="color: #a020f0;">return</span> 0;
 }
 </pre>
+</div>
 
-
-
-<pre class="example">mylist[0] = 15/1/2012
+<pre class="example">
+mylist[0] = 15/1/2012
 mylist[1] = 16/2/2011
 mylist[2] = 17/3/2010
 mylist[3] = 18/4/2009
@@ -880,24 +832,19 @@ mylist[7] = 22/8/2005
 mylist[8] = 23/9/2004
 mylist[9] = 24/10/2003
 </pre>
-
-
+</div>
 </div>
 
-</div>
-
-<div id="outline-container-2-2" class="outline-3">
+<div id="outline-container-sec-2-2" class="outline-3">
 <h3 id="sec-2-2">Resizing a variable using <code>realloc()</code></h3>
 <div class="outline-text-3" id="text-2-2">
-
-
 <p>
 Let's say you use <code>calloc()</code> to allocate an array of 3 floating-point
 values, and you later in the program want to increase the size of the
 array to hold 5 values. Here's how you could do it using <code>realloc()</code>:
 </p>
 
-
+<div class="org-src-container">
 
 <pre class="src src-c"><span style="color: #483d8b;">#include</span> <span style="color: #8b2252;">&lt;stdio.h&gt;</span>
 <span style="color: #483d8b;">#include</span> <span style="color: #8b2252;">&lt;stdlib.h&gt;</span>
@@ -927,10 +874,10 @@ array to hold 5 values. Here's how you could do it using <code>realloc()</code>:
   <span style="color: #a020f0;">return</span> 0;
 }
 </pre>
+</div>
 
-
-
-<pre class="example">vec[0]=0.000
+<pre class="example">
+vec[0]=0.000
 vec[1]=0.000
 vec[2]=0.000
 
@@ -950,17 +897,12 @@ vec[2]=0.000
 vec[3]=7.770
 vec[4]=0.000
 </pre>
-
-
+</div>
 </div>
 
-</div>
-
-<div id="outline-container-2-3" class="outline-3">
+<div id="outline-container-sec-2-3" class="outline-3">
 <h3 id="sec-2-3">Freeing a memory block using <code>free()</code></h3>
 <div class="outline-text-3" id="text-2-3">
-
-
 <p>
 You should always use <code>free()</code> to deallocate memory that has been
 allocated with <code>malloc()</code> or <code>calloc()</code>, as soon as you don't need it
@@ -973,22 +915,20 @@ then you might find that your computer (and your program) slows down,
 or suddenly freezes, or crashes, because there is no more memory to be
 allocated.
 </p>
+
 <p>
 The rule is, anytime you use <code>malloc()</code> or <code>calloc()</code>, you <b>must</b> also
 use <code>free()</code>.
 </p>
-
 </div>
 </div>
-
 </div>
 
-<div id="outline-container-3" class="outline-2">
+
+<div id="outline-container-sec-3" class="outline-2">
 <h2 id="sec-3">Links</h2>
 <div class="outline-text-2" id="text-3">
-
-
-<ul>
+<ul class="org-ul">
 <li><a href="http://www.youtube.com/watch?v=6pmWojisM_E">Pointer Fun with Binky</a> (YouTube)
 </li>
 <li><a href="http://www.youtube.com/watch?v=Rxvv9krECNw">Everything you need to know about pointers</a> (YouTube)
@@ -1004,30 +944,24 @@ use <code>free()</code>.
 <li><a href="http://en.wikipedia.org/wiki/Pointer_(computer_programming)">Wikipedia: Pointer (computer programming)</a>
 </li>
 </ul>
-
-
+</div>
 </div>
 
-</div>
-
-<div id="outline-container-4" class="outline-2">
+<div id="outline-container-sec-4" class="outline-2">
 <h2 id="sec-4">Exercises</h2>
 <div class="outline-text-2" id="text-4">
-
-
-<ul>
+<ul class="org-ul">
 <li>1 Refactor the code from your matrix program (from <a href="code/exercises/6_1_go.c">here</a>) so that the
-  size of a matrix is not fixed to a maximum number of
-  elements. Instead use dynamic memory allocation.
+size of a matrix is not fixed to a maximum number of
+elements. Instead use dynamic memory allocation.
 
 <p>
-  Here are some hints:
-</p></li>
+Here are some hints:
+</p>
+</li>
 </ul>
 
-
-
-
+<div class="org-src-container">
 
 <pre class="src src-c"><span style="color: #483d8b;">#include</span> <span style="color: #8b2252;">&lt;stdio.h&gt;</span>
 <span style="color: #483d8b;">#include</span> <span style="color: #8b2252;">&lt;stdlib.h&gt;</span>
@@ -1097,32 +1031,23 @@ use <code>free()</code>.
   <span style="color: #b22222;">// </span><span style="color: #b22222;">fill in the code here</span>
   printf(<span style="color: #8b2252;">"so far matrixmult does nothing\n"</span>);
 }
-
-
 </pre>
-
-
-
-
+</div>
 </div>
 
-<div id="outline-container-4-1" class="outline-3">
+
+<div id="outline-container-sec-4-1" class="outline-3">
 <h3 id="sec-4-1">Solutions</h3>
 <div class="outline-text-3" id="text-4-1">
-
-
-<ul>
+<ul class="org-ul">
 <li><a href="code/exercises/8_1.c">1</a>
 </li>
 </ul>
-
-
 </div>
 </div>
 </div>
 </div>
-
-<div id="postamble">
+<div id="postamble" class="status">
 <hr />Paul Gribble | Summer 2012<br><b>support this project with bitcoin</b>:1Nh3UDeJX1zhcnHNS5jd6EnfqTKZakyJhU<br>This <span xmlns:dct="http://purl.org/dc/terms/" href="http://purl.org/dc/dcmitype/Text" rel="dct:type">work</span> is licensed under a <a rel="license" href="http://creativecommons.org/licenses/by-nc-sa/3.0/">Creative Commons Attribution-NonCommercial-ShareAlike 3.0 Unported License</a><br><a rel="license" href="http://creativecommons.org/licenses/by-nc-sa/3.0/"><img alt="Creative Commons License" style="border-width:0" src="http://i.creativecommons.org/l/by-nc-sa/3.0/80x15.png" /></a><br />
 </div>
 </body>

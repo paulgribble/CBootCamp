@@ -1,65 +1,94 @@
-<?xml version="1.0" encoding="iso-8859-1"?>
+<?xml version="1.0" encoding="utf-8"?>
 <!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Strict//EN"
-               "http://www.w3.org/TR/xhtml1/DTD/xhtml1-strict.dtd">
+"http://www.w3.org/TR/xhtml1/DTD/xhtml1-strict.dtd">
 <html xmlns="http://www.w3.org/1999/xhtml" lang="en" xml:lang="en">
 <head>
 <title>A1. A Brief Tour of Some Other Useful C Libraries</title>
-<meta http-equiv="Content-Type" content="text/html;charset=iso-8859-1"/>
-<meta name="title" content="A1. A Brief Tour of Some Other Useful C Libraries"/>
-<meta name="generator" content="Org-mode"/>
-<meta name="generated" content="Summer 2012"/>
-<meta name="author" content="Paul Gribble"/>
-<meta name="description" content=""/>
-<meta name="keywords" content=""/>
+<!-- 2014-12-12 Fri 21:22 -->
+<meta  http-equiv="Content-Type" content="text/html;charset=utf-8" />
+<meta  name="generator" content="Org-mode" />
+<meta  name="author" content="Paul Gribble" />
 <style type="text/css">
  <!--/*--><![CDATA[/*><!--*/
-  html { font-family: Times, serif; font-size: 12pt; }
   .title  { text-align: center; }
-  .todo   { color: red; }
+  .todo   { font-family: monospace; color: red; }
   .done   { color: green; }
-  .tag    { background-color: #add8e6; font-weight:normal }
-  .target { }
+  .tag    { background-color: #eee; font-family: monospace;
+            padding: 2px; font-size: 80%; font-weight: normal; }
   .timestamp { color: #bebebe; }
   .timestamp-kwd { color: #5f9ea0; }
-  .right  {margin-left:auto; margin-right:0px;  text-align:right;}
-  .left   {margin-left:0px;  margin-right:auto; text-align:left;}
-  .center {margin-left:auto; margin-right:auto; text-align:center;}
-  p.verse { margin-left: 3% }
+  .right  { margin-left: auto; margin-right: 0px;  text-align: right; }
+  .left   { margin-left: 0px;  margin-right: auto; text-align: left; }
+  .center { margin-left: auto; margin-right: auto; text-align: center; }
+  .underline { text-decoration: underline; }
+  #postamble p, #preamble p { font-size: 90%; margin: .2em; }
+  p.verse { margin-left: 3%; }
   pre {
-	border: 1pt solid #AEBDCC;
-	background-color: #F3F5F7;
-	padding: 5pt;
-	font-family: courier, monospace;
-        font-size: 90%;
-        overflow:auto;
+    border: 1px solid #ccc;
+    box-shadow: 3px 3px 3px #eee;
+    padding: 8pt;
+    font-family: monospace;
+    overflow: auto;
+    margin: 1.2em;
   }
-  table { border-collapse: collapse; }
-  td, th { vertical-align: top;  }
-  th.right  { text-align:center;  }
-  th.left   { text-align:center;   }
-  th.center { text-align:center; }
-  td.right  { text-align:right;  }
-  td.left   { text-align:left;   }
-  td.center { text-align:center; }
+  pre.src {
+    position: relative;
+    overflow: visible;
+    padding-top: 1.2em;
+  }
+  pre.src:before {
+    display: none;
+    position: absolute;
+    background-color: white;
+    top: -10px;
+    right: 10px;
+    padding: 3px;
+    border: 1px solid black;
+  }
+  pre.src:hover:before { display: inline;}
+  pre.src-sh:before    { content: 'sh'; }
+  pre.src-bash:before  { content: 'sh'; }
+  pre.src-emacs-lisp:before { content: 'Emacs Lisp'; }
+  pre.src-R:before     { content: 'R'; }
+  pre.src-perl:before  { content: 'Perl'; }
+  pre.src-java:before  { content: 'Java'; }
+  pre.src-sql:before   { content: 'SQL'; }
+
+  table { border-collapse:collapse; }
+  caption.t-above { caption-side: top; }
+  caption.t-bottom { caption-side: bottom; }
+  td, th { vertical-align:top;  }
+  th.right  { text-align: center;  }
+  th.left   { text-align: center;   }
+  th.center { text-align: center; }
+  td.right  { text-align: right;  }
+  td.left   { text-align: left;   }
+  td.center { text-align: center; }
   dt { font-weight: bold; }
-  div.figure { padding: 0.5em; }
-  div.figure p { text-align: center; }
-  div.inlinetask {
-    padding:10px;
-    border:2px solid gray;
-    margin:10px;
+  .footpara:nth-child(2) { display: inline; }
+  .footpara { display: block; }
+  .footdef  { margin-bottom: 1em; }
+  .figure { padding: 1em; }
+  .figure p { text-align: center; }
+  .inlinetask {
+    padding: 10px;
+    border: 2px solid gray;
+    margin: 10px;
     background: #ffffcc;
   }
+  #org-div-home-and-up
+   { text-align: right; font-size: 70%; white-space: nowrap; }
   textarea { overflow-x: auto; }
-  .linenr { font-size:smaller }
-  .code-highlighted {background-color:#ffff00;}
-  .org-info-js_info-navigation { border-style:none; }
-  #org-info-js_console-label { font-size:10px; font-weight:bold;
-                               white-space:nowrap; }
-  .org-info-js_search-highlight {background-color:#ffff00; color:#000000;
-                                 font-weight:bold; }
+  .linenr { font-size: smaller }
+  .code-highlighted { background-color: #ffff00; }
+  .org-info-js_info-navigation { border-style: none; }
+  #org-info-js_console-label
+    { font-size: 10px; font-weight: bold; white-space: nowrap; }
+  .org-info-js_search-highlight
+    { background-color: #ffff00; color: #000000; font-weight: bold; }
   /*]]>*/-->
-</style><link rel="stylesheet" type="text/css" href="mystyle.css" /><script>(function(i,s,o,g,r,a,m){i['GoogleAnalyticsObject']=r;i[r]=i[r]||function(){(i[r].q=i[r].q||[]).push(arguments)},i[r].l=1*new Date();a=s.createElement(o),m=s.getElementsByTagName(o)[0];a.async=1;a.src=g;m.parentNode.insertBefore(a,m)})(window,document,'script','//www.google-analytics.com/analytics.js','ga');ga('create', 'UA-52544521-1', 'auto');ga('send', 'pageview');</script>
+</style>
+<link rel="stylesheet" type="text/css" href="mystyle.css" /><script>(function(i,s,o,g,r,a,m){i['GoogleAnalyticsObject']=r;i[r]=i[r]||function(){(i[r].q=i[r].q||[]).push(arguments)},i[r].l=1*new Date();a=s.createElement(o),m=s.getElementsByTagName(o)[0];a.async=1;a.src=g;m.parentNode.insertBefore(a,m)})(window,document,'script','//www.google-analytics.com/analytics.js','ga');ga('create', 'UA-52544521-1', 'auto');ga('send', 'pageview');</script>
 <script type="text/javascript">
 /*
 @licstart  The following is the entire license notice for the
@@ -106,57 +135,8 @@ for the JavaScript code in this tag.
  }
 /*]]>*///-->
 </script>
-<script type="text/javascript" src="http://orgmode.org/mathjax/MathJax.js">
-/**
- *
- * @source: http://orgmode.org/mathjax/MathJax.js
- *
- * @licstart  The following is the entire license notice for the
- *  JavaScript code in http://orgmode.org/mathjax/MathJax.js.
- *
- * Copyright (C) 2012-2013  MathJax
- *
- * Licensed under the Apache License, Version 2.0 (the "License");
- * you may not use this file except in compliance with the License.
- * You may obtain a copy of the License at
- *
- *     http://www.apache.org/licenses/LICENSE-2.0
- *
- * Unless required by applicable law or agreed to in writing, software
- * distributed under the License is distributed on an "AS IS" BASIS,
- * WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied.
- * See the License for the specific language governing permissions and
- * limitations under the License.
- *
- * @licend  The above is the entire license notice
- * for the JavaScript code in http://orgmode.org/mathjax/MathJax.js.
- *
- */
-
-/*
-@licstart  The following is the entire license notice for the
-JavaScript code below.
-
-Copyright (C) 2012-2013 Free Software Foundation, Inc.
-
-The JavaScript code below is free software: you can
-redistribute it and/or modify it under the terms of the GNU
-General Public License (GNU GPL) as published by the Free Software
-Foundation, either version 3 of the License, or (at your option)
-any later version.  The code is distributed WITHOUT ANY WARRANTY;
-without even the implied warranty of MERCHANTABILITY or FITNESS
-FOR A PARTICULAR PURPOSE.  See the GNU GPL for more details.
-
-As additional permission under GNU GPL version 3 section 7, you
-may distribute non-source (e.g., minimized or compacted) forms of
-that code without the copy of the GNU GPL normally required by
-section 4, provided you include this license notice and a URL
-through which recipients can access the Corresponding Source.
-
-
-@licend  The above is the entire license notice
-for the JavaScript code below.
-*/
+<script type="text/javascript" src="http://orgmode.org/mathjax/MathJax.js"></script>
+<script type="text/javascript">
 <!--/*--><![CDATA[/*><!--*/
     MathJax.Hub.Config({
         // Only one of the two following lines, depending on user settings
@@ -199,22 +179,8 @@ for the JavaScript code below.
 </script>
 </head>
 <body>
-<div id="org-div-home-and-up" style="text-align:right;font-size:70%;white-space:nowrap;">
- <a accesskey="h" href="index.html"> UP </a>
- |
- <a accesskey="H" href="index.html"> HOME </a>
-</div>
-
-<div id="preamble">
-
-</div>
-
 <div id="content">
 <h1 class="title">A1. A Brief Tour of Some Other Useful C Libraries</h1>
-
-
-
-<hr/>
 <div id="table-of-contents">
 <h2>Table of Contents</h2>
 <div id="text-table-of-contents">
@@ -244,46 +210,36 @@ for the JavaScript code below.
 </div>
 </div>
 
-<hr/>
-
-
-<div id="outline-container-1" class="outline-2">
+<div id="outline-container-sec-1" class="outline-2">
 <h2 id="sec-1">Introduction</h2>
 <div class="outline-text-2" id="text-1">
-
-
 <p>
 Since C is such a "small" language, you must typically rely on
 libraries and APIs for complex tasks (unless you code them up
 yourself). Here is a short list of some common libraries that you
 might find useful.
 </p>
-
+</div>
 </div>
 
-</div>
 
-<div id="outline-container-2" class="outline-2">
+<div id="outline-container-sec-2" class="outline-2">
 <h2 id="sec-2">GNU C Library (glibc)</h2>
 <div class="outline-text-2" id="text-2">
-
-
 <p>
 <a href="http://www.gnu.org/software/libc/">glibc</a>
 </p>
+
 <p>
 The GNU C Library contains many useful functions (a list is
 <a href="http://www.gnu.org/software/libc/manual/html_node/index.html#Top">here</a>). There are some that will probably be more generally useful to
 you than others:
 </p>
-
 </div>
 
-<div id="outline-container-2-1" class="outline-3">
+<div id="outline-container-sec-2-1" class="outline-3">
 <h3 id="sec-2-1">String and Array Utilities</h3>
 <div class="outline-text-3" id="text-2-1">
-
-
 <p>
 There are a number of functions related to handling and manipulating
 strings and arrays (a list is <a href="http://www.gnu.org/software/libc/manual/html_node/String-and-Array-Utilities.html#String-and-Array-Utilities">here</a>). In particular routines for
@@ -291,47 +247,39 @@ searching strings and copying and concatenation, will likely be useful
 to you. Dig deeper on your own to find out more.
 </p>
 </div>
-
 </div>
 
-<div id="outline-container-2-2" class="outline-3">
+<div id="outline-container-sec-2-2" class="outline-3">
 <h3 id="sec-2-2">Others</h3>
 <div class="outline-text-3" id="text-2-2">
-
-
 <p>
 Other useful ones include <a href="http://www.gnu.org/software/libc/manual/html_node/Searching-and-Sorting.html#Searching-and-Sorting">Searching and Sorting</a> and <a href="http://www.gnu.org/software/libc/manual/html_node/Date-and-Time.html#Date-and-Time">Date and Time</a>
 functions. I suggest you have a look at the full list and familiarize
 yourself with what's available.
 </p>
 </div>
-
 </div>
 
-<div id="outline-container-2-3" class="outline-3">
+<div id="outline-container-sec-2-3" class="outline-3">
 <h3 id="sec-2-3">Data Structures</h3>
 <div class="outline-text-3" id="text-2-3">
-
-
 <p>
 Here is a link to a guide taking you through how to use GLib to manage
 data structures of the sort that you get "for free" in languages like
-Matlab, Python, etc&hellip; things like lists, hash tables (otherwise known
+Matlab, Python, etc&#x2026; things like lists, hash tables (otherwise known
 as dictionaries), arrays, trees, etc.
 </p>
+
 <p>
 <a href="http://www.ibm.com/developerworks/linux/tutorials/l-glib/">Manage C data using the GLib collections</a>
 </p>
-
+</div>
 </div>
 
-</div>
 
-<div id="outline-container-2-4" class="outline-3">
+<div id="outline-container-sec-2-4" class="outline-3">
 <h3 id="sec-2-4">Linking to glibc</h3>
 <div class="outline-text-3" id="text-2-4">
-
-
 <p>
 Depending on which function(s) you want to use in your program, you
 will probably have to use the <code>#include</code> directive to include the
@@ -342,7 +290,7 @@ there is no need to pass an extra parameter at compile time to link to
 the glibc library, the gcc compiler already knows to look for it.
 </p>
 
-
+<div class="org-src-container">
 
 <pre class="src src-c"><span style="color: #b22222;">// </span><span style="color: #b22222;">gcc -o go go.c</span>
 <span style="color: #483d8b;">#include</span> <span style="color: #8b2252;">&lt;stdio.h&gt;</span>
@@ -355,26 +303,22 @@ the glibc library, the gcc compiler already knows to look for it.
    <span style="color: #a020f0;">return</span> 0;                                                                   
 }
 </pre>
+</div>
 
-
-
-<pre class="example">the dude is 8 characters long
+<pre class="example">
+the dude is 8 characters long
 </pre>
-
-
 </div>
 </div>
-
 </div>
 
-<div id="outline-container-3" class="outline-2">
+<div id="outline-container-sec-3" class="outline-2">
 <h2 id="sec-3">GNU Scientific Library (GSL)</h2>
 <div class="outline-text-2" id="text-3">
-
-
 <p>
 <a href="http://www.gnu.org/software/gsl/">gsl</a>
 </p>
+
 <p>
 The GNU Scientific Library provides a broad range of numerical and
 mathematical functions. If you want to do something in C that you have
@@ -382,11 +326,13 @@ been doing in MATLAB, or Python/NumPy/SciPy, or R, then probably you
 will need to look at something like GSL for functions you need (or
 code them up yourself).
 </p>
+
 <p>
 There is a list of main categories <a href="http://www.gnu.org/software/gsl/manual/html_node/">here</a>. Things you might be
 interested are:
 </p>
-<ul>
+
+<ul class="org-ul">
 <li><a href="http://www.gnu.org/software/gsl/manual/html_node/Vectors-and-Matrices.html">Vectors and Matrices</a>
 </li>
 <li><a href="http://www.gnu.org/software/gsl/manual/html_node/Linear-Algebra.html">Linear Algebra</a>
@@ -410,22 +356,18 @@ interested are:
 <li><a href="http://www.gnu.org/software/gsl/manual/html_node/Multidimensional-Minimization.html">Multidimensional Minimization</a>
 </li>
 </ul>
-
-
-
-
 </div>
 
-<div id="outline-container-3-1" class="outline-3">
+
+<div id="outline-container-sec-3-1" class="outline-3">
 <h3 id="sec-3-1">Linking to gsl</h3>
 <div class="outline-text-3" id="text-3-1">
-
-
 <p>
 Of course before you can link to the gsl library, you have to make
 sure it is installed on your computer. See the gsl documentation for
 how to install it.
 </p>
+
 <p>
 To link your code to the gsl you will have to do two things. First you
 will have to use the <code>#include</code> directive to include the relevant
@@ -436,15 +378,14 @@ themselves. Here is an example program <a href="http://www.gnu.org/software/gsl/
 uses linear algebra routines to solve a linear system \(Ax=b\):
 </p>
 
-
-
-<pre class="example">[ 0.18 0.60 0.57 0.96 ] [x0]   [1.0]
+<pre class="example">
+[ 0.18 0.60 0.57 0.96 ] [x0]   [1.0]
 [ 0.41 0.24 0.99 0.58 ] [x1] = [2.0]
 [ 0.14 0.30 0.97 0.66 ] [x2]   [3.0]
 [ 0.51 0.13 0.19 0.85 ] [x3]   [4.0]
 </pre>
 
-
+<div class="org-src-container">
 
 <pre class="src src-c"><span style="color: #b22222;">// </span><span style="color: #b22222;">gcc -o go go.c -lgsl -lgslcblas</span>
 
@@ -484,10 +425,10 @@ uses linear algebra routines to solve a linear system \(Ax=b\):
   <span style="color: #a020f0;">return</span> 0;
 }
 </pre>
+</div>
 
-
-
-<pre class="example">plg@wildebeest:~$ gcc -o go go.c -lgsl -lgslcblas
+<pre class="example">
+plg@wildebeest:~$ gcc -o go go.c -lgsl -lgslcblas
 plg@wildebeest:~$ ./go
 x = 
 -4.05205
@@ -495,39 +436,32 @@ x =
 1.66091
 8.69377
 </pre>
-
-
-
+</div>
 </div>
 </div>
 
-</div>
 
-<div id="outline-container-4" class="outline-2">
+<div id="outline-container-sec-4" class="outline-2">
 <h2 id="sec-4">BLAS / LAPACK</h2>
 <div class="outline-text-2" id="text-4">
-
-
 <p>
 The <a href="http://www.netlib.org/blas/">blas</a> and <a href="http://www.netlib.org/lapack/">lapack</a> libraries are high-performance libraries for
 linear algebra. If you are dealing with large matrices and you have
 the need for speed, then probably you should look into using BLAS /
 LAPACK, it will probably be faster than GSL.
 </p>
-
+</div>
 </div>
 
-</div>
 
-<div id="outline-container-5" class="outline-2">
+<div id="outline-container-sec-5" class="outline-2">
 <h2 id="sec-5">Apophenia</h2>
 <div class="outline-text-2" id="text-5">
-
-
 <p>
 The <a href="http://apophenia.sourceforge.net/">Apophenia</a> library is an open source library for working with data
 sets, statistics, and statistical models.
 </p>
+
 <p>
 The Apophenia library provides functions for dealing with data
 (reading it in, storing it in convenient data structures, and writing
@@ -535,6 +469,7 @@ it to files). It also provides functions for dealing with data using
 the SQL database language. This allows you to perform searches on
 data, extract subsets of data, etc.
 </p>
+
 <p>
 Apophenia has lots of functions to fit data to statistical models such
 as OLS models (ordinary least squares), it provides for statistical
@@ -542,24 +477,24 @@ tests like t-tests, F-tests, and it includes models like logit,
 probit, and multinomial models. It also includes maximum likelihood
 methods, Bayesian updating, and resampling methods like bootstrapping.
 </p>
+
 <p>
 There is extensive online documentation and example code on the
 Apophenia website <a href="http://apophenia.sourceforge.net/">here</a>. I suggest you dive deeper on your own if you
 want to explore it in more detail.
 </p>
-
 </div>
 
-<div id="outline-container-5-1" class="outline-3">
+<div id="outline-container-sec-5-1" class="outline-3">
 <h3 id="sec-5-1">Modeling with Data (book)</h3>
 <div class="outline-text-3" id="text-5-1">
-
-
 <p>
-Apophenia is maintained by Ben Klemens, who also wrote a book <a href="http://modelingwithdata.org/about_the_book.html">Modeling With Data</a> that makes use of Apophenia. You can buy the book or you can
+Apophenia is maintained by Ben Klemens, who also wrote a book <a href="http://modelingwithdata.org/about_the_book.html">Modeling
+With Data</a> that makes use of Apophenia. You can buy the book or you can
 download it for free, the author makes it available on the website
 <a href="http://ben.klemens.org/pdfs/gsl_stats.pdf">here</a>.
 </p>
+
 <p>
 I highly recommend the book not only as a guide to using the Apophenia
 library, but more generally as a guide to how to use C on a daily
@@ -568,20 +503,18 @@ basis for data analysis and modeling. Ben argues that really, C is not
 like Python and R, but C is <b>way</b> faster (in terms of execution
 speed). It's worth a read.
 </p>
-
 </div>
 </div>
-
 </div>
 
-<div id="outline-container-6" class="outline-2">
+
+<div id="outline-container-sec-6" class="outline-2">
 <h2 id="sec-6">GNUplot</h2>
 <div class="outline-text-2" id="text-6">
-
-
 <p>
 <a href="http://www.gnuplot.info/">GNUplot</a>
 </p>
+
 <p>
 GNUplot is not an external C library but in fact is a standalone
 program for making graphs and figures. I include it here because it is
@@ -590,6 +523,7 @@ a popular UNIX tool that you will likely see in your C travels. The
 lots of examples of using GNUplot to graphically visualize data, and
 fitted statistical models.
 </p>
+
 <p>
 There is also good online <a href="http://www.gnuplot.info/documentation.html">documentation</a>, <a href="http://www.gnuplot.info/help.html">tutorials and help</a> and <a href="http://www.gnuplot.info/screenshots/index.html#demos">demos</a>
 of GNUplot functionality. Anything you can do with Matlab,
@@ -598,8 +532,7 @@ Python/Matplotlib, R, etc you can likely also do in GNUplot.
 </div>
 </div>
 </div>
-
-<div id="postamble">
+<div id="postamble" class="status">
 <hr />Paul Gribble | Summer 2012<br><b>support this project with bitcoin</b>:1Nh3UDeJX1zhcnHNS5jd6EnfqTKZakyJhU<br>This <span xmlns:dct="http://purl.org/dc/terms/" href="http://purl.org/dc/dcmitype/Text" rel="dct:type">work</span> is licensed under a <a rel="license" href="http://creativecommons.org/licenses/by-nc-sa/3.0/">Creative Commons Attribution-NonCommercial-ShareAlike 3.0 Unported License</a><br><a rel="license" href="http://creativecommons.org/licenses/by-nc-sa/3.0/"><img alt="Creative Commons License" style="border-width:0" src="http://i.creativecommons.org/l/by-nc-sa/3.0/80x15.png" /></a><br />
 </div>
 </body>

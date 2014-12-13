@@ -1,65 +1,94 @@
-<?xml version="1.0" encoding="iso-8859-1"?>
+<?xml version="1.0" encoding="utf-8"?>
 <!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Strict//EN"
-               "http://www.w3.org/TR/xhtml1/DTD/xhtml1-strict.dtd">
+"http://www.w3.org/TR/xhtml1/DTD/xhtml1-strict.dtd">
 <html xmlns="http://www.w3.org/1999/xhtml" lang="en" xml:lang="en">
 <head>
 <title>1. Why Program in C?</title>
-<meta http-equiv="Content-Type" content="text/html;charset=iso-8859-1"/>
-<meta name="title" content="1. Why Program in C?"/>
-<meta name="generator" content="Org-mode"/>
-<meta name="generated" content="Summer 2012"/>
-<meta name="author" content="Paul Gribble"/>
-<meta name="description" content=""/>
-<meta name="keywords" content=""/>
+<!-- 2014-12-12 Fri 21:22 -->
+<meta  http-equiv="Content-Type" content="text/html;charset=utf-8" />
+<meta  name="generator" content="Org-mode" />
+<meta  name="author" content="Paul Gribble" />
 <style type="text/css">
  <!--/*--><![CDATA[/*><!--*/
-  html { font-family: Times, serif; font-size: 12pt; }
   .title  { text-align: center; }
-  .todo   { color: red; }
+  .todo   { font-family: monospace; color: red; }
   .done   { color: green; }
-  .tag    { background-color: #add8e6; font-weight:normal }
-  .target { }
+  .tag    { background-color: #eee; font-family: monospace;
+            padding: 2px; font-size: 80%; font-weight: normal; }
   .timestamp { color: #bebebe; }
   .timestamp-kwd { color: #5f9ea0; }
-  .right  {margin-left:auto; margin-right:0px;  text-align:right;}
-  .left   {margin-left:0px;  margin-right:auto; text-align:left;}
-  .center {margin-left:auto; margin-right:auto; text-align:center;}
-  p.verse { margin-left: 3% }
+  .right  { margin-left: auto; margin-right: 0px;  text-align: right; }
+  .left   { margin-left: 0px;  margin-right: auto; text-align: left; }
+  .center { margin-left: auto; margin-right: auto; text-align: center; }
+  .underline { text-decoration: underline; }
+  #postamble p, #preamble p { font-size: 90%; margin: .2em; }
+  p.verse { margin-left: 3%; }
   pre {
-	border: 1pt solid #AEBDCC;
-	background-color: #F3F5F7;
-	padding: 5pt;
-	font-family: courier, monospace;
-        font-size: 90%;
-        overflow:auto;
+    border: 1px solid #ccc;
+    box-shadow: 3px 3px 3px #eee;
+    padding: 8pt;
+    font-family: monospace;
+    overflow: auto;
+    margin: 1.2em;
   }
-  table { border-collapse: collapse; }
-  td, th { vertical-align: top;  }
-  th.right  { text-align:center;  }
-  th.left   { text-align:center;   }
-  th.center { text-align:center; }
-  td.right  { text-align:right;  }
-  td.left   { text-align:left;   }
-  td.center { text-align:center; }
+  pre.src {
+    position: relative;
+    overflow: visible;
+    padding-top: 1.2em;
+  }
+  pre.src:before {
+    display: none;
+    position: absolute;
+    background-color: white;
+    top: -10px;
+    right: 10px;
+    padding: 3px;
+    border: 1px solid black;
+  }
+  pre.src:hover:before { display: inline;}
+  pre.src-sh:before    { content: 'sh'; }
+  pre.src-bash:before  { content: 'sh'; }
+  pre.src-emacs-lisp:before { content: 'Emacs Lisp'; }
+  pre.src-R:before     { content: 'R'; }
+  pre.src-perl:before  { content: 'Perl'; }
+  pre.src-java:before  { content: 'Java'; }
+  pre.src-sql:before   { content: 'SQL'; }
+
+  table { border-collapse:collapse; }
+  caption.t-above { caption-side: top; }
+  caption.t-bottom { caption-side: bottom; }
+  td, th { vertical-align:top;  }
+  th.right  { text-align: center;  }
+  th.left   { text-align: center;   }
+  th.center { text-align: center; }
+  td.right  { text-align: right;  }
+  td.left   { text-align: left;   }
+  td.center { text-align: center; }
   dt { font-weight: bold; }
-  div.figure { padding: 0.5em; }
-  div.figure p { text-align: center; }
-  div.inlinetask {
-    padding:10px;
-    border:2px solid gray;
-    margin:10px;
+  .footpara:nth-child(2) { display: inline; }
+  .footpara { display: block; }
+  .footdef  { margin-bottom: 1em; }
+  .figure { padding: 1em; }
+  .figure p { text-align: center; }
+  .inlinetask {
+    padding: 10px;
+    border: 2px solid gray;
+    margin: 10px;
     background: #ffffcc;
   }
+  #org-div-home-and-up
+   { text-align: right; font-size: 70%; white-space: nowrap; }
   textarea { overflow-x: auto; }
-  .linenr { font-size:smaller }
-  .code-highlighted {background-color:#ffff00;}
-  .org-info-js_info-navigation { border-style:none; }
-  #org-info-js_console-label { font-size:10px; font-weight:bold;
-                               white-space:nowrap; }
-  .org-info-js_search-highlight {background-color:#ffff00; color:#000000;
-                                 font-weight:bold; }
+  .linenr { font-size: smaller }
+  .code-highlighted { background-color: #ffff00; }
+  .org-info-js_info-navigation { border-style: none; }
+  #org-info-js_console-label
+    { font-size: 10px; font-weight: bold; white-space: nowrap; }
+  .org-info-js_search-highlight
+    { background-color: #ffff00; color: #000000; font-weight: bold; }
   /*]]>*/-->
-</style><link rel="stylesheet" type="text/css" href="mystyle.css" /><script>(function(i,s,o,g,r,a,m){i['GoogleAnalyticsObject']=r;i[r]=i[r]||function(){(i[r].q=i[r].q||[]).push(arguments)},i[r].l=1*new Date();a=s.createElement(o),m=s.getElementsByTagName(o)[0];a.async=1;a.src=g;m.parentNode.insertBefore(a,m)})(window,document,'script','//www.google-analytics.com/analytics.js','ga');ga('create', 'UA-52544521-1', 'auto');ga('send', 'pageview');</script>
+</style>
+<link rel="stylesheet" type="text/css" href="mystyle.css" /><script>(function(i,s,o,g,r,a,m){i['GoogleAnalyticsObject']=r;i[r]=i[r]||function(){(i[r].q=i[r].q||[]).push(arguments)},i[r].l=1*new Date();a=s.createElement(o),m=s.getElementsByTagName(o)[0];a.async=1;a.src=g;m.parentNode.insertBefore(a,m)})(window,document,'script','//www.google-analytics.com/analytics.js','ga');ga('create', 'UA-52544521-1', 'auto');ga('send', 'pageview');</script>
 <script type="text/javascript">
 /*
 @licstart  The following is the entire license notice for the
@@ -106,25 +135,10 @@ for the JavaScript code in this tag.
  }
 /*]]>*///-->
 </script>
-
 </head>
 <body>
-<div id="org-div-home-and-up" style="text-align:right;font-size:70%;white-space:nowrap;">
- <a accesskey="h" href="index.html"> UP </a>
- |
- <a accesskey="H" href="index.html"> HOME </a>
-</div>
-
-<div id="preamble">
-
-</div>
-
 <div id="content">
 <h1 class="title">1. Why Program in C?</h1>
-
-
-
-<hr/>
 <div id="table-of-contents">
 <h2>Table of Contents</h2>
 <div id="text-table-of-contents">
@@ -151,14 +165,9 @@ for the JavaScript code in this tag.
 </div>
 </div>
 
-<hr/>
-
-
-<div id="outline-container-1" class="outline-2">
+<div id="outline-container-sec-1" class="outline-2">
 <h2 id="sec-1">What is C?</h2>
 <div class="outline-text-2" id="text-1">
-
-
 <p>
 C is a high-level programming language that was first developed by
 Dennis Ritchie at Bell Labs in the early 1970s. Unix was one of the
@@ -167,20 +176,17 @@ X, and GNU/Linux are also written in C. Lots of other high-level
 languages like Perl, PHP, Python, R, Matlab, Mathematica, etc, are
 written in C.
 </p>
+
 <p>
 Currently (as of July, 2012) C is #1 in popularity according to the
 <a href="http://www.tiobe.com/index.php/content/paperinfo/tpci/index.html">TIOBE index</a>.
 </p>
-
 </div>
 
-<div id="outline-container-1-1" class="outline-3">
+<div id="outline-container-sec-1-1" class="outline-3">
 <h3 id="sec-1-1">Example Code</h3>
 <div class="outline-text-3" id="text-1-1">
-
-
-
-
+<div class="org-src-container">
 
 <pre class="src src-c"><span style="color: #483d8b;">#include</span> <span style="color: #8b2252;">&lt;stdio.h&gt;</span>
 
@@ -189,7 +195,7 @@ Currently (as of July, 2012) C is #1 in popularity according to the
   <span style="color: #a020f0;">return</span> 0;
 }
 </pre>
-
+</div>
 
 <p>
 The above is a bare-bones C program that simply writes the string
@@ -199,45 +205,48 @@ scary looking code. The code that "does the work" here is line 4. All
 the other stuff you can think of as standard "boilerplate" C code that
 you need for any C program.
 </p>
+
 <p>
 Line 1 imports one of the standard C libraries, <code>stdio.h</code>, (standard
 input/output). Line 3 defines a function called <code>main()</code>, which is
 needed for the program to run. The main code is line 4, which prints
 the string "<code>hello world</code>" (followed by a newline character <code>\n</code>) to
-the screen. The stuff inside the brackets in <code>main()</code> (the <code>int argc, char *argv[]</code>) is not important for now, and in fact it is optional,
+the screen. The stuff inside the brackets in <code>main()</code> (the <code>int argc,
+char *argv[]</code>) is not important for now, and in fact it is optional,
 you could leave it out and your program would still run. Same for line
 5, <code>return 0;</code>. I included them here for completeness, and we will
 talk about their role later on.
 </p>
+
 <p>
 As a comparison here is a similar program in Python:
 </p>
 
+<div class="org-src-container">
 
-
-<pre class="src src-Python">print <span style="color: #8b2252;">"hello world"</span>
+<pre class="src src-Python">print "hello world"
 </pre>
-
+</div>
 
 <p>
 Here it is in R:
 </p>
 
+<div class="org-src-container">
 
-
-<pre class="src src-R">cat(<span style="color: #8b2252;">"hello world\n"</span>)
+<pre class="src src-R">cat("hello world\n")
 </pre>
-
+</div>
 
 <p>
 and Matlab / Octave:
 </p>
 
-
+<div class="org-src-container">
 
 <pre class="src src-octave">disp(<span style="color: #8b2252;">'hello world'</span>)
 </pre>
-
+</div>
 
 <p>
 As you can see the difference between the C code and the code in other
@@ -248,12 +257,14 @@ function to write stuff to the screen is different in each
 langauge. In C it is <code>printf()</code>, in Python it is <code>print</code>, in R it is
 <code>cat()</code>, and in Matlab/Octave it is <code>disp()</code>. Again, no big deal.
 </p>
+
 <p>
 One of the things I want you to take away from this boot camp is that
 with few exceptions, all (procedural) programming languages are
 essentially the same, but:
 </p>
-<ol>
+
+<ol class="org-ol">
 <li>names of standard functions are different
 </li>
 <li>rules of syntax are different
@@ -264,40 +275,32 @@ essentially the same, but:
 </li>
 </ol>
 
-
 <p>
 That's it, really. Once you know how to program in one language, all
 you have to do, really, is learn some different syntactic rules, and
 learn the names of the various functions that you will be using, and
 learn what APIs provide needed functionality. No big deal.
 </p>
+
 <p>
 To see hello world in a bunch of other languages, go here:
 <a href="https://github.com/leachim6/hello-world">hello-world</a>.
 </p>
 </div>
 </div>
-
 </div>
 
-<div id="outline-container-2" class="outline-2">
+<div id="outline-container-sec-2" class="outline-2">
 <h2 id="sec-2">Virtues and Challenges</h2>
 <div class="outline-text-2" id="text-2">
-
-
-
-</div>
-
-<div id="outline-container-2-1" class="outline-3">
+</div><div id="outline-container-sec-2-1" class="outline-3">
 <h3 id="sec-2-1">Virtues of C</h3>
 <div class="outline-text-3" id="text-2-1">
-
-
-<ul>
+<ul class="org-ul">
 <li>fast (it's a compiled language and so is close to the machine hardware)
 </li>
 <li>portable (you can compile you program to run on just about any
-  hardware platform out there)
+hardware platform out there)
 </li>
 <li>the language is small (unlike C++ for example)
 </li>
@@ -310,41 +313,31 @@ To see hello world in a bunch of other languages, go here:
 <li>you have access to low-level system features if needed
 </li>
 </ul>
-
-
+</div>
 </div>
 
-</div>
-
-<div id="outline-container-2-2" class="outline-3">
+<div id="outline-container-sec-2-2" class="outline-3">
 <h3 id="sec-2-2">Challenges of using C</h3>
 <div class="outline-text-3" id="text-2-2">
-
-
-<ul>
+<ul class="org-ul">
 <li>the language is small (but there are many APIs)
 </li>
 <li>it's easy to get into trouble, e.g. with direct memory access &amp; pointers
 </li>
-<li>the code &mdash; compile &mdash; test (crash) &mdash; debug cycle
+<li>the code &#x2014; compile &#x2014; test (crash) &#x2014; debug cycle
 </li>
 <li>you must manage memory yourself
 </li>
 <li>sometimes code is more verbose than in high-level scripting languages like Python, R, etc
 </li>
 </ul>
-
-
 </div>
 </div>
-
 </div>
 
-<div id="outline-container-3" class="outline-2">
+<div id="outline-container-sec-3" class="outline-2">
 <h2 id="sec-3">When should I use C?</h2>
 <div class="outline-text-2" id="text-3">
-
-
 <p>
 My own take on scientific programming, is that I think of C as one of
 many tools in my toolkit for performing computational tasks in my
@@ -354,6 +347,7 @@ when the situation calls for it. In our lab, we use Python, R,
 (sometimes Matlab but increasingly less often), and when we feel the
 need, the need for speed, we use C.
 </p>
+
 <p>
 For interactive data exploration, like when you want to load in some
 data, plot it in different ways, do some rudimentary calculations,
@@ -363,6 +357,7 @@ Matlab, R, etc, may be perfectly sufficient. In particular, these
 other languages make it very easy to quickly generate great-looking
 graphics.
 </p>
+
 <p>
 For cases where you need to process a large amount of data, you will
 find that these languages are slow. Even for fairly common statistical
@@ -370,47 +365,48 @@ procedures like bootstrapping (techniques that involve resampling
 thousands or tens of thousands of times), interpreted languages will
 be orders of magnitude slower than C.
 </p>
+
 <p>
 This is the situation when C starts to become very attractive. If you
 have a data processing operation, or a simulation, and you know it
 will take a long time to run, then it is often worth it to spend some
 time implementing it in C.
 </p>
+
 <p>
 My own personal rule of thumb is that if I have to wait more than
 about 10 seconds to see the result of a calculation or operation,
 then I get annoyed, and I think about implementing it in C.
 </p>
+
 <p>
 You might think, who cares if my calculation takes 10 seconds, or 30
 seconds, ot 5 minutes, for that matter? Is 5 minutes so bad? The
-answer is, no, it's not so bad if you only have to do it once&hellip; but
+answer is, no, it's not so bad if you only have to do it once&#x2026; but
 it's almost <b>never</b> the case that you only even perform a computation
 on your data once.
 </p>
-
 </div>
 
-<div id="outline-container-3-1" class="outline-3">
+<div id="outline-container-sec-3-1" class="outline-3">
 <h3 id="sec-3-1">An Example</h3>
 <div class="outline-text-3" id="text-3-1">
-
-
 <p>
 Imagine you write some Matlab code to read in data from one subject,
 process that data, and write the result to a file, and that operation
 takes <b>60 seconds</b>. Is that so bad? Not if you only have to run it
-once. Now let's imagine you have 15 subjects in your group&hellip; now 60
-seconds is <b>15 minutes</b>. Now let's say you have 4 groups &hellip; now 15
+once. Now let's imagine you have 15 subjects in your group&#x2026; now 60
+seconds is <b>15 minutes</b>. Now let's say you have 4 groups &#x2026; now 15
 minutes is <b>one hour</b>. You run your program, go have lunch, and come
 back an hour later and you find there was an error. You fix the error
-and re-run &hellip; another hour. Even if you get it right, now imagine
+and re-run &#x2026; another hour. Even if you get it right, now imagine
 your supervisor asks you to re-run the analysis 5 different ways,
 varying some parameter of the analysis (maybe filtering the data at a
 different frequency, for example). Now you need <b>5 hours</b> to see the
 result. It doesn't take a huge amount of data to run into this sort of
 situation.
 </p>
+
 <p>
 If you program your data processing pipeline in C, and you achieve a
 100x speedup (not unusual), now those 5 hours turn into <b>180 seconds</b>
@@ -419,17 +415,14 @@ than listening to Stairway to Heaven).
 </p>
 </div>
 </div>
-
 </div>
 
-<div id="outline-container-4" class="outline-2">
+<div id="outline-container-sec-4" class="outline-2">
 <h2 id="sec-4">The Bottom Line</h2>
 <div class="outline-text-2" id="text-4">
-
-
 <p>
 My own approach is to use interpreted languages like Python, R,
-Octave/Matlab, etc, for prototyping &mdash; that is, for exploring small
+Octave/Matlab, etc, for prototyping &#x2014; that is, for exploring small
 amounts of data, for developing an approach, and algorithms, for
 analysing data, and for generating graphics. When I have a
 computation, or a simulation, or a series of operations that are
@@ -437,18 +430,14 @@ time-consuming, I think about implementing them in C. Interpreted
 languages for <b>prototyping</b>, and C for <b>performance</b>.
 </p>
 
-<hr/>
-
+<hr  />
+</div>
 </div>
 
-</div>
-
-<div id="outline-container-5" class="outline-2">
+<div id="outline-container-sec-5" class="outline-2">
 <h2 id="sec-5">References</h2>
 <div class="outline-text-2" id="text-5">
-
-
-<ul>
+<ul class="org-ul">
 <li>A classic reference book: <a href="https://en.wikipedia.org/wiki/The_C_Programming_Language_(book)">The C Programming Language</a> by Kernighan &amp; Ritchie
 </li>
 <li><a href="http://radar.oreilly.com/2012/06/why-learn-c.html">Why learn C?</a> (<a href="http://youtu.be/hHySVnJzADM">YouTube interview</a>)
@@ -472,27 +461,24 @@ languages for <b>prototyping</b>, and C for <b>performance</b>.
 <li><a href="http://en.wikipedia.org/wiki/C_standard_library">C standard library</a>
 </li>
 <li>A book on doing statistics with C using the <a href="http://apophenia.sourceforge.net/">Apophenia</a> library:
-  <a href="http://modelingwithdata.org/about_the_book.html">Modeling With Data</a> by Ben Klemens (see Chapter 1 for an argument in
-  favour of using C for statistical analyses, and Chapter 2 for a
-  tutorial on programming in C)
+<a href="http://modelingwithdata.org/about_the_book.html">Modeling With Data</a> by Ben Klemens (see Chapter 1 for an argument in
+favour of using C for statistical analyses, and Chapter 2 for a
+tutorial on programming in C)
 </li>
 <li>A tip-a-day on C <a href="http://modelingwithdata.org/arch/00000049.htm">here</a> by Ben Klemens
 </li>
 <li><a href="http://shop.oreilly.com/product/0636920025108.do">21st Century C</a> by Ben Klemens, excellent demos of modern use of C in
-  the age of scripting languages like Python, R, etc
+the age of scripting languages like Python, R, etc
 </li>
 <li><a href="http://pragprog.com/magazines/2011-03/punk-rock-languages">Punk Rock Languages</a> A Polemic by Chris Adamson
 </li>
 <li><a href="http://www.paulgraham.com/head.html">Holding a Program in One's Head</a> by Paul Graham
 </li>
 </ul>
-
-
 </div>
 </div>
 </div>
-
-<div id="postamble">
+<div id="postamble" class="status">
 <hr />Paul Gribble | Summer 2012<br><b>support this project with bitcoin</b>:1Nh3UDeJX1zhcnHNS5jd6EnfqTKZakyJhU<br>This <span xmlns:dct="http://purl.org/dc/terms/" href="http://purl.org/dc/dcmitype/Text" rel="dct:type">work</span> is licensed under a <a rel="license" href="http://creativecommons.org/licenses/by-nc-sa/3.0/">Creative Commons Attribution-NonCommercial-ShareAlike 3.0 Unported License</a><br><a rel="license" href="http://creativecommons.org/licenses/by-nc-sa/3.0/"><img alt="Creative Commons License" style="border-width:0" src="http://i.creativecommons.org/l/by-nc-sa/3.0/80x15.png" /></a><br />
 </div>
 </body>

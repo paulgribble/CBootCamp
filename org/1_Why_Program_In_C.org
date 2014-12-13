@@ -5,10 +5,6 @@
 #+EMAIL:     paul@gribblelab.org
 #+DATE:      Summer 2012
 
------
-[TABLE-OF-CONTENTS]
------
-
 * What is C?
 
 C is a high-level programming language that was first developed by

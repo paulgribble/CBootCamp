@@ -1,65 +1,94 @@
-<?xml version="1.0" encoding="iso-8859-1"?>
+<?xml version="1.0" encoding="utf-8"?>
 <!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Strict//EN"
-               "http://www.w3.org/TR/xhtml1/DTD/xhtml1-strict.dtd">
+"http://www.w3.org/TR/xhtml1/DTD/xhtml1-strict.dtd">
 <html xmlns="http://www.w3.org/1999/xhtml" lang="en" xml:lang="en">
 <head>
 <title>13. Debugging</title>
-<meta http-equiv="Content-Type" content="text/html;charset=iso-8859-1"/>
-<meta name="title" content="13. Debugging"/>
-<meta name="generator" content="Org-mode"/>
-<meta name="generated" content="Summer 2012"/>
-<meta name="author" content="Paul Gribble"/>
-<meta name="description" content=""/>
-<meta name="keywords" content=""/>
+<!-- 2014-12-12 Fri 21:22 -->
+<meta  http-equiv="Content-Type" content="text/html;charset=utf-8" />
+<meta  name="generator" content="Org-mode" />
+<meta  name="author" content="Paul Gribble" />
 <style type="text/css">
  <!--/*--><![CDATA[/*><!--*/
-  html { font-family: Times, serif; font-size: 12pt; }
   .title  { text-align: center; }
-  .todo   { color: red; }
+  .todo   { font-family: monospace; color: red; }
   .done   { color: green; }
-  .tag    { background-color: #add8e6; font-weight:normal }
-  .target { }
+  .tag    { background-color: #eee; font-family: monospace;
+            padding: 2px; font-size: 80%; font-weight: normal; }
   .timestamp { color: #bebebe; }
   .timestamp-kwd { color: #5f9ea0; }
-  .right  {margin-left:auto; margin-right:0px;  text-align:right;}
-  .left   {margin-left:0px;  margin-right:auto; text-align:left;}
-  .center {margin-left:auto; margin-right:auto; text-align:center;}
-  p.verse { margin-left: 3% }
+  .right  { margin-left: auto; margin-right: 0px;  text-align: right; }
+  .left   { margin-left: 0px;  margin-right: auto; text-align: left; }
+  .center { margin-left: auto; margin-right: auto; text-align: center; }
+  .underline { text-decoration: underline; }
+  #postamble p, #preamble p { font-size: 90%; margin: .2em; }
+  p.verse { margin-left: 3%; }
   pre {
-	border: 1pt solid #AEBDCC;
-	background-color: #F3F5F7;
-	padding: 5pt;
-	font-family: courier, monospace;
-        font-size: 90%;
-        overflow:auto;
+    border: 1px solid #ccc;
+    box-shadow: 3px 3px 3px #eee;
+    padding: 8pt;
+    font-family: monospace;
+    overflow: auto;
+    margin: 1.2em;
   }
-  table { border-collapse: collapse; }
-  td, th { vertical-align: top;  }
-  th.right  { text-align:center;  }
-  th.left   { text-align:center;   }
-  th.center { text-align:center; }
-  td.right  { text-align:right;  }
-  td.left   { text-align:left;   }
-  td.center { text-align:center; }
+  pre.src {
+    position: relative;
+    overflow: visible;
+    padding-top: 1.2em;
+  }
+  pre.src:before {
+    display: none;
+    position: absolute;
+    background-color: white;
+    top: -10px;
+    right: 10px;
+    padding: 3px;
+    border: 1px solid black;
+  }
+  pre.src:hover:before { display: inline;}
+  pre.src-sh:before    { content: 'sh'; }
+  pre.src-bash:before  { content: 'sh'; }
+  pre.src-emacs-lisp:before { content: 'Emacs Lisp'; }
+  pre.src-R:before     { content: 'R'; }
+  pre.src-perl:before  { content: 'Perl'; }
+  pre.src-java:before  { content: 'Java'; }
+  pre.src-sql:before   { content: 'SQL'; }
+
+  table { border-collapse:collapse; }
+  caption.t-above { caption-side: top; }
+  caption.t-bottom { caption-side: bottom; }
+  td, th { vertical-align:top;  }
+  th.right  { text-align: center;  }
+  th.left   { text-align: center;   }
+  th.center { text-align: center; }
+  td.right  { text-align: right;  }
+  td.left   { text-align: left;   }
+  td.center { text-align: center; }
   dt { font-weight: bold; }
-  div.figure { padding: 0.5em; }
-  div.figure p { text-align: center; }
-  div.inlinetask {
-    padding:10px;
-    border:2px solid gray;
-    margin:10px;
+  .footpara:nth-child(2) { display: inline; }
+  .footpara { display: block; }
+  .footdef  { margin-bottom: 1em; }
+  .figure { padding: 1em; }
+  .figure p { text-align: center; }
+  .inlinetask {
+    padding: 10px;
+    border: 2px solid gray;
+    margin: 10px;
     background: #ffffcc;
   }
+  #org-div-home-and-up
+   { text-align: right; font-size: 70%; white-space: nowrap; }
   textarea { overflow-x: auto; }
-  .linenr { font-size:smaller }
-  .code-highlighted {background-color:#ffff00;}
-  .org-info-js_info-navigation { border-style:none; }
-  #org-info-js_console-label { font-size:10px; font-weight:bold;
-                               white-space:nowrap; }
-  .org-info-js_search-highlight {background-color:#ffff00; color:#000000;
-                                 font-weight:bold; }
+  .linenr { font-size: smaller }
+  .code-highlighted { background-color: #ffff00; }
+  .org-info-js_info-navigation { border-style: none; }
+  #org-info-js_console-label
+    { font-size: 10px; font-weight: bold; white-space: nowrap; }
+  .org-info-js_search-highlight
+    { background-color: #ffff00; color: #000000; font-weight: bold; }
   /*]]>*/-->
-</style><link rel="stylesheet" type="text/css" href="mystyle.css" /><script>(function(i,s,o,g,r,a,m){i['GoogleAnalyticsObject']=r;i[r]=i[r]||function(){(i[r].q=i[r].q||[]).push(arguments)},i[r].l=1*new Date();a=s.createElement(o),m=s.getElementsByTagName(o)[0];a.async=1;a.src=g;m.parentNode.insertBefore(a,m)})(window,document,'script','//www.google-analytics.com/analytics.js','ga');ga('create', 'UA-52544521-1', 'auto');ga('send', 'pageview');</script>
+</style>
+<link rel="stylesheet" type="text/css" href="mystyle.css" /><script>(function(i,s,o,g,r,a,m){i['GoogleAnalyticsObject']=r;i[r]=i[r]||function(){(i[r].q=i[r].q||[]).push(arguments)},i[r].l=1*new Date();a=s.createElement(o),m=s.getElementsByTagName(o)[0];a.async=1;a.src=g;m.parentNode.insertBefore(a,m)})(window,document,'script','//www.google-analytics.com/analytics.js','ga');ga('create', 'UA-52544521-1', 'auto');ga('send', 'pageview');</script>
 <script type="text/javascript">
 /*
 @licstart  The following is the entire license notice for the
@@ -106,25 +135,10 @@ for the JavaScript code in this tag.
  }
 /*]]>*///-->
 </script>
-
 </head>
 <body>
-<div id="org-div-home-and-up" style="text-align:right;font-size:70%;white-space:nowrap;">
- <a accesskey="h" href="index.html"> UP </a>
- |
- <a accesskey="H" href="index.html"> HOME </a>
-</div>
-
-<div id="preamble">
-
-</div>
-
 <div id="content">
 <h1 class="title">13. Debugging</h1>
-
-
-
-<hr/>
 <div id="table-of-contents">
 <h2>Table of Contents</h2>
 <div id="text-table-of-contents">
@@ -161,22 +175,12 @@ for the JavaScript code in this tag.
 </div>
 </div>
 
-<hr/>
-
-
-<div id="outline-container-1" class="outline-2">
+<div id="outline-container-sec-1" class="outline-2">
 <h2 id="sec-1">the GNU Project Debugger gdb</h2>
 <div class="outline-text-2" id="text-1">
-
-
-
-</div>
-
-<div id="outline-container-1-1" class="outline-3">
+</div><div id="outline-container-sec-1-1" class="outline-3">
 <h3 id="sec-1-1">What is a symbolic debugger?</h3>
 <div class="outline-text-3" id="text-1-1">
-
-
 <p>
 A debugger is a program that runs other programs, and provides the
 ability to control the execution of that program, for example stepping
@@ -185,14 +189,11 @@ running. When your program crashes, and UNIX gives you a vague error
 message, a debugger will help you figure out where it is crashing, and
 (with the assistance of your brain) why it is crashing.
 </p>
-
 </div>
 
-<div id="outline-container-1-1-1" class="outline-4">
+<div id="outline-container-sec-1-1-1" class="outline-4">
 <h4 id="sec-1-1-1">Why not use printf()?</h4>
 <div class="outline-text-4" id="text-1-1-1">
-
-
 <p>
 A quick and easy method of debugging that doesn't require a separate
 debugger program, is to sprinkle your code with <code>printf()</code> statements
@@ -200,6 +201,7 @@ that writes to the screen, the values of various variables that you
 think are relevant and related to a crash (or other error). Some
 people call this adding "trace code" to your program.
 </p>
+
 <p>
 Disadvantages of debugging using trace code are that you may need
 <b>many</b> <code>printf()</code> statements all over your program, and it becomes a
@@ -216,14 +218,11 @@ the program of the crash, etc).
 </p>
 </div>
 </div>
-
 </div>
 
-<div id="outline-container-1-2" class="outline-3">
+<div id="outline-container-sec-1-2" class="outline-3">
 <h3 id="sec-1-2">Compiling your program for gdb</h3>
 <div class="outline-text-3" id="text-1-2">
-
-
 <p>
 To allow gdb to run your program, you must compile your program with a
 special compiler flag, <code>-g</code>. Here is a simple example of a program we
@@ -231,7 +230,7 @@ will use to illustrate the gdb debugger, you can download it here:
 <a href="code/debug/go.c">go.c</a>:
 </p>
 
-
+<div class="org-src-container">
 
 <pre class="src src-c"><span style="color: #483d8b;">#include</span> <span style="color: #8b2252;">&lt;stdio.h&gt;</span>
 <span style="color: #483d8b;">#include</span> <span style="color: #8b2252;">&lt;stdlib.h&gt;</span>
@@ -288,15 +287,14 @@ will use to illustrate the gdb debugger, you can download it here:
   <span style="color: #a020f0;">return</span> 0;
 }
 </pre>
-
+</div>
 
 <p>
 Here is an example of what it does:
 </p>
 
-
-
-<pre class="example">plg@wildebeest:~/Desktop/CBootCamp/code/debug$ gcc -g -o go go.c
+<pre class="example">
+plg@wildebeest:~/Desktop/CBootCamp/code/debug$ gcc -g -o go go.c
 plg@wildebeest:~/Desktop/CBootCamp/code/debug$ ./go
 enter a string (max 256 chars): TheDude
 TheDude
@@ -310,21 +308,17 @@ enter value of vec[4]:5
 vec = {3,1,4,1,5}
 </pre>
 
-
 <p>
 Note that we compiled this using the <code>-g</code> compiler flag. This prepares
 it to be used by the <code>gdb</code> debugger.
 </p>
-
+</div>
 </div>
 
-</div>
 
-<div id="outline-container-1-3" class="outline-3">
+<div id="outline-container-sec-1-3" class="outline-3">
 <h3 id="sec-1-3">Stack frames</h3>
 <div class="outline-text-3" id="text-1-3">
-
-
 <p>
 We've already talked about the <b>stack</b> when we talked about how
 variables can be allocated in C. This concept comes into play again,
@@ -332,6 +326,7 @@ together with a concept called a <b>frame</b>, now. There is a detailed
 tutorial-style explanation of these concepts <a href="http://www.dirac.org/linux/gdb/02a-Memory_Layout_And_The_Stack.php#wherearewegoingtogo">here</a>. For now, we will go
 over the highlights and the main concept.
 </p>
+
 <p>
 The stack (which we learned about already) is actually made up of
 <b>stack frames</b>. Each frame represents a function call. So as you call
@@ -340,6 +335,7 @@ the stack grows in size. As functions return (and exit), the stack
 shrinks as the stack frames are popped off of the stack. Wikipedia has
 a very thorough description of how this works <a href="http://en.wikipedia.org/wiki/Stack_frame#Structure">here</a>.
 </p>
+
 <p>
 Whenever a function is called in your program, an area of memory in
 the stack is set aside for that function (its stack frame). This
@@ -348,49 +344,44 @@ declared in that function, the line number of the function that called
 the present function, and inputs arguments for the function. We can
 inspect these things in gdb.
 </p>
+
 <p>
 In particular, when your program crashes, you can ask gdb to tell you
 where it crashed, and you can ask for a <b>stack trace</b>, which is a list
 of what stack frames are on the stack.
 </p>
-
 </div>
 
-<div id="outline-container-1-3-1" class="outline-4">
+<div id="outline-container-sec-1-3-1" class="outline-4">
 <h4 id="sec-1-3-1">Inspecting the stack using gdb</h4>
 <div class="outline-text-4" id="text-1-3-1">
-
-
 <p>
 As an example, let's change the code above to introduce a bug that causes the program to crash. Let's comment out line 7:
 </p>
 
-
+<div class="org-src-container">
 
 <pre class="src src-c"><span style="color: #b22222;">//  </span><span style="color: #b22222;">s = calloc(sizeof(char), maxsize);</span>
 </pre>
-
+</div>
 
 <p>
 Now when we run our program this happens:
 </p>
 
-
-
-<pre class="example">plg@wildebeest:~/Desktop/CBootCamp/code/debug$ gcc -g -o go go.c
+<pre class="example">
+plg@wildebeest:~/Desktop/CBootCamp/code/debug$ gcc -g -o go go.c
 plg@wildebeest:~/Desktop/CBootCamp/code/debug$ ./go
 enter a string (max 256 chars): TheDudeAbides
 Segmentation fault (core dumped)
 </pre>
 
-
 <p>
 So let's run the code from <code>gdb</code> now:
 </p>
 
-
-
-<pre class="example">plg@wildebeest:~/Desktop/CBootCamp/code/debug$ gdb go
+<pre class="example">
+plg@wildebeest:~/Desktop/CBootCamp/code/debug$ gdb go
 GNU gdb (Ubuntu/Linaro 7.4-2012.04-0ubuntu2) 7.4-2012.04
 Copyright (C) 2012 Free Software Foundation, Inc.
 License GPLv3+: GNU GPL version 3 or later &lt;http://gnu.org/licenses/gpl.html&gt;
@@ -408,10 +399,9 @@ enter a string (max 256 chars): TheDudeAbides
 Program received signal SIGSEGV, Segmentation fault.
 _IO_vfscanf_internal (s=&lt;optimized out&gt;, format=&lt;optimized out&gt;, 
     argptr=0x7fffffffe048, errp=0x0) at vfscanf.c:1095
-1095    vfscanf.c: No such file or directory.
-(gdb) 
+1095	vfscanf.c: No such file or directory.
+(gdb)
 </pre>
-
 
 <p>
 We launch with <code>gdb go</code>, and then we type the <code>gdb</code> command <code>run</code> to
@@ -420,18 +410,16 @@ slightly obscure error message. We can type the command <code>backtrace</code> t
 get a list of the stack frames:
 </p>
 
-
-
-<pre class="example">(gdb) backtrace
+<pre class="example">
+(gdb) backtrace
 #0  _IO_vfscanf_internal (s=&lt;optimized out&gt;, format=&lt;optimized out&gt;, 
     argptr=0x7fffffffe048, errp=0x0) at vfscanf.c:1095
 #1  0x00007ffff7a79fdd in __isoc99_scanf (format=&lt;optimized out&gt;)
     at isoc99_scanf.c:37
 #2  0x000000000040067f in getWord (maxsize=256) at go.c:9
 #3  0x00000000004007cc in main (argc=1, argv=0x7fffffffe258) at go.c:44
-(gdb) 
+(gdb)
 </pre>
-
 
 <p>
 What we see is a numbered list of stack frames. The one labeled <code>#3</code>
@@ -440,6 +428,7 @@ corresponds to the <code>main()</code> function, the one labeled <code>#2</code>
 function. The one labeled <code>#0</code> corresponds to some internal function
 used by <code>scanf()</code>.
 </p>
+
 <p>
 This list of stack frames give you a picture of where you are in your
 program, and what functions have called what. Note that each stack
@@ -449,6 +438,7 @@ occured at <b>line 9</b> of the <b>go.c</b> file (see the end of the entry
 labeled <code>#2</code>, that shows <code>at go.c:9</code>. We know from the entry labeled
 <code>#1</code> that the offending function call was to <code>scanf()</code>.
 </p>
+
 <p>
 Now we can look at our code listing and try to figure out why
 <code>scanf()</code> failed. We've only given it two arguments, a format string,
@@ -457,14 +447,11 @@ fine ("%s") and so what we can do now is inspect the buffer using the <code>gdb<
 </p>
 </div>
 </div>
-
 </div>
 
-<div id="outline-container-1-4" class="outline-3">
+<div id="outline-container-sec-1-4" class="outline-3">
 <h3 id="sec-1-4">Breakpoints</h3>
 <div class="outline-text-3" id="text-1-4">
-
-
 <p>
 The <code>print</code> command will print out the value of a variable that is
 defined in the current stack. Let's try to print the <code>s</code> variable
@@ -477,9 +464,8 @@ command <code>break</code> to insert a breakpoint, and then the <code>run</code>
 run the program:
 </p>
 
-
-
-<pre class="example">plg@wildebeest:~/Desktop/CBootCamp/code/debug$ gdb go
+<pre class="example">
+plg@wildebeest:~/Desktop/CBootCamp/code/debug$ gdb go
 GNU gdb (Ubuntu/Linaro 7.4-2012.04-0ubuntu2) 7.4-2012.04
 Copyright (C) 2012 Free Software Foundation, Inc.
 License GPLv3+: GNU GPL version 3 or later &lt;http://gnu.org/licenses/gpl.html&gt;
@@ -496,10 +482,9 @@ Breakpoint 1 at 0x400666: file go.c, line 9.
 Starting program: /home/plg/Desktop/CBootCamp/code/debug/go 
 
 Breakpoint 1, getWord (maxsize=256) at go.c:9
-9         scanf("%s", s);
-(gdb) 
+9	  scanf("%s", s);
+(gdb)
 </pre>
-
 
 <p>
 Now <code>gdb</code> is waiting for input, and we are stopped just short of
@@ -507,25 +492,20 @@ line 9. We can now inspect the value of some variables, specifically
 let's look at our character buffer <code>s</code>.
 </p>
 </div>
-
 </div>
 
-<div id="outline-container-1-5" class="outline-3">
+<div id="outline-container-sec-1-5" class="outline-3">
 <h3 id="sec-1-5">Inspecting a variable with the gdb print command</h3>
 <div class="outline-text-3" id="text-1-5">
-
-
 <p>
 We can use the <code>gdb</code> <code>print</code> command to inspect the value of a variable on the stack:
 </p>
 
-
-
-<pre class="example">(gdb) print s
+<pre class="example">
+(gdb) print s
 $1 = 0x400865 "H\205\355t\034\061\333\017\037@"
-(gdb) 
+(gdb)
 </pre>
-
 
 <p>
 What we see is a little bizarre, what we see in quotes is a bunch of
@@ -537,15 +517,15 @@ actually allocated any memory. So when we ask <code>gdb</code> to <code>print s<
 is going to whatever the (uninitialized) pointer <code>s</code> points to (junk)
 and printing that out.
 </p>
+
 <p>
 Let's fix our bug and re-run the program and see how it
 differs. Un-comment out the line that you commented out above, so
 <code>calloc()</code> is used to allocate memory. Now let's re-run using <code>gdb</code>, insert a breakpoint again, and see what the value of <code>s</code> is:
 </p>
 
-
-
-<pre class="example">plg@wildebeest:~/Desktop/CBootCamp/code/debug$ gcc -g -o go go.c
+<pre class="example">
+plg@wildebeest:~/Desktop/CBootCamp/code/debug$ gcc -g -o go go.c
 plg@wildebeest:~/Desktop/CBootCamp/code/debug$ gdb go
 GNU gdb (Ubuntu/Linaro 7.4-2012.04-0ubuntu2) 7.4-2012.04
 Copyright (C) 2012 Free Software Foundation, Inc.
@@ -563,32 +543,29 @@ Breakpoint 1 at 0x4006bc: file go.c, line 9.
 Starting program: /home/plg/Desktop/CBootCamp/code/debug/go 
 
 Breakpoint 1, getWord (maxsize=256) at go.c:9
-9         scanf("%s", s);
+9	  scanf("%s", s);
 (gdb) print s
 $1 = 0x602010 ""
-(gdb) 
+(gdb)
 </pre>
-
 
 <p>
 Now we see what we expected, <code>s</code> is an empty string "". Let's now put another breakpoint at line 10, so that we can verify that once we enter a string, it's actually in there:
 </p>
 
-
-
-<pre class="example">(gdb) break 10
+<pre class="example">
+(gdb) break 10
 Breakpoint 2 at 0x4006d5: file go.c, line 10.
 (gdb) continue
 Continuing.
 enter a string (max 256 chars): TheDudeAbides
 
 Breakpoint 2, getWord (maxsize=256) at go.c:10
-10        return s;
+10	  return s;
 (gdb) print s
 $2 = 0x602010 "TheDudeAbides"
-(gdb) 
+(gdb)
 </pre>
-
 
 <p>
 We insert a new breakpoint at line 10, we issue the <code>continue</code>
@@ -597,43 +574,35 @@ see the value of the <code>s</code> variable again, and indeed, it contains our
 string. Good.
 </p>
 </div>
-
 </div>
 
-<div id="outline-container-1-6" class="outline-3">
+<div id="outline-container-sec-1-6" class="outline-3">
 <h3 id="sec-1-6">Stepping</h3>
 <div class="outline-text-3" id="text-1-6">
-
-
 <p>
 Above we used the <code>continue</code> command to continue execution of our
 program. One can also take individual steps, line by line, using the
 <code>step</code> command in <code>gdb</code>.
 </p>
 </div>
-
 </div>
 
-<div id="outline-container-1-7" class="outline-3">
+<div id="outline-container-sec-1-7" class="outline-3">
 <h3 id="sec-1-7">More breakpoints</h3>
 <div class="outline-text-3" id="text-1-7">
-
-
 <p>
 We can list the current breakpoints with the <code>info breakpoints</code> command. Here's what we get if we do that with the code that we have been working with above:
 </p>
 
-
-
-<pre class="example">(gdb) info breakpoints
+<pre class="example">
+(gdb) info breakpoints
 Num     Type           Disp Enb Address            What
 1       breakpoint     keep y   0x00000000004006bc in getWord at go.c:9
-        breakpoint already hit 1 time
+	breakpoint already hit 1 time
 2       breakpoint     keep y   0x00000000004006d5 in getWord at go.c:10
-        breakpoint already hit 1 time
-(gdb) 
+	breakpoint already hit 1 time
+(gdb)
 </pre>
-
 
 <p>
 We can use the <code>disable</code> command to disable individual
@@ -641,37 +610,32 @@ breakpoints. They are named by the <code>Num</code> column in the info
 listing. So to disable the breakpoint on line 9 above we would issue
 the command <code>disable 1</code>.
 </p>
+
 <p>
 We can delete breakpoints altogether using the <code>delete</code> or <code>clear</code>
 commands. We can issue the command <code>delete 2</code> to delete the line 10
 breakpoint above. We can also use the <code>clear</code> command to delete
 breakpoints by location like this: <code>clear go.c:10</code>
 </p>
-
 </div>
 </div>
-
 </div>
 
-<div id="outline-container-2" class="outline-2">
+
+<div id="outline-container-sec-2" class="outline-2">
 <h2 id="sec-2">Gotchas</h2>
 <div class="outline-text-2" id="text-2">
-
-
 <p>
 There are a number of classic <b>gotchas</b> in C to watch out for when
 trying to figure out why your program is not running as expected (or
 not running at all). Check for these first when debugging, they are
 common.
 </p>
-
 </div>
 
-<div id="outline-container-2-1" class="outline-3">
+<div id="outline-container-sec-2-1" class="outline-3">
 <h3 id="sec-2-1">Integer Math</h3>
 <div class="outline-text-3" id="text-2-1">
-
-
 <p>
 Like Python, in C when you write mathematical expressions, be sure to
 <b>include decimal places for all numbers</b> (that is, unless you actually
@@ -679,7 +643,7 @@ want to do integer math). What I mean is this. What do you think the
 following code will print to the screen?
 </p>
 
-
+<div class="org-src-container">
 
 <pre class="src src-C"><span style="color: #483d8b;">#include</span> <span style="color: #8b2252;">&lt;stdio.h&gt;</span>
 
@@ -692,26 +656,25 @@ following code will print to the screen?
   <span style="color: #a020f0;">return</span> 0;
 }
 </pre>
-
+</div>
 
 <p>
 If you guessed this, you are correct:
 </p>
 
-
-
-<pre class="example">kinetic energy = 0.000
+<pre class="example">
+kinetic energy = 0.000
 </pre>
-
 
 <p>
 Why is this? It's because the C expression <code>(1/2)</code> in line 7 of the
 code is evaluated as the <b>integer</b> <code>1</code> divided by the <b>integer</b> 2,
 which is the <b>integer</b> <code>0</code>. If we want an expression to represent a
-floating-point value, then we have to <b>use floating-point syntax for all numbers</b>:
+floating-point value, then we have to <b>use floating-point syntax for
+all numbers</b>:
 </p>
 
-
+<div class="org-src-container">
 
 <pre class="src src-C"><span style="color: #483d8b;">#include</span> <span style="color: #8b2252;">&lt;stdio.h&gt;</span>
 
@@ -724,31 +687,28 @@ floating-point value, then we have to <b>use floating-point syntax for all numbe
   <span style="color: #a020f0;">return</span> 0;
 }
 </pre>
+</div>
 
-
-
-<pre class="example">kinetic energy = 25.312
+<pre class="example">
+kinetic energy = 25.312
 </pre>
-
 
 <p>
 As a general rule, I always put <b>.0</b> at the end of all numbers in my C
 code.
 </p>
 </div>
-
 </div>
 
-<div id="outline-container-2-2" class="outline-3">
+<div id="outline-container-sec-2-2" class="outline-3">
 <h3 id="sec-2-2">Floating-point Math</h3>
 <div class="outline-text-3" id="text-2-2">
-
-
 <p>
 Computers use bits (0s and 1s) to represent data, including
 floating-point numbers. This means numbers that we typically represent
 using base-10 must be represented in base-2 in the computer.
 </p>
+
 <p>
 There are numbers we can express in one way (like the fraction 1/3) that we cannot express precisely in base-10
 floating-point. We would have to write <code>1.333333</code> and keep going ad
@@ -756,6 +716,7 @@ infinitum with the <code>.3333</code>. Similarly, there are numbers that we can
 express easily in base-10 that cannot be precisely represented in
 base-2 (one gets infinitely repeating sequences).
 </p>
+
 <p>
 Why am I telling you this? The reason is, that when using
 floating-point representations like <code>float</code> and <code>double</code> in C (and the
@@ -763,9 +724,12 @@ same is true in other languages), there is always some amount of
 <b>rounding error</b> involve in the representation of numbers. There are
 also a host of other issues one encounters when doing so-called
 <b>floating-point arithmetic</b>, there is an excellent summary of all the
-issues here: <a href="http://docs.oracle.com/cd/E19957-01/806-3568/ncg_goldberg.html">What Every Computer Scientist Should Know About Floating-Point Arithmetic</a>. There is a slightly less intimidating
-explanation (in the context of Python) here: <a href="http://docs.python.org/tutorial/floatingpoint.html">Floating Point Arithmetic: Issues and Limitations</a>.
+issues here: <a href="http://docs.oracle.com/cd/E19957-01/806-3568/ncg_goldberg.html">What Every Computer Scientist Should Know About
+Floating-Point Arithmetic</a>. There is a slightly less intimidating
+explanation (in the context of Python) here: <a href="http://docs.python.org/tutorial/floatingpoint.html">Floating Point
+Arithmetic: Issues and Limitations</a>.
 </p>
+
 <p>
 The bottom line is, one must always be aware of the limitations of
 floating-point representation, and precision issues like rounding
@@ -774,7 +738,7 @@ error. One example: *never use boolean operators like <code>==</code> or <code>&
 expressions. Here is an example of how you might be led astray. What is the output of this program?
 </p>
 
-
+<div class="org-src-container">
 
 <pre class="src src-C"><span style="color: #483d8b;">#include</span> <span style="color: #8b2252;">&lt;stdio.h&gt;</span>
 
@@ -786,22 +750,21 @@ expressions. Here is an example of how you might be led astray. What is the outp
   <span style="color: #a020f0;">return</span> 0;
 }
 </pre>
-
+</div>
 
 <p>
 If you guessed <code>FALSE</code> then you are correct. Here is the output:
 </p>
 
-
-
-<pre class="example">FALSE
+<pre class="example">
+FALSE
 x + y = 0.30000000000000004441
 </pre>
-
 
 <p>
 You can see the rounding error here.
 </p>
+
 <p>
 One option is when you need to compare two values to see if they are
 "equal", instead check to see if their difference is below some
@@ -809,12 +772,15 @@ minimum threshold you decide in advance is "equal enough". If you are
 dealing with small expected differences in your work however, this may
 not be a suitable solution.
 </p>
+
 <p>
 Another option is to use a library for arbitrary-precision math such as <a href="http://gmplib.org">GMP</a> that allows for arbitrary precision representation of numbers. The drawback however is relatively slow speed.
 </p>
+
 <p>
 Another web page discussing a floating-point test suite: <a href="http://www.tybor.com/">here</a>
 </p>
+
 <p>
 The <a href="https://en.wikipedia.org/wiki/C99">C99</a> standard introduced support for the <a href="https://en.wikipedia.org/wiki/IEEE_floating_point">IEEE 754</a> floating-point
 standard. The IEEE 754 standard specifies things like arithmetic
@@ -823,40 +789,36 @@ arithmetic operations and exception handling. If floating-point math
 is a concern in your code, you should look into compiling your code
 with the <code>-std=c99</code> flag.
 </p>
+
 <p>
 Here is a blog post that proposes (and shows sample code) for an
 explicit test of whether different rounding options in the IEEE 754
 standard result in significant changes in your computation (and hence
 whether you need to worry): <a href="http://www.scinethpc.ca/2011/11/testing-roundoff/">Testing Roundoff</a>.
 </p>
+
 <p>
 Here is another description of floating-point roundoff error, and some
 real-world examples involving a stock market, a rocket, and a missle:
 <a href="http://mathworld.wolfram.com/RoundoffError.html">Roundoff Error</a>.
 </p>
 </div>
-
 </div>
 
-<div id="outline-container-2-3" class="outline-3">
+<div id="outline-container-sec-2-3" class="outline-3">
 <h3 id="sec-2-3">Out of Bounds Array Indexing</h3>
 <div class="outline-text-3" id="text-2-3">
-
-
 <p>
 x
 </p>
-
 </div>
 </div>
-
 </div>
 
-<div id="outline-container-3" class="outline-2">
+
+<div id="outline-container-sec-3" class="outline-2">
 <h2 id="sec-3">Tricky Code</h2>
 <div class="outline-text-2" id="text-3">
-
-
 <p>
 As a general rule I prefer explicit code to using "tricks" to make
 code extremely short. There is a trade-off, of course. Short, tricky
@@ -866,13 +828,15 @@ code after some period of time. Finding the optimal tradeoff between
 concise and clear is something you should be thinking about, and
 something that will be different for everyone.
 </p>
+
 <p>
 If you want to see some examples of ridiculously "tricky" code, there
-is a competition called <a href="http://www.ioccc.org">The International Obfuscated C Code Contest</a>. Here is an example, from the <a href="http://www.ioccc.org/years.html#2011">2011 IOCCC Competition</a>, the
+is a competition called <a href="http://www.ioccc.org">The International Obfuscated C Code
+Contest</a>. Here is an example, from the <a href="http://www.ioccc.org/years.html#2011">2011 IOCCC Competition</a>, the
 entry called <a href="http://www.ioccc.org/years.html#2011_eastman">eastman</a> by Peter Eastman:
 </p>
 
-
+<div class="org-src-container">
 
 <pre class="src src-c"><span style="color: #483d8b;">#include</span> <span style="color: #8b2252;">&lt;stdio.h&gt;</span>
 <span style="color: #483d8b;">#include</span> <span style="color: #8b2252;">&lt;math.h&gt;</span>
@@ -897,30 +861,24 @@ b%e)==0)printf(<span style="color: #8b2252;">"\x1B[%dm "</span>,g*g&gt;1-h
          n)&lt;i||l&gt;e-i?p=-p
              ,-n:n;}}
 </pre>
-
+</div>
 
 <p>
 You can compile and run it with the following two commands:
 </p>
 
-
-
-<pre class="example">gcc -lm eastman.c -o eastman
+<pre class="example">
+gcc -lm eastman.c -o eastman
 ./eastman
 </pre>
-
-
-
+</div>
 </div>
 
-</div>
 
-<div id="outline-container-4" class="outline-2">
+<div id="outline-container-sec-4" class="outline-2">
 <h2 id="sec-4">Links</h2>
 <div class="outline-text-2" id="text-4">
-
-
-<ul>
+<ul class="org-ul">
 <li><a href="http://www.unknownroad.com/rtfm/gdbtut/gdbtoc.html">RMS's gdb Debugger Tutorial</a>
 </li>
 <li><a href="http://www.dirac.org/linux/gdb/">Using GNU's GDB Debugger</a>
@@ -936,14 +894,10 @@ You can compile and run it with the following two commands:
 <li><a href="http://courses.cs.vt.edu/~cs3214/fall2011/projects/esh3-debugging.php">debugging tips using gdb and valgrind</a>
 </li>
 </ul>
-
-
-
 </div>
 </div>
 </div>
-
-<div id="postamble">
+<div id="postamble" class="status">
 <hr />Paul Gribble | Summer 2012<br><b>support this project with bitcoin</b>:1Nh3UDeJX1zhcnHNS5jd6EnfqTKZakyJhU<br>This <span xmlns:dct="http://purl.org/dc/terms/" href="http://purl.org/dc/dcmitype/Text" rel="dct:type">work</span> is licensed under a <a rel="license" href="http://creativecommons.org/licenses/by-nc-sa/3.0/">Creative Commons Attribution-NonCommercial-ShareAlike 3.0 Unported License</a><br><a rel="license" href="http://creativecommons.org/licenses/by-nc-sa/3.0/"><img alt="Creative Commons License" style="border-width:0" src="http://i.creativecommons.org/l/by-nc-sa/3.0/80x15.png" /></a><br />
 </div>
 </body>

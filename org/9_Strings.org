@@ -5,10 +5,6 @@
 #+EMAIL:     paul@gribblelab.org
 #+DATE:      Summer 2012
 
------
-[TABLE-OF-CONTENTS]
------
-
 I'll be honest, C is slightly awkward for dealing with character
 strings, especially compared to languages like Python.
 

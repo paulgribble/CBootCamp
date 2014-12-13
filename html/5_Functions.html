@@ -1,65 +1,94 @@
-<?xml version="1.0" encoding="iso-8859-1"?>
+<?xml version="1.0" encoding="utf-8"?>
 <!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Strict//EN"
-               "http://www.w3.org/TR/xhtml1/DTD/xhtml1-strict.dtd">
+"http://www.w3.org/TR/xhtml1/DTD/xhtml1-strict.dtd">
 <html xmlns="http://www.w3.org/1999/xhtml" lang="en" xml:lang="en">
 <head>
 <title>5. Functions</title>
-<meta http-equiv="Content-Type" content="text/html;charset=iso-8859-1"/>
-<meta name="title" content="5. Functions"/>
-<meta name="generator" content="Org-mode"/>
-<meta name="generated" content="Summer 2012"/>
-<meta name="author" content="Paul Gribble"/>
-<meta name="description" content=""/>
-<meta name="keywords" content=""/>
+<!-- 2014-12-12 Fri 21:22 -->
+<meta  http-equiv="Content-Type" content="text/html;charset=utf-8" />
+<meta  name="generator" content="Org-mode" />
+<meta  name="author" content="Paul Gribble" />
 <style type="text/css">
  <!--/*--><![CDATA[/*><!--*/
-  html { font-family: Times, serif; font-size: 12pt; }
   .title  { text-align: center; }
-  .todo   { color: red; }
+  .todo   { font-family: monospace; color: red; }
   .done   { color: green; }
-  .tag    { background-color: #add8e6; font-weight:normal }
-  .target { }
+  .tag    { background-color: #eee; font-family: monospace;
+            padding: 2px; font-size: 80%; font-weight: normal; }
   .timestamp { color: #bebebe; }
   .timestamp-kwd { color: #5f9ea0; }
-  .right  {margin-left:auto; margin-right:0px;  text-align:right;}
-  .left   {margin-left:0px;  margin-right:auto; text-align:left;}
-  .center {margin-left:auto; margin-right:auto; text-align:center;}
-  p.verse { margin-left: 3% }
+  .right  { margin-left: auto; margin-right: 0px;  text-align: right; }
+  .left   { margin-left: 0px;  margin-right: auto; text-align: left; }
+  .center { margin-left: auto; margin-right: auto; text-align: center; }
+  .underline { text-decoration: underline; }
+  #postamble p, #preamble p { font-size: 90%; margin: .2em; }
+  p.verse { margin-left: 3%; }
   pre {
-	border: 1pt solid #AEBDCC;
-	background-color: #F3F5F7;
-	padding: 5pt;
-	font-family: courier, monospace;
-        font-size: 90%;
-        overflow:auto;
+    border: 1px solid #ccc;
+    box-shadow: 3px 3px 3px #eee;
+    padding: 8pt;
+    font-family: monospace;
+    overflow: auto;
+    margin: 1.2em;
   }
-  table { border-collapse: collapse; }
-  td, th { vertical-align: top;  }
-  th.right  { text-align:center;  }
-  th.left   { text-align:center;   }
-  th.center { text-align:center; }
-  td.right  { text-align:right;  }
-  td.left   { text-align:left;   }
-  td.center { text-align:center; }
+  pre.src {
+    position: relative;
+    overflow: visible;
+    padding-top: 1.2em;
+  }
+  pre.src:before {
+    display: none;
+    position: absolute;
+    background-color: white;
+    top: -10px;
+    right: 10px;
+    padding: 3px;
+    border: 1px solid black;
+  }
+  pre.src:hover:before { display: inline;}
+  pre.src-sh:before    { content: 'sh'; }
+  pre.src-bash:before  { content: 'sh'; }
+  pre.src-emacs-lisp:before { content: 'Emacs Lisp'; }
+  pre.src-R:before     { content: 'R'; }
+  pre.src-perl:before  { content: 'Perl'; }
+  pre.src-java:before  { content: 'Java'; }
+  pre.src-sql:before   { content: 'SQL'; }
+
+  table { border-collapse:collapse; }
+  caption.t-above { caption-side: top; }
+  caption.t-bottom { caption-side: bottom; }
+  td, th { vertical-align:top;  }
+  th.right  { text-align: center;  }
+  th.left   { text-align: center;   }
+  th.center { text-align: center; }
+  td.right  { text-align: right;  }
+  td.left   { text-align: left;   }
+  td.center { text-align: center; }
   dt { font-weight: bold; }
-  div.figure { padding: 0.5em; }
-  div.figure p { text-align: center; }
-  div.inlinetask {
-    padding:10px;
-    border:2px solid gray;
-    margin:10px;
+  .footpara:nth-child(2) { display: inline; }
+  .footpara { display: block; }
+  .footdef  { margin-bottom: 1em; }
+  .figure { padding: 1em; }
+  .figure p { text-align: center; }
+  .inlinetask {
+    padding: 10px;
+    border: 2px solid gray;
+    margin: 10px;
     background: #ffffcc;
   }
+  #org-div-home-and-up
+   { text-align: right; font-size: 70%; white-space: nowrap; }
   textarea { overflow-x: auto; }
-  .linenr { font-size:smaller }
-  .code-highlighted {background-color:#ffff00;}
-  .org-info-js_info-navigation { border-style:none; }
-  #org-info-js_console-label { font-size:10px; font-weight:bold;
-                               white-space:nowrap; }
-  .org-info-js_search-highlight {background-color:#ffff00; color:#000000;
-                                 font-weight:bold; }
+  .linenr { font-size: smaller }
+  .code-highlighted { background-color: #ffff00; }
+  .org-info-js_info-navigation { border-style: none; }
+  #org-info-js_console-label
+    { font-size: 10px; font-weight: bold; white-space: nowrap; }
+  .org-info-js_search-highlight
+    { background-color: #ffff00; color: #000000; font-weight: bold; }
   /*]]>*/-->
-</style><link rel="stylesheet" type="text/css" href="mystyle.css" /><script>(function(i,s,o,g,r,a,m){i['GoogleAnalyticsObject']=r;i[r]=i[r]||function(){(i[r].q=i[r].q||[]).push(arguments)},i[r].l=1*new Date();a=s.createElement(o),m=s.getElementsByTagName(o)[0];a.async=1;a.src=g;m.parentNode.insertBefore(a,m)})(window,document,'script','//www.google-analytics.com/analytics.js','ga');ga('create', 'UA-52544521-1', 'auto');ga('send', 'pageview');</script>
+</style>
+<link rel="stylesheet" type="text/css" href="mystyle.css" /><script>(function(i,s,o,g,r,a,m){i['GoogleAnalyticsObject']=r;i[r]=i[r]||function(){(i[r].q=i[r].q||[]).push(arguments)},i[r].l=1*new Date();a=s.createElement(o),m=s.getElementsByTagName(o)[0];a.async=1;a.src=g;m.parentNode.insertBefore(a,m)})(window,document,'script','//www.google-analytics.com/analytics.js','ga');ga('create', 'UA-52544521-1', 'auto');ga('send', 'pageview');</script>
 <script type="text/javascript">
 /*
 @licstart  The following is the entire license notice for the
@@ -106,57 +135,8 @@ for the JavaScript code in this tag.
  }
 /*]]>*///-->
 </script>
-<script type="text/javascript" src="http://orgmode.org/mathjax/MathJax.js">
-/**
- *
- * @source: http://orgmode.org/mathjax/MathJax.js
- *
- * @licstart  The following is the entire license notice for the
- *  JavaScript code in http://orgmode.org/mathjax/MathJax.js.
- *
- * Copyright (C) 2012-2013  MathJax
- *
- * Licensed under the Apache License, Version 2.0 (the "License");
- * you may not use this file except in compliance with the License.
- * You may obtain a copy of the License at
- *
- *     http://www.apache.org/licenses/LICENSE-2.0
- *
- * Unless required by applicable law or agreed to in writing, software
- * distributed under the License is distributed on an "AS IS" BASIS,
- * WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied.
- * See the License for the specific language governing permissions and
- * limitations under the License.
- *
- * @licend  The above is the entire license notice
- * for the JavaScript code in http://orgmode.org/mathjax/MathJax.js.
- *
- */
-
-/*
-@licstart  The following is the entire license notice for the
-JavaScript code below.
-
-Copyright (C) 2012-2013 Free Software Foundation, Inc.
-
-The JavaScript code below is free software: you can
-redistribute it and/or modify it under the terms of the GNU
-General Public License (GNU GPL) as published by the Free Software
-Foundation, either version 3 of the License, or (at your option)
-any later version.  The code is distributed WITHOUT ANY WARRANTY;
-without even the implied warranty of MERCHANTABILITY or FITNESS
-FOR A PARTICULAR PURPOSE.  See the GNU GPL for more details.
-
-As additional permission under GNU GPL version 3 section 7, you
-may distribute non-source (e.g., minimized or compacted) forms of
-that code without the copy of the GNU GPL normally required by
-section 4, provided you include this license notice and a URL
-through which recipients can access the Corresponding Source.
-
-
-@licend  The above is the entire license notice
-for the JavaScript code below.
-*/
+<script type="text/javascript" src="http://orgmode.org/mathjax/MathJax.js"></script>
+<script type="text/javascript">
 <!--/*--><![CDATA[/*><!--*/
     MathJax.Hub.Config({
         // Only one of the two following lines, depending on user settings
@@ -199,22 +179,8 @@ for the JavaScript code below.
 </script>
 </head>
 <body>
-<div id="org-div-home-and-up" style="text-align:right;font-size:70%;white-space:nowrap;">
- <a accesskey="h" href="index.html"> UP </a>
- |
- <a accesskey="H" href="index.html"> HOME </a>
-</div>
-
-<div id="preamble">
-
-</div>
-
 <div id="content">
 <h1 class="title">5. Functions</h1>
-
-
-
-<hr/>
 <div id="table-of-contents">
 <h2>Table of Contents</h2>
 <div id="text-table-of-contents">
@@ -244,14 +210,9 @@ for the JavaScript code below.
 </div>
 </div>
 
-<hr/>
-
-
-<div id="outline-container-1" class="outline-2">
+<div id="outline-container-sec-1" class="outline-2">
 <h2 id="sec-1">Rationale</h2>
 <div class="outline-text-2" id="text-1">
-
-
 <p>
 Breaking your code down into discrete functions allows you to re-use
 code in intelligent ways, and to make your code more efficient
@@ -259,6 +220,7 @@ overall. You can use functions written by other people (by linking
 them to your own programs) and avoid having to write everything from
 scratch yourself.
 </p>
+
 <p>
 Writing functions to perform common tasks means that you can
 essentially write your own meta-language. For example <b>if</b> you have
@@ -266,7 +228,7 @@ functions already written to perform these tasks, your C program might
 look like this:
 </p>
 
-
+<div class="org-src-container">
 
 <pre class="src src-c"><span style="color: #483d8b;">#include</span> <span style="color: #8b2252;">&lt;stdio.h&gt;</span>
 
@@ -280,7 +242,7 @@ look like this:
      <span style="color: #a020f0;">return</span> 0;
 }
 </pre>
-
+</div>
 
 <p>
 The idea is that once we know what sorts of operations on our data we
@@ -289,14 +251,11 @@ subroutines), to <b>abstract</b> away the details, and provide us with a
 sort of high-level meta-language that we can use to carry out the
 steps we wish to.
 </p>
-
 </div>
 
-<div id="outline-container-1-1" class="outline-3">
+<div id="outline-container-sec-1-1" class="outline-3">
 <h3 id="sec-1-1">Abstraction</h3>
 <div class="outline-text-3" id="text-1-1">
-
-
 <p>
 Using functions to abstract away the details also means that as long
 as the function inputs and outputs are known, then the user doesn't
@@ -317,19 +276,16 @@ perhaps get faster (or more accurate, for example) functionality
 </p>
 </div>
 </div>
-
 </div>
 
-<div id="outline-container-2" class="outline-2">
+<div id="outline-container-sec-2" class="outline-2">
 <h2 id="sec-2">Defining a Function</h2>
 <div class="outline-text-2" id="text-2">
-
-
 <p>
 A function must be defined in the following way:
 </p>
 
-
+<div class="org-src-container">
 
 <pre class="src src-c"><span style="color: #228b22;">returnType</span> <span style="color: #0000ff;">functionName</span> (<span style="color: #228b22;">arg1Type</span> <span style="color: #a0522d;">arg1Name</span>, <span style="color: #228b22;">arg1Type</span> <span style="color: #a0522d;">arg2Name</span>) {
    function_statement;
@@ -337,7 +293,7 @@ A function must be defined in the following way:
    <span style="color: #a020f0;">return</span> returnVar;
 }
 </pre>
-
+</div>
 
 <p>
 This seems rather abstract, but we will see a concrete example in a
@@ -352,18 +308,19 @@ function is code, which does whatever you want the function to
 do. Finally we have to <b>return</b> a value (if the return type is
 non-void).
 </p>
+
 <p>
 Here is a more concrete example. Let's say we want to write a function
 that writes a message to the screen, "Hello, Paul":
 </p>
 
-
+<div class="org-src-container">
 
 <pre class="src src-c"><span style="color: #228b22;">void</span> <span style="color: #0000ff;">writeMessage</span>(<span style="color: #228b22;">void</span>) {
    printf(<span style="color: #8b2252;">"Hello, Paul\n"</span>);
 }
 </pre>
-
+</div>
 
 <p>
 Here the return type is <code>void</code> since the function doesn't return a
@@ -371,7 +328,7 @@ value, and the input argument list is also <code>void</code>, since it doesn't
 expect any inputs. We can call the function in a program like this:
 </p>
 
-
+<div class="org-src-container">
 
 <pre class="src src-c"><span style="color: #483d8b;">#include</span> <span style="color: #8b2252;">&lt;stdio.h&gt;</span>
 
@@ -384,31 +341,27 @@ expect any inputs. We can call the function in a program like this:
         <span style="color: #a020f0;">return</span> 0;
 }
 </pre>
+</div>
 
-
-
-<pre class="example">Hello, Paul
+<pre class="example">
+Hello, Paul
 </pre>
-
-
+</div>
 </div>
 
-</div>
-
-<div id="outline-container-3" class="outline-2">
+<div id="outline-container-sec-3" class="outline-2">
 <h2 id="sec-3">Input Arguments</h2>
 <div class="outline-text-2" id="text-3">
-
-
 <p>
 Now let's modify our function so that it accepts one input argument,
 which is a string containing the name we want to say hello to. So for
 example we could call the function with <code>writeMessage("Dave")</code> and it
 would print to the screen <code>Hello, Dave</code>, or we could call it with
-<code>writeMessage("Victoria")</code> and it would write to the screen <code>Hello, Victoria</code>, etc:
+<code>writeMessage("Victoria")</code> and it would write to the screen <code>Hello,
+Victoria</code>, etc:
 </p>
 
-
+<div class="org-src-container">
 
 <pre class="src src-C"><span style="color: #483d8b;">#include</span> <span style="color: #8b2252;">&lt;stdio.h&gt;</span>
 
@@ -422,23 +375,23 @@ would print to the screen <code>Hello, Dave</code>, or we could call it with
         <span style="color: #a020f0;">return</span> 0;
 }
 </pre>
+</div>
 
-
-
-<pre class="example">Hello, Dave
+<pre class="example">
+Hello, Dave
 Hello, Victoria
 </pre>
-
 
 <p>
 For the moment don't worry about the <code>char[]</code> type, it is a character
 array, and we will talk about arrays in the next section.
 </p>
+
 <p>
 Let's give our function two input arguments now, just to see how this is done:
 </p>
 
-
+<div class="org-src-container">
 
 <pre class="src src-C"><span style="color: #483d8b;">#include</span> <span style="color: #8b2252;">&lt;stdio.h&gt;</span>
 
@@ -452,29 +405,23 @@ Let's give our function two input arguments now, just to see how this is done:
         <span style="color: #a020f0;">return</span> 0;
 }
 </pre>
+</div>
 
-
-
-<pre class="example">Hello, Dave 123
+<pre class="example">
+Hello, Dave 123
 Hello, Victoria 444
 </pre>
-
-
+</div>
 </div>
 
-</div>
-
-<div id="outline-container-4" class="outline-2">
+<div id="outline-container-sec-4" class="outline-2">
 <h2 id="sec-4">Return Value</h2>
 <div class="outline-text-2" id="text-4">
-
-
 <p>
 Let's consider another example, one where we want our function to
 return a value. Let's write a function to compute Fibonacci numbers
 (<a href="https://en.wikipedia.org/wiki/Fibonacci_number">Wikipedia</a>). Fibonacci numbers are defined as:
 </p>
-
 
 \begin{equation}
 F_{n} = F_{n-1} + F_{n-2}
@@ -484,7 +431,7 @@ F_{n} = F_{n-1} + F_{n-2}
 where \(F_{0}=0\) and \(F_{1}=1\).
 </p>
 
-
+<div class="org-src-container">
 
 <pre class="src src-c"><span style="color: #483d8b;">#include</span> <span style="color: #8b2252;">&lt;stdio.h&gt;</span>
 
@@ -501,12 +448,11 @@ where \(F_{0}=0\) and \(F_{1}=1\).
     <span style="color: #a020f0;">return</span> 0;
 }
 </pre>
+</div>
 
-
-
-<pre class="example">Fibonacci(10) = 55
+<pre class="example">
+Fibonacci(10) = 55
 </pre>
-
 
 <p>
 Here we define the return type as <code>int</code>, as we want our function to
@@ -514,6 +460,7 @@ return an integer. We define one input argument, called <code>n</code>, which is
 also an <code>int</code> type. Then in the body of the function, we do our
 calculations.
 </p>
+
 <p>
 Unlike in some languages such as Python, Matlab, and R, in C,
 functions can only return a single value. There is a way to achieve
@@ -521,19 +468,17 @@ the same result however, which is to return a <b>pointer</b> to a complex
 data type such as an array, or a structure. We will talk about complex
 data types in the next section.
 </p>
-
 </div>
 
-<div id="outline-container-4-1" class="outline-3">
+<div id="outline-container-sec-4-1" class="outline-3">
 <h3 id="sec-4-1">Recursion</h3>
 <div class="outline-text-3" id="text-4-1">
-
-
 <p>
 Note in the Fibonacci example above, that in the body of our function,
 if the value of the input argument <code>n</code> is not <code>0</code> or <code>1</code>, then the
 function ends up calling itself (on line 6 of the code listing). When
-a function calls itself, this is called <b>recursion</b>, or a <b>recursive function call</b>. Recursion allows for very compact code, and for
+a function calls itself, this is called <b>recursion</b>, or a <b>recursive
+function call</b>. Recursion allows for very compact code, and for
 intuitive definitions. You may see recursion used in mathematical
 functions, and also in algorithms like sorting and searching. The cost
 of recursion is that sometimes the overhead involved in the computer
@@ -546,14 +491,11 @@ function using a loop instead of recursion. Another thing to try is
 </p>
 </div>
 </div>
-
 </div>
 
-<div id="outline-container-5" class="outline-2">
+<div id="outline-container-sec-5" class="outline-2">
 <h2 id="sec-5">Argument Checking</h2>
 <div class="outline-text-2" id="text-5">
-
-
 <p>
 Note that if we pass an argument of the wrong type to a function, the
 program may still compile, and even run, and it will simply spit out
@@ -562,16 +504,14 @@ not. Be very careful that the input values you pass to functions, and
 the output values you receive from functions, are what is expected.
 </p>
 </div>
-
 </div>
 
-<div id="outline-container-6" class="outline-2">
+<div id="outline-container-sec-6" class="outline-2">
 <h2 id="sec-6">Variable Scope</h2>
 <div class="outline-text-2" id="text-6">
-
-
 <p>
-Any variables declared inside a function, are <b>local to that function</b>, and are not accessible outside of the function. Similarly,
+Any variables declared inside a function, are <b>local to that
+function</b>, and are not accessible outside of the function. Similarly,
 code within a function doesn't have access to variables that have been
 declared outside of that function (for example in another function, or
 in <code>main()</code>). If you want this functionality, then you can specify
@@ -580,6 +520,7 @@ function (it also has to be outside of <code>main()</code>) is global, and can b
 seen by every function. In C, global variables are known as <b>external</b>
 variables (they are external to any function).
 </p>
+
 <p>
 For example in the following code, the varibale <code>myGlob</code> is declared
 outside of <code>main()</code> and outside of <code>myFunc()</code> and thus can be access
@@ -590,7 +531,7 @@ accessed outside of <code>myFunc()</code> (for example within
 <code>main()</code> and so cannot be seen within <code>myFunc()</code>.
 </p>
 
-
+<div class="org-src-container">
 
 <pre class="src src-c"><span style="color: #483d8b;">#include</span> <span style="color: #8b2252;">&lt;stdio.h&gt;</span>
 
@@ -612,25 +553,20 @@ accessed outside of <code>myFunc()</code> (for example within
         <span style="color: #a020f0;">return</span> 0;
 }
 </pre>
+</div>
 
-
-
-<pre class="example">my favourite letter is x
+<pre class="example">
+my favourite letter is x
 my favourite number is 8
 my favourite float is 3.14
 my favourite float is 3.14
 </pre>
-
-
+</div>
 </div>
 
-</div>
-
-<div id="outline-container-7" class="outline-2">
+<div id="outline-container-sec-7" class="outline-2">
 <h2 id="sec-7">Automatic vs Static Variables</h2>
 <div class="outline-text-2" id="text-7">
-
-
 <p>
 We talked about variable <b>scope</b> and the idea that variables declared
 within a function are <b>local</b> to that function. What actually happens
@@ -642,6 +578,7 @@ essentially disappear. This is known as <b>automatic</b> local variables
 (they are automatically created and then destroyed as the function is
 called, and then finishes).
 </p>
+
 <p>
 If you want local variables to persist, you can declare them as
 <b>static</b> local variables. You simply insert the word <code>static</code> in front
@@ -652,12 +589,13 @@ function is called, the value will have retained the value from the
 previous function call. It's a sort of global variable, but one that
 is still only accessible within the function in which it's declared.
 </p>
+
 <p>
 Here's an example program that maintains a running count of the number
 of times the function <code>myFun()</code> has been called.
 </p>
 
-
+<div class="org-src-container">
 
 <pre class="src src-c"><span style="color: #483d8b;">#include</span> <span style="color: #8b2252;">&lt;stdio.h&gt;</span>
 
@@ -675,44 +613,41 @@ of times the function <code>myFun()</code> has been called.
         <span style="color: #a020f0;">return</span> 0;
 }
 </pre>
+</div>
 
-
-
-<pre class="example">myFunc() has been called 1 times so far
+<pre class="example">
+myFunc() has been called 1 times so far
 myFunc() has been called 2 times so far
 myFunc() has been called 3 times so far
 </pre>
-
 
 <p>
 When would you want to use <b>static</b> variables? One general case, like
 above, is when you want to keep track of the number of times a
 function has been called. Another reason has to do with
-efficiency&hellip; if for example your function declares a <b>large</b> local
+efficiency&#x2026; if for example your function declares a <b>large</b> local
 variable whose values don't change from one function call to the next,
 it may be more efficient to declare it as static, so that it is
 created and initialized only once.
 </p>
 </div>
-
 </div>
 
-<div id="outline-container-8" class="outline-2">
+<div id="outline-container-sec-8" class="outline-2">
 <h2 id="sec-8">Variadic Functions</h2>
 <div class="outline-text-2" id="text-8">
-
-
 <p>
 A <a href="http://en.wikipedia.org/wiki/Variadic_function">variadic function</a> is one which accepts a variable number of input
 arguments. In C we can write functions that are variadic. Sometimes
 this may be useful.
 </p>
+
 <p>
 Here is a simple example of how one would do this, taken from
 <a href="http://www.gnu.org/software/libc/manual/html_node/Variadic-Example.html#Variadic-Example">here</a>. See <a href="http://www.gnu.org/software/libc/manual/html_node/Variadic-Functions.html#Variadic-Functions">this</a> page for more details.
 </p>
 
-
+<div class="org-src-container">
 
 <pre class="src src-c"><span style="color: #483d8b;">#include</span> <span style="color: #8b2252;">&lt;stdarg.h&gt;</span>
 <span style="color: #483d8b;">#include</span> <span style="color: #8b2252;">&lt;stdio.h&gt;</span>
@@ -745,52 +680,51 @@ Here is a simple example of how one would do this, taken from
   <span style="color: #a020f0;">return</span> 0;
 }
 </pre>
+</div>
 
-
-
-<pre class="example">16
+<pre class="example">
+16
 55
 </pre>
-
 
 <p>
 Note we have to <code>#include &lt;stdarg.h&gt;</code> in order to use the handful of
 functions necessary to work with the argument list.
 </p>
+
 <p>
 Note we have already seen a sort of variadic function, which is the
 <code>main()</code> function, which as we know can accept a variable number of
 input arguments when the program is started at the command line.
 </p>
-
+</div>
 </div>
 
-</div>
 
-<div id="outline-container-9" class="outline-2">
+<div id="outline-container-sec-9" class="outline-2">
 <h2 id="sec-9">Exercises</h2>
 <div class="outline-text-2" id="text-9">
-
-
-<ul>
+<ul class="org-ul">
 <li>1 Write a function that computes the nth <a href="http://en.wikipedia.org/wiki/Fibonacci_number">Fibonacci number</a>. Your
 </li>
 </ul>
-
-<p>function should be called <code>fib</code> and should take as input a single
+<p>
+function should be called <code>fib</code> and should take as input a single
 integer value <code>n</code>, and should return an integer value representing the
 nth Fibonacci number.
 </p>
+
 <p>
 The code example in the notes uses recursion to accomplish this. Write
 your own function that doesn't use recursion, but uses a loop instead.
 </p>
+
 <p>
 I should be able to paste your function at the bottom of this C
 program [ <a href="code/exercises/5_1_go.c">code</a> ] and it should run:
 </p>
 
-
+<div class="org-src-container">
 
 <pre class="src src-c"><span style="color: #b22222;">// </span><span style="color: #b22222;">gcc -Wall -o go 5_1_go.c</span>
 
@@ -807,31 +741,30 @@ program [ <a href="code/exercises/5_1_go.c">code</a> ] and it should run:
 <span style="color: #228b22;">int</span> <span style="color: #0000ff;">fib</span>(<span style="color: #228b22;">int</span> <span style="color: #a0522d;">n</span>) {
   <span style="color: #b22222;">// </span><span style="color: #b22222;">your code goes here</span>
 }
-
 </pre>
+</div>
 
-
-
-<pre class="example">$ gcc -o go 5_1_go.c
+<pre class="example">
+$ gcc -o go 5_1_go.c
 $ ./go
 fib(10)=55
 </pre>
 
-
-<ul>
+<ul class="org-ul">
 <li>2 Write a function that determines whether an integer is <a href="http://en.wikipedia.org/wiki/Prime_number">prime</a>. The
 </li>
 </ul>
-
-<p>function should take as input a single integer, and return a 1 if the
+<p>
+function should take as input a single integer, and return a 1 if the
 input is prime, and a 0 if it is not.
 </p>
+
 <p>
 I should be able to paste your function at the bottom of this C
 program [ <a href="code/exercises/5_2_go.c">code</a> ] and it should run:
 </p>
 
-
+<div class="org-src-container">
 
 <pre class="src src-c"><span style="color: #b22222;">// </span><span style="color: #b22222;">gcc -Wall -o go 5_2_go.c</span>
 
@@ -850,27 +783,25 @@ program [ <a href="code/exercises/5_2_go.c">code</a> ] and it should run:
   <span style="color: #b22222;">// </span><span style="color: #b22222;">your code goes here</span>
 }
 </pre>
+</div>
 
-
-
-<pre class="example">$ gcc -o go 5_2_go.c
+<pre class="example">
+$ gcc -o go 5_2_go.c
 $ ./go
 isprime(12)=0
 isprime(17)=1
 </pre>
 
-
-<ul>
+<ul class="org-ul">
 <li>3 Write a program that prints out the first 1000 prime numbers. You
 </li>
 </ul>
-
-<p>can find a list to verify the correctness of your program <a href="http://primes.utm.edu/lists/small/1000.txt">here</a>.
+<p>
+can find a list to verify the correctness of your program <a href="http://primes.utm.edu/lists/small/1000.txt">here</a>.
 </p>
 
-
-
-<pre class="example">1: 2
+<pre class="example">
+1: 2
 2: 3
 3: 5
 4: 7
@@ -882,17 +813,12 @@ isprime(17)=1
 999: 7907
 1000: 7919
 </pre>
-
-
-
 </div>
 
-<div id="outline-container-9-1" class="outline-3">
+<div id="outline-container-sec-9-1" class="outline-3">
 <h3 id="sec-9-1">Solutions</h3>
 <div class="outline-text-3" id="text-9-1">
-
-
-<ul>
+<ul class="org-ul">
 <li><a href="code/exercises/5_1.c">1</a>
 </li>
 <li><a href="code/exercises/5_2.c">2</a>
@@ -900,15 +826,11 @@ isprime(17)=1
 <li><a href="code/exercises/5_3.c">3</a>
 </li>
 </ul>
-
-
-
 </div>
 </div>
 </div>
 </div>
-
-<div id="postamble">
+<div id="postamble" class="status">
 <hr />Paul Gribble | Summer 2012<br><b>support this project with bitcoin</b>:1Nh3UDeJX1zhcnHNS5jd6EnfqTKZakyJhU<br>This <span xmlns:dct="http://purl.org/dc/terms/" href="http://purl.org/dc/dcmitype/Text" rel="dct:type">work</span> is licensed under a <a rel="license" href="http://creativecommons.org/licenses/by-nc-sa/3.0/">Creative Commons Attribution-NonCommercial-ShareAlike 3.0 Unported License</a><br><a rel="license" href="http://creativecommons.org/licenses/by-nc-sa/3.0/"><img alt="Creative Commons License" style="border-width:0" src="http://i.creativecommons.org/l/by-nc-sa/3.0/80x15.png" /></a><br />
 </div>
 </body>
