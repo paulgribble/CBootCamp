@@ -220,7 +220,7 @@ Here is what it looks like when we run =make= using [[file:code/primes/Makefile1
 #+BEGIN_EXAMPLE
 plg@wildebeest:~/Desktop/CBootCamp/code/primes$ cp Makefile1.txt Makefile
 plg@wildebeest:~/Desktop/CBootCamp/code/primes$ make
-gcc -o go go.c primes.c -lm 
+gcc -o go go.c primes.c
 #+END_EXAMPLE
 
 You can see the command (line 3) that ends up being executed by
@@ -260,9 +260,9 @@ Here is what it looks like when we run =make= using [[file:code/primes/Makefile2
 #+BEGIN_EXAMPLE
 plg@wildebeest:~/Desktop/CBootCamp/code/primes$ cp Makefile2.txt Makefile
 plg@wildebeest:~/Desktop/CBootCamp/code/primes$ make
-gcc -c -o go.o go.c -lm
-gcc -c -o primes.o primes.c -lm
-gcc -o go go.o primes.o -lm
+gcc -c -o go.o go.c
+gcc -c -o primes.o primes.c
+gcc -o go go.o primes.o
 #+END_EXAMPLE
 
 You can see that in this case, three commands end up being run (lines
