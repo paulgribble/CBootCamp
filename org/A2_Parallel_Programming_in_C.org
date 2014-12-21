@@ -726,8 +726,8 @@ Here is a [[file:code/exercises/A2_1_data.csv][data file]] containing two column
 ** Solutions
 
 - [[file:code/exercises/A2_1.c][1]]
-- [[file:code/examples/A2_2.c][2]]
-- [[file:code/examples/A2_3.c][3]]
+- [[file:code/exercises/A2_2.c][2]]
+- [[file:code/exercises/A2_3.c][3]]
 - [[file:code/exercises/A2_4.c][4]]
 - [[file:code/exercises/A2_5.c][5]]
 
