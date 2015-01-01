@@ -5,8 +5,8 @@
 #+EMAIL:     paul@gribblelab.org
 #+DATE:      Summer 2012
 #+OPTIONS: toc:nil
-#+LINK_UP: http://www.gribblelab.org/teaching.html
-#+LINK_HOME: http://www.gribblelab.org/index.html
+#+HTML_LINK_UP: http://www.gribblelab.org/teaching.html
+#+HTML_LINK_HOME: http://www.gribblelab.org/index.html
 
 #+BEGIN_SRC c
 #include <stdio.h>

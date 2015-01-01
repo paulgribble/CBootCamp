@@ -4,6 +4,10 @@
 #+AUTHOR:    Paul Gribble
 #+EMAIL:     paul@gribblelab.org
 #+DATE:      Summer 2012
+#+HTML_LINK_UP: http://www.gribblelab.org/CBootCamp/index.html
+#+HTML_LINK_HOME: http://www.gribblelab.org/CBootCamp/index.html
+
+-----
 
 * Introduction
 
