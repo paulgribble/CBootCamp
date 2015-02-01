@@ -540,10 +540,6 @@ int main(void) {
 
 #+BEGIN_EXAMPLE
 vec[0]=0.000
-vec[1]=0.000
-vec[2]=0.000
-
-vec[0]=0.000
 vec[1]=3.140
 vec[2]=0.000
 
