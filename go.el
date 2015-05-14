@@ -1,4 +1,5 @@
 (require 'ox-publish)
+
 (setq org-export-with-sub-superscripts nil)
 (setq org-publish-project-alist
       '(
@@ -10,7 +11,7 @@
 	 :recursive t
 	 :htmlized-source t
 	 :section-numbers nil
-	 :html-postamble "<hr />%a | %d<br><a rel="license" href="http://creativecommons.org/licenses/by/4.0/"><img alt="Creative Commons License" style="border-width:0" src="https://i.creativecommons.org/l/by/4.0/80x15.png" /></a><br />This work is licensed under a <a rel="license" href="http://creativecommons.org/licenses/by/4.0/">Creative Commons Attribution 4.0 International License</a>.<br />"
+         :html-postamble "<hr />%a | %d<br>This <span xmlns:dct=\"http://purl.org/dc/terms/\" href=\"http://purl.org/dc/dcmitype/Text\" rel=\"dct:type\">work</span> is licensed under a <a rel=\"license\" href=\"http://creativecommons.org/licenses/by/4.0/\">Creative Commons Attribution 4.0 International License</a><br><a rel=\"license\"href=\"http://creativecommons.org/licenses/by/4.0/\"><img alt=\"Creative Commons License\" style=\"border-width:0\" src=\"http://i.creativecommons.org/l/by/4.0/80x15.png\" /></a><br />"
 	 :language en
 	 :html-link-home "index.html"
 	 :html-link-up "index.html"
