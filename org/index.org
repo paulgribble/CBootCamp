@@ -8,6 +8,8 @@
 #+HTML_LINK_UP: http://www.gribblelab.org/teaching.html
 #+HTML_LINK_HOME: http://www.gribblelab.org/index.html
 
+#+HTML: &nbsp;
+
 #+BEGIN_SRC c
 #include <stdio.h>
 
@@ -16,6 +18,8 @@ int main(int argc, char *argv[]) {
   return 0;
 }
 #+END_SRC
+
+#+HTML: &nbsp;
 
 * Fundamentals
 
