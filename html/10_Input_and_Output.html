@@ -3,23 +3,30 @@
 "http://www.w3.org/TR/xhtml1/DTD/xhtml1-strict.dtd">
 <html xmlns="http://www.w3.org/1999/xhtml" lang="en" xml:lang="en">
 <head>
-<title>10. Input and Output</title>
-<!-- 2015-05-14 Thu 11:12 -->
+<!-- 2015-12-17 Thu 09:39 -->
 <meta  http-equiv="Content-Type" content="text/html;charset=utf-8" />
+<meta  name="viewport" content="width=device-width, initial-scale=1" />
+<title>10. Input and Output</title>
 <meta  name="generator" content="Org-mode" />
 <meta  name="author" content="Paul Gribble" />
 <style type="text/css">
  <!--/*--><![CDATA[/*><!--*/
-  .title  { text-align: center; }
+  .title  { text-align: center;
+             margin-bottom: .2em; }
+  .subtitle { text-align: center;
+              font-size: medium;
+              font-weight: bold;
+              margin-top:0; }
   .todo   { font-family: monospace; color: red; }
-  .done   { color: green; }
+  .done   { font-family: monospace; color: green; }
+  .priority { font-family: monospace; color: orange; }
   .tag    { background-color: #eee; font-family: monospace;
             padding: 2px; font-size: 80%; font-weight: normal; }
   .timestamp { color: #bebebe; }
   .timestamp-kwd { color: #5f9ea0; }
-  .right  { margin-left: auto; margin-right: 0px;  text-align: right; }
-  .left   { margin-left: 0px;  margin-right: auto; text-align: left; }
-  .center { margin-left: auto; margin-right: auto; text-align: center; }
+  .org-right  { margin-left: auto; margin-right: 0px;  text-align: right; }
+  .org-left   { margin-left: 0px;  margin-right: auto; text-align: left; }
+  .org-center { margin-left: auto; margin-right: auto; text-align: center; }
   .underline { text-decoration: underline; }
   #postamble p, #preamble p { font-size: 90%; margin: .2em; }
   p.verse { margin-left: 3%; }
@@ -58,15 +65,14 @@
   caption.t-above { caption-side: top; }
   caption.t-bottom { caption-side: bottom; }
   td, th { vertical-align:top;  }
-  th.right  { text-align: center;  }
-  th.left   { text-align: center;   }
-  th.center { text-align: center; }
-  td.right  { text-align: right;  }
-  td.left   { text-align: left;   }
-  td.center { text-align: center; }
+  th.org-right  { text-align: center;  }
+  th.org-left   { text-align: center;   }
+  th.org-center { text-align: center; }
+  td.org-right  { text-align: right;  }
+  td.org-left   { text-align: left;   }
+  td.org-center { text-align: center; }
   dt { font-weight: bold; }
-  .footpara:nth-child(2) { display: inline; }
-  .footpara { display: block; }
+  .footpara { display: inline; }
   .footdef  { margin-bottom: 1em; }
   .figure { padding: 1em; }
   .figure p { text-align: center; }
@@ -147,33 +153,33 @@ for the JavaScript code in this tag.
 <h2>Table of Contents</h2>
 <div id="text-table-of-contents">
 <ul>
-<li><a href="#sec-1">Command-line arguments</a></li>
-<li><a href="#sec-2">I/O Streams</a>
+<li><a href="#orgheadline1">Command-line arguments</a></li>
+<li><a href="#orgheadline2">I/O Streams</a>
 <ul>
-<li><a href="#sec-2-1">Character I/O: <code>getchar()</code> and <code>putchar()</code></a></li>
-<li><a href="#sec-2-2">Formatted I/O: <code>printf()</code> and <code>scanf()</code></a>
+<li><a href="#orgheadline3">Character I/O: <code>getchar()</code> and <code>putchar()</code></a></li>
+<li><a href="#orgheadline6">Formatted I/O: <code>printf()</code> and <code>scanf()</code></a>
 <ul>
-<li><a href="#sec-2-2-1">The <code>printf()</code> function</a></li>
-<li><a href="#sec-2-2-2">The <code>scanf()</code> function</a></li>
+<li><a href="#orgheadline4">The <code>printf()</code> function</a></li>
+<li><a href="#orgheadline5">The <code>scanf()</code> function</a></li>
 </ul>
 </li>
 </ul>
 </li>
-<li><a href="#sec-3">Input and Output with Files</a>
+<li><a href="#orgheadline11">Input and Output with Files</a>
 <ul>
-<li><a href="#sec-3-1">Opening and Closing files with <code>fopen()</code> and <code>fclose()</code></a></li>
-<li><a href="#sec-3-2">Reading and Writing to files</a>
+<li><a href="#orgheadline7">Opening and Closing files with <code>fopen()</code> and <code>fclose()</code></a></li>
+<li><a href="#orgheadline8">Reading and Writing to files</a>
 <ul>
-<li><a href="#sec-3-2-1">Ascii Files (plain text)</a></li>
-<li><a href="#sec-3-2-2">Binary Files (raw bytes)</a></li>
+<li><a href="#orgheadline9">Ascii Files (plain text)</a></li>
+<li><a href="#orgheadline10">Binary Files (raw bytes)</a></li>
 </ul>
 </li>
 </ul>
 </li>
-<li><a href="#sec-4">Links</a></li>
-<li><a href="#sec-5">Exercises</a>
+<li><a href="#orgheadline12">Links</a></li>
+<li><a href="#orgheadline13">Exercises</a>
 <ul>
-<li><a href="#sec-5-1">Solutions</a></li>
+<li><a href="#orgheadline14">Solutions</a></li>
 </ul>
 </li>
 </ul>
@@ -181,9 +187,9 @@ for the JavaScript code in this tag.
 </div>
 <hr  />
 
-<div id="outline-container-sec-1" class="outline-2">
-<h2 id="sec-1">Command-line arguments</h2>
-<div class="outline-text-2" id="text-1">
+<div id="outline-container-orgheadline1" class="outline-2">
+<h2 id="orgheadline1">Command-line arguments</h2>
+<div class="outline-text-2" id="text-orgheadline1">
 <p>
 When you run a C program from the command line, you can pass it input
 arguments.
@@ -192,9 +198,9 @@ arguments.
 </div>
 
 
-<div id="outline-container-sec-2" class="outline-2">
-<h2 id="sec-2">I/O Streams</h2>
-<div class="outline-text-2" id="text-2">
+<div id="outline-container-orgheadline2" class="outline-2">
+<h2 id="orgheadline2">I/O Streams</h2>
+<div class="outline-text-2" id="text-orgheadline2">
 <p>
 The standard C library (linked to using <code>#include &lt;stdio.h&gt;</code>)
 includes a handful of functions for performing input and output in C.
@@ -238,13 +244,13 @@ Files (e.g. data files) are also associated with streams, and we will see below 
 
 <p>
 We won't talk about <b>standard error</b> here. Refer to a UNIX reference,
-a C book, or <a href="http://www.acm.uiuc.edu/webmonkeys/book/c_guide/2.12.html#streams\">Streams and Files</a> for more details.
+a C book, or <a href="http://www.acm.uiuc.edu/webmonkeys/book/c_guide/2.12.html#streams%5C">Streams and Files</a> for more details.
 </p>
 </div>
 
-<div id="outline-container-sec-2-1" class="outline-3">
-<h3 id="sec-2-1">Character I/O: <code>getchar()</code> and <code>putchar()</code></h3>
-<div class="outline-text-3" id="text-2-1">
+<div id="outline-container-orgheadline3" class="outline-3">
+<h3 id="orgheadline3">Character I/O: <code>getchar()</code> and <code>putchar()</code></h3>
+<div class="outline-text-3" id="text-orgheadline3">
 <p>
 When you want to read data a single character at a time, you can use
 <code>getchar()</code>. The output function <code>putchar()</code> will write out one
@@ -271,12 +277,12 @@ x
 </div>
 </div>
 
-<div id="outline-container-sec-2-2" class="outline-3">
-<h3 id="sec-2-2">Formatted I/O: <code>printf()</code> and <code>scanf()</code></h3>
-<div class="outline-text-3" id="text-2-2">
-</div><div id="outline-container-sec-2-2-1" class="outline-4">
-<h4 id="sec-2-2-1">The <code>printf()</code> function</h4>
-<div class="outline-text-4" id="text-2-2-1">
+<div id="outline-container-orgheadline6" class="outline-3">
+<h3 id="orgheadline6">Formatted I/O: <code>printf()</code> and <code>scanf()</code></h3>
+<div class="outline-text-3" id="text-orgheadline6">
+</div><div id="outline-container-orgheadline4" class="outline-4">
+<h4 id="orgheadline4">The <code>printf()</code> function</h4>
+<div class="outline-text-4" id="text-orgheadline4">
 <p>
 We have seen in many of the example code snippets, the use of the
 <code>printf()</code> function to write formatted output to the screen. In
@@ -323,9 +329,9 @@ Consult a reference manual (or a website like <a href="http://www.acm.uiuc.edu/w
 </div>
 </div>
 
-<div id="outline-container-sec-2-2-2" class="outline-4">
-<h4 id="sec-2-2-2">The <code>scanf()</code> function</h4>
-<div class="outline-text-4" id="text-2-2-2">
+<div id="outline-container-orgheadline5" class="outline-4">
+<h4 id="orgheadline5">The <code>scanf()</code> function</h4>
+<div class="outline-text-4" id="text-orgheadline5">
 <p>
 To read formatted data in from standard input we can use the
 <code>fscanf()</code> function. Just like <code>printf()</code>, it takes as a first
@@ -381,12 +387,12 @@ looks for input values.
 </div>
 </div>
 
-<div id="outline-container-sec-3" class="outline-2">
-<h2 id="sec-3">Input and Output with Files</h2>
-<div class="outline-text-2" id="text-3">
-</div><div id="outline-container-sec-3-1" class="outline-3">
-<h3 id="sec-3-1">Opening and Closing files with <code>fopen()</code> and <code>fclose()</code></h3>
-<div class="outline-text-3" id="text-3-1">
+<div id="outline-container-orgheadline11" class="outline-2">
+<h2 id="orgheadline11">Input and Output with Files</h2>
+<div class="outline-text-2" id="text-orgheadline11">
+</div><div id="outline-container-orgheadline7" class="outline-3">
+<h3 id="orgheadline7">Opening and Closing files with <code>fopen()</code> and <code>fclose()</code></h3>
+<div class="outline-text-3" id="text-orgheadline7">
 <p>
 Before a file can be read or written to, it has to be <b>opened</b> using
 the <code>fopen()</code> function, which takes as arguments a string
@@ -399,18 +405,18 @@ to <b>close</b> it using the <code>fclose()</code> function.
 </div>
 </div>
 
-<div id="outline-container-sec-3-2" class="outline-3">
-<h3 id="sec-3-2">Reading and Writing to files</h3>
-<div class="outline-text-3" id="text-3-2">
+<div id="outline-container-orgheadline8" class="outline-3">
+<h3 id="orgheadline8">Reading and Writing to files</h3>
+<div class="outline-text-3" id="text-orgheadline8">
 <p>
 There are many functions in <code>stdio.h</code> for reading from and writing to
 files. There is a collection of functions for reading and writing ascii (text) data, and there are functions for dealing with binary data.
 </p>
 </div>
 
-<div id="outline-container-sec-3-2-1" class="outline-4">
-<h4 id="sec-3-2-1">Ascii Files (plain text)</h4>
-<div class="outline-text-4" id="text-3-2-1">
+<div id="outline-container-orgheadline9" class="outline-4">
+<h4 id="orgheadline9">Ascii Files (plain text)</h4>
+<div class="outline-text-4" id="text-orgheadline9">
 <p>
 There are functions to read single characters at a time (<code>getc()</code> and
 <code>putc()</code>), there are functions to read and write formatted output
@@ -561,9 +567,9 @@ file, and FALSE otherwise.
 </div>
 </div>
 
-<div id="outline-container-sec-3-2-2" class="outline-4">
-<h4 id="sec-3-2-2">Binary Files (raw bytes)</h4>
-<div class="outline-text-4" id="text-3-2-2">
+<div id="outline-container-orgheadline10" class="outline-4">
+<h4 id="orgheadline10">Binary Files (raw bytes)</h4>
+<div class="outline-text-4" id="text-orgheadline10">
 <p>
 There are many circumstances in which you may want to read from and
 write to binary files. Binary files are not plain text (ascii) files
@@ -676,54 +682,44 @@ write them in "raw" binary using <code>fread()</code> and <code>fwrite()</code>.
 </div>
 </div>
 
-<div id="outline-container-sec-4" class="outline-2">
-<h2 id="sec-4">Links</h2>
-<div class="outline-text-2" id="text-4">
+<div id="outline-container-orgheadline12" class="outline-2">
+<h2 id="orgheadline12">Links</h2>
+<div class="outline-text-2" id="text-orgheadline12">
 <ul class="org-ul">
-<li><a href="http://www.acm.uiuc.edu/webmonkeys/book/c_guide/index.html">The C Library Reference Guide</a>
-</li>
-<li><a href="http://en.wikipedia.org/wiki/C_file_input/output">C file input/output</a>
-</li>
+<li><a href="http://www.acm.uiuc.edu/webmonkeys/book/c_guide/index.html">The C Library Reference Guide</a></li>
+<li><a href="http://en.wikipedia.org/wiki/C_file_input/output">C file input/output</a></li>
 </ul>
 </div>
 </div>
 
 
-<div id="outline-container-sec-5" class="outline-2">
-<h2 id="sec-5">Exercises</h2>
-<div class="outline-text-2" id="text-5">
+<div id="outline-container-orgheadline13" class="outline-2">
+<h2 id="orgheadline13">Exercises</h2>
+<div class="outline-text-2" id="text-orgheadline13">
 <ul class="org-ul">
 <li>1 Write a program that asks the user to enter three strings. After
 they have entered all three strings, print the strings out using all
-uppercase letters.
-</li>
+uppercase letters.</li>
 
-<li>2 Alter the program so that it prints out the all-caps strings in reverse.
-</li>
+<li>2 Alter the program so that it prints out the all-caps strings in reverse.</li>
 
 <li>3 Alter the program again so that it writes the all-caps reversed
-strings to a plaintext file.
-</li>
+strings to a plaintext file.</li>
 
 <li>4 Write a program that reads three strings from a plaintext file,
-reverses each string, and prints them out to the screen.
-</li>
+reverses each string, and prints them out to the screen.</li>
 </ul>
 </div>
 
 
-<div id="outline-container-sec-5-1" class="outline-3">
-<h3 id="sec-5-1">Solutions</h3>
-<div class="outline-text-3" id="text-5-1">
+<div id="outline-container-orgheadline14" class="outline-3">
+<h3 id="orgheadline14">Solutions</h3>
+<div class="outline-text-3" id="text-orgheadline14">
 <ul class="org-ul">
-<li>x
-</li>
-<li>x
-</li>
-<li>x
-</li>
-<li>x
-</li>
+<li>x</li>
+<li>x</li>
+<li>x</li>
+<li>x</li>
 </ul>
 </div>
 </div>

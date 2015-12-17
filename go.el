@@ -6,7 +6,7 @@
 	("CBootCamp"
 	 :base-directory "org/"
 	 :base-extension "org"
-	 :publishing-directory "~/Documents/github/CBootCamp/html"
+	 :publishing-directory "~/github/CBootCamp/html"
 	 :publishing-function org-html-publish-to-html
 	 :recursive t
 	 :htmlized-source t

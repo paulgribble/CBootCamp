@@ -3,23 +3,30 @@
 "http://www.w3.org/TR/xhtml1/DTD/xhtml1-strict.dtd">
 <html xmlns="http://www.w3.org/1999/xhtml" lang="en" xml:lang="en">
 <head>
-<title>A2. Parallel Programming in C</title>
-<!-- 2015-05-14 Thu 11:12 -->
+<!-- 2015-12-17 Thu 09:38 -->
 <meta  http-equiv="Content-Type" content="text/html;charset=utf-8" />
+<meta  name="viewport" content="width=device-width, initial-scale=1" />
+<title>A2. Parallel Programming in C</title>
 <meta  name="generator" content="Org-mode" />
 <meta  name="author" content="Paul Gribble" />
 <style type="text/css">
  <!--/*--><![CDATA[/*><!--*/
-  .title  { text-align: center; }
+  .title  { text-align: center;
+             margin-bottom: .2em; }
+  .subtitle { text-align: center;
+              font-size: medium;
+              font-weight: bold;
+              margin-top:0; }
   .todo   { font-family: monospace; color: red; }
-  .done   { color: green; }
+  .done   { font-family: monospace; color: green; }
+  .priority { font-family: monospace; color: orange; }
   .tag    { background-color: #eee; font-family: monospace;
             padding: 2px; font-size: 80%; font-weight: normal; }
   .timestamp { color: #bebebe; }
   .timestamp-kwd { color: #5f9ea0; }
-  .right  { margin-left: auto; margin-right: 0px;  text-align: right; }
-  .left   { margin-left: 0px;  margin-right: auto; text-align: left; }
-  .center { margin-left: auto; margin-right: auto; text-align: center; }
+  .org-right  { margin-left: auto; margin-right: 0px;  text-align: right; }
+  .org-left   { margin-left: 0px;  margin-right: auto; text-align: left; }
+  .org-center { margin-left: auto; margin-right: auto; text-align: center; }
   .underline { text-decoration: underline; }
   #postamble p, #preamble p { font-size: 90%; margin: .2em; }
   p.verse { margin-left: 3%; }
@@ -58,15 +65,14 @@
   caption.t-above { caption-side: top; }
   caption.t-bottom { caption-side: bottom; }
   td, th { vertical-align:top;  }
-  th.right  { text-align: center;  }
-  th.left   { text-align: center;   }
-  th.center { text-align: center; }
-  td.right  { text-align: right;  }
-  td.left   { text-align: left;   }
-  td.center { text-align: center; }
+  th.org-right  { text-align: center;  }
+  th.org-left   { text-align: center;   }
+  th.org-center { text-align: center; }
+  td.org-right  { text-align: right;  }
+  td.org-left   { text-align: left;   }
+  td.org-center { text-align: center; }
   dt { font-weight: bold; }
-  .footpara:nth-child(2) { display: inline; }
-  .footpara { display: block; }
+  .footpara { display: inline; }
   .footdef  { margin-bottom: 1em; }
   .figure { padding: 1em; }
   .figure p { text-align: center; }
@@ -135,48 +141,28 @@ for the JavaScript code in this tag.
  }
 /*]]>*///-->
 </script>
-<script type="text/javascript" src="http://orgmode.org/mathjax/MathJax.js"></script>
-<script type="text/javascript">
-<!--/*--><![CDATA[/*><!--*/
+<script type="text/x-mathjax-config">
     MathJax.Hub.Config({
-        // Only one of the two following lines, depending on user settings
-        // First allows browser-native MathML display, second forces HTML/CSS
-        //  config: ["MMLorHTML.js"], jax: ["input/TeX"],
-            jax: ["input/TeX", "output/HTML-CSS"],
-        extensions: ["tex2jax.js","TeX/AMSmath.js","TeX/AMSsymbols.js",
-                     "TeX/noUndefined.js"],
-        tex2jax: {
-            inlineMath: [ ["\\(","\\)"] ],
-            displayMath: [ ['$$','$$'], ["\\[","\\]"], ["\\begin{displaymath}","\\end{displaymath}"] ],
-            skipTags: ["script","noscript","style","textarea","pre","code"],
-            ignoreClass: "tex2jax_ignore",
-            processEscapes: false,
-            processEnvironments: true,
-            preview: "TeX"
-        },
-        showProcessingMessages: true,
         displayAlign: "center",
-        displayIndent: "2em",
+        displayIndent: "0em",
 
-        "HTML-CSS": {
-             scale: 100,
-             availableFonts: ["STIX","TeX"],
-             preferredFont: "TeX",
-             webFont: "TeX",
-             imageFont: "TeX",
-             showMathMenu: true,
-        },
-        MMLorHTML: {
-             prefer: {
-                 MSIE:    "MML",
-                 Firefox: "MML",
-                 Opera:   "HTML",
-                 other:   "HTML"
+        "HTML-CSS": { scale: 100,
+                        linebreaks: { automatic: "false" },
+                        webFont: "TeX"
+                       },
+        SVG: {scale: 100,
+              linebreaks: { automatic: "false" },
+              font: "TeX"},
+        NativeMML: {scale: 100},
+        TeX: { equationNumbers: {autoNumber: "AMS"},
+               MultLineWidth: "85%",
+               TagSide: "right",
+               TagIndent: ".8em"
              }
-        }
-    });
-/*]]>*///-->
+});
 </script>
+<script type="text/javascript"
+        src="http://cdn.mathjax.org/mathjax/latest/MathJax.js?config=TeX-AMS_HTML"></script>
 </head>
 <body>
 <div id="org-div-home-and-up">
@@ -189,43 +175,43 @@ for the JavaScript code in this tag.
 <h2>Table of Contents</h2>
 <div id="text-table-of-contents">
 <ul>
-<li><a href="#sec-1">Why Parallel Programming?</a></li>
-<li><a href="#sec-2">Kinds of Parallel Programming</a>
+<li><a href="#orgheadline1">Why Parallel Programming?</a></li>
+<li><a href="#orgheadline2">Kinds of Parallel Programming</a>
 <ul>
-<li><a href="#sec-2-1">Types of parallel tasks</a>
+<li><a href="#orgheadline3">Types of parallel tasks</a>
 <ul>
-<li><a href="#sec-2-1-1">Embarrassingly parallel problems</a></li>
-<li><a href="#sec-2-1-2">Serial problems</a></li>
-<li><a href="#sec-2-1-3">Mixtures</a></li>
+<li><a href="#orgheadline4">Embarrassingly parallel problems</a></li>
+<li><a href="#orgheadline5">Serial problems</a></li>
+<li><a href="#orgheadline6">Mixtures</a></li>
 </ul>
 </li>
 </ul>
 </li>
-<li><a href="#sec-3">Tools for Parallel Programming</a>
+<li><a href="#orgheadline7">Tools for Parallel Programming</a>
 <ul>
-<li><a href="#sec-3-1">POSIX Threads (Pthreads)</a></li>
-<li><a href="#sec-3-2">OpenMP</a>
+<li><a href="#orgheadline8">POSIX Threads (Pthreads)</a></li>
+<li><a href="#orgheadline9">OpenMP</a>
 <ul>
-<li><a href="#sec-3-2-1">Private vs Shared variables</a></li>
-<li><a href="#sec-3-2-2">Parallelizing for loops with OpenMP</a></li>
-<li><a href="#sec-3-2-3">Critical Code</a></li>
-<li><a href="#sec-3-2-4">Reduction</a></li>
-<li><a href="#sec-3-2-5">Other OpenMP directives</a></li>
+<li><a href="#orgheadline10">Private vs Shared variables</a></li>
+<li><a href="#orgheadline11">Parallelizing for loops with OpenMP</a></li>
+<li><a href="#orgheadline12">Critical Code</a></li>
+<li><a href="#orgheadline13">Reduction</a></li>
+<li><a href="#orgheadline14">Other OpenMP directives</a></li>
 </ul>
 </li>
-<li><a href="#sec-3-3">MPI</a>
+<li><a href="#orgheadline15">MPI</a>
 <ul>
-<li><a href="#sec-3-3-1">MPI_Reduce</a></li>
-<li><a href="#sec-3-3-2">An Example: Estimating pi using dartboard algorithm</a></li>
+<li><a href="#orgheadline16">MPI_Reduce</a></li>
+<li><a href="#orgheadline17">An Example: Estimating pi using dartboard algorithm</a></li>
 </ul>
 </li>
 </ul>
 </li>
-<li><a href="#sec-4">GPU Computing</a></li>
-<li><a href="#sec-5">Links</a></li>
-<li><a href="#sec-6">Exercises</a>
+<li><a href="#orgheadline18">GPU Computing</a></li>
+<li><a href="#orgheadline19">Links</a></li>
+<li><a href="#orgheadline20">Exercises</a>
 <ul>
-<li><a href="#sec-6-1">Solutions</a></li>
+<li><a href="#orgheadline21">Solutions</a></li>
 </ul>
 </li>
 </ul>
@@ -233,9 +219,9 @@ for the JavaScript code in this tag.
 </div>
 <hr  />
 
-<div id="outline-container-sec-1" class="outline-2">
-<h2 id="sec-1">Why Parallel Programming?</h2>
-<div class="outline-text-2" id="text-1">
+<div id="outline-container-orgheadline1" class="outline-2">
+<h2 id="orgheadline1">Why Parallel Programming?</h2>
+<div class="outline-text-2" id="text-orgheadline1">
 <p>
 Simply put, because it may speed up your code. Unlike 10 years ago,
 today, your computer (and probably even your smartphone) have one or
@@ -260,9 +246,9 @@ advantage of all that dormant power.
 </div>
 </div>
 
-<div id="outline-container-sec-2" class="outline-2">
-<h2 id="sec-2">Kinds of Parallel Programming</h2>
-<div class="outline-text-2" id="text-2">
+<div id="outline-container-orgheadline2" class="outline-2">
+<h2 id="orgheadline2">Kinds of Parallel Programming</h2>
+<div class="outline-text-2" id="text-orgheadline2">
 <p>
 There are many flavours of parallel programming, some that are general
 and can be run on any hardware, and others that are specific to
@@ -285,9 +271,9 @@ used with clusters.
 </p>
 </div>
 
-<div id="outline-container-sec-2-1" class="outline-3">
-<h3 id="sec-2-1">Types of parallel tasks</h3>
-<div class="outline-text-3" id="text-2-1">
+<div id="outline-container-orgheadline3" class="outline-3">
+<h3 id="orgheadline3">Types of parallel tasks</h3>
+<div class="outline-text-3" id="text-orgheadline3">
 <p>
 Broadly speaking we can separate a computation into two camps
 depending on how it can be parallelized. A so-called <a href="http://en.wikipedia.org/wiki/Embarrassingly_parallel">embarrassingly
@@ -297,9 +283,9 @@ parallel.
 </p>
 </div>
 
-<div id="outline-container-sec-2-1-1" class="outline-4">
-<h4 id="sec-2-1-1">Embarrassingly parallel problems</h4>
-<div class="outline-text-4" id="text-2-1-1">
+<div id="outline-container-orgheadline4" class="outline-4">
+<h4 id="orgheadline4">Embarrassingly parallel problems</h4>
+<div class="outline-text-4" id="text-orgheadline4">
 <p>
 Embarrassingly parallel computational problems are the easiest to
 parallelize and you can achieve impressive speedups if you have a
@@ -322,9 +308,9 @@ used to take about 48 hours to run, now takes "just" over 6 hours.
 </div>
 </div>
 
-<div id="outline-container-sec-2-1-2" class="outline-4">
-<h4 id="sec-2-1-2">Serial problems</h4>
-<div class="outline-text-4" id="text-2-1-2">
+<div id="outline-container-orgheadline5" class="outline-4">
+<h4 id="orgheadline5">Serial problems</h4>
+<div class="outline-text-4" id="text-orgheadline5">
 <p>
 In contrast to embarrassingly parallel problems, there is a class of
 problems that cannot be split into independent sub-problems, we can
@@ -368,9 +354,9 @@ simulations to multiple processing units.
 </div>
 </div>
 
-<div id="outline-container-sec-2-1-3" class="outline-4">
-<h4 id="sec-2-1-3">Mixtures</h4>
-<div class="outline-text-4" id="text-2-1-3">
+<div id="outline-container-orgheadline6" class="outline-4">
+<h4 id="orgheadline6">Mixtures</h4>
+<div class="outline-text-4" id="text-orgheadline6">
 <p>
 A good example of a problem that has both embarrassingly parallel
 properties as well as serial dependency properties, is the
@@ -387,9 +373,9 @@ computations between layers are serial.
 </div>
 
 
-<div id="outline-container-sec-3" class="outline-2">
-<h2 id="sec-3">Tools for Parallel Programming</h2>
-<div class="outline-text-2" id="text-3">
+<div id="outline-container-orgheadline7" class="outline-2">
+<h2 id="orgheadline7">Tools for Parallel Programming</h2>
+<div class="outline-text-2" id="text-orgheadline7">
 <p>
 The <b>threads model</b> of parallel programming is one in which a single
 process (a single program) can spawn multiple, concurrent "threads"
@@ -414,9 +400,9 @@ ensure threads must "take turns" when accessing protected data.
 </p>
 </div>
 
-<div id="outline-container-sec-3-1" class="outline-3">
-<h3 id="sec-3-1">POSIX Threads (Pthreads)</h3>
-<div class="outline-text-3" id="text-3-1">
+<div id="outline-container-orgheadline8" class="outline-3">
+<h3 id="orgheadline8">POSIX Threads (Pthreads)</h3>
+<div class="outline-text-3" id="text-orgheadline8">
 <p>
 <a href="http://en.wikipedia.org/wiki/POSIX">POSIX</a> <a href="http://en.wikipedia.org/wiki/Thread_(computing)">Threads</a> (<a href="http://en.wikipedia.org/wiki/POSIX_Threads">Pthreads</a> for short) is a standard for programming with
 threads, and defines a set of C types, functions and constants.
@@ -501,9 +487,9 @@ e.g. here: <a href="https://computing.llnl.gov/tutorials/pthreads/#Mutex">Mutex 
 </div>
 
 
-<div id="outline-container-sec-3-2" class="outline-3">
-<h3 id="sec-3-2">OpenMP</h3>
-<div class="outline-text-3" id="text-3-2">
+<div id="outline-container-orgheadline9" class="outline-3">
+<h3 id="orgheadline9">OpenMP</h3>
+<div class="outline-text-3" id="text-orgheadline9">
 <p>
 <a href="http://openmp.org/wp/">OpenMP</a> is an API that implements a multi-threaded, shared memory form
 of parallelism. It uses a set of compiler directives (statements that
@@ -558,9 +544,9 @@ Resume <span style="color: #228b22;">serial</span> <span style="color: #a0522d;"
 </div>
 </div>
 
-<div id="outline-container-sec-3-2-1" class="outline-4">
-<h4 id="sec-3-2-1">Private vs Shared variables</h4>
-<div class="outline-text-4" id="text-3-2-1">
+<div id="outline-container-orgheadline10" class="outline-4">
+<h4 id="orgheadline10">Private vs Shared variables</h4>
+<div class="outline-text-4" id="text-orgheadline10">
 <p>
 By using the <code>private()</code> and <code>shared()</code> directives, you can specify
 variables within the parallel region as being <b>shared</b>, i.e. visible
@@ -574,9 +560,9 @@ you can see that we specify the <code>thread_id</code> and <code>nloops</code> v
 </div>
 
 
-<div id="outline-container-sec-3-2-2" class="outline-4">
-<h4 id="sec-3-2-2">Parallelizing for loops with OpenMP</h4>
-<div class="outline-text-4" id="text-3-2-2">
+<div id="outline-container-orgheadline11" class="outline-4">
+<h4 id="orgheadline11">Parallelizing for loops with OpenMP</h4>
+<div class="outline-text-4" id="text-orgheadline11">
 <p>
 Parallelizing for loops is really simple (see code below). By default,
 loop iteration counters in OpenMP loop constructs (in this case the
@@ -631,9 +617,9 @@ Thread 1 performed 125 iterations of the loop.
 </div>
 </div>
 
-<div id="outline-container-sec-3-2-3" class="outline-4">
-<h4 id="sec-3-2-3">Critical Code</h4>
-<div class="outline-text-4" id="text-3-2-3">
+<div id="outline-container-orgheadline12" class="outline-4">
+<h4 id="orgheadline12">Critical Code</h4>
+<div class="outline-text-4" id="text-orgheadline12">
 <p>
 Using OpenMP you can specify something called a "critical" section of
 code. This is code that is performed by all threads, but is only
@@ -700,9 +686,9 @@ Total # loop iterations is 100000
 </div>
 </div>
 
-<div id="outline-container-sec-3-2-4" class="outline-4">
-<h4 id="sec-3-2-4">Reduction</h4>
-<div class="outline-text-4" id="text-3-2-4">
+<div id="outline-container-orgheadline13" class="outline-4">
+<h4 id="orgheadline13">Reduction</h4>
+<div class="outline-text-4" id="text-orgheadline13">
 <p>
 Reduction refers to the process of combining the results of several
 sub-calculations into a final result. This is a very common paradigm
@@ -753,9 +739,9 @@ Total # loop iterations is 100000
 </div>
 </div>
 
-<div id="outline-container-sec-3-2-5" class="outline-4">
-<h4 id="sec-3-2-5">Other OpenMP directives</h4>
-<div class="outline-text-4" id="text-3-2-5">
+<div id="outline-container-orgheadline14" class="outline-4">
+<h4 id="orgheadline14">Other OpenMP directives</h4>
+<div class="outline-text-4" id="text-orgheadline14">
 <p>
 There are a host of other directives you can issue using OpenMP, see
 <a href="http://en.wikipedia.org/wiki/OpenMP#OpenMP_clauses">here</a> for a list (wikipedia). Some other clauses of interest are:
@@ -763,27 +749,22 @@ There are a host of other directives you can issue using OpenMP, see
 
 <ul class="org-ul">
 <li><code>barrier</code>: each thread will wait until all threads have reached this
-point in the code, before proceeding
-</li>
-<li><code>nowait</code>: threads will not wait until everybody is finished
-</li>
+point in the code, before proceeding</li>
+<li><code>nowait</code>: threads will not wait until everybody is finished</li>
 <li><code>schedule(type, chunk)</code> allows you to specify how tasks are spawned
 out to threads in a for loop. There are three types of scheduling
-you can specify
-</li>
-<li><code>if</code>: allows you to parallelize only if a certain condition is met
-</li>
-<li>&#x2026; and a host of others
-</li>
+you can specify</li>
+<li><code>if</code>: allows you to parallelize only if a certain condition is met</li>
+<li>&#x2026; and a host of others</li>
 </ul>
 </div>
 </div>
 </div>
 
 
-<div id="outline-container-sec-3-3" class="outline-3">
-<h3 id="sec-3-3">MPI</h3>
-<div class="outline-text-3" id="text-3-3">
+<div id="outline-container-orgheadline15" class="outline-3">
+<h3 id="orgheadline15">MPI</h3>
+<div class="outline-text-3" id="text-orgheadline15">
 <p>
 The <a href="http://en.wikipedia.org/wiki/Message_Passing_Interface">Message Passing Interface</a> (MPI) is a standard defining core syntax
 and semantics of library routines that can be used to implement
@@ -869,9 +850,9 @@ spawn (4, in the above example).
 </p>
 </div>
 
-<div id="outline-container-sec-3-3-1" class="outline-4">
-<h4 id="sec-3-3-1">MPI_Reduce</h4>
-<div class="outline-text-4" id="text-3-3-1">
+<div id="outline-container-orgheadline16" class="outline-4">
+<h4 id="orgheadline16">MPI_Reduce</h4>
+<div class="outline-text-4" id="text-orgheadline16">
 <p>
 We saw with OpenMP that we can use a <b>reduce</b> directive to sum values
 across all threads. A similar function exists in MPI called
@@ -880,9 +861,9 @@ across all threads. A similar function exists in MPI called
 </div>
 </div>
 
-<div id="outline-container-sec-3-3-2" class="outline-4">
-<h4 id="sec-3-3-2">An Example: Estimating pi using dartboard algorithm</h4>
-<div class="outline-text-4" id="text-3-3-2">
+<div id="outline-container-orgheadline17" class="outline-4">
+<h4 id="orgheadline17">An Example: Estimating pi using dartboard algorithm</h4>
+<div class="outline-text-4" id="text-orgheadline17">
 <div class="org-src-container">
 
 <pre class="src src-c"><span style="color: #b22222;">// </span><span style="color: #b22222;">Estimating pi using the dartboard algorithm</span>
@@ -1030,9 +1011,9 @@ the final estimate of pi.
 </div>
 
 
-<div id="outline-container-sec-4" class="outline-2">
-<h2 id="sec-4">GPU Computing</h2>
-<div class="outline-text-2" id="text-4">
+<div id="outline-container-orgheadline18" class="outline-2">
+<h2 id="orgheadline18">GPU Computing</h2>
+<div class="outline-text-2" id="text-orgheadline18">
 <p>
 x
 </p>
@@ -1040,30 +1021,24 @@ x
 </div>
 
 
-<div id="outline-container-sec-5" class="outline-2">
-<h2 id="sec-5">Links</h2>
-<div class="outline-text-2" id="text-5">
+<div id="outline-container-orgheadline19" class="outline-2">
+<h2 id="orgheadline19">Links</h2>
+<div class="outline-text-2" id="text-orgheadline19">
 <ul class="org-ul">
-<li><a href="https://computing.llnl.gov/tutorials/parallel_comp/">Introduction to Parallel Computing</a>
-</li>
-<li><a href="https://computing.llnl.gov/tutorials/openMP/">OpenMP Tutorial</a>
-</li>
-<li><a href="http://en.wikipedia.org/wiki/OpenMP">OpenMP</a> (Wikipedia)
-</li>
-<li><a href="http://www.gnu.org/software/pth/">GNU Portable Threads</a>
-</li>
-<li><a href="https://computing.llnl.gov/tutorials/mpi/">MPI Tutorial</a>
-</li>
+<li><a href="https://computing.llnl.gov/tutorials/parallel_comp/">Introduction to Parallel Computing</a></li>
+<li><a href="https://computing.llnl.gov/tutorials/openMP/">OpenMP Tutorial</a></li>
+<li><a href="http://en.wikipedia.org/wiki/OpenMP">OpenMP</a> (Wikipedia)</li>
+<li><a href="http://www.gnu.org/software/pth/">GNU Portable Threads</a></li>
+<li><a href="https://computing.llnl.gov/tutorials/mpi/">MPI Tutorial</a></li>
 <li><a href="http://heather.cs.ucdavis.edu/parprocbook">Programming on Parallel Machines: GPU, Multicore, Clusters and More</a>
-  by Norm Matloff (UC Davis)
-</li>
+  by Norm Matloff (UC Davis)</li>
 </ul>
 </div>
 </div>
 
-<div id="outline-container-sec-6" class="outline-2">
-<h2 id="sec-6">Exercises</h2>
-<div class="outline-text-2" id="text-6">
+<div id="outline-container-orgheadline20" class="outline-2">
+<h2 id="orgheadline20">Exercises</h2>
+<div class="outline-text-2" id="text-orgheadline20">
 <p>
 Here is a <a href="code/exercises/A2_1_data.csv">data file</a> containing two columns of comma-separated data.
 </p>
@@ -1084,22 +1059,21 @@ Here is a <a href="code/exercises/A2_1_data.csv">data file</a> containing two co
 <ul class="org-ul">
 <li>1 Write a program to read in the data file into one or more data
 structures, and print the values out to the screen. You can assume
-in your program that you know the number of rows of data (10).
-</li>
+in your program that you know the number of rows of data (10).</li>
 
 <li>2 Rewrite your program above assuming you don't know in advance how
-many rows of data you have.
-</li>
+many rows of data you have.</li>
 
-<li>3 Add to your program a function that computes the value of a t
+<li><p>
+3 Add to your program a function that computes the value of a t
 statistic for the difference between means of the two columns of
 data. Assume it's an unpaired t-test and you can compute t using the
 following equation:
+</p>
 
 \begin{equation}
   t = \frac{\bar{X}_{2} - \bar{X}_{1}}{\sqrt{\frac{s_{1}^{2}}{n1}+\frac{s_{2}^{2}}{n2}}}
-\end{equation}
-</li>
+\end{equation}</li>
 
 <li>4 Implement a bootstrapping test of the t statistic you get
 above. Iterate <code>nboot</code> times, each time taking a random sample (with
@@ -1109,29 +1083,22 @@ each group, then re-do the t-test. Count up how many times out of
 above (so this is a one-tailed test). Set <code>nboot</code> to 1 million and
 report execution time. If you have a fast machine set <code>nboot</code> to 10
 million so you have some dynamic range. If you have a slow machine
-set <code>nboot</code> to 1e5 (or 1e4 if it's really slow).
-</li>
+set <code>nboot</code> to 1e5 (or 1e4 if it's really slow).</li>
 
 <li>5 Parallelize the bootstrap loop to make use of multiple CPU
-cores. Report execution time.
-</li>
+cores. Report execution time.</li>
 </ul>
 </div>
 
-<div id="outline-container-sec-6-1" class="outline-3">
-<h3 id="sec-6-1">Solutions</h3>
-<div class="outline-text-3" id="text-6-1">
+<div id="outline-container-orgheadline21" class="outline-3">
+<h3 id="orgheadline21">Solutions</h3>
+<div class="outline-text-3" id="text-orgheadline21">
 <ul class="org-ul">
-<li><a href="code/exercises/A2_1.c">1</a>
-</li>
-<li><a href="code/exercises/A2_2.c">2</a>
-</li>
-<li><a href="code/exercises/A2_3.c">3</a>
-</li>
-<li><a href="code/exercises/A2_4.c">4</a>
-</li>
-<li><a href="code/exercises/A2_5.c">5</a>
-</li>
+<li><a href="code/exercises/A2_1.c">1</a></li>
+<li><a href="code/exercises/A2_2.c">2</a></li>
+<li><a href="code/exercises/A2_3.c">3</a></li>
+<li><a href="code/exercises/A2_4.c">4</a></li>
+<li><a href="code/exercises/A2_5.c">5</a></li>
 </ul>
 </div>
 </div>

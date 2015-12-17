@@ -3,23 +3,30 @@
 "http://www.w3.org/TR/xhtml1/DTD/xhtml1-strict.dtd">
 <html xmlns="http://www.w3.org/1999/xhtml" lang="en" xml:lang="en">
 <head>
-<title>5. Functions</title>
-<!-- 2015-05-14 Thu 11:12 -->
+<!-- 2015-12-17 Thu 09:38 -->
 <meta  http-equiv="Content-Type" content="text/html;charset=utf-8" />
+<meta  name="viewport" content="width=device-width, initial-scale=1" />
+<title>5. Functions</title>
 <meta  name="generator" content="Org-mode" />
 <meta  name="author" content="Paul Gribble" />
 <style type="text/css">
  <!--/*--><![CDATA[/*><!--*/
-  .title  { text-align: center; }
+  .title  { text-align: center;
+             margin-bottom: .2em; }
+  .subtitle { text-align: center;
+              font-size: medium;
+              font-weight: bold;
+              margin-top:0; }
   .todo   { font-family: monospace; color: red; }
-  .done   { color: green; }
+  .done   { font-family: monospace; color: green; }
+  .priority { font-family: monospace; color: orange; }
   .tag    { background-color: #eee; font-family: monospace;
             padding: 2px; font-size: 80%; font-weight: normal; }
   .timestamp { color: #bebebe; }
   .timestamp-kwd { color: #5f9ea0; }
-  .right  { margin-left: auto; margin-right: 0px;  text-align: right; }
-  .left   { margin-left: 0px;  margin-right: auto; text-align: left; }
-  .center { margin-left: auto; margin-right: auto; text-align: center; }
+  .org-right  { margin-left: auto; margin-right: 0px;  text-align: right; }
+  .org-left   { margin-left: 0px;  margin-right: auto; text-align: left; }
+  .org-center { margin-left: auto; margin-right: auto; text-align: center; }
   .underline { text-decoration: underline; }
   #postamble p, #preamble p { font-size: 90%; margin: .2em; }
   p.verse { margin-left: 3%; }
@@ -58,15 +65,14 @@
   caption.t-above { caption-side: top; }
   caption.t-bottom { caption-side: bottom; }
   td, th { vertical-align:top;  }
-  th.right  { text-align: center;  }
-  th.left   { text-align: center;   }
-  th.center { text-align: center; }
-  td.right  { text-align: right;  }
-  td.left   { text-align: left;   }
-  td.center { text-align: center; }
+  th.org-right  { text-align: center;  }
+  th.org-left   { text-align: center;   }
+  th.org-center { text-align: center; }
+  td.org-right  { text-align: right;  }
+  td.org-left   { text-align: left;   }
+  td.org-center { text-align: center; }
   dt { font-weight: bold; }
-  .footpara:nth-child(2) { display: inline; }
-  .footpara { display: block; }
+  .footpara { display: inline; }
   .footdef  { margin-bottom: 1em; }
   .figure { padding: 1em; }
   .figure p { text-align: center; }
@@ -135,48 +141,28 @@ for the JavaScript code in this tag.
  }
 /*]]>*///-->
 </script>
-<script type="text/javascript" src="http://orgmode.org/mathjax/MathJax.js"></script>
-<script type="text/javascript">
-<!--/*--><![CDATA[/*><!--*/
+<script type="text/x-mathjax-config">
     MathJax.Hub.Config({
-        // Only one of the two following lines, depending on user settings
-        // First allows browser-native MathML display, second forces HTML/CSS
-        //  config: ["MMLorHTML.js"], jax: ["input/TeX"],
-            jax: ["input/TeX", "output/HTML-CSS"],
-        extensions: ["tex2jax.js","TeX/AMSmath.js","TeX/AMSsymbols.js",
-                     "TeX/noUndefined.js"],
-        tex2jax: {
-            inlineMath: [ ["\\(","\\)"] ],
-            displayMath: [ ['$$','$$'], ["\\[","\\]"], ["\\begin{displaymath}","\\end{displaymath}"] ],
-            skipTags: ["script","noscript","style","textarea","pre","code"],
-            ignoreClass: "tex2jax_ignore",
-            processEscapes: false,
-            processEnvironments: true,
-            preview: "TeX"
-        },
-        showProcessingMessages: true,
         displayAlign: "center",
-        displayIndent: "2em",
+        displayIndent: "0em",
 
-        "HTML-CSS": {
-             scale: 100,
-             availableFonts: ["STIX","TeX"],
-             preferredFont: "TeX",
-             webFont: "TeX",
-             imageFont: "TeX",
-             showMathMenu: true,
-        },
-        MMLorHTML: {
-             prefer: {
-                 MSIE:    "MML",
-                 Firefox: "MML",
-                 Opera:   "HTML",
-                 other:   "HTML"
+        "HTML-CSS": { scale: 100,
+                        linebreaks: { automatic: "false" },
+                        webFont: "TeX"
+                       },
+        SVG: {scale: 100,
+              linebreaks: { automatic: "false" },
+              font: "TeX"},
+        NativeMML: {scale: 100},
+        TeX: { equationNumbers: {autoNumber: "AMS"},
+               MultLineWidth: "85%",
+               TagSide: "right",
+               TagIndent: ".8em"
              }
-        }
-    });
-/*]]>*///-->
+});
 </script>
+<script type="text/javascript"
+        src="http://cdn.mathjax.org/mathjax/latest/MathJax.js?config=TeX-AMS_HTML"></script>
 </head>
 <body>
 <div id="org-div-home-and-up">
@@ -189,25 +175,25 @@ for the JavaScript code in this tag.
 <h2>Table of Contents</h2>
 <div id="text-table-of-contents">
 <ul>
-<li><a href="#sec-1">Rationale</a>
+<li><a href="#orgheadline1">Rationale</a>
 <ul>
-<li><a href="#sec-1-1">Abstraction</a></li>
+<li><a href="#orgheadline2">Abstraction</a></li>
 </ul>
 </li>
-<li><a href="#sec-2">Defining a Function</a></li>
-<li><a href="#sec-3">Input Arguments</a></li>
-<li><a href="#sec-4">Return Value</a>
+<li><a href="#orgheadline3">Defining a Function</a></li>
+<li><a href="#orgheadline4">Input Arguments</a></li>
+<li><a href="#orgheadline5">Return Value</a>
 <ul>
-<li><a href="#sec-4-1">Recursion</a></li>
+<li><a href="#orgheadline6">Recursion</a></li>
 </ul>
 </li>
-<li><a href="#sec-5">Argument Checking</a></li>
-<li><a href="#sec-6">Variable Scope</a></li>
-<li><a href="#sec-7">Automatic vs Static Variables</a></li>
-<li><a href="#sec-8">Variadic Functions</a></li>
-<li><a href="#sec-9">Exercises</a>
+<li><a href="#orgheadline7">Argument Checking</a></li>
+<li><a href="#orgheadline8">Variable Scope</a></li>
+<li><a href="#orgheadline9">Automatic vs Static Variables</a></li>
+<li><a href="#orgheadline10">Variadic Functions</a></li>
+<li><a href="#orgheadline11">Exercises</a>
 <ul>
-<li><a href="#sec-9-1">Solutions</a></li>
+<li><a href="#orgheadline12">Solutions</a></li>
 </ul>
 </li>
 </ul>
@@ -215,9 +201,9 @@ for the JavaScript code in this tag.
 </div>
 <hr  />
 
-<div id="outline-container-sec-1" class="outline-2">
-<h2 id="sec-1">Rationale</h2>
-<div class="outline-text-2" id="text-1">
+<div id="outline-container-orgheadline1" class="outline-2">
+<h2 id="orgheadline1">Rationale</h2>
+<div class="outline-text-2" id="text-orgheadline1">
 <p>
 Breaking your code down into discrete functions allows you to re-use
 code in intelligent ways, and to make your code more efficient
@@ -258,9 +244,9 @@ steps we wish to.
 </p>
 </div>
 
-<div id="outline-container-sec-1-1" class="outline-3">
-<h3 id="sec-1-1">Abstraction</h3>
-<div class="outline-text-3" id="text-1-1">
+<div id="outline-container-orgheadline2" class="outline-3">
+<h3 id="orgheadline2">Abstraction</h3>
+<div class="outline-text-3" id="text-orgheadline2">
 <p>
 Using functions to abstract away the details also means that as long
 as the function inputs and outputs are known, then the user doesn't
@@ -283,9 +269,9 @@ perhaps get faster (or more accurate, for example) functionality
 </div>
 </div>
 
-<div id="outline-container-sec-2" class="outline-2">
-<h2 id="sec-2">Defining a Function</h2>
-<div class="outline-text-2" id="text-2">
+<div id="outline-container-orgheadline3" class="outline-2">
+<h2 id="orgheadline3">Defining a Function</h2>
+<div class="outline-text-2" id="text-orgheadline3">
 <p>
 A function must be defined in the following way:
 </p>
@@ -354,9 +340,9 @@ Hello, Paul
 </div>
 </div>
 
-<div id="outline-container-sec-3" class="outline-2">
-<h2 id="sec-3">Input Arguments</h2>
-<div class="outline-text-2" id="text-3">
+<div id="outline-container-orgheadline4" class="outline-2">
+<h2 id="orgheadline4">Input Arguments</h2>
+<div class="outline-text-2" id="text-orgheadline4">
 <p>
 Now let's modify our function so that it accepts one input argument,
 which is a string containing the name we want to say hello to. So for
@@ -419,9 +405,9 @@ Hello, Victoria 444
 </div>
 </div>
 
-<div id="outline-container-sec-4" class="outline-2">
-<h2 id="sec-4">Return Value</h2>
-<div class="outline-text-2" id="text-4">
+<div id="outline-container-orgheadline5" class="outline-2">
+<h2 id="orgheadline5">Return Value</h2>
+<div class="outline-text-2" id="text-orgheadline5">
 <p>
 Let's consider another example, one where we want our function to
 return a value. Let's write a function to compute Fibonacci numbers
@@ -475,9 +461,9 @@ data types in the next section.
 </p>
 </div>
 
-<div id="outline-container-sec-4-1" class="outline-3">
-<h3 id="sec-4-1">Recursion</h3>
-<div class="outline-text-3" id="text-4-1">
+<div id="outline-container-orgheadline6" class="outline-3">
+<h3 id="orgheadline6">Recursion</h3>
+<div class="outline-text-3" id="text-orgheadline6">
 <p>
 Note in the Fibonacci example above, that in the body of our function,
 if the value of the input argument <code>n</code> is not <code>0</code> or <code>1</code>, then the
@@ -498,9 +484,9 @@ function using a loop instead of recursion. Another thing to try is
 </div>
 </div>
 
-<div id="outline-container-sec-5" class="outline-2">
-<h2 id="sec-5">Argument Checking</h2>
-<div class="outline-text-2" id="text-5">
+<div id="outline-container-orgheadline7" class="outline-2">
+<h2 id="orgheadline7">Argument Checking</h2>
+<div class="outline-text-2" id="text-orgheadline7">
 <p>
 Note that if we pass an argument of the wrong type to a function, the
 program may still compile, and even run, and it will simply spit out
@@ -511,9 +497,9 @@ the output values you receive from functions, are what is expected.
 </div>
 </div>
 
-<div id="outline-container-sec-6" class="outline-2">
-<h2 id="sec-6">Variable Scope</h2>
-<div class="outline-text-2" id="text-6">
+<div id="outline-container-orgheadline8" class="outline-2">
+<h2 id="orgheadline8">Variable Scope</h2>
+<div class="outline-text-2" id="text-orgheadline8">
 <p>
 Any variables declared inside a function, are <b>local to that
 function</b>, and are not accessible outside of the function. Similarly,
@@ -569,9 +555,9 @@ my favourite float is 3.14
 </div>
 </div>
 
-<div id="outline-container-sec-7" class="outline-2">
-<h2 id="sec-7">Automatic vs Static Variables</h2>
-<div class="outline-text-2" id="text-7">
+<div id="outline-container-orgheadline9" class="outline-2">
+<h2 id="orgheadline9">Automatic vs Static Variables</h2>
+<div class="outline-text-2" id="text-orgheadline9">
 <p>
 We talked about variable <b>scope</b> and the idea that variables declared
 within a function are <b>local</b> to that function. What actually happens
@@ -638,9 +624,9 @@ created and initialized only once.
 </div>
 </div>
 
-<div id="outline-container-sec-8" class="outline-2">
-<h2 id="sec-8">Variadic Functions</h2>
-<div class="outline-text-2" id="text-8">
+<div id="outline-container-orgheadline10" class="outline-2">
+<h2 id="orgheadline10">Variadic Functions</h2>
+<div class="outline-text-2" id="text-orgheadline10">
 <p>
 A <a href="http://en.wikipedia.org/wiki/Variadic_function">variadic function</a> is one which accepts a variable number of input
 arguments. In C we can write functions that are variadic. Sometimes
@@ -706,12 +692,11 @@ input arguments when the program is started at the command line.
 </div>
 
 
-<div id="outline-container-sec-9" class="outline-2">
-<h2 id="sec-9">Exercises</h2>
-<div class="outline-text-2" id="text-9">
+<div id="outline-container-orgheadline11" class="outline-2">
+<h2 id="orgheadline11">Exercises</h2>
+<div class="outline-text-2" id="text-orgheadline11">
 <ul class="org-ul">
-<li>1 Write a function that computes the nth <a href="http://en.wikipedia.org/wiki/Fibonacci_number">Fibonacci number</a>. Your
-</li>
+<li>1 Write a function that computes the nth <a href="http://en.wikipedia.org/wiki/Fibonacci_number">Fibonacci number</a>. Your</li>
 </ul>
 <p>
 function should be called <code>fib</code> and should take as input a single
@@ -756,8 +741,7 @@ fib(10)=55
 </pre>
 
 <ul class="org-ul">
-<li>2 Write a function that determines whether an integer is <a href="http://en.wikipedia.org/wiki/Prime_number">prime</a>. The
-</li>
+<li>2 Write a function that determines whether an integer is <a href="http://en.wikipedia.org/wiki/Prime_number">prime</a>. The</li>
 </ul>
 <p>
 function should take as input a single integer, and return a 1 if the
@@ -798,8 +782,7 @@ isprime(17)=1
 </pre>
 
 <ul class="org-ul">
-<li>3 Write a program that prints out the first 1000 prime numbers. You
-</li>
+<li>3 Write a program that prints out the first 1000 prime numbers. You</li>
 </ul>
 <p>
 can find a list to verify the correctness of your program <a href="http://primes.utm.edu/lists/small/1000.txt">here</a>.
@@ -820,16 +803,13 @@ can find a list to verify the correctness of your program <a href="http://primes
 </pre>
 </div>
 
-<div id="outline-container-sec-9-1" class="outline-3">
-<h3 id="sec-9-1">Solutions</h3>
-<div class="outline-text-3" id="text-9-1">
+<div id="outline-container-orgheadline12" class="outline-3">
+<h3 id="orgheadline12">Solutions</h3>
+<div class="outline-text-3" id="text-orgheadline12">
 <ul class="org-ul">
-<li><a href="code/exercises/5_1.c">1</a>
-</li>
-<li><a href="code/exercises/5_2.c">2</a>
-</li>
-<li><a href="code/exercises/5_3.c">3</a>
-</li>
+<li><a href="code/exercises/5_1.c">1</a></li>
+<li><a href="code/exercises/5_2.c">2</a></li>
+<li><a href="code/exercises/5_3.c">3</a></li>
 </ul>
 </div>
 </div>

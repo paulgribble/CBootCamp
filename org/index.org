@@ -40,7 +40,7 @@ int main(int argc, char *argv[]) {
 
 * Advanced Topics
 
-1. [[file:A1_Libraries.html][A brief tour of some other useful C Libraries]]: { [[http://www.gnu.org/software/libc/][glibc]], [[http://www.gnu.org/software/gsl/][GSL]], [[http://www.netlib.org/blas/][BLAS]] /
+1. [[file:A1_Libraries.html][A brief tour of some other useful C Libraries]]: { [[https://developer.gnome.org/glib/][GLib]], [[http://www.gnu.org/software/gsl/][GSL]], [[http://www.netlib.org/blas/][BLAS]] /
    [[http://www.netlib.org/lapack/][LAPACK]], [[http://apophenia.sourceforge.net/][Apophenia]], [[http://www.gnuplot.info/][GNUplot]] }
 2. [[file:A2_Parallel_Programming_in_C.html][Parallel programming in C]]
 
