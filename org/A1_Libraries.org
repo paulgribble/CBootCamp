@@ -17,63 +17,21 @@ yourself). Here is a short list of some common libraries that you
 might find useful.
 
 
-* GNU C Library (glibc)
+* GLib
 
-[[http://www.gnu.org/software/libc/][glibc]]
+[[https://developer.gnome.org/glib/][GLib]]
 
-The GNU C Library contains many useful functions (a list is
-[[http://www.gnu.org/software/libc/manual/html_node/index.html#Top][here]]). There are some that will probably be more generally useful to
-you than others:
-
-** String and Array Utilities
-
-There are a number of functions related to handling and manipulating
-strings and arrays (a list is [[http://www.gnu.org/software/libc/manual/html_node/String-and-Array-Utilities.html#String-and-Array-Utilities][here]]). In particular routines for
-searching strings and copying and concatenation, will likely be useful
-to you. Dig deeper on your own to find out more.
-
-** Others
-
-Other useful ones include [[http://www.gnu.org/software/libc/manual/html_node/Searching-and-Sorting.html#Searching-and-Sorting][Searching and Sorting]] and [[http://www.gnu.org/software/libc/manual/html_node/Date-and-Time.html#Date-and-Time][Date and Time]]
-functions. I suggest you have a look at the full list and familiarize
-yourself with what's available.
-
-** Data Structures
+The GLib library contains many useful data structures and building
+blocks such as linked lists, hash tables, and others.
 
 Here is a link to a guide taking you through how to use GLib to manage
 data structures of the sort that you get "for free" in languages like
 Matlab, Python, etc... things like lists, hash tables (otherwise known
-as dictionaries), arrays, trees, etc.
+as dictionaries), arrays, trees, etc. The guide also shows how to link
+to GLib at compile time.
 
 [[http://www.ibm.com/developerworks/linux/tutorials/l-glib/][Manage C data using the GLib collections]]
 
-
-** Linking to glibc
-
-Depending on which function(s) you want to use in your program, you
-will probably have to use the =#include= directive to include the
-appropriate header file(s). For example to use the =strlen()= function
-(which returns the length of a string) you will have to include the
-=string.h= header file. Unlike other external libraries, for glibc
-there is no need to pass an extra parameter at compile time to link to
-the glibc library, the gcc compiler already knows to look for it.
-
-#+BEGIN_SRC c
-// gcc -o go go.c
-#include <stdio.h>
-#include <string.h>
-
-int main(int argc, char *argv[])
- {                                                                             
-   char mystring[] = "the dude";
-   printf("%s is %ld characters long\n", mystring, strlen(mystring));
-   return 0;                                                                   
-}
-#+END_SRC
-
-#+BEGIN_EXAMPLE
-the dude is 8 characters long
-#+END_EXAMPLE
 
 * GNU Scientific Library (GSL)
 
