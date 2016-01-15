@@ -357,6 +357,7 @@ Here is how to do it:
 
 #+BEGIN_SRC c
 #include <stdio.h>
+#include <stdlib.h>
 
 int main (int argc, char *argv[])
 {
