@@ -321,7 +321,7 @@ int main(int argc, char *argv[])
                         "Yukon", "Northwest Territories", "Nunavut" };
   int i;
   for (i=0; i<13; i++) {
-    printf("provinces[%d] = %s\n", i provinces[i]);
+    printf("provinces[%d] = %s\n", i, provinces[i]);
   }
   return 0;
 }
