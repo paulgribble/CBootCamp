@@ -3,7 +3,7 @@
 "http://www.w3.org/TR/xhtml1/DTD/xhtml1-strict.dtd">
 <html xmlns="http://www.w3.org/1999/xhtml" lang="en" xml:lang="en">
 <head>
-<!-- 2015-12-18 Fri 19:27 -->
+<!-- 2016-01-20 Wed 14:18 -->
 <meta  http-equiv="Content-Type" content="text/html;charset=utf-8" />
 <meta  name="viewport" content="width=device-width, initial-scale=1" />
 <title>8. Pointers</title>
@@ -563,7 +563,7 @@ One of the handy things you can do in C, is to use a pointer to point to a funct
   <span style="color: #a020f0;">return</span> a * b;
 }
 
-<span style="color: #228b22;">void</span> <span style="color: #0000ff;">doMath</span>( <span style="color: #228b22;">int</span> (*<span style="color: #0000ff;">fn</span>)(<span style="color: #228b22;">int</span> <span style="color: #a0522d;">a</span>, <span style="color: #228b22;">int</span> <span style="color: #a0522d;">b</span>), <span style="color: #228b22;">int</span> <span style="color: #a0522d;">a</span>, <span style="color: #228b22;">int</span> <span style="color: #a0522d;">b</span> ) {
+<span style="color: #228b22;">void</span> <span style="color: #0000ff;">doMath</span>( <span style="color: #228b22;">int</span> (*<span style="color: #a0522d;">fn</span>)(<span style="color: #228b22;">int</span> <span style="color: #a0522d;">a</span>, <span style="color: #228b22;">int</span> <span style="color: #a0522d;">b</span>), <span style="color: #228b22;">int</span> <span style="color: #a0522d;">a</span>, <span style="color: #228b22;">int</span> <span style="color: #a0522d;">b</span> ) {
   <span style="color: #228b22;">int</span> <span style="color: #a0522d;">result</span> = fn(a, b);
   printf(<span style="color: #8b2252;">"result = %d\n"</span>, result);
 }

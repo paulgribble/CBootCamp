@@ -56,7 +56,7 @@ character at a time to standard output.
 #+BEGIN_SRC C
 #include <stdio.h>
 
-void main() {
+int main() {
   char c = getchar();
   putchar(c);
   putchar('\n');
