@@ -58,6 +58,10 @@ int main(int argc, char *argv[]) {
 - Interfacing with Hardware (e.g. data acquisition)
 - Integrating C code with [[http://www.python.org/][Python]] and [[http://www.r-project.org][R]]
 
+* Links
+
+- [[http://c-faq.com/index.html][comp.lang.c FAQs]]
+
 * These notes
 
 These notes can be viewed (and downloaded) in their entirety from a
