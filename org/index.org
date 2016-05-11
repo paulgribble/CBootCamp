@@ -61,6 +61,7 @@ int main(int argc, char *argv[]) {
 * Links
 
 - [[http://c-faq.com/index.html][comp.lang.c FAQs]]
+- [[http://cslibrary.stanford.edu/101/][Essential C]] (Stanford)
 
 * These notes
 
