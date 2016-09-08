@@ -66,7 +66,7 @@ perhaps get faster (or more accurate, for example) functionality
 A function must be defined in the following way:
 
 #+BEGIN_SRC c
-returnType functionName (arg1Type arg1Name, arg1Type arg2Name) {
+returnType functionName (arg1Type arg1Name, arg2Type arg2Name) {
    function_statement;
    function_statement;
    return returnVar;
