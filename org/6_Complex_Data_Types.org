@@ -475,7 +475,7 @@ other structures.
 Here is what a structure definition looks like:
 
 #+BEGIN_SRC C
-struct Point 3D{
+struct Point3D{
   int x;
   int y;
   int z;
