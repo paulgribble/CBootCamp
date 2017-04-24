@@ -3,12 +3,12 @@
 "http://www.w3.org/TR/xhtml1/DTD/xhtml1-strict.dtd">
 <html xmlns="http://www.w3.org/1999/xhtml" lang="en" xml:lang="en">
 <head>
-<!-- 2016-06-05 Sun 20:39 -->
-<meta  http-equiv="Content-Type" content="text/html;charset=utf-8" />
-<meta  name="viewport" content="width=device-width, initial-scale=1" />
+<!-- 2017-04-24 Mon 07:06 -->
+<meta http-equiv="Content-Type" content="text/html;charset=utf-8" />
+<meta name="viewport" content="width=device-width, initial-scale=1" />
 <title>9. Strings</title>
-<meta  name="generator" content="Org-mode" />
-<meta  name="author" content="Paul Gribble" />
+<meta name="generator" content="Org mode" />
+<meta name="author" content="Paul Gribble" />
 <style type="text/css">
  <!--/*--><![CDATA[/*><!--*/
   .title  { text-align: center;
@@ -53,13 +53,97 @@
     border: 1px solid black;
   }
   pre.src:hover:before { display: inline;}
-  pre.src-sh:before    { content: 'sh'; }
-  pre.src-bash:before  { content: 'sh'; }
+  /* Languages per Org manual */
+  pre.src-asymptote:before { content: 'Asymptote'; }
+  pre.src-awk:before { content: 'Awk'; }
+  pre.src-C:before { content: 'C'; }
+  /* pre.src-C++ doesn't work in CSS */
+  pre.src-clojure:before { content: 'Clojure'; }
+  pre.src-css:before { content: 'CSS'; }
+  pre.src-D:before { content: 'D'; }
+  pre.src-ditaa:before { content: 'ditaa'; }
+  pre.src-dot:before { content: 'Graphviz'; }
+  pre.src-calc:before { content: 'Emacs Calc'; }
   pre.src-emacs-lisp:before { content: 'Emacs Lisp'; }
-  pre.src-R:before     { content: 'R'; }
-  pre.src-perl:before  { content: 'Perl'; }
-  pre.src-java:before  { content: 'Java'; }
-  pre.src-sql:before   { content: 'SQL'; }
+  pre.src-fortran:before { content: 'Fortran'; }
+  pre.src-gnuplot:before { content: 'gnuplot'; }
+  pre.src-haskell:before { content: 'Haskell'; }
+  pre.src-java:before { content: 'Java'; }
+  pre.src-js:before { content: 'Javascript'; }
+  pre.src-latex:before { content: 'LaTeX'; }
+  pre.src-ledger:before { content: 'Ledger'; }
+  pre.src-lisp:before { content: 'Lisp'; }
+  pre.src-lilypond:before { content: 'Lilypond'; }
+  pre.src-lua:before { content: 'Lua'; }
+  pre.src-matlab:before { content: 'MATLAB'; }
+  pre.src-mscgen:before { content: 'Mscgen'; }
+  pre.src-ocaml:before { content: 'Objective Caml'; }
+  pre.src-octave:before { content: 'Octave'; }
+  pre.src-org:before { content: 'Org mode'; }
+  pre.src-oz:before { content: 'OZ'; }
+  pre.src-plantuml:before { content: 'Plantuml'; }
+  pre.src-processing:before { content: 'Processing.js'; }
+  pre.src-python:before { content: 'Python'; }
+  pre.src-R:before { content: 'R'; }
+  pre.src-ruby:before { content: 'Ruby'; }
+  pre.src-sass:before { content: 'Sass'; }
+  pre.src-scheme:before { content: 'Scheme'; }
+  pre.src-screen:before { content: 'Gnu Screen'; }
+  pre.src-sed:before { content: 'Sed'; }
+  pre.src-sh:before { content: 'shell'; }
+  pre.src-sql:before { content: 'SQL'; }
+  pre.src-sqlite:before { content: 'SQLite'; }
+  /* additional languages in org.el's org-babel-load-languages alist */
+  pre.src-forth:before { content: 'Forth'; }
+  pre.src-io:before { content: 'IO'; }
+  pre.src-J:before { content: 'J'; }
+  pre.src-makefile:before { content: 'Makefile'; }
+  pre.src-maxima:before { content: 'Maxima'; }
+  pre.src-perl:before { content: 'Perl'; }
+  pre.src-picolisp:before { content: 'Pico Lisp'; }
+  pre.src-scala:before { content: 'Scala'; }
+  pre.src-shell:before { content: 'Shell Script'; }
+  pre.src-ebnf2ps:before { content: 'ebfn2ps'; }
+  /* additional language identifiers per "defun org-babel-execute"
+       in ob-*.el */
+  pre.src-cpp:before  { content: 'C++'; }
+  pre.src-abc:before  { content: 'ABC'; }
+  pre.src-coq:before  { content: 'Coq'; }
+  pre.src-groovy:before  { content: 'Groovy'; }
+  /* additional language identifiers from org-babel-shell-names in
+     ob-shell.el: ob-shell is the only babel language using a lambda to put
+     the execution function name together. */
+  pre.src-bash:before  { content: 'bash'; }
+  pre.src-csh:before  { content: 'csh'; }
+  pre.src-ash:before  { content: 'ash'; }
+  pre.src-dash:before  { content: 'dash'; }
+  pre.src-ksh:before  { content: 'ksh'; }
+  pre.src-mksh:before  { content: 'mksh'; }
+  pre.src-posh:before  { content: 'posh'; }
+  /* Additional Emacs modes also supported by the LaTeX listings package */
+  pre.src-ada:before { content: 'Ada'; }
+  pre.src-asm:before { content: 'Assembler'; }
+  pre.src-caml:before { content: 'Caml'; }
+  pre.src-delphi:before { content: 'Delphi'; }
+  pre.src-html:before { content: 'HTML'; }
+  pre.src-idl:before { content: 'IDL'; }
+  pre.src-mercury:before { content: 'Mercury'; }
+  pre.src-metapost:before { content: 'MetaPost'; }
+  pre.src-modula-2:before { content: 'Modula-2'; }
+  pre.src-pascal:before { content: 'Pascal'; }
+  pre.src-ps:before { content: 'PostScript'; }
+  pre.src-prolog:before { content: 'Prolog'; }
+  pre.src-simula:before { content: 'Simula'; }
+  pre.src-tcl:before { content: 'tcl'; }
+  pre.src-tex:before { content: 'TeX'; }
+  pre.src-plain-tex:before { content: 'Plain TeX'; }
+  pre.src-verilog:before { content: 'Verilog'; }
+  pre.src-vhdl:before { content: 'VHDL'; }
+  pre.src-xml:before { content: 'XML'; }
+  pre.src-nxml:before { content: 'XML'; }
+  /* add a generic configuration mode; LaTeX export needs an additional
+     (add-to-list 'org-latex-listings-langs '(conf " ")) in .emacs */
+  pre.src-conf:before { content: 'Configuration File'; }
 
   table { border-collapse:collapse; }
   caption.t-above { caption-side: top; }
@@ -92,6 +176,7 @@
     { font-size: 10px; font-weight: bold; white-space: nowrap; }
   .org-info-js_search-highlight
     { background-color: #ffff00; color: #000000; font-weight: bold; }
+  .org-svg { width: 90%; }
   /*]]>*/-->
 </style>
 <link rel="stylesheet" type="text/css" href="mystyle.css" /><script>(function(i,s,o,g,r,a,m){i['GoogleAnalyticsObject']=r;i[r]=i[r]||function(){(i[r].q=i[r].q||[]).push(arguments)},i[r].l=1*new Date();a=s.createElement(o),m=s.getElementsByTagName(o)[0];a.async=1;a.src=g;m.parentNode.insertBefore(a,m)})(window,document,'script','//www.google-analytics.com/analytics.js','ga');ga('create', 'UA-52544521-1', 'auto');ga('send', 'pageview');</script>
@@ -153,45 +238,45 @@ for the JavaScript code in this tag.
 <h2>Table of Contents</h2>
 <div id="text-table-of-contents">
 <ul>
-<li><a href="#orgheadline1">Declaring strings</a>
+<li><a href="#orgc4b11d6">Declaring strings</a>
 <ul>
-<li><a href="#orgheadline2">null-termination</a></li>
+<li><a href="#org593b8cf">null-termination</a></li>
 </ul>
 </li>
-<li><a href="#orgheadline3">Modifying strings</a></li>
-<li><a href="#orgheadline4">String handling routines in the C standard library</a>
+<li><a href="#orgcbc9978">Modifying strings</a></li>
+<li><a href="#orgd0519cd">String handling routines in the C standard library</a>
 <ul>
-<li><a href="#orgheadline5">An example: Concatenating two strings</a></li>
-<li><a href="#orgheadline6">Comparing two strings</a></li>
-<li><a href="#orgheadline10">Converting strings to and from numeric types</a>
+<li><a href="#org1bd0132">An example: Concatenating two strings</a></li>
+<li><a href="#org359f5ac">Comparing two strings</a></li>
+<li><a href="#orgfc7bd6c">Converting strings to and from numeric types</a>
 <ul>
-<li><a href="#orgheadline7">Strings to numbers</a></li>
-<li><a href="#orgheadline8">Numbers to strings</a></li>
-<li><a href="#orgheadline9">Numbers to string II (slightly esoteric)</a></li>
+<li><a href="#org8280834">Strings to numbers</a></li>
+<li><a href="#orga57848f">Numbers to strings</a></li>
+<li><a href="#org19004d9">Numbers to string II (slightly esoteric)</a></li>
 </ul>
 </li>
 </ul>
 </li>
-<li><a href="#orgheadline11">Arrays of Strings</a></li>
-<li><a href="#orgheadline12">Links</a></li>
-<li><a href="#orgheadline13">Exercises</a>
+<li><a href="#org6a6a12e">Arrays of Strings</a></li>
+<li><a href="#orgb12a777">Links</a></li>
+<li><a href="#orgc2e487c">Exercises</a>
 <ul>
-<li><a href="#orgheadline14">Solutions</a></li>
+<li><a href="#org5338009">Solutions</a></li>
 </ul>
 </li>
 </ul>
 </div>
 </div>
-<hr  />
+<hr />
 
 <p>
 I'll be honest, C is slightly awkward for dealing with character
 strings, especially compared to languages like Python.
 </p>
 
-<div id="outline-container-orgheadline1" class="outline-2">
-<h2 id="orgheadline1">Declaring strings</h2>
-<div class="outline-text-2" id="text-orgheadline1">
+<div id="outline-container-orgc4b11d6" class="outline-2">
+<h2 id="orgc4b11d6">Declaring strings</h2>
+<div class="outline-text-2" id="text-orgc4b11d6">
 <p>
 Constant character strings are written inside double-quotation marks
 (line 5 below).
@@ -209,20 +294,19 @@ double square brackets signify an array.
 </p>
 
 <div class="org-src-container">
+<pre class="src src-c"><span style="color: #bc6ec5;">#include</span> <span style="color: #4f97d7;">&lt;</span><span style="color: #2d9574;">stdio.h</span><span style="color: #4f97d7;">&gt;</span>
 
-<pre class="src src-c"><span style="color: #483d8b;">#include</span> <span style="color: #8b2252;">&lt;stdio.h&gt;</span>
+<span style="color: #ce537a; font-weight: bold;">int</span> <span style="color: #bc6ec5; font-weight: bold;">main</span><span style="color: #4f97d7;">(</span><span style="color: #ce537a; font-weight: bold;">void</span><span style="color: #4f97d7;">)</span> <span style="color: #4f97d7;">{</span>
 
-<span style="color: #228b22;">int</span> <span style="color: #0000ff;">main</span>(<span style="color: #228b22;">void</span>) {
+  printf<span style="color: #bc6ec5;">(</span><span style="color: #2d9574;">"Hello world\n"</span><span style="color: #bc6ec5;">)</span>;
 
-  printf(<span style="color: #8b2252;">"Hello world\n"</span>);
+  <span style="color: #ce537a; font-weight: bold;">char</span> <span style="color: #7590db;">c</span> = <span style="color: #2d9574;">'p'</span>;
+  <span style="color: #ce537a; font-weight: bold;">char</span> <span style="color: #7590db;">s</span><span style="color: #bc6ec5;">[]</span> = <span style="color: #2d9574;">"paul"</span>;
 
-  <span style="color: #228b22;">char</span> <span style="color: #a0522d;">c</span> = <span style="color: #8b2252;">'p'</span>;
-  <span style="color: #228b22;">char</span> <span style="color: #a0522d;">s</span>[] = <span style="color: #8b2252;">"paul"</span>;
+  printf<span style="color: #bc6ec5;">(</span><span style="color: #2d9574;">"c=%c and s=%s\n"</span>, c, s<span style="color: #bc6ec5;">)</span>;
 
-  printf(<span style="color: #8b2252;">"c=%c and s=%s\n"</span>, c, s);
-
-  <span style="color: #a020f0;">return</span> 0;
-}
+  <span style="color: #4f97d7; font-weight: bold;">return</span> <span style="color: #a45bad;">0</span>;
+<span style="color: #4f97d7;">}</span>
 </pre>
 </div>
 
@@ -232,9 +316,9 @@ c=p and s=paul
 </pre>
 </div>
 
-<div id="outline-container-orgheadline2" class="outline-3">
-<h3 id="orgheadline2">null-termination</h3>
-<div class="outline-text-3" id="text-orgheadline2">
+<div id="outline-container-org593b8cf" class="outline-3">
+<h3 id="org593b8cf">null-termination</h3>
+<div class="outline-text-3" id="text-org593b8cf">
 <p>
 An important thing to remember about strings is that they are always
 <b>null-terminated</b>. This means that the last element of the character
@@ -246,17 +330,16 @@ long it actually is:
 </p>
 
 <div class="org-src-container">
+<pre class="src src-c"><span style="color: #bc6ec5;">#include</span> <span style="color: #4f97d7;">&lt;</span><span style="color: #2d9574;">stdio.h</span><span style="color: #4f97d7;">&gt;</span>
 
-<pre class="src src-c"><span style="color: #483d8b;">#include</span> <span style="color: #8b2252;">&lt;stdio.h&gt;</span>
+<span style="color: #ce537a; font-weight: bold;">int</span> <span style="color: #bc6ec5; font-weight: bold;">main</span><span style="color: #4f97d7;">(</span><span style="color: #ce537a; font-weight: bold;">void</span><span style="color: #4f97d7;">)</span> <span style="color: #4f97d7;">{</span>
 
-<span style="color: #228b22;">int</span> <span style="color: #0000ff;">main</span>(<span style="color: #228b22;">void</span>) {
+  <span style="color: #ce537a; font-weight: bold;">char</span> <span style="color: #7590db;">s</span><span style="color: #bc6ec5;">[]</span> = <span style="color: #2d9574;">"paul"</span>;
 
-  <span style="color: #228b22;">char</span> <span style="color: #a0522d;">s</span>[] = <span style="color: #8b2252;">"paul"</span>;
+  printf<span style="color: #bc6ec5;">(</span><span style="color: #2d9574;">"s is %ld elements long\n"</span>, <span style="color: #4f97d7; font-weight: bold;">sizeof</span><span style="color: #2d9574;">(</span>s<span style="color: #2d9574;">)</span><span style="color: #bc6ec5;">)</span>;
 
-  printf(<span style="color: #8b2252;">"s is %ld elements long\n"</span>, <span style="color: #a020f0;">sizeof</span>(s));
-
-  <span style="color: #a020f0;">return</span> 0;
-}
+  <span style="color: #4f97d7; font-weight: bold;">return</span> <span style="color: #a45bad;">0</span>;
+<span style="color: #4f97d7;">}</span>
 </pre>
 </div>
 
@@ -272,9 +355,9 @@ characters</b>.
 </div>
 </div>
 
-<div id="outline-container-orgheadline3" class="outline-2">
-<h2 id="orgheadline3">Modifying strings</h2>
-<div class="outline-text-2" id="text-orgheadline3">
+<div id="outline-container-orgcbc9978" class="outline-2">
+<h2 id="orgcbc9978">Modifying strings</h2>
+<div class="outline-text-2" id="text-orgcbc9978">
 <p>
 Importantly, once a string is declared to be a given length, you
 cannot just make it longer or shorter by reassigning a new constant to
@@ -287,9 +370,9 @@ where the end is (the null termination character).
 </div>
 </div>
 
-<div id="outline-container-orgheadline4" class="outline-2">
-<h2 id="orgheadline4">String handling routines in the C standard library</h2>
-<div class="outline-text-2" id="text-orgheadline4">
+<div id="outline-container-orgd0519cd" class="outline-2">
+<h2 id="orgd0519cd">String handling routines in the C standard library</h2>
+<div class="outline-text-2" id="text-orgd0519cd">
 <p>
 The standard C library, (which you can load into your program by
 including the statement <code>#include &lt;string.h&gt;</code> at the top of your
@@ -306,32 +389,31 @@ getting the length of strings, comparing strings, etc.
 </p>
 </div>
 
-<div id="outline-container-orgheadline5" class="outline-3">
-<h3 id="orgheadline5">An example: Concatenating two strings</h3>
-<div class="outline-text-3" id="text-orgheadline5">
+<div id="outline-container-org1bd0132" class="outline-3">
+<h3 id="org1bd0132">An example: Concatenating two strings</h3>
+<div class="outline-text-3" id="text-org1bd0132">
 <div class="org-src-container">
+<pre class="src src-C"><span style="color: #bc6ec5;">#include</span> <span style="color: #4f97d7;">&lt;</span><span style="color: #2d9574;">stdio.h</span><span style="color: #4f97d7;">&gt;</span>
+<span style="color: #bc6ec5;">#include</span> <span style="color: #4f97d7;">&lt;</span><span style="color: #2d9574;">string.h</span><span style="color: #4f97d7;">&gt;</span>
 
-<pre class="src src-C"><span style="color: #483d8b;">#include</span> <span style="color: #8b2252;">&lt;stdio.h&gt;</span>
-<span style="color: #483d8b;">#include</span> <span style="color: #8b2252;">&lt;string.h&gt;</span>
+<span style="color: #ce537a; font-weight: bold;">int</span> <span style="color: #bc6ec5; font-weight: bold;">main</span><span style="color: #4f97d7;">(</span><span style="color: #ce537a; font-weight: bold;">void</span><span style="color: #4f97d7;">)</span> <span style="color: #4f97d7;">{</span>
 
-<span style="color: #228b22;">int</span> <span style="color: #0000ff;">main</span>(<span style="color: #228b22;">void</span>) {
+  <span style="color: #ce537a; font-weight: bold;">char</span> <span style="color: #7590db;">s1</span><span style="color: #bc6ec5;">[]</span> = <span style="color: #2d9574;">"paul"</span>;
+  <span style="color: #ce537a; font-weight: bold;">char</span> <span style="color: #7590db;">s2</span><span style="color: #bc6ec5;">[]</span> = <span style="color: #2d9574;">"gribble"</span>;
+  <span style="color: #ce537a; font-weight: bold;">char</span> <span style="color: #7590db;">s3</span><span style="color: #bc6ec5;">[</span><span style="color: #a45bad;">256</span><span style="color: #bc6ec5;">]</span>;
+  printf<span style="color: #bc6ec5;">(</span><span style="color: #2d9574;">"s3=%s, strlen(s3)=%ld\n"</span>, s3, strlen<span style="color: #2d9574;">(</span>s3<span style="color: #2d9574;">)</span><span style="color: #bc6ec5;">)</span>;
 
-  <span style="color: #228b22;">char</span> <span style="color: #a0522d;">s1</span>[] = <span style="color: #8b2252;">"paul"</span>;
-  <span style="color: #228b22;">char</span> <span style="color: #a0522d;">s2</span>[] = <span style="color: #8b2252;">"gribble"</span>;
-  <span style="color: #228b22;">char</span> <span style="color: #a0522d;">s3</span>[256];
-  printf(<span style="color: #8b2252;">"s3=%s, strlen(s3)=%ld\n"</span>, s3, strlen(s3));
+  strcat<span style="color: #bc6ec5;">(</span>s3, s1<span style="color: #bc6ec5;">)</span>;
+  printf<span style="color: #bc6ec5;">(</span><span style="color: #2d9574;">"s3=%s, strlen(s3)=%ld\n"</span>, s3, strlen<span style="color: #2d9574;">(</span>s3<span style="color: #2d9574;">)</span><span style="color: #bc6ec5;">)</span>;
 
-  strcat(s3, s1);
-  printf(<span style="color: #8b2252;">"s3=%s, strlen(s3)=%ld\n"</span>, s3, strlen(s3));
+  strcat<span style="color: #bc6ec5;">(</span>s3, <span style="color: #2d9574;">" "</span><span style="color: #bc6ec5;">)</span>;  
+  printf<span style="color: #bc6ec5;">(</span><span style="color: #2d9574;">"s3=%s, strlen(s3)=%ld\n"</span>, s3, strlen<span style="color: #2d9574;">(</span>s3<span style="color: #2d9574;">)</span><span style="color: #bc6ec5;">)</span>;
 
-  strcat(s3, <span style="color: #8b2252;">" "</span>);  
-  printf(<span style="color: #8b2252;">"s3=%s, strlen(s3)=%ld\n"</span>, s3, strlen(s3));
+  strcat<span style="color: #bc6ec5;">(</span>s3, s2<span style="color: #bc6ec5;">)</span>;
+  printf<span style="color: #bc6ec5;">(</span><span style="color: #2d9574;">"s3=%s, strlen(s3)=%ld\n"</span>, s3, strlen<span style="color: #2d9574;">(</span>s3<span style="color: #2d9574;">)</span><span style="color: #bc6ec5;">)</span>;
 
-  strcat(s3, s2);
-  printf(<span style="color: #8b2252;">"s3=%s, strlen(s3)=%ld\n"</span>, s3, strlen(s3));
-
-  <span style="color: #a020f0;">return</span> 0;
-}
+  <span style="color: #4f97d7; font-weight: bold;">return</span> <span style="color: #a45bad;">0</span>;
+<span style="color: #4f97d7;">}</span>
 </pre>
 </div>
 
@@ -344,9 +426,9 @@ s3=paul gribble, strlen(s3)=12
 </div>
 </div>
 
-<div id="outline-container-orgheadline6" class="outline-3">
-<h3 id="orgheadline6">Comparing two strings</h3>
-<div class="outline-text-3" id="text-orgheadline6">
+<div id="outline-container-org359f5ac" class="outline-3">
+<h3 id="org359f5ac">Comparing two strings</h3>
+<div class="outline-text-3" id="text-org359f5ac">
 <p>
 Importantly, you cannot simply use the <code>==</code> operator to test whether
 two strings are equal. Remember, strings are arrays of characters. You
@@ -356,23 +438,22 @@ element against each other. Here's how you would do it:
 </p>
 
 <div class="org-src-container">
+<pre class="src src-C"><span style="color: #bc6ec5;">#include</span> <span style="color: #4f97d7;">&lt;</span><span style="color: #2d9574;">stdio.h</span><span style="color: #4f97d7;">&gt;</span>
+<span style="color: #bc6ec5;">#include</span> <span style="color: #4f97d7;">&lt;</span><span style="color: #2d9574;">string.h</span><span style="color: #4f97d7;">&gt;</span>
 
-<pre class="src src-C"><span style="color: #483d8b;">#include</span> <span style="color: #8b2252;">&lt;stdio.h&gt;</span>
-<span style="color: #483d8b;">#include</span> <span style="color: #8b2252;">&lt;string.h&gt;</span>
+<span style="color: #ce537a; font-weight: bold;">int</span> <span style="color: #bc6ec5; font-weight: bold;">main</span><span style="color: #4f97d7;">(</span><span style="color: #ce537a; font-weight: bold;">void</span><span style="color: #4f97d7;">)</span> <span style="color: #4f97d7;">{</span>
 
-<span style="color: #228b22;">int</span> <span style="color: #0000ff;">main</span>(<span style="color: #228b22;">void</span>) {
+  <span style="color: #ce537a; font-weight: bold;">char</span> <span style="color: #7590db;">s1</span><span style="color: #bc6ec5;">[]</span> = <span style="color: #2d9574;">"paul"</span>;
+  <span style="color: #ce537a; font-weight: bold;">char</span> <span style="color: #7590db;">s2</span><span style="color: #bc6ec5;">[]</span> = <span style="color: #2d9574;">"paul"</span>;
+  <span style="color: #ce537a; font-weight: bold;">char</span> <span style="color: #7590db;">s3</span><span style="color: #bc6ec5;">[]</span> = <span style="color: #2d9574;">"peter"</span>;
+  <span style="color: #ce537a; font-weight: bold;">char</span> <span style="color: #7590db;">s4</span><span style="color: #bc6ec5;">[]</span> = <span style="color: #2d9574;">"dave"</span>;
 
-  <span style="color: #228b22;">char</span> <span style="color: #a0522d;">s1</span>[] = <span style="color: #8b2252;">"paul"</span>;
-  <span style="color: #228b22;">char</span> <span style="color: #a0522d;">s2</span>[] = <span style="color: #8b2252;">"paul"</span>;
-  <span style="color: #228b22;">char</span> <span style="color: #a0522d;">s3</span>[] = <span style="color: #8b2252;">"peter"</span>;
-  <span style="color: #228b22;">char</span> <span style="color: #a0522d;">s4</span>[] = <span style="color: #8b2252;">"dave"</span>;
+  printf<span style="color: #bc6ec5;">(</span><span style="color: #2d9574;">"strcmp(s1,s2)? %d\n"</span>, strcmp<span style="color: #2d9574;">(</span>s1,s2<span style="color: #2d9574;">)</span><span style="color: #bc6ec5;">)</span>;
+  printf<span style="color: #bc6ec5;">(</span><span style="color: #2d9574;">"strcmp(s1,s3)? %d\n"</span>, strcmp<span style="color: #2d9574;">(</span>s1,s3<span style="color: #2d9574;">)</span><span style="color: #bc6ec5;">)</span>;
+  printf<span style="color: #bc6ec5;">(</span><span style="color: #2d9574;">"strcmp(s1,s4)? %d\n"</span>, strcmp<span style="color: #2d9574;">(</span>s1,s4<span style="color: #2d9574;">)</span><span style="color: #bc6ec5;">)</span>;
 
-  printf(<span style="color: #8b2252;">"strcmp(s1,s2)? %d\n"</span>, strcmp(s1,s2));
-  printf(<span style="color: #8b2252;">"strcmp(s1,s3)? %d\n"</span>, strcmp(s1,s3));
-  printf(<span style="color: #8b2252;">"strcmp(s1,s4)? %d\n"</span>, strcmp(s1,s4));
-
-  <span style="color: #a020f0;">return</span> 0;
-}
+  <span style="color: #4f97d7; font-weight: bold;">return</span> <span style="color: #a45bad;">0</span>;
+<span style="color: #4f97d7;">}</span>
 </pre>
 </div>
 
@@ -390,12 +471,12 @@ are equal, a positive value if <code>s1</code> is (lexicographically) less than
 </div>
 </div>
 
-<div id="outline-container-orgheadline10" class="outline-3">
-<h3 id="orgheadline10">Converting strings to and from numeric types</h3>
-<div class="outline-text-3" id="text-orgheadline10">
-</div><div id="outline-container-orgheadline7" class="outline-4">
-<h4 id="orgheadline7">Strings to numbers</h4>
-<div class="outline-text-4" id="text-orgheadline7">
+<div id="outline-container-orgfc7bd6c" class="outline-3">
+<h3 id="orgfc7bd6c">Converting strings to and from numeric types</h3>
+<div class="outline-text-3" id="text-orgfc7bd6c">
+</div><div id="outline-container-org8280834" class="outline-4">
+<h4 id="org8280834">Strings to numbers</h4>
+<div class="outline-text-4" id="text-org8280834">
 <p>
 There are several functions to convert strings to numeric types like
 integers and floating-point numbers. You will need to <code>#include
@@ -415,9 +496,9 @@ source for a comprehensive list.
 </div>
 </div>
 
-<div id="outline-container-orgheadline8" class="outline-4">
-<h4 id="orgheadline8">Numbers to strings</h4>
-<div class="outline-text-4" id="text-orgheadline8">
+<div id="outline-container-orga57848f" class="outline-4">
+<h4 id="orga57848f">Numbers to strings</h4>
+<div class="outline-text-4" id="text-orga57848f">
 <p>
 The common way of converting a numeric type like an integer or a
 floating-point number into a string, is to use the <code>sprintf()</code>
@@ -427,25 +508,24 @@ before, but instead of printing something to the screen, <code>sprintf()</code>
 </p>
 
 <div class="org-src-container">
+<pre class="src src-c"><span style="color: #bc6ec5;">#include</span> <span style="color: #4f97d7;">&lt;</span><span style="color: #2d9574;">stdio.h</span><span style="color: #4f97d7;">&gt;</span>
+<span style="color: #bc6ec5;">#include</span> <span style="color: #4f97d7;">&lt;</span><span style="color: #2d9574;">string.h</span><span style="color: #4f97d7;">&gt;</span>
 
-<pre class="src src-c"><span style="color: #483d8b;">#include</span> <span style="color: #8b2252;">&lt;stdio.h&gt;</span>
-<span style="color: #483d8b;">#include</span> <span style="color: #8b2252;">&lt;string.h&gt;</span>
+<span style="color: #ce537a; font-weight: bold;">int</span> <span style="color: #bc6ec5; font-weight: bold;">main</span><span style="color: #4f97d7;">(</span><span style="color: #ce537a; font-weight: bold;">void</span><span style="color: #4f97d7;">)</span> <span style="color: #4f97d7;">{</span>
 
-<span style="color: #228b22;">int</span> <span style="color: #0000ff;">main</span>(<span style="color: #228b22;">void</span>) {
+  <span style="color: #ce537a; font-weight: bold;">char</span> <span style="color: #7590db;">s1</span><span style="color: #bc6ec5;">[</span><span style="color: #a45bad;">256</span><span style="color: #bc6ec5;">]</span>;
+  <span style="color: #ce537a; font-weight: bold;">char</span> <span style="color: #7590db;">s2</span><span style="color: #bc6ec5;">[</span><span style="color: #a45bad;">256</span><span style="color: #bc6ec5;">]</span>;
+  <span style="color: #ce537a; font-weight: bold;">int</span> <span style="color: #7590db;">i1</span> = <span style="color: #a45bad;">12</span>;
+  <span style="color: #ce537a; font-weight: bold;">double</span> <span style="color: #7590db;">d1</span> = <span style="color: #a45bad;">3.141</span>;
 
-  <span style="color: #228b22;">char</span> <span style="color: #a0522d;">s1</span>[256];
-  <span style="color: #228b22;">char</span> <span style="color: #a0522d;">s2</span>[256];
-  <span style="color: #228b22;">int</span> <span style="color: #a0522d;">i1</span> = 12;
-  <span style="color: #228b22;">double</span> <span style="color: #a0522d;">d1</span> = 3.141;
+  sprintf<span style="color: #bc6ec5;">(</span>s1, <span style="color: #2d9574;">"%d"</span>, i1<span style="color: #bc6ec5;">)</span>;
+  sprintf<span style="color: #bc6ec5;">(</span>s2, <span style="color: #2d9574;">"%.3f"</span>, d1<span style="color: #bc6ec5;">)</span>;
 
-  sprintf(s1, <span style="color: #8b2252;">"%d"</span>, i1);
-  sprintf(s2, <span style="color: #8b2252;">"%.3f"</span>, d1);
+  printf<span style="color: #bc6ec5;">(</span><span style="color: #2d9574;">"s1 = %s\n"</span>, s1<span style="color: #bc6ec5;">)</span>;
+  printf<span style="color: #bc6ec5;">(</span><span style="color: #2d9574;">"s2 = %s\n"</span>, s2<span style="color: #bc6ec5;">)</span>;
 
-  printf(<span style="color: #8b2252;">"s1 = %s\n"</span>, s1);
-  printf(<span style="color: #8b2252;">"s2 = %s\n"</span>, s2);
-
-  <span style="color: #a020f0;">return</span> 0;
-}
+  <span style="color: #4f97d7; font-weight: bold;">return</span> <span style="color: #a45bad;">0</span>;
+<span style="color: #4f97d7;">}</span>
 </pre>
 </div>
 
@@ -470,9 +550,9 @@ have to worry too much about 256 bytes here and there.
 </div>
 </div>
 
-<div id="outline-container-orgheadline9" class="outline-4">
-<h4 id="orgheadline9">Numbers to string II (slightly esoteric)</h4>
-<div class="outline-text-4" id="text-orgheadline9">
+<div id="outline-container-org19004d9" class="outline-4">
+<h4 id="org19004d9">Numbers to string II (slightly esoteric)</h4>
+<div class="outline-text-4" id="text-org19004d9">
 <p>
 There is, however, a way to do this without having to hard-code the
 size of the string to be written to, although it's a little bit
@@ -496,33 +576,32 @@ conversion, and then for a floating-point conversion:
 </p>
 
 <div class="org-src-container">
+<pre class="src src-c"><span style="color: #bc6ec5;">#include</span> <span style="color: #4f97d7;">&lt;</span><span style="color: #2d9574;">stdio.h</span><span style="color: #4f97d7;">&gt;</span>
+<span style="color: #bc6ec5;">#include</span> <span style="color: #4f97d7;">&lt;</span><span style="color: #2d9574;">stdlib.h</span><span style="color: #4f97d7;">&gt;</span>
+<span style="color: #bc6ec5;">#include</span> <span style="color: #4f97d7;">&lt;</span><span style="color: #2d9574;">string.h</span><span style="color: #4f97d7;">&gt;</span>
 
-<pre class="src src-c"><span style="color: #483d8b;">#include</span> <span style="color: #8b2252;">&lt;stdio.h&gt;</span>
-<span style="color: #483d8b;">#include</span> <span style="color: #8b2252;">&lt;stdlib.h&gt;</span>
-<span style="color: #483d8b;">#include</span> <span style="color: #8b2252;">&lt;string.h&gt;</span>
+<span style="color: #ce537a; font-weight: bold;">int</span> <span style="color: #bc6ec5; font-weight: bold;">main</span><span style="color: #4f97d7;">(</span><span style="color: #ce537a; font-weight: bold;">void</span><span style="color: #4f97d7;">)</span> <span style="color: #4f97d7;">{</span>
 
-<span style="color: #228b22;">int</span> <span style="color: #0000ff;">main</span>(<span style="color: #228b22;">void</span>) {
+  <span style="color: #ce537a; font-weight: bold;">int</span> <span style="color: #7590db;">size</span>;
 
-  <span style="color: #228b22;">int</span> <span style="color: #a0522d;">size</span>;
+  <span style="color: #ce537a; font-weight: bold;">int</span> <span style="color: #7590db;">x</span> = <span style="color: #a45bad;">8765309</span>;
+  size = snprintf<span style="color: #bc6ec5;">(</span><span style="color: #a45bad;">NULL</span>, <span style="color: #a45bad;">0</span>, <span style="color: #2d9574;">"%d"</span>, x<span style="color: #bc6ec5;">)</span>;
+  <span style="color: #ce537a; font-weight: bold;">char</span> *<span style="color: #7590db;">xc</span> = malloc<span style="color: #bc6ec5;">(</span>size + <span style="color: #a45bad;">1</span><span style="color: #bc6ec5;">)</span>;
+  sprintf<span style="color: #bc6ec5;">(</span>xc, <span style="color: #2d9574;">"%d"</span>, x<span style="color: #bc6ec5;">)</span>;
 
-  <span style="color: #228b22;">int</span> <span style="color: #a0522d;">x</span> = 8765309;
-  size = snprintf(<span style="color: #008b8b;">NULL</span>, 0, <span style="color: #8b2252;">"%d"</span>, x);
-  <span style="color: #228b22;">char</span> *<span style="color: #a0522d;">xc</span> = malloc(size + 1);
-  sprintf(xc, <span style="color: #8b2252;">"%d"</span>, x);
+  <span style="color: #ce537a; font-weight: bold;">double</span> <span style="color: #7590db;">y</span> = <span style="color: #a45bad;">876.5309</span>;
+  size = snprintf<span style="color: #bc6ec5;">(</span><span style="color: #a45bad;">NULL</span>, <span style="color: #a45bad;">0</span>, <span style="color: #2d9574;">"%.4f"</span>, y<span style="color: #bc6ec5;">)</span>;
+  <span style="color: #ce537a; font-weight: bold;">char</span> *<span style="color: #7590db;">yc</span> = malloc<span style="color: #bc6ec5;">(</span>size + <span style="color: #a45bad;">1</span><span style="color: #bc6ec5;">)</span>;
+  sprintf<span style="color: #bc6ec5;">(</span>yc, <span style="color: #2d9574;">"%.4f"</span>, y<span style="color: #bc6ec5;">)</span>;
 
-  <span style="color: #228b22;">double</span> <span style="color: #a0522d;">y</span> = 876.5309;
-  size = snprintf(<span style="color: #008b8b;">NULL</span>, 0, <span style="color: #8b2252;">"%.4f"</span>, y);
-  <span style="color: #228b22;">char</span> *<span style="color: #a0522d;">yc</span> = malloc(size + 1);
-  sprintf(yc, <span style="color: #8b2252;">"%.4f"</span>, y);
+  printf<span style="color: #bc6ec5;">(</span><span style="color: #2d9574;">"xc = %s\n"</span>, xc<span style="color: #bc6ec5;">)</span>;
+  printf<span style="color: #bc6ec5;">(</span><span style="color: #2d9574;">"yc = %s\n"</span>, yc<span style="color: #bc6ec5;">)</span>;
 
-  printf(<span style="color: #8b2252;">"xc = %s\n"</span>, xc);
-  printf(<span style="color: #8b2252;">"yc = %s\n"</span>, yc);
+  free<span style="color: #bc6ec5;">(</span>xc<span style="color: #bc6ec5;">)</span>;
+  free<span style="color: #bc6ec5;">(</span>yc<span style="color: #bc6ec5;">)</span>;
 
-  free(xc);
-  free(yc);
-
-  <span style="color: #a020f0;">return</span> 0;
-}
+  <span style="color: #4f97d7; font-weight: bold;">return</span> <span style="color: #a45bad;">0</span>;
+<span style="color: #4f97d7;">}</span>
 </pre>
 </div>
 
@@ -558,9 +637,9 @@ required length.
 </div>
 </div>
 
-<div id="outline-container-orgheadline11" class="outline-2">
-<h2 id="orgheadline11">Arrays of Strings</h2>
-<div class="outline-text-2" id="text-orgheadline11">
+<div id="outline-container-org6a6a12e" class="outline-2">
+<h2 id="org6a6a12e">Arrays of Strings</h2>
+<div class="outline-text-2" id="text-org6a6a12e">
 <p>
 We have seen that strings are just arrays of characters, terminated by
 a null character. We have also seen that the variables that hold
@@ -572,21 +651,20 @@ an example:
 </p>
 
 <div class="org-src-container">
+<pre class="src src-c"><span style="color: #bc6ec5;">#include</span> <span style="color: #4f97d7;">&lt;</span><span style="color: #2d9574;">stdio.h</span><span style="color: #4f97d7;">&gt;</span>
 
-<pre class="src src-c"><span style="color: #483d8b;">#include</span> <span style="color: #8b2252;">&lt;stdio.h&gt;</span>
-
-<span style="color: #228b22;">int</span> <span style="color: #0000ff;">main</span>(<span style="color: #228b22;">int</span> <span style="color: #a0522d;">argc</span>, <span style="color: #228b22;">char</span> *<span style="color: #a0522d;">argv</span>[])
-{
-  <span style="color: #228b22;">char</span> *<span style="color: #a0522d;">provinces</span>[] = { <span style="color: #8b2252;">"British Columbia"</span>, <span style="color: #8b2252;">"Alberta"</span>, <span style="color: #8b2252;">"Saskatchewan"</span>, 
-                        <span style="color: #8b2252;">"Manitoba"</span>, <span style="color: #8b2252;">"Ontario"</span>, <span style="color: #8b2252;">"Quebec"</span>, <span style="color: #8b2252;">"New Brunswick"</span>,
-                        <span style="color: #8b2252;">"Nova Scotia"</span>, <span style="color: #8b2252;">"Prince Edward Island"</span>, <span style="color: #8b2252;">"Newfoundland"</span>,
-                        <span style="color: #8b2252;">"Yukon"</span>, <span style="color: #8b2252;">"Northwest Territories"</span>, <span style="color: #8b2252;">"Nunavut"</span> };
-  <span style="color: #228b22;">int</span> <span style="color: #a0522d;">i</span>;
-  <span style="color: #a020f0;">for</span> (i=0; i&lt;13; i++) {
-    printf(<span style="color: #8b2252;">"provinces[%d] = %s\n"</span>, i, provinces[i]);
-  }
-  <span style="color: #a020f0;">return</span> 0;
-}
+<span style="color: #ce537a; font-weight: bold;">int</span> <span style="color: #bc6ec5; font-weight: bold;">main</span><span style="color: #4f97d7;">(</span><span style="color: #ce537a; font-weight: bold;">int</span> <span style="color: #7590db;">argc</span>, <span style="color: #ce537a; font-weight: bold;">char</span> *<span style="color: #7590db;">argv</span><span style="color: #bc6ec5;">[]</span><span style="color: #4f97d7;">)</span>
+<span style="color: #4f97d7;">{</span>
+  <span style="color: #ce537a; font-weight: bold;">char</span> *<span style="color: #7590db;">provinces</span><span style="color: #bc6ec5;">[]</span> = <span style="color: #bc6ec5;">{</span> <span style="color: #2d9574;">"British Columbia"</span>, <span style="color: #2d9574;">"Alberta"</span>, <span style="color: #2d9574;">"Saskatchewan"</span>, 
+                        <span style="color: #2d9574;">"Manitoba"</span>, <span style="color: #2d9574;">"Ontario"</span>, <span style="color: #2d9574;">"Quebec"</span>, <span style="color: #2d9574;">"New Brunswick"</span>,
+                        <span style="color: #2d9574;">"Nova Scotia"</span>, <span style="color: #2d9574;">"Prince Edward Island"</span>, <span style="color: #2d9574;">"Newfoundland"</span>,
+                        <span style="color: #2d9574;">"Yukon"</span>, <span style="color: #2d9574;">"Northwest Territories"</span>, <span style="color: #2d9574;">"Nunavut"</span> <span style="color: #bc6ec5;">}</span>;
+  <span style="color: #ce537a; font-weight: bold;">int</span> <span style="color: #7590db;">i</span>;
+  <span style="color: #4f97d7; font-weight: bold;">for</span> <span style="color: #bc6ec5;">(</span>i=<span style="color: #a45bad;">0</span>; i&lt;<span style="color: #a45bad;">13</span>; i++<span style="color: #bc6ec5;">)</span> <span style="color: #bc6ec5;">{</span>
+    printf<span style="color: #2d9574;">(</span><span style="color: #2d9574;">"provinces[%d] = %s\n"</span>, i, provinces<span style="color: #67b11d;">[</span>i<span style="color: #67b11d;">]</span><span style="color: #2d9574;">)</span>;
+  <span style="color: #bc6ec5;">}</span>
+  <span style="color: #4f97d7; font-weight: bold;">return</span> <span style="color: #a45bad;">0</span>;
+<span style="color: #4f97d7;">}</span>
 </pre>
 </div>
 
@@ -609,9 +687,9 @@ provinces[12] = Nunavut
 </div>
 
 
-<div id="outline-container-orgheadline12" class="outline-2">
-<h2 id="orgheadline12">Links</h2>
-<div class="outline-text-2" id="text-orgheadline12">
+<div id="outline-container-orgb12a777" class="outline-2">
+<h2 id="orgb12a777">Links</h2>
+<div class="outline-text-2" id="text-orgb12a777">
 <ul class="org-ul">
 <li><a href="http://en.wikipedia.org/wiki/C_string_handling">Wikipedia: C string handling</a></li>
 </ul>
@@ -619,9 +697,9 @@ provinces[12] = Nunavut
 </div>
 
 
-<div id="outline-container-orgheadline13" class="outline-2">
-<h2 id="orgheadline13">Exercises</h2>
-<div class="outline-text-2" id="text-orgheadline13">
+<div id="outline-container-orgc2e487c" class="outline-2">
+<h2 id="orgc2e487c">Exercises</h2>
+<div class="outline-text-2" id="text-orgc2e487c">
 <ul class="org-ul">
 <li>1 Alter the program above that prints out the provinces, so that it
 prints out each province using all upper case letters. Hint: <a href="http://www.asciitable.com/">Ascii
@@ -629,15 +707,14 @@ Table</a>. Another hint:</li>
 </ul>
 
 <div class="org-src-container">
+<pre class="src src-c"><span style="color: #bc6ec5;">#include</span> <span style="color: #4f97d7;">&lt;</span><span style="color: #2d9574;">stdio.h</span><span style="color: #4f97d7;">&gt;</span>
 
-<pre class="src src-c"><span style="color: #483d8b;">#include</span> <span style="color: #8b2252;">&lt;stdio.h&gt;</span>
-
-<span style="color: #228b22;">int</span> <span style="color: #0000ff;">main</span>(<span style="color: #228b22;">int</span> <span style="color: #a0522d;">argc</span>, <span style="color: #228b22;">char</span> *<span style="color: #a0522d;">argv</span>[])
-{
-  <span style="color: #228b22;">char</span> <span style="color: #a0522d;">c</span> = <span style="color: #8b2252;">'a'</span>;
-  printf(<span style="color: #8b2252;">"%c - 32 = %c\n"</span>, c, c-32);
-  <span style="color: #a020f0;">return</span> 0;
-}
+<span style="color: #ce537a; font-weight: bold;">int</span> <span style="color: #bc6ec5; font-weight: bold;">main</span><span style="color: #4f97d7;">(</span><span style="color: #ce537a; font-weight: bold;">int</span> <span style="color: #7590db;">argc</span>, <span style="color: #ce537a; font-weight: bold;">char</span> *<span style="color: #7590db;">argv</span><span style="color: #bc6ec5;">[]</span><span style="color: #4f97d7;">)</span>
+<span style="color: #4f97d7;">{</span>
+  <span style="color: #ce537a; font-weight: bold;">char</span> <span style="color: #7590db;">c</span> = <span style="color: #2d9574;">'a'</span>;
+  printf<span style="color: #bc6ec5;">(</span><span style="color: #2d9574;">"%c - 32 = %c\n"</span>, c, c-<span style="color: #a45bad;">32</span><span style="color: #bc6ec5;">)</span>;
+  <span style="color: #4f97d7; font-weight: bold;">return</span> <span style="color: #a45bad;">0</span>;
+<span style="color: #4f97d7;">}</span>
 </pre>
 </div>
 
@@ -648,9 +725,9 @@ a - 32 = A
 
 
 
-<div id="outline-container-orgheadline14" class="outline-3">
-<h3 id="orgheadline14">Solutions</h3>
-<div class="outline-text-3" id="text-orgheadline14">
+<div id="outline-container-org5338009" class="outline-3">
+<h3 id="org5338009">Solutions</h3>
+<div class="outline-text-3" id="text-org5338009">
 <ul class="org-ul">
 <li><a href="code/exercises/9_1.c">1</a></li>
 </ul>

@@ -3,12 +3,12 @@
 "http://www.w3.org/TR/xhtml1/DTD/xhtml1-strict.dtd">
 <html xmlns="http://www.w3.org/1999/xhtml" lang="en" xml:lang="en">
 <head>
-<!-- 2016-09-08 Thu 19:14 -->
-<meta  http-equiv="Content-Type" content="text/html;charset=utf-8" />
-<meta  name="viewport" content="width=device-width, initial-scale=1" />
+<!-- 2017-04-24 Mon 07:06 -->
+<meta http-equiv="Content-Type" content="text/html;charset=utf-8" />
+<meta name="viewport" content="width=device-width, initial-scale=1" />
 <title>C Programming Boot Camp</title>
-<meta  name="generator" content="Org-mode" />
-<meta  name="author" content="Paul Gribble" />
+<meta name="generator" content="Org mode" />
+<meta name="author" content="Paul Gribble" />
 <style type="text/css">
  <!--/*--><![CDATA[/*><!--*/
   .title  { text-align: center;
@@ -53,13 +53,97 @@
     border: 1px solid black;
   }
   pre.src:hover:before { display: inline;}
-  pre.src-sh:before    { content: 'sh'; }
-  pre.src-bash:before  { content: 'sh'; }
+  /* Languages per Org manual */
+  pre.src-asymptote:before { content: 'Asymptote'; }
+  pre.src-awk:before { content: 'Awk'; }
+  pre.src-C:before { content: 'C'; }
+  /* pre.src-C++ doesn't work in CSS */
+  pre.src-clojure:before { content: 'Clojure'; }
+  pre.src-css:before { content: 'CSS'; }
+  pre.src-D:before { content: 'D'; }
+  pre.src-ditaa:before { content: 'ditaa'; }
+  pre.src-dot:before { content: 'Graphviz'; }
+  pre.src-calc:before { content: 'Emacs Calc'; }
   pre.src-emacs-lisp:before { content: 'Emacs Lisp'; }
-  pre.src-R:before     { content: 'R'; }
-  pre.src-perl:before  { content: 'Perl'; }
-  pre.src-java:before  { content: 'Java'; }
-  pre.src-sql:before   { content: 'SQL'; }
+  pre.src-fortran:before { content: 'Fortran'; }
+  pre.src-gnuplot:before { content: 'gnuplot'; }
+  pre.src-haskell:before { content: 'Haskell'; }
+  pre.src-java:before { content: 'Java'; }
+  pre.src-js:before { content: 'Javascript'; }
+  pre.src-latex:before { content: 'LaTeX'; }
+  pre.src-ledger:before { content: 'Ledger'; }
+  pre.src-lisp:before { content: 'Lisp'; }
+  pre.src-lilypond:before { content: 'Lilypond'; }
+  pre.src-lua:before { content: 'Lua'; }
+  pre.src-matlab:before { content: 'MATLAB'; }
+  pre.src-mscgen:before { content: 'Mscgen'; }
+  pre.src-ocaml:before { content: 'Objective Caml'; }
+  pre.src-octave:before { content: 'Octave'; }
+  pre.src-org:before { content: 'Org mode'; }
+  pre.src-oz:before { content: 'OZ'; }
+  pre.src-plantuml:before { content: 'Plantuml'; }
+  pre.src-processing:before { content: 'Processing.js'; }
+  pre.src-python:before { content: 'Python'; }
+  pre.src-R:before { content: 'R'; }
+  pre.src-ruby:before { content: 'Ruby'; }
+  pre.src-sass:before { content: 'Sass'; }
+  pre.src-scheme:before { content: 'Scheme'; }
+  pre.src-screen:before { content: 'Gnu Screen'; }
+  pre.src-sed:before { content: 'Sed'; }
+  pre.src-sh:before { content: 'shell'; }
+  pre.src-sql:before { content: 'SQL'; }
+  pre.src-sqlite:before { content: 'SQLite'; }
+  /* additional languages in org.el's org-babel-load-languages alist */
+  pre.src-forth:before { content: 'Forth'; }
+  pre.src-io:before { content: 'IO'; }
+  pre.src-J:before { content: 'J'; }
+  pre.src-makefile:before { content: 'Makefile'; }
+  pre.src-maxima:before { content: 'Maxima'; }
+  pre.src-perl:before { content: 'Perl'; }
+  pre.src-picolisp:before { content: 'Pico Lisp'; }
+  pre.src-scala:before { content: 'Scala'; }
+  pre.src-shell:before { content: 'Shell Script'; }
+  pre.src-ebnf2ps:before { content: 'ebfn2ps'; }
+  /* additional language identifiers per "defun org-babel-execute"
+       in ob-*.el */
+  pre.src-cpp:before  { content: 'C++'; }
+  pre.src-abc:before  { content: 'ABC'; }
+  pre.src-coq:before  { content: 'Coq'; }
+  pre.src-groovy:before  { content: 'Groovy'; }
+  /* additional language identifiers from org-babel-shell-names in
+     ob-shell.el: ob-shell is the only babel language using a lambda to put
+     the execution function name together. */
+  pre.src-bash:before  { content: 'bash'; }
+  pre.src-csh:before  { content: 'csh'; }
+  pre.src-ash:before  { content: 'ash'; }
+  pre.src-dash:before  { content: 'dash'; }
+  pre.src-ksh:before  { content: 'ksh'; }
+  pre.src-mksh:before  { content: 'mksh'; }
+  pre.src-posh:before  { content: 'posh'; }
+  /* Additional Emacs modes also supported by the LaTeX listings package */
+  pre.src-ada:before { content: 'Ada'; }
+  pre.src-asm:before { content: 'Assembler'; }
+  pre.src-caml:before { content: 'Caml'; }
+  pre.src-delphi:before { content: 'Delphi'; }
+  pre.src-html:before { content: 'HTML'; }
+  pre.src-idl:before { content: 'IDL'; }
+  pre.src-mercury:before { content: 'Mercury'; }
+  pre.src-metapost:before { content: 'MetaPost'; }
+  pre.src-modula-2:before { content: 'Modula-2'; }
+  pre.src-pascal:before { content: 'Pascal'; }
+  pre.src-ps:before { content: 'PostScript'; }
+  pre.src-prolog:before { content: 'Prolog'; }
+  pre.src-simula:before { content: 'Simula'; }
+  pre.src-tcl:before { content: 'tcl'; }
+  pre.src-tex:before { content: 'TeX'; }
+  pre.src-plain-tex:before { content: 'Plain TeX'; }
+  pre.src-verilog:before { content: 'Verilog'; }
+  pre.src-vhdl:before { content: 'VHDL'; }
+  pre.src-xml:before { content: 'XML'; }
+  pre.src-nxml:before { content: 'XML'; }
+  /* add a generic configuration mode; LaTeX export needs an additional
+     (add-to-list 'org-latex-listings-langs '(conf " ")) in .emacs */
+  pre.src-conf:before { content: 'Configuration File'; }
 
   table { border-collapse:collapse; }
   caption.t-above { caption-side: top; }
@@ -92,6 +176,7 @@
     { font-size: 10px; font-weight: bold; white-space: nowrap; }
   .org-info-js_search-highlight
     { background-color: #ffff00; color: #000000; font-weight: bold; }
+  .org-svg { width: 90%; }
   /*]]>*/-->
 </style>
 <link rel="stylesheet" type="text/css" href="mystyle.css" /><script>(function(i,s,o,g,r,a,m){i['GoogleAnalyticsObject']=r;i[r]=i[r]||function(){(i[r].q=i[r].q||[]).push(arguments)},i[r].l=1*new Date();a=s.createElement(o),m=s.getElementsByTagName(o)[0];a.async=1;a.src=g;m.parentNode.insertBefore(a,m)})(window,document,'script','//www.google-analytics.com/analytics.js','ga');ga('create', 'UA-52544521-1', 'auto');ga('send', 'pageview');</script>
@@ -152,21 +237,20 @@ for the JavaScript code in this tag.
 &nbsp;
 
 <div class="org-src-container">
+<pre class="src src-c"><span style="color: #bc6ec5;">#include</span> <span style="color: #4f97d7;">&lt;</span><span style="color: #2d9574;">stdio.h</span><span style="color: #4f97d7;">&gt;</span>
 
-<pre class="src src-c"><span style="color: #483d8b;">#include</span> <span style="color: #8b2252;">&lt;stdio.h&gt;</span>
-
-<span style="color: #228b22;">int</span> <span style="color: #0000ff;">main</span>(<span style="color: #228b22;">int</span> <span style="color: #a0522d;">argc</span>, <span style="color: #228b22;">char</span> *<span style="color: #a0522d;">argv</span>[]) {
-  printf(<span style="color: #8b2252;">"hello world\n"</span>);
-  <span style="color: #a020f0;">return</span> 0;
-}
+<span style="color: #ce537a; font-weight: bold;">int</span> <span style="color: #bc6ec5; font-weight: bold;">main</span><span style="color: #4f97d7;">(</span><span style="color: #ce537a; font-weight: bold;">int</span> <span style="color: #7590db;">argc</span>, <span style="color: #ce537a; font-weight: bold;">char</span> *<span style="color: #7590db;">argv</span><span style="color: #bc6ec5;">[]</span><span style="color: #4f97d7;">)</span> <span style="color: #4f97d7;">{</span>
+  printf<span style="color: #bc6ec5;">(</span><span style="color: #2d9574;">"hello world\n"</span><span style="color: #bc6ec5;">)</span>;
+  <span style="color: #4f97d7; font-weight: bold;">return</span> <span style="color: #a45bad;">0</span>;
+<span style="color: #4f97d7;">}</span>
 </pre>
 </div>
 
 &nbsp;
 
-<div id="outline-container-orgheadline1" class="outline-2">
-<h2 id="orgheadline1">Fundamentals</h2>
-<div class="outline-text-2" id="text-orgheadline1">
+<div id="outline-container-org03cd735" class="outline-2">
+<h2 id="org03cd735">Fundamentals</h2>
+<div class="outline-text-2" id="text-org03cd735">
 <ol class="org-ol">
 <li><a href="1_Why_Program_In_C.html">Why program in C?</a></li>
 <li><a href="2_Setting_Up_Your_Computing_Environment.html">Setting up your computing environment</a></li>
@@ -186,9 +270,9 @@ for the JavaScript code in this tag.
 </div>
 </div>
 
-<div id="outline-container-orgheadline2" class="outline-2">
-<h2 id="orgheadline2">Advanced Topics</h2>
-<div class="outline-text-2" id="text-orgheadline2">
+<div id="outline-container-org35b8713" class="outline-2">
+<h2 id="org35b8713">Advanced Topics</h2>
+<div class="outline-text-2" id="text-org35b8713">
 <ol class="org-ol">
 <li><a href="A1_Libraries.html">A brief tour of some other useful C Libraries</a>: { <a href="https://developer.gnome.org/glib/">GLib</a>, <a href="http://www.gnu.org/software/gsl/">GSL</a>, <a href="http://www.netlib.org/blas/">BLAS</a> /
 <a href="http://www.netlib.org/lapack/">LAPACK</a>, <a href="http://apophenia.sourceforge.net/">Apophenia</a>, <a href="http://www.gnuplot.info/">GNUplot</a> }</li>
@@ -197,18 +281,18 @@ for the JavaScript code in this tag.
 </div>
 </div>
 
-<div id="outline-container-orgheadline3" class="outline-2">
-<h2 id="orgheadline3">Example Code</h2>
-<div class="outline-text-2" id="text-orgheadline3">
+<div id="outline-container-org2f4eb9c" class="outline-2">
+<h2 id="org2f4eb9c">Example Code</h2>
+<div class="outline-text-2" id="text-org2f4eb9c">
 <ul class="org-ul">
 <li><a href="https://github.com/paulgribble/psychometric">psychometric</a>: estimating psychometric functions in C (aka logistic regression)</li>
 </ul>
 </div>
 </div>
 
-<div id="outline-container-orgheadline4" class="outline-2">
-<h2 id="orgheadline4">Topics Not Covered Here (yet)</h2>
-<div class="outline-text-2" id="text-orgheadline4">
+<div id="outline-container-orga63d717" class="outline-2">
+<h2 id="orga63d717">Topics Not Covered Here (yet)</h2>
+<div class="outline-text-2" id="text-orga63d717">
 <ul class="org-ul">
 <li>UNIX tools</li>
 <li>IDEs (Integrated Development Environments, e.g. Xcode, Eclipse, etc)</li>
@@ -216,14 +300,14 @@ for the JavaScript code in this tag.
 <li>Graphics (e.g. <a href="http://www.gnuplot.info/">Gnuplot</a>)</li>
 <li>Networking</li>
 <li>Interfacing with Hardware (e.g. data acquisition)</li>
-<li>Integrating C code with <a href="http://www.python.org/">Python</a> and <a href="http://www.r-project.org/">R</a></li>
+<li>Integrating C code with <a href="http://www.python.org/">Python</a> and <a href="http://www.r-project.org">R</a></li>
 </ul>
 </div>
 </div>
 
-<div id="outline-container-orgheadline5" class="outline-2">
-<h2 id="orgheadline5">Links</h2>
-<div class="outline-text-2" id="text-orgheadline5">
+<div id="outline-container-orgac8348d" class="outline-2">
+<h2 id="orgac8348d">Links</h2>
+<div class="outline-text-2" id="text-orgac8348d">
 <ul class="org-ul">
 <li><a href="http://c-faq.com/index.html">comp.lang.c FAQs</a></li>
 <li><a href="http://cslibrary.stanford.edu/101/">Essential C</a> (Stanford)</li>
@@ -232,18 +316,18 @@ for the JavaScript code in this tag.
 </div>
 </div>
 
-<div id="outline-container-orgheadline6" class="outline-2">
-<h2 id="orgheadline6">These notes</h2>
-<div class="outline-text-2" id="text-orgheadline6">
+<div id="outline-container-org494cc8f" class="outline-2">
+<h2 id="org494cc8f">These notes</h2>
+<div class="outline-text-2" id="text-org494cc8f">
 <p>
 These notes can be viewed (and downloaded) in their entirety from a
-<a href="https://github.com/">github</a> repository here: <a href="https://github.com/paulgribble/CBootCamp">CBootCamp</a>
+<a href="https://github.com">github</a> repository here: <a href="https://github.com/paulgribble/CBootCamp">CBootCamp</a>
 </p>
 </div>
 
-<div id="outline-container-orgheadline7" class="outline-3">
-<h3 id="orgheadline7">Ideas?</h3>
-<div class="outline-text-3" id="text-orgheadline7">
+<div id="outline-container-org6df91bd" class="outline-3">
+<h3 id="org6df91bd">Ideas?</h3>
+<div class="outline-text-3" id="text-org6df91bd">
 <p>
 Do you have ideas about how to improve this? Please get in touch, send
 me an email at <b>paul [at] gribblelab [dot] org</b>

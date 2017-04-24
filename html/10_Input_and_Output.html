@@ -3,12 +3,12 @@
 "http://www.w3.org/TR/xhtml1/DTD/xhtml1-strict.dtd">
 <html xmlns="http://www.w3.org/1999/xhtml" lang="en" xml:lang="en">
 <head>
-<!-- 2016-06-05 Sun 20:39 -->
-<meta  http-equiv="Content-Type" content="text/html;charset=utf-8" />
-<meta  name="viewport" content="width=device-width, initial-scale=1" />
+<!-- 2017-04-24 Mon 07:07 -->
+<meta http-equiv="Content-Type" content="text/html;charset=utf-8" />
+<meta name="viewport" content="width=device-width, initial-scale=1" />
 <title>10. Input and Output</title>
-<meta  name="generator" content="Org-mode" />
-<meta  name="author" content="Paul Gribble" />
+<meta name="generator" content="Org mode" />
+<meta name="author" content="Paul Gribble" />
 <style type="text/css">
  <!--/*--><![CDATA[/*><!--*/
   .title  { text-align: center;
@@ -53,13 +53,97 @@
     border: 1px solid black;
   }
   pre.src:hover:before { display: inline;}
-  pre.src-sh:before    { content: 'sh'; }
-  pre.src-bash:before  { content: 'sh'; }
+  /* Languages per Org manual */
+  pre.src-asymptote:before { content: 'Asymptote'; }
+  pre.src-awk:before { content: 'Awk'; }
+  pre.src-C:before { content: 'C'; }
+  /* pre.src-C++ doesn't work in CSS */
+  pre.src-clojure:before { content: 'Clojure'; }
+  pre.src-css:before { content: 'CSS'; }
+  pre.src-D:before { content: 'D'; }
+  pre.src-ditaa:before { content: 'ditaa'; }
+  pre.src-dot:before { content: 'Graphviz'; }
+  pre.src-calc:before { content: 'Emacs Calc'; }
   pre.src-emacs-lisp:before { content: 'Emacs Lisp'; }
-  pre.src-R:before     { content: 'R'; }
-  pre.src-perl:before  { content: 'Perl'; }
-  pre.src-java:before  { content: 'Java'; }
-  pre.src-sql:before   { content: 'SQL'; }
+  pre.src-fortran:before { content: 'Fortran'; }
+  pre.src-gnuplot:before { content: 'gnuplot'; }
+  pre.src-haskell:before { content: 'Haskell'; }
+  pre.src-java:before { content: 'Java'; }
+  pre.src-js:before { content: 'Javascript'; }
+  pre.src-latex:before { content: 'LaTeX'; }
+  pre.src-ledger:before { content: 'Ledger'; }
+  pre.src-lisp:before { content: 'Lisp'; }
+  pre.src-lilypond:before { content: 'Lilypond'; }
+  pre.src-lua:before { content: 'Lua'; }
+  pre.src-matlab:before { content: 'MATLAB'; }
+  pre.src-mscgen:before { content: 'Mscgen'; }
+  pre.src-ocaml:before { content: 'Objective Caml'; }
+  pre.src-octave:before { content: 'Octave'; }
+  pre.src-org:before { content: 'Org mode'; }
+  pre.src-oz:before { content: 'OZ'; }
+  pre.src-plantuml:before { content: 'Plantuml'; }
+  pre.src-processing:before { content: 'Processing.js'; }
+  pre.src-python:before { content: 'Python'; }
+  pre.src-R:before { content: 'R'; }
+  pre.src-ruby:before { content: 'Ruby'; }
+  pre.src-sass:before { content: 'Sass'; }
+  pre.src-scheme:before { content: 'Scheme'; }
+  pre.src-screen:before { content: 'Gnu Screen'; }
+  pre.src-sed:before { content: 'Sed'; }
+  pre.src-sh:before { content: 'shell'; }
+  pre.src-sql:before { content: 'SQL'; }
+  pre.src-sqlite:before { content: 'SQLite'; }
+  /* additional languages in org.el's org-babel-load-languages alist */
+  pre.src-forth:before { content: 'Forth'; }
+  pre.src-io:before { content: 'IO'; }
+  pre.src-J:before { content: 'J'; }
+  pre.src-makefile:before { content: 'Makefile'; }
+  pre.src-maxima:before { content: 'Maxima'; }
+  pre.src-perl:before { content: 'Perl'; }
+  pre.src-picolisp:before { content: 'Pico Lisp'; }
+  pre.src-scala:before { content: 'Scala'; }
+  pre.src-shell:before { content: 'Shell Script'; }
+  pre.src-ebnf2ps:before { content: 'ebfn2ps'; }
+  /* additional language identifiers per "defun org-babel-execute"
+       in ob-*.el */
+  pre.src-cpp:before  { content: 'C++'; }
+  pre.src-abc:before  { content: 'ABC'; }
+  pre.src-coq:before  { content: 'Coq'; }
+  pre.src-groovy:before  { content: 'Groovy'; }
+  /* additional language identifiers from org-babel-shell-names in
+     ob-shell.el: ob-shell is the only babel language using a lambda to put
+     the execution function name together. */
+  pre.src-bash:before  { content: 'bash'; }
+  pre.src-csh:before  { content: 'csh'; }
+  pre.src-ash:before  { content: 'ash'; }
+  pre.src-dash:before  { content: 'dash'; }
+  pre.src-ksh:before  { content: 'ksh'; }
+  pre.src-mksh:before  { content: 'mksh'; }
+  pre.src-posh:before  { content: 'posh'; }
+  /* Additional Emacs modes also supported by the LaTeX listings package */
+  pre.src-ada:before { content: 'Ada'; }
+  pre.src-asm:before { content: 'Assembler'; }
+  pre.src-caml:before { content: 'Caml'; }
+  pre.src-delphi:before { content: 'Delphi'; }
+  pre.src-html:before { content: 'HTML'; }
+  pre.src-idl:before { content: 'IDL'; }
+  pre.src-mercury:before { content: 'Mercury'; }
+  pre.src-metapost:before { content: 'MetaPost'; }
+  pre.src-modula-2:before { content: 'Modula-2'; }
+  pre.src-pascal:before { content: 'Pascal'; }
+  pre.src-ps:before { content: 'PostScript'; }
+  pre.src-prolog:before { content: 'Prolog'; }
+  pre.src-simula:before { content: 'Simula'; }
+  pre.src-tcl:before { content: 'tcl'; }
+  pre.src-tex:before { content: 'TeX'; }
+  pre.src-plain-tex:before { content: 'Plain TeX'; }
+  pre.src-verilog:before { content: 'Verilog'; }
+  pre.src-vhdl:before { content: 'VHDL'; }
+  pre.src-xml:before { content: 'XML'; }
+  pre.src-nxml:before { content: 'XML'; }
+  /* add a generic configuration mode; LaTeX export needs an additional
+     (add-to-list 'org-latex-listings-langs '(conf " ")) in .emacs */
+  pre.src-conf:before { content: 'Configuration File'; }
 
   table { border-collapse:collapse; }
   caption.t-above { caption-side: top; }
@@ -92,6 +176,7 @@
     { font-size: 10px; font-weight: bold; white-space: nowrap; }
   .org-info-js_search-highlight
     { background-color: #ffff00; color: #000000; font-weight: bold; }
+  .org-svg { width: 90%; }
   /*]]>*/-->
 </style>
 <link rel="stylesheet" type="text/css" href="mystyle.css" /><script>(function(i,s,o,g,r,a,m){i['GoogleAnalyticsObject']=r;i[r]=i[r]||function(){(i[r].q=i[r].q||[]).push(arguments)},i[r].l=1*new Date();a=s.createElement(o),m=s.getElementsByTagName(o)[0];a.async=1;a.src=g;m.parentNode.insertBefore(a,m)})(window,document,'script','//www.google-analytics.com/analytics.js','ga');ga('create', 'UA-52544521-1', 'auto');ga('send', 'pageview');</script>
@@ -153,43 +238,43 @@ for the JavaScript code in this tag.
 <h2>Table of Contents</h2>
 <div id="text-table-of-contents">
 <ul>
-<li><a href="#orgheadline1">Command-line arguments</a></li>
-<li><a href="#orgheadline2">I/O Streams</a>
+<li><a href="#org9a73bb0">Command-line arguments</a></li>
+<li><a href="#org1aeb5a8">I/O Streams</a>
 <ul>
-<li><a href="#orgheadline3">Character I/O: <code>getchar()</code> and <code>putchar()</code></a></li>
-<li><a href="#orgheadline6">Formatted I/O: <code>printf()</code> and <code>scanf()</code></a>
+<li><a href="#org306eec5">Character I/O: <code>getchar()</code> and <code>putchar()</code></a></li>
+<li><a href="#org99a0fed">Formatted I/O: <code>printf()</code> and <code>scanf()</code></a>
 <ul>
-<li><a href="#orgheadline4">The <code>printf()</code> function</a></li>
-<li><a href="#orgheadline5">The <code>scanf()</code> function</a></li>
+<li><a href="#orge929f64">The <code>printf()</code> function</a></li>
+<li><a href="#orgfffc8af">The <code>scanf()</code> function</a></li>
 </ul>
 </li>
 </ul>
 </li>
-<li><a href="#orgheadline11">Input and Output with Files</a>
+<li><a href="#orgedd2685">Input and Output with Files</a>
 <ul>
-<li><a href="#orgheadline7">Opening and Closing files with <code>fopen()</code> and <code>fclose()</code></a></li>
-<li><a href="#orgheadline8">Reading and Writing to files</a>
+<li><a href="#org88ad148">Opening and Closing files with <code>fopen()</code> and <code>fclose()</code></a></li>
+<li><a href="#org11dd4bc">Reading and Writing to files</a>
 <ul>
-<li><a href="#orgheadline9">Ascii Files (plain text)</a></li>
-<li><a href="#orgheadline10">Binary Files (raw bytes)</a></li>
+<li><a href="#org4927758">Ascii Files (plain text)</a></li>
+<li><a href="#orgc9d0743">Binary Files (raw bytes)</a></li>
 </ul>
 </li>
 </ul>
 </li>
-<li><a href="#orgheadline12">Links</a></li>
-<li><a href="#orgheadline13">Exercises</a>
+<li><a href="#org6b82d99">Links</a></li>
+<li><a href="#org1a77520">Exercises</a>
 <ul>
-<li><a href="#orgheadline14">Solutions</a></li>
+<li><a href="#orgde4e54e">Solutions</a></li>
 </ul>
 </li>
 </ul>
 </div>
 </div>
-<hr  />
+<hr />
 
-<div id="outline-container-orgheadline1" class="outline-2">
-<h2 id="orgheadline1">Command-line arguments</h2>
-<div class="outline-text-2" id="text-orgheadline1">
+<div id="outline-container-org9a73bb0" class="outline-2">
+<h2 id="org9a73bb0">Command-line arguments</h2>
+<div class="outline-text-2" id="text-org9a73bb0">
 <p>
 When you run a C program from the command line, you can pass it input
 arguments.
@@ -198,9 +283,9 @@ arguments.
 </div>
 
 
-<div id="outline-container-orgheadline2" class="outline-2">
-<h2 id="orgheadline2">I/O Streams</h2>
-<div class="outline-text-2" id="text-orgheadline2">
+<div id="outline-container-org1aeb5a8" class="outline-2">
+<h2 id="org1aeb5a8">I/O Streams</h2>
+<div class="outline-text-2" id="text-org1aeb5a8">
 <p>
 The standard C library (linked to using <code>#include &lt;stdio.h&gt;</code>)
 includes a handful of functions for performing input and output in C.
@@ -248,9 +333,9 @@ a C book, or <a href="http://www.acm.uiuc.edu/webmonkeys/book/c_guide/2.12.html#
 </p>
 </div>
 
-<div id="outline-container-orgheadline3" class="outline-3">
-<h3 id="orgheadline3">Character I/O: <code>getchar()</code> and <code>putchar()</code></h3>
-<div class="outline-text-3" id="text-orgheadline3">
+<div id="outline-container-org306eec5" class="outline-3">
+<h3 id="org306eec5">Character I/O: <code>getchar()</code> and <code>putchar()</code></h3>
+<div class="outline-text-3" id="text-org306eec5">
 <p>
 When you want to read data a single character at a time, you can use
 <code>getchar()</code>. The output function <code>putchar()</code> will write out one
@@ -258,15 +343,14 @@ character at a time to standard output.
 </p>
 
 <div class="org-src-container">
+<pre class="src src-C"><span style="color: #bc6ec5;">#include</span> <span style="color: #4f97d7;">&lt;</span><span style="color: #2d9574;">stdio.h</span><span style="color: #4f97d7;">&gt;</span>
 
-<pre class="src src-C"><span style="color: #483d8b;">#include</span> <span style="color: #8b2252;">&lt;stdio.h&gt;</span>
-
-<span style="color: #228b22;">int</span> <span style="color: #0000ff;">main</span>() {
-  <span style="color: #228b22;">char</span> <span style="color: #a0522d;">c</span> = getchar();
-  putchar(c);
-  putchar(<span style="color: #8b2252;">'\n'</span>);
-  <span style="color: #a020f0;">return</span> 0;
-}
+<span style="color: #ce537a; font-weight: bold;">int</span> <span style="color: #bc6ec5; font-weight: bold;">main</span><span style="color: #4f97d7;">()</span> <span style="color: #4f97d7;">{</span>
+  <span style="color: #ce537a; font-weight: bold;">char</span> <span style="color: #7590db;">c</span> = getchar<span style="color: #bc6ec5;">()</span>;
+  putchar<span style="color: #bc6ec5;">(</span>c<span style="color: #bc6ec5;">)</span>;
+  putchar<span style="color: #bc6ec5;">(</span><span style="color: #2d9574;">'\n'</span><span style="color: #bc6ec5;">)</span>;
+  <span style="color: #4f97d7; font-weight: bold;">return</span> <span style="color: #a45bad;">0</span>;
+<span style="color: #4f97d7;">}</span>
 </pre>
 </div>
 
@@ -277,12 +361,12 @@ x
 </div>
 </div>
 
-<div id="outline-container-orgheadline6" class="outline-3">
-<h3 id="orgheadline6">Formatted I/O: <code>printf()</code> and <code>scanf()</code></h3>
-<div class="outline-text-3" id="text-orgheadline6">
-</div><div id="outline-container-orgheadline4" class="outline-4">
-<h4 id="orgheadline4">The <code>printf()</code> function</h4>
-<div class="outline-text-4" id="text-orgheadline4">
+<div id="outline-container-org99a0fed" class="outline-3">
+<h3 id="org99a0fed">Formatted I/O: <code>printf()</code> and <code>scanf()</code></h3>
+<div class="outline-text-3" id="text-org99a0fed">
+</div><div id="outline-container-orge929f64" class="outline-4">
+<h4 id="orge929f64">The <code>printf()</code> function</h4>
+<div class="outline-text-4" id="text-orge929f64">
 <p>
 We have seen in many of the example code snippets, the use of the
 <code>printf()</code> function to write formatted output to the screen. In
@@ -297,15 +381,14 @@ Here is an example where we print a sentence that contains a formatted integer, 
 </p>
 
 <div class="org-src-container">
+<pre class="src src-c"><span style="color: #bc6ec5;">#include</span> <span style="color: #4f97d7;">&lt;</span><span style="color: #2d9574;">stdio.h</span><span style="color: #4f97d7;">&gt;</span>
 
-<pre class="src src-c"><span style="color: #483d8b;">#include</span> <span style="color: #8b2252;">&lt;stdio.h&gt;</span>
-
-<span style="color: #228b22;">int</span> <span style="color: #0000ff;">main</span>() {
-  <span style="color: #228b22;">int</span> <span style="color: #a0522d;">i</span> = 42;
-  <span style="color: #228b22;">char</span> <span style="color: #a0522d;">str</span>[] = <span style="color: #8b2252;">"the meaning of life"</span>;
-  <span style="color: #228b22;">double</span> <span style="color: #a0522d;">p</span> = 3.14159265;
-  printf(<span style="color: #8b2252;">"pi is about %12.8f and %s is %d\n"</span>, p, str, i);
-}
+<span style="color: #ce537a; font-weight: bold;">int</span> <span style="color: #bc6ec5; font-weight: bold;">main</span><span style="color: #4f97d7;">()</span> <span style="color: #4f97d7;">{</span>
+  <span style="color: #ce537a; font-weight: bold;">int</span> <span style="color: #7590db;">i</span> = <span style="color: #a45bad;">42</span>;
+  <span style="color: #ce537a; font-weight: bold;">char</span> <span style="color: #7590db;">str</span><span style="color: #bc6ec5;">[]</span> = <span style="color: #2d9574;">"the meaning of life"</span>;
+  <span style="color: #ce537a; font-weight: bold;">double</span> <span style="color: #7590db;">p</span> = <span style="color: #a45bad;">3.14159265</span>;
+  printf<span style="color: #bc6ec5;">(</span><span style="color: #2d9574;">"pi is about %12.8f and %s is %d\n"</span>, p, str, i<span style="color: #bc6ec5;">)</span>;
+<span style="color: #4f97d7;">}</span>
 </pre>
 </div>
 
@@ -329,9 +412,9 @@ Consult a reference manual (or a website like <a href="http://www.acm.uiuc.edu/w
 </div>
 </div>
 
-<div id="outline-container-orgheadline5" class="outline-4">
-<h4 id="orgheadline5">The <code>scanf()</code> function</h4>
-<div class="outline-text-4" id="text-orgheadline5">
+<div id="outline-container-orgfffc8af" class="outline-4">
+<h4 id="orgfffc8af">The <code>scanf()</code> function</h4>
+<div class="outline-text-4" id="text-orgfffc8af">
 <p>
 To read formatted data in from standard input we can use the
 <code>fscanf()</code> function. Just like <code>printf()</code>, it takes as a first
@@ -352,16 +435,15 @@ which we expect to be in the following format:
 </pre>
 
 <div class="org-src-container">
+<pre class="src src-c"><span style="color: #bc6ec5;">#include</span> <span style="color: #4f97d7;">&lt;</span><span style="color: #2d9574;">stdio.h</span><span style="color: #4f97d7;">&gt;</span>
 
-<pre class="src src-c"><span style="color: #483d8b;">#include</span> <span style="color: #8b2252;">&lt;stdio.h&gt;</span>
-
-<span style="color: #228b22;">int</span> <span style="color: #0000ff;">main</span>() {
-  <span style="color: #228b22;">int</span> <span style="color: #a0522d;">day</span>, <span style="color: #a0522d;">year</span>;
-  <span style="color: #228b22;">char</span> <span style="color: #a0522d;">monthname</span>[20];
-  scanf(<span style="color: #8b2252;">"%d %s %d"</span>, &amp;day, monthname, &amp;year);
-  printf(<span style="color: #8b2252;">"the date is %s %d, %d\n"</span>, monthname, day, year);
-  <span style="color: #a020f0;">return</span> 0;
-}
+<span style="color: #ce537a; font-weight: bold;">int</span> <span style="color: #bc6ec5; font-weight: bold;">main</span><span style="color: #4f97d7;">()</span> <span style="color: #4f97d7;">{</span>
+  <span style="color: #ce537a; font-weight: bold;">int</span> <span style="color: #7590db;">day</span>, <span style="color: #7590db;">year</span>;
+  <span style="color: #ce537a; font-weight: bold;">char</span> <span style="color: #7590db;">monthname</span><span style="color: #bc6ec5;">[</span><span style="color: #a45bad;">20</span><span style="color: #bc6ec5;">]</span>;
+  scanf<span style="color: #bc6ec5;">(</span><span style="color: #2d9574;">"%d %s %d"</span>, &amp;day, monthname, &amp;year<span style="color: #bc6ec5;">)</span>;
+  printf<span style="color: #bc6ec5;">(</span><span style="color: #2d9574;">"the date is %s %d, %d\n"</span>, monthname, day, year<span style="color: #bc6ec5;">)</span>;
+  <span style="color: #4f97d7; font-weight: bold;">return</span> <span style="color: #a45bad;">0</span>;
+<span style="color: #4f97d7;">}</span>
 </pre>
 </div>
 
@@ -387,12 +469,12 @@ looks for input values.
 </div>
 </div>
 
-<div id="outline-container-orgheadline11" class="outline-2">
-<h2 id="orgheadline11">Input and Output with Files</h2>
-<div class="outline-text-2" id="text-orgheadline11">
-</div><div id="outline-container-orgheadline7" class="outline-3">
-<h3 id="orgheadline7">Opening and Closing files with <code>fopen()</code> and <code>fclose()</code></h3>
-<div class="outline-text-3" id="text-orgheadline7">
+<div id="outline-container-orgedd2685" class="outline-2">
+<h2 id="orgedd2685">Input and Output with Files</h2>
+<div class="outline-text-2" id="text-orgedd2685">
+</div><div id="outline-container-org88ad148" class="outline-3">
+<h3 id="org88ad148">Opening and Closing files with <code>fopen()</code> and <code>fclose()</code></h3>
+<div class="outline-text-3" id="text-org88ad148">
 <p>
 Before a file can be read or written to, it has to be <b>opened</b> using
 the <code>fopen()</code> function, which takes as arguments a string
@@ -405,18 +487,18 @@ to <b>close</b> it using the <code>fclose()</code> function.
 </div>
 </div>
 
-<div id="outline-container-orgheadline8" class="outline-3">
-<h3 id="orgheadline8">Reading and Writing to files</h3>
-<div class="outline-text-3" id="text-orgheadline8">
+<div id="outline-container-org11dd4bc" class="outline-3">
+<h3 id="org11dd4bc">Reading and Writing to files</h3>
+<div class="outline-text-3" id="text-org11dd4bc">
 <p>
 There are many functions in <code>stdio.h</code> for reading from and writing to
 files. There is a collection of functions for reading and writing ascii (text) data, and there are functions for dealing with binary data.
 </p>
 </div>
 
-<div id="outline-container-orgheadline9" class="outline-4">
-<h4 id="orgheadline9">Ascii Files (plain text)</h4>
-<div class="outline-text-4" id="text-orgheadline9">
+<div id="outline-container-org4927758" class="outline-4">
+<h4 id="org4927758">Ascii Files (plain text)</h4>
+<div class="outline-text-4" id="text-org4927758">
 <p>
 There are functions to read single characters at a time (<code>getc()</code> and
 <code>putc()</code>), there are functions to read and write formatted output
@@ -429,35 +511,34 @@ Here is an example program that outputs a table of temperature values in Fahrenh
 </p>
 
 <div class="org-src-container">
+<pre class="src src-c"><span style="color: #bc6ec5;">#include</span> <span style="color: #4f97d7;">&lt;</span><span style="color: #2d9574;">stdio.h</span><span style="color: #4f97d7;">&gt;</span>
 
-<pre class="src src-c"><span style="color: #483d8b;">#include</span> <span style="color: #8b2252;">&lt;stdio.h&gt;</span>
+<span style="color: #ce537a; font-weight: bold;">int</span> <span style="color: #bc6ec5; font-weight: bold;">main</span><span style="color: #4f97d7;">(</span><span style="color: #ce537a; font-weight: bold;">int</span> <span style="color: #7590db;">argc</span>, <span style="color: #ce537a; font-weight: bold;">char</span> *<span style="color: #7590db;">argv</span><span style="color: #bc6ec5;">[]</span><span style="color: #4f97d7;">)</span> <span style="color: #4f97d7;">{</span>
 
-<span style="color: #228b22;">int</span> <span style="color: #0000ff;">main</span>(<span style="color: #228b22;">int</span> <span style="color: #a0522d;">argc</span>, <span style="color: #228b22;">char</span> *<span style="color: #a0522d;">argv</span>[]) {
+  <span style="color: #ce537a; font-weight: bold;">FILE</span> *<span style="color: #7590db;">fp</span>;
+  <span style="color: #ce537a; font-weight: bold;">double</span> <span style="color: #7590db;">tmpC</span><span style="color: #bc6ec5;">[</span><span style="color: #a45bad;">11</span><span style="color: #bc6ec5;">]</span> = <span style="color: #bc6ec5;">{</span>-<span style="color: #a45bad;">10.0</span>, -<span style="color: #a45bad;">8.0</span>, -<span style="color: #a45bad;">6.0</span>,
+          -<span style="color: #a45bad;">4.0</span>, -<span style="color: #a45bad;">2.0</span>,  <span style="color: #a45bad;">0.0</span>,  <span style="color: #a45bad;">2.0</span>,
+           <span style="color: #a45bad;">4.0</span>,  <span style="color: #a45bad;">6.0</span>,  <span style="color: #a45bad;">8.0</span>, <span style="color: #a45bad;">10.0</span><span style="color: #bc6ec5;">}</span>;
+  <span style="color: #ce537a; font-weight: bold;">double</span> <span style="color: #7590db;">tmpF</span>;
+  <span style="color: #ce537a; font-weight: bold;">int</span> <span style="color: #7590db;">i</span>;
 
-  <span style="color: #228b22;">FILE</span> *<span style="color: #a0522d;">fp</span>;
-  <span style="color: #228b22;">double</span> <span style="color: #a0522d;">tmpC</span>[11] = {-10.0, -8.0, -6.0,
-                      -4.0, -2.0,  0.0,  2.0,
-                       4.0,  6.0,  8.0, 10.0};
-  <span style="color: #228b22;">double</span> <span style="color: #a0522d;">tmpF</span>;
-  <span style="color: #228b22;">int</span> <span style="color: #a0522d;">i</span>;
+  fp = fopen<span style="color: #bc6ec5;">(</span><span style="color: #2d9574;">"outfile.txt"</span>, <span style="color: #2d9574;">"w"</span><span style="color: #bc6ec5;">)</span>;
+  <span style="color: #4f97d7; font-weight: bold;">if</span> <span style="color: #bc6ec5;">(</span>fp == <span style="color: #a45bad;">NULL</span><span style="color: #bc6ec5;">)</span> <span style="color: #bc6ec5;">{</span>
+    printf<span style="color: #2d9574;">(</span><span style="color: #2d9574;">"sorry can't open outfile.txt\n"</span><span style="color: #2d9574;">)</span>;
+    <span style="color: #4f97d7; font-weight: bold;">return</span> <span style="color: #a45bad;">1</span>;
+  <span style="color: #bc6ec5;">}</span>
+  <span style="color: #4f97d7; font-weight: bold;">else</span> <span style="color: #bc6ec5;">{</span>
+    <span style="color: #2aa1ae; background-color: #292e34;">// </span><span style="color: #2aa1ae; background-color: #292e34;">print a table header</span>
+    fprintf<span style="color: #2d9574;">(</span>fp, <span style="color: #2d9574;">"%10s %10s\n"</span>, <span style="color: #2d9574;">"Celsius"</span>, <span style="color: #2d9574;">"Fahrenheit"</span><span style="color: #2d9574;">)</span>;
+    <span style="color: #4f97d7; font-weight: bold;">for</span> <span style="color: #2d9574;">(</span>i=<span style="color: #a45bad;">0</span>; i&lt;<span style="color: #a45bad;">11</span>; i++<span style="color: #2d9574;">)</span> <span style="color: #2d9574;">{</span>
+      tmpF = <span style="color: #67b11d;">(</span><span style="color: #b1951d;">(</span>tmpC<span style="color: #4f97d7;">[</span>i<span style="color: #4f97d7;">]</span> * <span style="color: #4f97d7;">(</span><span style="color: #a45bad;">9.0</span>/<span style="color: #a45bad;">5.0</span><span style="color: #4f97d7;">)</span><span style="color: #b1951d;">)</span> + <span style="color: #a45bad;">32.0</span><span style="color: #67b11d;">)</span>;
+      fprintf<span style="color: #67b11d;">(</span>fp, <span style="color: #2d9574;">"%10.2f %10.2f\n"</span>, tmpC<span style="color: #b1951d;">[</span>i<span style="color: #b1951d;">]</span>, tmpF<span style="color: #67b11d;">)</span>;
+    <span style="color: #2d9574;">}</span>
+    fclose<span style="color: #2d9574;">(</span>fp<span style="color: #2d9574;">)</span>;
+  <span style="color: #bc6ec5;">}</span>
 
-  fp = fopen(<span style="color: #8b2252;">"outfile.txt"</span>, <span style="color: #8b2252;">"w"</span>);
-  <span style="color: #a020f0;">if</span> (fp == <span style="color: #008b8b;">NULL</span>) {
-    printf(<span style="color: #8b2252;">"sorry can't open outfile.txt\n"</span>);
-    <span style="color: #a020f0;">return</span> 1;
-  }
-  <span style="color: #a020f0;">else</span> {
-    <span style="color: #b22222;">// </span><span style="color: #b22222;">print a table header</span>
-    fprintf(fp, <span style="color: #8b2252;">"%10s %10s\n"</span>, <span style="color: #8b2252;">"Celsius"</span>, <span style="color: #8b2252;">"Fahrenheit"</span>);
-    <span style="color: #a020f0;">for</span> (i=0; i&lt;11; i++) {
-      tmpF = ((tmpC[i] * (9.0/5.0)) + 32.0);
-      fprintf(fp, <span style="color: #8b2252;">"%10.2f %10.2f\n"</span>, tmpC[i], tmpF);
-    }
-    fclose(fp);
-  }
-
-  <span style="color: #a020f0;">return</span> 0;
-}
+  <span style="color: #4f97d7; font-weight: bold;">return</span> <span style="color: #a45bad;">0</span>;
+<span style="color: #4f97d7;">}</span>
 </pre>
 </div>
 
@@ -501,39 +582,38 @@ some arithmetic on them.
 </p>
 
 <div class="org-src-container">
+<pre class="src src-c"><span style="color: #bc6ec5;">#include</span> <span style="color: #4f97d7;">&lt;</span><span style="color: #2d9574;">stdio.h</span><span style="color: #4f97d7;">&gt;</span>
 
-<pre class="src src-c"><span style="color: #483d8b;">#include</span> <span style="color: #8b2252;">&lt;stdio.h&gt;</span>
+<span style="color: #ce537a; font-weight: bold;">int</span> <span style="color: #bc6ec5; font-weight: bold;">main</span><span style="color: #4f97d7;">(</span><span style="color: #ce537a; font-weight: bold;">int</span> <span style="color: #7590db;">argc</span>, <span style="color: #ce537a; font-weight: bold;">char</span> *<span style="color: #7590db;">argv</span><span style="color: #bc6ec5;">[]</span><span style="color: #4f97d7;">)</span> <span style="color: #4f97d7;">{</span>
 
-<span style="color: #228b22;">int</span> <span style="color: #0000ff;">main</span>(<span style="color: #228b22;">int</span> <span style="color: #a0522d;">argc</span>, <span style="color: #228b22;">char</span> *<span style="color: #a0522d;">argv</span>[]) {
+  <span style="color: #ce537a; font-weight: bold;">FILE</span> *<span style="color: #7590db;">fp</span>;
+  <span style="color: #ce537a; font-weight: bold;">char</span> <span style="color: #7590db;">buffer</span><span style="color: #bc6ec5;">[</span><span style="color: #a45bad;">256</span><span style="color: #bc6ec5;">]</span>;
+  <span style="color: #ce537a; font-weight: bold;">double</span> <span style="color: #7590db;">tempC</span>, <span style="color: #7590db;">tempF</span>;
+  <span style="color: #ce537a; font-weight: bold;">double</span> <span style="color: #7590db;">sumC</span> = <span style="color: #a45bad;">0.0</span>;
+  <span style="color: #ce537a; font-weight: bold;">double</span> <span style="color: #7590db;">sumF</span> = <span style="color: #a45bad;">0.0</span>;
+  <span style="color: #ce537a; font-weight: bold;">int</span> <span style="color: #7590db;">numread</span> = <span style="color: #a45bad;">0</span>;
 
-  <span style="color: #228b22;">FILE</span> *<span style="color: #a0522d;">fp</span>;
-  <span style="color: #228b22;">char</span> <span style="color: #a0522d;">buffer</span>[256];
-  <span style="color: #228b22;">double</span> <span style="color: #a0522d;">tempC</span>, <span style="color: #a0522d;">tempF</span>;
-  <span style="color: #228b22;">double</span> <span style="color: #a0522d;">sumC</span> = 0.0;
-  <span style="color: #228b22;">double</span> <span style="color: #a0522d;">sumF</span> = 0.0;
-  <span style="color: #228b22;">int</span> <span style="color: #a0522d;">numread</span> = 0;
-
-  fp = fopen(<span style="color: #8b2252;">"outfile.txt"</span>, <span style="color: #8b2252;">"r"</span>);
-  <span style="color: #a020f0;">if</span> (fp == <span style="color: #008b8b;">NULL</span>) {
-    printf(<span style="color: #8b2252;">"there was an error opening outfile.txt\n"</span>);
-    <span style="color: #a020f0;">return</span> 1;
-  }
-  <span style="color: #a020f0;">else</span> {
-    <span style="color: #b22222;">// </span><span style="color: #b22222;">read in the header line first</span>
-    fgets(buffer, 256, fp);
-    <span style="color: #a020f0;">while</span> (!feof(fp)) {
-      fscanf(fp, <span style="color: #8b2252;">"%lf %lf\n"</span>, &amp;tempC, &amp;tempF);
-      printf(<span style="color: #8b2252;">"tempC=%.2f, tempF=%.2f\n"</span>, tempC, tempF);
+  fp = fopen<span style="color: #bc6ec5;">(</span><span style="color: #2d9574;">"outfile.txt"</span>, <span style="color: #2d9574;">"r"</span><span style="color: #bc6ec5;">)</span>;
+  <span style="color: #4f97d7; font-weight: bold;">if</span> <span style="color: #bc6ec5;">(</span>fp == <span style="color: #a45bad;">NULL</span><span style="color: #bc6ec5;">)</span> <span style="color: #bc6ec5;">{</span>
+    printf<span style="color: #2d9574;">(</span><span style="color: #2d9574;">"there was an error opening outfile.txt\n"</span><span style="color: #2d9574;">)</span>;
+    <span style="color: #4f97d7; font-weight: bold;">return</span> <span style="color: #a45bad;">1</span>;
+  <span style="color: #bc6ec5;">}</span>
+  <span style="color: #4f97d7; font-weight: bold;">else</span> <span style="color: #bc6ec5;">{</span>
+    <span style="color: #2aa1ae; background-color: #292e34;">// </span><span style="color: #2aa1ae; background-color: #292e34;">read in the header line first</span>
+    fgets<span style="color: #2d9574;">(</span>buffer, <span style="color: #a45bad;">256</span>, fp<span style="color: #2d9574;">)</span>;
+    <span style="color: #4f97d7; font-weight: bold;">while</span> <span style="color: #2d9574;">(</span><span style="color: #a45bad;">!</span>feof<span style="color: #67b11d;">(</span>fp<span style="color: #67b11d;">)</span><span style="color: #2d9574;">)</span> <span style="color: #2d9574;">{</span>
+      fscanf<span style="color: #67b11d;">(</span>fp, <span style="color: #2d9574;">"%lf %lf\n"</span>, &amp;tempC, &amp;tempF<span style="color: #67b11d;">)</span>;
+      printf<span style="color: #67b11d;">(</span><span style="color: #2d9574;">"tempC=%.2f, tempF=%.2f\n"</span>, tempC, tempF<span style="color: #67b11d;">)</span>;
       sumC += tempC;
       sumF += tempF;
       numread++;
-    }
-    fclose(fp);
-    printf(<span style="color: #8b2252;">"%d values read, sumC=%.2f and sumF=%.2f\n"</span>, numread, sumC, sumF);
-  }
+    <span style="color: #2d9574;">}</span>
+    fclose<span style="color: #2d9574;">(</span>fp<span style="color: #2d9574;">)</span>;
+    printf<span style="color: #2d9574;">(</span><span style="color: #2d9574;">"%d values read, sumC=%.2f and sumF=%.2f\n"</span>, numread, sumC, sumF<span style="color: #2d9574;">)</span>;
+  <span style="color: #bc6ec5;">}</span>
 
-  <span style="color: #a020f0;">return</span> 0;
-}
+  <span style="color: #4f97d7; font-weight: bold;">return</span> <span style="color: #a45bad;">0</span>;
+<span style="color: #4f97d7;">}</span>
 </pre>
 </div>
 
@@ -567,9 +647,9 @@ file, and FALSE otherwise.
 </div>
 </div>
 
-<div id="outline-container-orgheadline10" class="outline-4">
-<h4 id="orgheadline10">Binary Files (raw bytes)</h4>
-<div class="outline-text-4" id="text-orgheadline10">
+<div id="outline-container-orgc9d0743" class="outline-4">
+<h4 id="orgc9d0743">Binary Files (raw bytes)</h4>
+<div class="outline-text-4" id="text-orgc9d0743">
 <p>
 There are many circumstances in which you may want to read from and
 write to binary files. Binary files are not plain text (ascii) files
@@ -597,35 +677,34 @@ element. In this example the data are integer values.
 </p>
 
 <div class="org-src-container">
+<pre class="src src-c"><span style="color: #bc6ec5;">#include</span> <span style="color: #4f97d7;">&lt;</span><span style="color: #2d9574;">stdio.h</span><span style="color: #4f97d7;">&gt;</span>
 
-<pre class="src src-c"><span style="color: #483d8b;">#include</span> <span style="color: #8b2252;">&lt;stdio.h&gt;</span>
+<span style="color: #ce537a; font-weight: bold;">int</span> <span style="color: #bc6ec5; font-weight: bold;">main</span><span style="color: #4f97d7;">(</span><span style="color: #ce537a; font-weight: bold;">int</span> <span style="color: #7590db;">argc</span>, <span style="color: #ce537a; font-weight: bold;">char</span> *<span style="color: #7590db;">argv</span><span style="color: #bc6ec5;">[]</span><span style="color: #4f97d7;">)</span> <span style="color: #4f97d7;">{</span>
 
-<span style="color: #228b22;">int</span> <span style="color: #0000ff;">main</span>(<span style="color: #228b22;">int</span> <span style="color: #a0522d;">argc</span>, <span style="color: #228b22;">char</span> *<span style="color: #a0522d;">argv</span>[]) {
+  <span style="color: #ce537a; font-weight: bold;">FILE</span> *<span style="color: #7590db;">fp</span>;
+  <span style="color: #ce537a; font-weight: bold;">int</span> <span style="color: #7590db;">year</span> = <span style="color: #a45bad;">2012</span>;
+  <span style="color: #ce537a; font-weight: bold;">int</span> <span style="color: #7590db;">month</span> = <span style="color: #a45bad;">8</span>;
+  <span style="color: #ce537a; font-weight: bold;">int</span> <span style="color: #7590db;">day</span> = <span style="color: #a45bad;">26</span>;
+  <span style="color: #ce537a; font-weight: bold;">int</span> <span style="color: #7590db;">mydata</span><span style="color: #bc6ec5;">[</span><span style="color: #a45bad;">5</span><span style="color: #bc6ec5;">]</span> = <span style="color: #bc6ec5;">{</span><span style="color: #a45bad;">2</span>, <span style="color: #a45bad;">4</span>, <span style="color: #a45bad;">6</span>, <span style="color: #a45bad;">8</span>, <span style="color: #a45bad;">10</span><span style="color: #bc6ec5;">}</span>;
 
-  <span style="color: #228b22;">FILE</span> *<span style="color: #a0522d;">fp</span>;
-  <span style="color: #228b22;">int</span> <span style="color: #a0522d;">year</span> = 2012;
-  <span style="color: #228b22;">int</span> <span style="color: #a0522d;">month</span> = 8;
-  <span style="color: #228b22;">int</span> <span style="color: #a0522d;">day</span> = 26;
-  <span style="color: #228b22;">int</span> <span style="color: #a0522d;">mydata</span>[5] = {2, 4, 6, 8, 10};
+  fp = fopen<span style="color: #bc6ec5;">(</span><span style="color: #2d9574;">"data.bin"</span>, <span style="color: #2d9574;">"w"</span><span style="color: #bc6ec5;">)</span>;
+  <span style="color: #4f97d7; font-weight: bold;">if</span> <span style="color: #bc6ec5;">(</span>fp == <span style="color: #a45bad;">NULL</span><span style="color: #bc6ec5;">)</span> <span style="color: #bc6ec5;">{</span>
+    printf<span style="color: #2d9574;">(</span><span style="color: #2d9574;">"error opening data.bin\n"</span><span style="color: #2d9574;">)</span>;
+    <span style="color: #4f97d7; font-weight: bold;">return</span> <span style="color: #a45bad;">1</span>;
+  <span style="color: #bc6ec5;">}</span>
+  <span style="color: #4f97d7; font-weight: bold;">else</span> <span style="color: #bc6ec5;">{</span>
+    <span style="color: #2aa1ae; background-color: #292e34;">// </span><span style="color: #2aa1ae; background-color: #292e34;">write out the header</span>
+    <span style="color: #ce537a; font-weight: bold;">int</span> <span style="color: #7590db;">bytesout</span>;
+    bytesout = fwrite<span style="color: #2d9574;">(</span>&amp;year, <span style="color: #4f97d7; font-weight: bold;">sizeof</span><span style="color: #67b11d;">(</span>year<span style="color: #67b11d;">)</span>, <span style="color: #a45bad;">1</span>, fp<span style="color: #2d9574;">)</span>;
+    bytesout = fwrite<span style="color: #2d9574;">(</span>&amp;month, <span style="color: #4f97d7; font-weight: bold;">sizeof</span><span style="color: #67b11d;">(</span>month<span style="color: #67b11d;">)</span>, <span style="color: #a45bad;">1</span>, fp<span style="color: #2d9574;">)</span>;
+    bytesout = fwrite<span style="color: #2d9574;">(</span>&amp;day, <span style="color: #4f97d7; font-weight: bold;">sizeof</span><span style="color: #67b11d;">(</span>day<span style="color: #67b11d;">)</span>, <span style="color: #a45bad;">1</span>, fp<span style="color: #2d9574;">)</span>;
+    <span style="color: #2aa1ae; background-color: #292e34;">// </span><span style="color: #2aa1ae; background-color: #292e34;">write the data</span>
+    bytesout = fwrite<span style="color: #2d9574;">(</span>mydata, <span style="color: #4f97d7; font-weight: bold;">sizeof</span><span style="color: #67b11d;">(</span><span style="color: #ce537a; font-weight: bold;">int</span><span style="color: #67b11d;">)</span>, <span style="color: #a45bad;">5</span>, fp<span style="color: #2d9574;">)</span>;
+    fclose<span style="color: #2d9574;">(</span>fp<span style="color: #2d9574;">)</span>;
+  <span style="color: #bc6ec5;">}</span>
 
-  fp = fopen(<span style="color: #8b2252;">"data.bin"</span>, <span style="color: #8b2252;">"w"</span>);
-  <span style="color: #a020f0;">if</span> (fp == <span style="color: #008b8b;">NULL</span>) {
-    printf(<span style="color: #8b2252;">"error opening data.bin\n"</span>);
-    <span style="color: #a020f0;">return</span> 1;
-  }
-  <span style="color: #a020f0;">else</span> {
-    <span style="color: #b22222;">// </span><span style="color: #b22222;">write out the header</span>
-    <span style="color: #228b22;">int</span> <span style="color: #a0522d;">bytesout</span>;
-    bytesout = fwrite(&amp;year, <span style="color: #a020f0;">sizeof</span>(year), 1, fp);
-    bytesout = fwrite(&amp;month, <span style="color: #a020f0;">sizeof</span>(month), 1, fp);
-    bytesout = fwrite(&amp;day, <span style="color: #a020f0;">sizeof</span>(day), 1, fp);
-    <span style="color: #b22222;">// </span><span style="color: #b22222;">write the data</span>
-    bytesout = fwrite(mydata, <span style="color: #a020f0;">sizeof</span>(<span style="color: #228b22;">int</span>), 5, fp);
-    fclose(fp);
-  }
-
-  <span style="color: #a020f0;">return</span> 0;
-}
+  <span style="color: #4f97d7; font-weight: bold;">return</span> <span style="color: #a45bad;">0</span>;
+<span style="color: #4f97d7;">}</span>
 </pre>
 </div>
 
@@ -634,36 +713,35 @@ Here is an example program to read from the binary data file:
 </p>
 
 <div class="org-src-container">
+<pre class="src src-c"><span style="color: #bc6ec5;">#include</span> <span style="color: #4f97d7;">&lt;</span><span style="color: #2d9574;">stdio.h</span><span style="color: #4f97d7;">&gt;</span>
 
-<pre class="src src-c"><span style="color: #483d8b;">#include</span> <span style="color: #8b2252;">&lt;stdio.h&gt;</span>
+<span style="color: #ce537a; font-weight: bold;">int</span> <span style="color: #bc6ec5; font-weight: bold;">main</span><span style="color: #4f97d7;">(</span><span style="color: #ce537a; font-weight: bold;">int</span> <span style="color: #7590db;">argc</span>, <span style="color: #ce537a; font-weight: bold;">char</span> *<span style="color: #7590db;">argv</span><span style="color: #bc6ec5;">[]</span><span style="color: #4f97d7;">)</span> <span style="color: #4f97d7;">{</span>
 
-<span style="color: #228b22;">int</span> <span style="color: #0000ff;">main</span>(<span style="color: #228b22;">int</span> <span style="color: #a0522d;">argc</span>, <span style="color: #228b22;">char</span> *<span style="color: #a0522d;">argv</span>[]) {
+  <span style="color: #ce537a; font-weight: bold;">FILE</span> *<span style="color: #7590db;">fp</span>;
+  <span style="color: #ce537a; font-weight: bold;">int</span> <span style="color: #7590db;">bytesread</span>;
+  <span style="color: #ce537a; font-weight: bold;">int</span> <span style="color: #7590db;">yy</span>, <span style="color: #7590db;">mm</span>, <span style="color: #7590db;">dd</span>;
+  <span style="color: #ce537a; font-weight: bold;">int</span> <span style="color: #7590db;">thedata</span><span style="color: #bc6ec5;">[</span><span style="color: #a45bad;">5</span><span style="color: #bc6ec5;">]</span>;
 
-  <span style="color: #228b22;">FILE</span> *<span style="color: #a0522d;">fp</span>;
-  <span style="color: #228b22;">int</span> <span style="color: #a0522d;">bytesread</span>;
-  <span style="color: #228b22;">int</span> <span style="color: #a0522d;">yy</span>, <span style="color: #a0522d;">mm</span>, <span style="color: #a0522d;">dd</span>;
-  <span style="color: #228b22;">int</span> <span style="color: #a0522d;">thedata</span>[5];
+  fp = fopen<span style="color: #bc6ec5;">(</span><span style="color: #2d9574;">"data.bin"</span>, <span style="color: #2d9574;">"r"</span><span style="color: #bc6ec5;">)</span>;
+  <span style="color: #4f97d7; font-weight: bold;">if</span> <span style="color: #bc6ec5;">(</span>fp == <span style="color: #a45bad;">NULL</span><span style="color: #bc6ec5;">)</span> <span style="color: #bc6ec5;">{</span>
+    printf<span style="color: #2d9574;">(</span><span style="color: #2d9574;">"error opening data.bin\n"</span><span style="color: #2d9574;">)</span>;
+    <span style="color: #4f97d7; font-weight: bold;">return</span> <span style="color: #a45bad;">1</span>;
+  <span style="color: #bc6ec5;">}</span>
+  <span style="color: #4f97d7; font-weight: bold;">else</span> <span style="color: #bc6ec5;">{</span>
+    <span style="color: #2aa1ae; background-color: #292e34;">// </span><span style="color: #2aa1ae; background-color: #292e34;">read the header</span>
+    bytesread = fread<span style="color: #2d9574;">(</span>&amp;yy, <span style="color: #4f97d7; font-weight: bold;">sizeof</span><span style="color: #67b11d;">(</span><span style="color: #ce537a; font-weight: bold;">int</span><span style="color: #67b11d;">)</span>, <span style="color: #a45bad;">1</span>, fp<span style="color: #2d9574;">)</span>;
+    bytesread = fread<span style="color: #2d9574;">(</span>&amp;mm, <span style="color: #4f97d7; font-weight: bold;">sizeof</span><span style="color: #67b11d;">(</span><span style="color: #ce537a; font-weight: bold;">int</span><span style="color: #67b11d;">)</span>, <span style="color: #a45bad;">1</span>, fp<span style="color: #2d9574;">)</span>;
+    bytesread = fread<span style="color: #2d9574;">(</span>&amp;dd, <span style="color: #4f97d7; font-weight: bold;">sizeof</span><span style="color: #67b11d;">(</span><span style="color: #ce537a; font-weight: bold;">int</span><span style="color: #67b11d;">)</span>, <span style="color: #a45bad;">1</span>, fp<span style="color: #2d9574;">)</span>;
+    printf<span style="color: #2d9574;">(</span><span style="color: #2d9574;">"year=%d, month=%d, day=%d\n"</span>, yy, mm, dd<span style="color: #2d9574;">)</span>;
+    <span style="color: #2aa1ae; background-color: #292e34;">// </span><span style="color: #2aa1ae; background-color: #292e34;">read the data</span>
+    bytesread = fread<span style="color: #2d9574;">(</span>thedata, <span style="color: #4f97d7; font-weight: bold;">sizeof</span><span style="color: #67b11d;">(</span><span style="color: #ce537a; font-weight: bold;">int</span><span style="color: #67b11d;">)</span>, <span style="color: #a45bad;">5</span>, fp<span style="color: #2d9574;">)</span>;
+    printf<span style="color: #2d9574;">(</span><span style="color: #2d9574;">"data = [%d,%d,%d,%d,%d]\n"</span>,
+     thedata<span style="color: #67b11d;">[</span><span style="color: #a45bad;">0</span><span style="color: #67b11d;">]</span>, thedata<span style="color: #67b11d;">[</span><span style="color: #a45bad;">1</span><span style="color: #67b11d;">]</span>,thedata<span style="color: #67b11d;">[</span><span style="color: #a45bad;">2</span><span style="color: #67b11d;">]</span>,thedata<span style="color: #67b11d;">[</span><span style="color: #a45bad;">3</span><span style="color: #67b11d;">]</span>,thedata<span style="color: #67b11d;">[</span><span style="color: #a45bad;">4</span><span style="color: #67b11d;">]</span><span style="color: #2d9574;">)</span>; 
+    fclose<span style="color: #2d9574;">(</span>fp<span style="color: #2d9574;">)</span>;
+  <span style="color: #bc6ec5;">}</span>
 
-  fp = fopen(<span style="color: #8b2252;">"data.bin"</span>, <span style="color: #8b2252;">"r"</span>);
-  <span style="color: #a020f0;">if</span> (fp == <span style="color: #008b8b;">NULL</span>) {
-    printf(<span style="color: #8b2252;">"error opening data.bin\n"</span>);
-    <span style="color: #a020f0;">return</span> 1;
-  }
-  <span style="color: #a020f0;">else</span> {
-    <span style="color: #b22222;">// </span><span style="color: #b22222;">read the header</span>
-    bytesread = fread(&amp;yy, <span style="color: #a020f0;">sizeof</span>(<span style="color: #228b22;">int</span>), 1, fp);
-    bytesread = fread(&amp;mm, <span style="color: #a020f0;">sizeof</span>(<span style="color: #228b22;">int</span>), 1, fp);
-    bytesread = fread(&amp;dd, <span style="color: #a020f0;">sizeof</span>(<span style="color: #228b22;">int</span>), 1, fp);
-    printf(<span style="color: #8b2252;">"year=%d, month=%d, day=%d\n"</span>, yy, mm, dd);
-    <span style="color: #b22222;">// </span><span style="color: #b22222;">read the data</span>
-    bytesread = fread(thedata, <span style="color: #a020f0;">sizeof</span>(<span style="color: #228b22;">int</span>), 5, fp);
-    printf(<span style="color: #8b2252;">"data = [%d,%d,%d,%d,%d]\n"</span>,
-           thedata[0], thedata[1],thedata[2],thedata[3],thedata[4]); 
-    fclose(fp);
-  }
-
-  <span style="color: #a020f0;">return</span> 0;
-}
+  <span style="color: #4f97d7; font-weight: bold;">return</span> <span style="color: #a45bad;">0</span>;
+<span style="color: #4f97d7;">}</span>
 </pre>
 </div>
 
@@ -682,9 +760,9 @@ write them in "raw" binary using <code>fread()</code> and <code>fwrite()</code>.
 </div>
 </div>
 
-<div id="outline-container-orgheadline12" class="outline-2">
-<h2 id="orgheadline12">Links</h2>
-<div class="outline-text-2" id="text-orgheadline12">
+<div id="outline-container-org6b82d99" class="outline-2">
+<h2 id="org6b82d99">Links</h2>
+<div class="outline-text-2" id="text-org6b82d99">
 <ul class="org-ul">
 <li><a href="http://www.acm.uiuc.edu/webmonkeys/book/c_guide/index.html">The C Library Reference Guide</a></li>
 <li><a href="http://en.wikipedia.org/wiki/C_file_input/output">C file input/output</a></li>
@@ -693,9 +771,9 @@ write them in "raw" binary using <code>fread()</code> and <code>fwrite()</code>.
 </div>
 
 
-<div id="outline-container-orgheadline13" class="outline-2">
-<h2 id="orgheadline13">Exercises</h2>
-<div class="outline-text-2" id="text-orgheadline13">
+<div id="outline-container-org1a77520" class="outline-2">
+<h2 id="org1a77520">Exercises</h2>
+<div class="outline-text-2" id="text-org1a77520">
 <ul class="org-ul">
 <li>1 Write a program that asks the user to enter three strings. After
 they have entered all three strings, print the strings out using all
@@ -712,9 +790,9 @@ reverses each string, and prints them out to the screen.</li>
 </div>
 
 
-<div id="outline-container-orgheadline14" class="outline-3">
-<h3 id="orgheadline14">Solutions</h3>
-<div class="outline-text-3" id="text-orgheadline14">
+<div id="outline-container-orgde4e54e" class="outline-3">
+<h3 id="orgde4e54e">Solutions</h3>
+<div class="outline-text-3" id="text-orgde4e54e">
 <ul class="org-ul">
 <li>x</li>
 <li>x</li>

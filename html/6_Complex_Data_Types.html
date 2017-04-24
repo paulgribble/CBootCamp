@@ -3,12 +3,12 @@
 "http://www.w3.org/TR/xhtml1/DTD/xhtml1-strict.dtd">
 <html xmlns="http://www.w3.org/1999/xhtml" lang="en" xml:lang="en">
 <head>
-<!-- 2016-11-22 Tue 19:36 -->
-<meta  http-equiv="Content-Type" content="text/html;charset=utf-8" />
-<meta  name="viewport" content="width=device-width, initial-scale=1" />
+<!-- 2017-04-24 Mon 07:07 -->
+<meta http-equiv="Content-Type" content="text/html;charset=utf-8" />
+<meta name="viewport" content="width=device-width, initial-scale=1" />
 <title>6. Complex Data Types</title>
-<meta  name="generator" content="Org-mode" />
-<meta  name="author" content="Paul Gribble" />
+<meta name="generator" content="Org mode" />
+<meta name="author" content="Paul Gribble" />
 <style type="text/css">
  <!--/*--><![CDATA[/*><!--*/
   .title  { text-align: center;
@@ -53,13 +53,97 @@
     border: 1px solid black;
   }
   pre.src:hover:before { display: inline;}
-  pre.src-sh:before    { content: 'sh'; }
-  pre.src-bash:before  { content: 'sh'; }
+  /* Languages per Org manual */
+  pre.src-asymptote:before { content: 'Asymptote'; }
+  pre.src-awk:before { content: 'Awk'; }
+  pre.src-C:before { content: 'C'; }
+  /* pre.src-C++ doesn't work in CSS */
+  pre.src-clojure:before { content: 'Clojure'; }
+  pre.src-css:before { content: 'CSS'; }
+  pre.src-D:before { content: 'D'; }
+  pre.src-ditaa:before { content: 'ditaa'; }
+  pre.src-dot:before { content: 'Graphviz'; }
+  pre.src-calc:before { content: 'Emacs Calc'; }
   pre.src-emacs-lisp:before { content: 'Emacs Lisp'; }
-  pre.src-R:before     { content: 'R'; }
-  pre.src-perl:before  { content: 'Perl'; }
-  pre.src-java:before  { content: 'Java'; }
-  pre.src-sql:before   { content: 'SQL'; }
+  pre.src-fortran:before { content: 'Fortran'; }
+  pre.src-gnuplot:before { content: 'gnuplot'; }
+  pre.src-haskell:before { content: 'Haskell'; }
+  pre.src-java:before { content: 'Java'; }
+  pre.src-js:before { content: 'Javascript'; }
+  pre.src-latex:before { content: 'LaTeX'; }
+  pre.src-ledger:before { content: 'Ledger'; }
+  pre.src-lisp:before { content: 'Lisp'; }
+  pre.src-lilypond:before { content: 'Lilypond'; }
+  pre.src-lua:before { content: 'Lua'; }
+  pre.src-matlab:before { content: 'MATLAB'; }
+  pre.src-mscgen:before { content: 'Mscgen'; }
+  pre.src-ocaml:before { content: 'Objective Caml'; }
+  pre.src-octave:before { content: 'Octave'; }
+  pre.src-org:before { content: 'Org mode'; }
+  pre.src-oz:before { content: 'OZ'; }
+  pre.src-plantuml:before { content: 'Plantuml'; }
+  pre.src-processing:before { content: 'Processing.js'; }
+  pre.src-python:before { content: 'Python'; }
+  pre.src-R:before { content: 'R'; }
+  pre.src-ruby:before { content: 'Ruby'; }
+  pre.src-sass:before { content: 'Sass'; }
+  pre.src-scheme:before { content: 'Scheme'; }
+  pre.src-screen:before { content: 'Gnu Screen'; }
+  pre.src-sed:before { content: 'Sed'; }
+  pre.src-sh:before { content: 'shell'; }
+  pre.src-sql:before { content: 'SQL'; }
+  pre.src-sqlite:before { content: 'SQLite'; }
+  /* additional languages in org.el's org-babel-load-languages alist */
+  pre.src-forth:before { content: 'Forth'; }
+  pre.src-io:before { content: 'IO'; }
+  pre.src-J:before { content: 'J'; }
+  pre.src-makefile:before { content: 'Makefile'; }
+  pre.src-maxima:before { content: 'Maxima'; }
+  pre.src-perl:before { content: 'Perl'; }
+  pre.src-picolisp:before { content: 'Pico Lisp'; }
+  pre.src-scala:before { content: 'Scala'; }
+  pre.src-shell:before { content: 'Shell Script'; }
+  pre.src-ebnf2ps:before { content: 'ebfn2ps'; }
+  /* additional language identifiers per "defun org-babel-execute"
+       in ob-*.el */
+  pre.src-cpp:before  { content: 'C++'; }
+  pre.src-abc:before  { content: 'ABC'; }
+  pre.src-coq:before  { content: 'Coq'; }
+  pre.src-groovy:before  { content: 'Groovy'; }
+  /* additional language identifiers from org-babel-shell-names in
+     ob-shell.el: ob-shell is the only babel language using a lambda to put
+     the execution function name together. */
+  pre.src-bash:before  { content: 'bash'; }
+  pre.src-csh:before  { content: 'csh'; }
+  pre.src-ash:before  { content: 'ash'; }
+  pre.src-dash:before  { content: 'dash'; }
+  pre.src-ksh:before  { content: 'ksh'; }
+  pre.src-mksh:before  { content: 'mksh'; }
+  pre.src-posh:before  { content: 'posh'; }
+  /* Additional Emacs modes also supported by the LaTeX listings package */
+  pre.src-ada:before { content: 'Ada'; }
+  pre.src-asm:before { content: 'Assembler'; }
+  pre.src-caml:before { content: 'Caml'; }
+  pre.src-delphi:before { content: 'Delphi'; }
+  pre.src-html:before { content: 'HTML'; }
+  pre.src-idl:before { content: 'IDL'; }
+  pre.src-mercury:before { content: 'Mercury'; }
+  pre.src-metapost:before { content: 'MetaPost'; }
+  pre.src-modula-2:before { content: 'Modula-2'; }
+  pre.src-pascal:before { content: 'Pascal'; }
+  pre.src-ps:before { content: 'PostScript'; }
+  pre.src-prolog:before { content: 'Prolog'; }
+  pre.src-simula:before { content: 'Simula'; }
+  pre.src-tcl:before { content: 'tcl'; }
+  pre.src-tex:before { content: 'TeX'; }
+  pre.src-plain-tex:before { content: 'Plain TeX'; }
+  pre.src-verilog:before { content: 'Verilog'; }
+  pre.src-vhdl:before { content: 'VHDL'; }
+  pre.src-xml:before { content: 'XML'; }
+  pre.src-nxml:before { content: 'XML'; }
+  /* add a generic configuration mode; LaTeX export needs an additional
+     (add-to-list 'org-latex-listings-langs '(conf " ")) in .emacs */
+  pre.src-conf:before { content: 'Configuration File'; }
 
   table { border-collapse:collapse; }
   caption.t-above { caption-side: top; }
@@ -92,6 +176,7 @@
     { font-size: 10px; font-weight: bold; white-space: nowrap; }
   .org-info-js_search-highlight
     { background-color: #ffff00; color: #000000; font-weight: bold; }
+  .org-svg { width: 90%; }
   /*]]>*/-->
 </style>
 <link rel="stylesheet" type="text/css" href="mystyle.css" /><script>(function(i,s,o,g,r,a,m){i['GoogleAnalyticsObject']=r;i[r]=i[r]||function(){(i[r].q=i[r].q||[]).push(arguments)},i[r].l=1*new Date();a=s.createElement(o),m=s.getElementsByTagName(o)[0];a.async=1;a.src=g;m.parentNode.insertBefore(a,m)})(window,document,'script','//www.google-analytics.com/analytics.js','ga');ga('create', 'UA-52544521-1', 'auto');ga('send', 'pageview');</script>
@@ -153,41 +238,41 @@ for the JavaScript code in this tag.
 <h2>Table of Contents</h2>
 <div id="text-table-of-contents">
 <ul>
-<li><a href="#orgheadline1">Arrays</a>
+<li><a href="#org0309012">Arrays</a>
 <ul>
-<li><a href="#orgheadline2">Defining an Array</a></li>
-<li><a href="#orgheadline3">Indexing Array Elements</a></li>
-<li><a href="#orgheadline4">Assigning values to array elements</a></li>
-<li><a href="#orgheadline5">Initializing Arrays</a></li>
+<li><a href="#orgc72012e">Defining an Array</a></li>
+<li><a href="#org6e7a0d5">Indexing Array Elements</a></li>
+<li><a href="#orgc02c77d">Assigning values to array elements</a></li>
+<li><a href="#orge58da9e">Initializing Arrays</a></li>
 </ul>
 </li>
-<li><a href="#orgheadline6">Multidimensional Arrays</a>
+<li><a href="#orge2f660a">Multidimensional Arrays</a>
 <ul>
-<li><a href="#orgheadline7">Matrix Calculations</a></li>
+<li><a href="#org40be9cf">Matrix Calculations</a></li>
 </ul>
 </li>
-<li><a href="#orgheadline8">Variable-Length Arrays</a></li>
-<li><a href="#orgheadline9">Command-line arguments</a></li>
-<li><a href="#orgheadline10">Structures</a>
+<li><a href="#org3350792">Variable-Length Arrays</a></li>
+<li><a href="#orgf0645bf">Command-line arguments</a></li>
+<li><a href="#org9b922d5">Structures</a>
 <ul>
-<li><a href="#orgheadline11">Using typedef to shorten structure declarations</a></li>
-<li><a href="#orgheadline12">Structures Containing Arrays</a></li>
-<li><a href="#orgheadline13">Arrays of Structures</a></li>
+<li><a href="#orgb76e4e3">Using typedef to shorten structure declarations</a></li>
+<li><a href="#org2d42bec">Structures Containing Arrays</a></li>
+<li><a href="#org89c8410">Arrays of Structures</a></li>
 </ul>
 </li>
-<li><a href="#orgheadline14">Exercises</a>
+<li><a href="#orgb8b7441">Exercises</a>
 <ul>
-<li><a href="#orgheadline15">Solutions</a></li>
+<li><a href="#org12808cf">Solutions</a></li>
 </ul>
 </li>
 </ul>
 </div>
 </div>
-<hr  />
+<hr />
 
-<div id="outline-container-orgheadline1" class="outline-2">
-<h2 id="orgheadline1">Arrays</h2>
-<div class="outline-text-2" id="text-orgheadline1">
+<div id="outline-container-org0309012" class="outline-2">
+<h2 id="org0309012">Arrays</h2>
+<div class="outline-text-2" id="text-org0309012">
 <p>
 Just as in MATLAB, or Python, or any number of other high-level
 languages, C provides a data structure called an <b>array</b>. An array in
@@ -197,17 +282,16 @@ array.
 </p>
 </div>
 
-<div id="outline-container-orgheadline2" class="outline-3">
-<h3 id="orgheadline2">Defining an Array</h3>
-<div class="outline-text-3" id="text-orgheadline2">
+<div id="outline-container-orgc72012e" class="outline-3">
+<h3 id="orgc72012e">Defining an Array</h3>
+<div class="outline-text-3" id="text-orgc72012e">
 <p>
 As an example, let's say we want to store a list of 5 grades. We can
 define an array as follows:
 </p>
 
 <div class="org-src-container">
-
-<pre class="src src-c"><span style="color: #228b22;">int</span> <span style="color: #a0522d;">grades</span>[5];
+<pre class="src src-c"><span style="color: #ce537a; font-weight: bold;">int</span> <span style="color: #7590db;">grades</span><span style="color: #4f97d7;">[</span><span style="color: #a45bad;">5</span><span style="color: #4f97d7;">]</span>;
 </pre>
 </div>
 
@@ -222,18 +306,17 @@ at what is there by <b>indexing</b> into the array like this:
 </p>
 
 <div class="org-src-container">
+<pre class="src src-c"><span style="color: #bc6ec5;">#include</span> <span style="color: #4f97d7;">&lt;</span><span style="color: #2d9574;">stdio.h</span><span style="color: #4f97d7;">&gt;</span>
 
-<pre class="src src-c"><span style="color: #483d8b;">#include</span> <span style="color: #8b2252;">&lt;stdio.h&gt;</span>
-
-<span style="color: #228b22;">int</span> <span style="color: #0000ff;">main</span> ()
-{
-  <span style="color: #228b22;">int</span> <span style="color: #a0522d;">grades</span>[5];
-  <span style="color: #228b22;">int</span> <span style="color: #a0522d;">i</span>;
-  <span style="color: #a020f0;">for</span> (i=0; i&lt;5; i++) {
-    printf(<span style="color: #8b2252;">"grades[%d]=%d\n"</span>, i, grades[i]);
-  }
-  <span style="color: #a020f0;">return</span> 0;
-}
+<span style="color: #ce537a; font-weight: bold;">int</span> <span style="color: #bc6ec5; font-weight: bold;">main</span> <span style="color: #4f97d7;">()</span>
+<span style="color: #4f97d7;">{</span>
+  <span style="color: #ce537a; font-weight: bold;">int</span> <span style="color: #7590db;">grades</span><span style="color: #bc6ec5;">[</span><span style="color: #a45bad;">5</span><span style="color: #bc6ec5;">]</span>;
+  <span style="color: #ce537a; font-weight: bold;">int</span> <span style="color: #7590db;">i</span>;
+  <span style="color: #4f97d7; font-weight: bold;">for</span> <span style="color: #bc6ec5;">(</span>i=<span style="color: #a45bad;">0</span>; i&lt;<span style="color: #a45bad;">5</span>; i++<span style="color: #bc6ec5;">)</span> <span style="color: #bc6ec5;">{</span>
+    printf<span style="color: #2d9574;">(</span><span style="color: #2d9574;">"grades[%d]=%d\n"</span>, i, grades<span style="color: #67b11d;">[</span>i<span style="color: #67b11d;">]</span><span style="color: #2d9574;">)</span>;
+  <span style="color: #bc6ec5;">}</span>
+  <span style="color: #4f97d7; font-weight: bold;">return</span> <span style="color: #a45bad;">0</span>;
+<span style="color: #4f97d7;">}</span>
 </pre>
 </div>
 
@@ -261,9 +344,9 @@ values when you run your code).</li>
 </div>
 </div>
 
-<div id="outline-container-orgheadline3" class="outline-3">
-<h3 id="orgheadline3">Indexing Array Elements</h3>
-<div class="outline-text-3" id="text-orgheadline3">
+<div id="outline-container-org6e7a0d5" class="outline-3">
+<h3 id="org6e7a0d5">Indexing Array Elements</h3>
+<div class="outline-text-3" id="text-org6e7a0d5">
 <p>
 We have seen that array indices always start at 0 (not 1 as in
 MATLAB). It's also important to know that once an array of a given
@@ -281,20 +364,19 @@ example accessing the 6th element of the <code>grades</code> array defined above
 </p>
 
 <div class="org-src-container">
+<pre class="src src-c"><span style="color: #bc6ec5;">#include</span> <span style="color: #4f97d7;">&lt;</span><span style="color: #2d9574;">stdio.h</span><span style="color: #4f97d7;">&gt;</span>
 
-<pre class="src src-c"><span style="color: #483d8b;">#include</span> <span style="color: #8b2252;">&lt;stdio.h&gt;</span>
-
-<span style="color: #228b22;">int</span> <span style="color: #0000ff;">main</span> ()
-{
-  <span style="color: #228b22;">int</span> <span style="color: #a0522d;">grades</span>[5];
-  <span style="color: #228b22;">int</span> <span style="color: #a0522d;">i</span>;
-  <span style="color: #a020f0;">for</span> (i=0; i&lt;5; i++) {
-    printf(<span style="color: #8b2252;">"grades[%d]=%d\n"</span>, i, grades[i]);
-  }
-  printf(<span style="color: #8b2252;">"grades[5]=%d\n"</span>, grades[5]);
-  printf(<span style="color: #8b2252;">"grades[500]=%d\n"</span>, grades[500]);
-  <span style="color: #a020f0;">return</span> 0;
-}
+<span style="color: #ce537a; font-weight: bold;">int</span> <span style="color: #bc6ec5; font-weight: bold;">main</span> <span style="color: #4f97d7;">()</span>
+<span style="color: #4f97d7;">{</span>
+  <span style="color: #ce537a; font-weight: bold;">int</span> <span style="color: #7590db;">grades</span><span style="color: #bc6ec5;">[</span><span style="color: #a45bad;">5</span><span style="color: #bc6ec5;">]</span>;
+  <span style="color: #ce537a; font-weight: bold;">int</span> <span style="color: #7590db;">i</span>;
+  <span style="color: #4f97d7; font-weight: bold;">for</span> <span style="color: #bc6ec5;">(</span>i=<span style="color: #a45bad;">0</span>; i&lt;<span style="color: #a45bad;">5</span>; i++<span style="color: #bc6ec5;">)</span> <span style="color: #bc6ec5;">{</span>
+    printf<span style="color: #2d9574;">(</span><span style="color: #2d9574;">"grades[%d]=%d\n"</span>, i, grades<span style="color: #67b11d;">[</span>i<span style="color: #67b11d;">]</span><span style="color: #2d9574;">)</span>;
+  <span style="color: #bc6ec5;">}</span>
+  printf<span style="color: #bc6ec5;">(</span><span style="color: #2d9574;">"grades[5]=%d\n"</span>, grades<span style="color: #2d9574;">[</span><span style="color: #a45bad;">5</span><span style="color: #2d9574;">]</span><span style="color: #bc6ec5;">)</span>;
+  printf<span style="color: #bc6ec5;">(</span><span style="color: #2d9574;">"grades[500]=%d\n"</span>, grades<span style="color: #2d9574;">[</span><span style="color: #a45bad;">500</span><span style="color: #2d9574;">]</span><span style="color: #bc6ec5;">)</span>;
+  <span style="color: #4f97d7; font-weight: bold;">return</span> <span style="color: #a45bad;">0</span>;
+<span style="color: #4f97d7;">}</span>
 </pre>
 </div>
 
@@ -363,29 +445,28 @@ C also applies to <b>assigning</b> values to an array.
 </div>
 </div>
 
-<div id="outline-container-orgheadline4" class="outline-3">
-<h3 id="orgheadline4">Assigning values to array elements</h3>
-<div class="outline-text-3" id="text-orgheadline4">
+<div id="outline-container-orgc02c77d" class="outline-3">
+<h3 id="orgc02c77d">Assigning values to array elements</h3>
+<div class="outline-text-3" id="text-orgc02c77d">
 <p>
 I can assign the integers 1 through 5 to my <code>grades</code> array like this:
 </p>
 
 <div class="org-src-container">
+<pre class="src src-c"><span style="color: #bc6ec5;">#include</span> <span style="color: #4f97d7;">&lt;</span><span style="color: #2d9574;">stdio.h</span><span style="color: #4f97d7;">&gt;</span>
 
-<pre class="src src-c"><span style="color: #483d8b;">#include</span> <span style="color: #8b2252;">&lt;stdio.h&gt;</span>
-
-<span style="color: #228b22;">int</span> <span style="color: #0000ff;">main</span> ()
-{
-  <span style="color: #228b22;">int</span> <span style="color: #a0522d;">grades</span>[5];
-  <span style="color: #228b22;">int</span> <span style="color: #a0522d;">i</span>;
-  <span style="color: #a020f0;">for</span> (i=0; i&lt;5; i++) {
-    grades[i] = i+1;
-  }
-  <span style="color: #a020f0;">for</span> (i=0; i&lt;5; i++) {
-    printf(<span style="color: #8b2252;">"grades[%d]=%d\n"</span>, i, grades[i]);
-  }
-  <span style="color: #a020f0;">return</span> 0;
-}
+<span style="color: #ce537a; font-weight: bold;">int</span> <span style="color: #bc6ec5; font-weight: bold;">main</span> <span style="color: #4f97d7;">()</span>
+<span style="color: #4f97d7;">{</span>
+  <span style="color: #ce537a; font-weight: bold;">int</span> <span style="color: #7590db;">grades</span><span style="color: #bc6ec5;">[</span><span style="color: #a45bad;">5</span><span style="color: #bc6ec5;">]</span>;
+  <span style="color: #ce537a; font-weight: bold;">int</span> <span style="color: #7590db;">i</span>;
+  <span style="color: #4f97d7; font-weight: bold;">for</span> <span style="color: #bc6ec5;">(</span>i=<span style="color: #a45bad;">0</span>; i&lt;<span style="color: #a45bad;">5</span>; i++<span style="color: #bc6ec5;">)</span> <span style="color: #bc6ec5;">{</span>
+    grades<span style="color: #2d9574;">[</span>i<span style="color: #2d9574;">]</span> = i+<span style="color: #a45bad;">1</span>;
+  <span style="color: #bc6ec5;">}</span>
+  <span style="color: #4f97d7; font-weight: bold;">for</span> <span style="color: #bc6ec5;">(</span>i=<span style="color: #a45bad;">0</span>; i&lt;<span style="color: #a45bad;">5</span>; i++<span style="color: #bc6ec5;">)</span> <span style="color: #bc6ec5;">{</span>
+    printf<span style="color: #2d9574;">(</span><span style="color: #2d9574;">"grades[%d]=%d\n"</span>, i, grades<span style="color: #67b11d;">[</span>i<span style="color: #67b11d;">]</span><span style="color: #2d9574;">)</span>;
+  <span style="color: #bc6ec5;">}</span>
+  <span style="color: #4f97d7; font-weight: bold;">return</span> <span style="color: #a45bad;">0</span>;
+<span style="color: #4f97d7;">}</span>
 </pre>
 </div>
 
@@ -404,24 +485,23 @@ complain</b>:
 </p>
 
 <div class="org-src-container">
+<pre class="src src-c"><span style="color: #bc6ec5;">#include</span> <span style="color: #4f97d7;">&lt;</span><span style="color: #2d9574;">stdio.h</span><span style="color: #4f97d7;">&gt;</span>
 
-<pre class="src src-c"><span style="color: #483d8b;">#include</span> <span style="color: #8b2252;">&lt;stdio.h&gt;</span>
-
-<span style="color: #228b22;">int</span> <span style="color: #0000ff;">main</span> ()
-{
-  <span style="color: #228b22;">int</span> <span style="color: #a0522d;">grades</span>[5];
-  <span style="color: #228b22;">int</span> <span style="color: #a0522d;">i</span>;
-  <span style="color: #a020f0;">for</span> (i=0; i&lt;5; i++) {
-    grades[i] = i+1;
-  }
-  grades[5] = 999;
-  grades[500] = 12345;
-  <span style="color: #a020f0;">for</span> (i=0; i&lt;6; i++) {
-    printf(<span style="color: #8b2252;">"grades[%d]=%d\n"</span>, i, grades[i]);
-  }
-  printf(<span style="color: #8b2252;">"grades[500]=%d\n"</span>, grades[500]);
-  <span style="color: #a020f0;">return</span> 0;
-}
+<span style="color: #ce537a; font-weight: bold;">int</span> <span style="color: #bc6ec5; font-weight: bold;">main</span> <span style="color: #4f97d7;">()</span>
+<span style="color: #4f97d7;">{</span>
+  <span style="color: #ce537a; font-weight: bold;">int</span> <span style="color: #7590db;">grades</span><span style="color: #bc6ec5;">[</span><span style="color: #a45bad;">5</span><span style="color: #bc6ec5;">]</span>;
+  <span style="color: #ce537a; font-weight: bold;">int</span> <span style="color: #7590db;">i</span>;
+  <span style="color: #4f97d7; font-weight: bold;">for</span> <span style="color: #bc6ec5;">(</span>i=<span style="color: #a45bad;">0</span>; i&lt;<span style="color: #a45bad;">5</span>; i++<span style="color: #bc6ec5;">)</span> <span style="color: #bc6ec5;">{</span>
+    grades<span style="color: #2d9574;">[</span>i<span style="color: #2d9574;">]</span> = i+<span style="color: #a45bad;">1</span>;
+  <span style="color: #bc6ec5;">}</span>
+  grades<span style="color: #bc6ec5;">[</span><span style="color: #a45bad;">5</span><span style="color: #bc6ec5;">]</span> = <span style="color: #a45bad;">999</span>;
+  grades<span style="color: #bc6ec5;">[</span><span style="color: #a45bad;">500</span><span style="color: #bc6ec5;">]</span> = <span style="color: #a45bad;">12345</span>;
+  <span style="color: #4f97d7; font-weight: bold;">for</span> <span style="color: #bc6ec5;">(</span>i=<span style="color: #a45bad;">0</span>; i&lt;<span style="color: #a45bad;">6</span>; i++<span style="color: #bc6ec5;">)</span> <span style="color: #bc6ec5;">{</span>
+    printf<span style="color: #2d9574;">(</span><span style="color: #2d9574;">"grades[%d]=%d\n"</span>, i, grades<span style="color: #67b11d;">[</span>i<span style="color: #67b11d;">]</span><span style="color: #2d9574;">)</span>;
+  <span style="color: #bc6ec5;">}</span>
+  printf<span style="color: #bc6ec5;">(</span><span style="color: #2d9574;">"grades[500]=%d\n"</span>, grades<span style="color: #2d9574;">[</span><span style="color: #a45bad;">500</span><span style="color: #2d9574;">]</span><span style="color: #bc6ec5;">)</span>;
+  <span style="color: #4f97d7; font-weight: bold;">return</span> <span style="color: #a45bad;">0</span>;
+<span style="color: #4f97d7;">}</span>
 </pre>
 </div>
 
@@ -462,16 +542,15 @@ Answer: nothing good!
 </div>
 </div>
 
-<div id="outline-container-orgheadline5" class="outline-3">
-<h3 id="orgheadline5">Initializing Arrays</h3>
-<div class="outline-text-3" id="text-orgheadline5">
+<div id="outline-container-orge58da9e" class="outline-3">
+<h3 id="orge58da9e">Initializing Arrays</h3>
+<div class="outline-text-3" id="text-orge58da9e">
 <p>
 In general, we can initialize values of an array using curly brackets <code>{}</code> like this:
 </p>
 
 <div class="org-src-container">
-
-<pre class="src src-c"><span style="color: #228b22;">int</span> <span style="color: #a0522d;">grades</span>[5] = {4, 3, 2, 5, 1};
+<pre class="src src-c"><span style="color: #ce537a; font-weight: bold;">int</span> <span style="color: #7590db;">grades</span><span style="color: #4f97d7;">[</span><span style="color: #a45bad;">5</span><span style="color: #4f97d7;">]</span> = <span style="color: #4f97d7;">{</span><span style="color: #a45bad;">4</span>, <span style="color: #a45bad;">3</span>, <span style="color: #a45bad;">2</span>, <span style="color: #a45bad;">5</span>, <span style="color: #a45bad;">1</span><span style="color: #4f97d7;">}</span>;
 </pre>
 </div>
 
@@ -486,18 +565,17 @@ We can initialize specific values (and not others) like this:
 </p>
 
 <div class="org-src-container">
+<pre class="src src-c"><span style="color: #bc6ec5;">#include</span> <span style="color: #4f97d7;">&lt;</span><span style="color: #2d9574;">stdio.h</span><span style="color: #4f97d7;">&gt;</span>
 
-<pre class="src src-c"><span style="color: #483d8b;">#include</span> <span style="color: #8b2252;">&lt;stdio.h&gt;</span>
-
-<span style="color: #228b22;">int</span> <span style="color: #0000ff;">main</span> ()
-{
-  <span style="color: #228b22;">int</span> <span style="color: #a0522d;">grades</span>[5] = {[0]=1, [2]=3, [4]=5};
-  <span style="color: #228b22;">int</span> <span style="color: #a0522d;">i</span>;
-  <span style="color: #a020f0;">for</span> (i=0; i&lt;5; i++) {
-    printf(<span style="color: #8b2252;">"grades[%d]=%d\n"</span>, i, grades[i]);
-  }
-  <span style="color: #a020f0;">return</span> 0;
-}
+<span style="color: #ce537a; font-weight: bold;">int</span> <span style="color: #bc6ec5; font-weight: bold;">main</span> <span style="color: #4f97d7;">()</span>
+<span style="color: #4f97d7;">{</span>
+  <span style="color: #ce537a; font-weight: bold;">int</span> <span style="color: #7590db;">grades</span><span style="color: #bc6ec5;">[</span><span style="color: #a45bad;">5</span><span style="color: #bc6ec5;">]</span> = <span style="color: #bc6ec5;">{</span><span style="color: #2d9574;">[</span><span style="color: #a45bad;">0</span><span style="color: #2d9574;">]</span>=<span style="color: #a45bad;">1</span>, <span style="color: #2d9574;">[</span><span style="color: #a45bad;">2</span><span style="color: #2d9574;">]</span>=<span style="color: #a45bad;">3</span>, <span style="color: #2d9574;">[</span><span style="color: #a45bad;">4</span><span style="color: #2d9574;">]</span>=<span style="color: #a45bad;">5</span><span style="color: #bc6ec5;">}</span>;
+  <span style="color: #ce537a; font-weight: bold;">int</span> <span style="color: #7590db;">i</span>;
+  <span style="color: #4f97d7; font-weight: bold;">for</span> <span style="color: #bc6ec5;">(</span>i=<span style="color: #a45bad;">0</span>; i&lt;<span style="color: #a45bad;">5</span>; i++<span style="color: #bc6ec5;">)</span> <span style="color: #bc6ec5;">{</span>
+    printf<span style="color: #2d9574;">(</span><span style="color: #2d9574;">"grades[%d]=%d\n"</span>, i, grades<span style="color: #67b11d;">[</span>i<span style="color: #67b11d;">]</span><span style="color: #2d9574;">)</span>;
+  <span style="color: #bc6ec5;">}</span>
+  <span style="color: #4f97d7; font-weight: bold;">return</span> <span style="color: #a45bad;">0</span>;
+<span style="color: #4f97d7;">}</span>
 </pre>
 </div>
 
@@ -519,9 +597,9 @@ contain the integer <code>5</code>. <b>All other elements</b> are set to zero.
 </div>
 </div>
 
-<div id="outline-container-orgheadline6" class="outline-2">
-<h2 id="orgheadline6">Multidimensional Arrays</h2>
-<div class="outline-text-2" id="text-orgheadline6">
+<div id="outline-container-orge2f660a" class="outline-2">
+<h2 id="orge2f660a">Multidimensional Arrays</h2>
+<div class="outline-text-2" id="text-orge2f660a">
 <p>
 We have seen single-dimensional arrays. C provides for
 multi-dimensional arrays as well. Here is how we can define a
@@ -530,20 +608,19 @@ it to read off values:
 </p>
 
 <div class="org-src-container">
+<pre class="src src-c"><span style="color: #bc6ec5;">#include</span> <span style="color: #4f97d7;">&lt;</span><span style="color: #2d9574;">stdio.h</span><span style="color: #4f97d7;">&gt;</span>
 
-<pre class="src src-c"><span style="color: #483d8b;">#include</span> <span style="color: #8b2252;">&lt;stdio.h&gt;</span>
-
-<span style="color: #228b22;">int</span> <span style="color: #0000ff;">main</span> ()
-{
-  <span style="color: #228b22;">int</span> <span style="color: #a0522d;">grades</span>[2][2] = {1,2,3,4};
-  <span style="color: #228b22;">int</span> <span style="color: #a0522d;">i</span>,<span style="color: #a0522d;">j</span>;
-  <span style="color: #a020f0;">for</span> (i=0; i&lt;2; i++) {
-    <span style="color: #a020f0;">for</span> (j=0; j&lt;2; j++) {
-      printf(<span style="color: #8b2252;">"grades[%d][%d]=%d\n"</span>, i, j, grades[i][j]);
-    }
-  }
-  <span style="color: #a020f0;">return</span> 0;
-}
+<span style="color: #ce537a; font-weight: bold;">int</span> <span style="color: #bc6ec5; font-weight: bold;">main</span> <span style="color: #4f97d7;">()</span>
+<span style="color: #4f97d7;">{</span>
+  <span style="color: #ce537a; font-weight: bold;">int</span> <span style="color: #7590db;">grades</span><span style="color: #bc6ec5;">[</span><span style="color: #a45bad;">2</span><span style="color: #bc6ec5;">][</span><span style="color: #a45bad;">2</span><span style="color: #bc6ec5;">]</span> = <span style="color: #bc6ec5;">{</span><span style="color: #a45bad;">1</span>,<span style="color: #a45bad;">2</span>,<span style="color: #a45bad;">3</span>,<span style="color: #a45bad;">4</span><span style="color: #bc6ec5;">}</span>;
+  <span style="color: #ce537a; font-weight: bold;">int</span> <span style="color: #7590db;">i</span>,<span style="color: #7590db;">j</span>;
+  <span style="color: #4f97d7; font-weight: bold;">for</span> <span style="color: #bc6ec5;">(</span>i=<span style="color: #a45bad;">0</span>; i&lt;<span style="color: #a45bad;">2</span>; i++<span style="color: #bc6ec5;">)</span> <span style="color: #bc6ec5;">{</span>
+    <span style="color: #4f97d7; font-weight: bold;">for</span> <span style="color: #2d9574;">(</span>j=<span style="color: #a45bad;">0</span>; j&lt;<span style="color: #a45bad;">2</span>; j++<span style="color: #2d9574;">)</span> <span style="color: #2d9574;">{</span>
+      printf<span style="color: #67b11d;">(</span><span style="color: #2d9574;">"grades[%d][%d]=%d\n"</span>, i, j, grades<span style="color: #b1951d;">[</span>i<span style="color: #b1951d;">][</span>j<span style="color: #b1951d;">]</span><span style="color: #67b11d;">)</span>;
+    <span style="color: #2d9574;">}</span>
+  <span style="color: #bc6ec5;">}</span>
+  <span style="color: #4f97d7; font-weight: bold;">return</span> <span style="color: #a45bad;">0</span>;
+<span style="color: #4f97d7;">}</span>
 </pre>
 </div>
 
@@ -559,22 +636,21 @@ Here is how we would define a three-dimensional array:
 </p>
 
 <div class="org-src-container">
+<pre class="src src-c"><span style="color: #bc6ec5;">#include</span> <span style="color: #4f97d7;">&lt;</span><span style="color: #2d9574;">stdio.h</span><span style="color: #4f97d7;">&gt;</span>
 
-<pre class="src src-c"><span style="color: #483d8b;">#include</span> <span style="color: #8b2252;">&lt;stdio.h&gt;</span>
-
-<span style="color: #228b22;">int</span> <span style="color: #0000ff;">main</span> ()
-{
-  <span style="color: #228b22;">int</span> <span style="color: #a0522d;">grades</span>[2][2][2] = {1,2,3,4,5,6,7,8};
-  <span style="color: #228b22;">int</span> <span style="color: #a0522d;">i</span>,<span style="color: #a0522d;">j</span>,<span style="color: #a0522d;">k</span>;
-  <span style="color: #a020f0;">for</span> (i=0; i&lt;2; i++) {
-    <span style="color: #a020f0;">for</span> (j=0; j&lt;2; j++) {
-      <span style="color: #a020f0;">for</span> (k=0; k&lt;2; k++) {
-        printf(<span style="color: #8b2252;">"grades[%d][%d][%d]=%d\n"</span>, i, j, k, grades[i][j][k]);
-      }
-    }
-  }
-  <span style="color: #a020f0;">return</span> 0;
-}
+<span style="color: #ce537a; font-weight: bold;">int</span> <span style="color: #bc6ec5; font-weight: bold;">main</span> <span style="color: #4f97d7;">()</span>
+<span style="color: #4f97d7;">{</span>
+  <span style="color: #ce537a; font-weight: bold;">int</span> <span style="color: #7590db;">grades</span><span style="color: #bc6ec5;">[</span><span style="color: #a45bad;">2</span><span style="color: #bc6ec5;">][</span><span style="color: #a45bad;">2</span><span style="color: #bc6ec5;">][</span><span style="color: #a45bad;">2</span><span style="color: #bc6ec5;">]</span> = <span style="color: #bc6ec5;">{</span><span style="color: #a45bad;">1</span>,<span style="color: #a45bad;">2</span>,<span style="color: #a45bad;">3</span>,<span style="color: #a45bad;">4</span>,<span style="color: #a45bad;">5</span>,<span style="color: #a45bad;">6</span>,<span style="color: #a45bad;">7</span>,<span style="color: #a45bad;">8</span><span style="color: #bc6ec5;">}</span>;
+  <span style="color: #ce537a; font-weight: bold;">int</span> <span style="color: #7590db;">i</span>,<span style="color: #7590db;">j</span>,<span style="color: #7590db;">k</span>;
+  <span style="color: #4f97d7; font-weight: bold;">for</span> <span style="color: #bc6ec5;">(</span>i=<span style="color: #a45bad;">0</span>; i&lt;<span style="color: #a45bad;">2</span>; i++<span style="color: #bc6ec5;">)</span> <span style="color: #bc6ec5;">{</span>
+    <span style="color: #4f97d7; font-weight: bold;">for</span> <span style="color: #2d9574;">(</span>j=<span style="color: #a45bad;">0</span>; j&lt;<span style="color: #a45bad;">2</span>; j++<span style="color: #2d9574;">)</span> <span style="color: #2d9574;">{</span>
+      <span style="color: #4f97d7; font-weight: bold;">for</span> <span style="color: #67b11d;">(</span>k=<span style="color: #a45bad;">0</span>; k&lt;<span style="color: #a45bad;">2</span>; k++<span style="color: #67b11d;">)</span> <span style="color: #67b11d;">{</span>
+  printf<span style="color: #b1951d;">(</span><span style="color: #2d9574;">"grades[%d][%d][%d]=%d\n"</span>, i, j, k, grades<span style="color: #4f97d7;">[</span>i<span style="color: #4f97d7;">][</span>j<span style="color: #4f97d7;">][</span>k<span style="color: #4f97d7;">]</span><span style="color: #b1951d;">)</span>;
+      <span style="color: #67b11d;">}</span>
+    <span style="color: #2d9574;">}</span>
+  <span style="color: #bc6ec5;">}</span>
+  <span style="color: #4f97d7; font-weight: bold;">return</span> <span style="color: #a45bad;">0</span>;
+<span style="color: #4f97d7;">}</span>
 </pre>
 </div>
 
@@ -590,9 +666,9 @@ grades[1][1][1]=8
 </pre>
 </div>
 
-<div id="outline-container-orgheadline7" class="outline-3">
-<h3 id="orgheadline7">Matrix Calculations</h3>
-<div class="outline-text-3" id="text-orgheadline7">
+<div id="outline-container-org40be9cf" class="outline-3">
+<h3 id="org40be9cf">Matrix Calculations</h3>
+<div class="outline-text-3" id="text-org40be9cf">
 <p>
 Although you can use multidimensional arrays to represent matrices, if
 you are going to be doing a lot of matrix calculation in your C code,
@@ -610,9 +686,9 @@ common choices are:
 </div>
 
 
-<div id="outline-container-orgheadline8" class="outline-2">
-<h2 id="orgheadline8">Variable-Length Arrays</h2>
-<div class="outline-text-2" id="text-orgheadline8">
+<div id="outline-container-org3350792" class="outline-2">
+<h2 id="org3350792">Variable-Length Arrays</h2>
+<div class="outline-text-2" id="text-org3350792">
 <p>
 In the array examples above, we have hard-coded the size of the
 array. In modern C (the <a href="http://en.wikipedia.org/wiki/C99">C99 standard and above</a>) it is possible to
@@ -624,29 +700,28 @@ Here is how to do it:
 </p>
 
 <div class="org-src-container">
+<pre class="src src-c"><span style="color: #bc6ec5;">#include</span> <span style="color: #4f97d7;">&lt;</span><span style="color: #2d9574;">stdio.h</span><span style="color: #4f97d7;">&gt;</span>
+<span style="color: #bc6ec5;">#include</span> <span style="color: #4f97d7;">&lt;</span><span style="color: #2d9574;">stdlib.h</span><span style="color: #4f97d7;">&gt;</span>
 
-<pre class="src src-c"><span style="color: #483d8b;">#include</span> <span style="color: #8b2252;">&lt;stdio.h&gt;</span>
-<span style="color: #483d8b;">#include</span> <span style="color: #8b2252;">&lt;stdlib.h&gt;</span>
-
-<span style="color: #228b22;">int</span> <span style="color: #0000ff;">main</span> (<span style="color: #228b22;">int</span> <span style="color: #a0522d;">argc</span>, <span style="color: #228b22;">char</span> *<span style="color: #a0522d;">argv</span>[])
-{
-  <span style="color: #a020f0;">if</span> (argc &lt; 2) {
-    printf(<span style="color: #8b2252;">"please provide an integer argument\n"</span>);
-    <span style="color: #a020f0;">return</span> 1;
-  }
-  <span style="color: #a020f0;">else</span> {
-    <span style="color: #228b22;">int</span> <span style="color: #a0522d;">n</span> = atoi(argv[1]);
-    <span style="color: #228b22;">int</span> <span style="color: #a0522d;">grades</span>[n];
-    <span style="color: #228b22;">int</span> <span style="color: #a0522d;">i</span>;
-    <span style="color: #a020f0;">for</span> (i=0; i&lt;n; i++) {
-      grades[i] = i;
-    }
-    <span style="color: #a020f0;">for</span> (i=0; i&lt;n; i++) {
-      printf(<span style="color: #8b2252;">"grades[%d]=%d\n"</span>, i, grades[i]);
-    }
-    <span style="color: #a020f0;">return</span> 0;
-  }
-}
+<span style="color: #ce537a; font-weight: bold;">int</span> <span style="color: #bc6ec5; font-weight: bold;">main</span> <span style="color: #4f97d7;">(</span><span style="color: #ce537a; font-weight: bold;">int</span> <span style="color: #7590db;">argc</span>, <span style="color: #ce537a; font-weight: bold;">char</span> *<span style="color: #7590db;">argv</span><span style="color: #bc6ec5;">[]</span><span style="color: #4f97d7;">)</span>
+<span style="color: #4f97d7;">{</span>
+  <span style="color: #4f97d7; font-weight: bold;">if</span> <span style="color: #bc6ec5;">(</span>argc &lt; <span style="color: #a45bad;">2</span><span style="color: #bc6ec5;">)</span> <span style="color: #bc6ec5;">{</span>
+    printf<span style="color: #2d9574;">(</span><span style="color: #2d9574;">"please provide an integer argument\n"</span><span style="color: #2d9574;">)</span>;
+    <span style="color: #4f97d7; font-weight: bold;">return</span> <span style="color: #a45bad;">1</span>;
+  <span style="color: #bc6ec5;">}</span>
+  <span style="color: #4f97d7; font-weight: bold;">else</span> <span style="color: #bc6ec5;">{</span>
+    <span style="color: #ce537a; font-weight: bold;">int</span> <span style="color: #7590db;">n</span> = atoi<span style="color: #2d9574;">(</span>argv<span style="color: #67b11d;">[</span><span style="color: #a45bad;">1</span><span style="color: #67b11d;">]</span><span style="color: #2d9574;">)</span>;
+    <span style="color: #ce537a; font-weight: bold;">int</span> <span style="color: #7590db;">grades</span><span style="color: #2d9574;">[</span>n<span style="color: #2d9574;">]</span>;
+    <span style="color: #ce537a; font-weight: bold;">int</span> <span style="color: #7590db;">i</span>;
+    <span style="color: #4f97d7; font-weight: bold;">for</span> <span style="color: #2d9574;">(</span>i=<span style="color: #a45bad;">0</span>; i&lt;n; i++<span style="color: #2d9574;">)</span> <span style="color: #2d9574;">{</span>
+      grades<span style="color: #67b11d;">[</span>i<span style="color: #67b11d;">]</span> = i;
+    <span style="color: #2d9574;">}</span>
+    <span style="color: #4f97d7; font-weight: bold;">for</span> <span style="color: #2d9574;">(</span>i=<span style="color: #a45bad;">0</span>; i&lt;n; i++<span style="color: #2d9574;">)</span> <span style="color: #2d9574;">{</span>
+      printf<span style="color: #67b11d;">(</span><span style="color: #2d9574;">"grades[%d]=%d\n"</span>, i, grades<span style="color: #b1951d;">[</span>i<span style="color: #b1951d;">]</span><span style="color: #67b11d;">)</span>;
+    <span style="color: #2d9574;">}</span>
+    <span style="color: #4f97d7; font-weight: bold;">return</span> <span style="color: #a45bad;">0</span>;
+  <span style="color: #bc6ec5;">}</span>
+<span style="color: #4f97d7;">}</span>
 </pre>
 </div>
 
@@ -669,9 +744,9 @@ attempt to allocate too much memory.
 </div>
 </div>
 
-<div id="outline-container-orgheadline9" class="outline-2">
-<h2 id="orgheadline9">Command-line arguments</h2>
-<div class="outline-text-2" id="text-orgheadline9">
+<div id="outline-container-orgf0645bf" class="outline-2">
+<h2 id="orgf0645bf">Command-line arguments</h2>
+<div class="outline-text-2" id="text-orgf0645bf">
 <p>
 The example above also illustrates how to pass command-line arguments
 to your C programs. The <code>main()</code> function can be defined using two
@@ -704,17 +779,16 @@ number of input arguments, and their value:
 </p>
 
 <div class="org-src-container">
+<pre class="src src-c"><span style="color: #bc6ec5;">#include</span> <span style="color: #4f97d7;">&lt;</span><span style="color: #2d9574;">stdio.h</span><span style="color: #4f97d7;">&gt;</span>
 
-<pre class="src src-c"><span style="color: #483d8b;">#include</span> <span style="color: #8b2252;">&lt;stdio.h&gt;</span>
-
-<span style="color: #228b22;">int</span> <span style="color: #0000ff;">main</span>(<span style="color: #228b22;">int</span> <span style="color: #a0522d;">argc</span>, <span style="color: #228b22;">char</span>* <span style="color: #a0522d;">argv</span>[]) {
-  <span style="color: #228b22;">int</span> <span style="color: #a0522d;">i</span>;
-  printf(<span style="color: #8b2252;">"argc = %d\n"</span>, argc);
-  <span style="color: #a020f0;">for</span> (i=0; i&lt;argc; i++) {
-    printf(<span style="color: #8b2252;">"argv[%d] = %s\n"</span>, i, argv[i]);
-  }
-  <span style="color: #a020f0;">return</span> 0;
-}
+<span style="color: #ce537a; font-weight: bold;">int</span> <span style="color: #bc6ec5; font-weight: bold;">main</span><span style="color: #4f97d7;">(</span><span style="color: #ce537a; font-weight: bold;">int</span> <span style="color: #7590db;">argc</span>, <span style="color: #ce537a; font-weight: bold;">char</span>* <span style="color: #7590db;">argv</span><span style="color: #bc6ec5;">[]</span><span style="color: #4f97d7;">)</span> <span style="color: #4f97d7;">{</span>
+  <span style="color: #ce537a; font-weight: bold;">int</span> <span style="color: #7590db;">i</span>;
+  printf<span style="color: #bc6ec5;">(</span><span style="color: #2d9574;">"argc = %d\n"</span>, argc<span style="color: #bc6ec5;">)</span>;
+  <span style="color: #4f97d7; font-weight: bold;">for</span> <span style="color: #bc6ec5;">(</span>i=<span style="color: #a45bad;">0</span>; i&lt;argc; i++<span style="color: #bc6ec5;">)</span> <span style="color: #bc6ec5;">{</span>
+    printf<span style="color: #2d9574;">(</span><span style="color: #2d9574;">"argv[%d] = %s\n"</span>, i, argv<span style="color: #67b11d;">[</span>i<span style="color: #67b11d;">]</span><span style="color: #2d9574;">)</span>;
+  <span style="color: #bc6ec5;">}</span>
+  <span style="color: #4f97d7; font-weight: bold;">return</span> <span style="color: #a45bad;">0</span>;
+<span style="color: #4f97d7;">}</span>
 </pre>
 </div>
 
@@ -755,9 +829,9 @@ to pass <code>n</code> input arguments to your program, then expect <code>argc</
 </div>
 </div>
 
-<div id="outline-container-orgheadline10" class="outline-2">
-<h2 id="orgheadline10">Structures</h2>
-<div class="outline-text-2" id="text-orgheadline10">
+<div id="outline-container-org9b922d5" class="outline-2">
+<h2 id="org9b922d5">Structures</h2>
+<div class="outline-text-2" id="text-org9b922d5">
 <p>
 Structures are another way of grouping together different elements of
 data, into one named variable. Unlike arrays, in which all elements
@@ -771,12 +845,11 @@ Here is what a structure definition looks like:
 </p>
 
 <div class="org-src-container">
-
-<pre class="src src-C"><span style="color: #a020f0;">struct</span> <span style="color: #228b22;">Point3D</span>{
-  <span style="color: #228b22;">int</span> <span style="color: #a0522d;">x</span>;
-  <span style="color: #228b22;">int</span> <span style="color: #a0522d;">y</span>;
-  <span style="color: #228b22;">int</span> <span style="color: #a0522d;">z</span>;
-};
+<pre class="src src-C"><span style="color: #4f97d7; font-weight: bold;">struct</span> <span style="color: #ce537a; font-weight: bold;">Point3D</span><span style="color: #4f97d7;">{</span>
+  <span style="color: #ce537a; font-weight: bold;">int</span> <span style="color: #7590db;">x</span>;
+  <span style="color: #ce537a; font-weight: bold;">int</span> <span style="color: #7590db;">y</span>;
+  <span style="color: #ce537a; font-weight: bold;">int</span> <span style="color: #7590db;">z</span>;
+<span style="color: #4f97d7;">}</span>;
 </pre>
 </div>
 
@@ -792,29 +865,28 @@ Here is how to use our new structure in a program:
 </p>
 
 <div class="org-src-container">
+<pre class="src src-C"><span style="color: #bc6ec5;">#include</span> <span style="color: #4f97d7;">&lt;</span><span style="color: #2d9574;">stdio.h</span><span style="color: #4f97d7;">&gt;</span>
 
-<pre class="src src-C"><span style="color: #483d8b;">#include</span> <span style="color: #8b2252;">&lt;stdio.h&gt;</span>
+<span style="color: #ce537a; font-weight: bold;">int</span> <span style="color: #bc6ec5; font-weight: bold;">main</span> <span style="color: #4f97d7;">()</span>
+<span style="color: #4f97d7;">{</span>
 
-<span style="color: #228b22;">int</span> <span style="color: #0000ff;">main</span> ()
-{
+  <span style="color: #4f97d7; font-weight: bold;">struct</span> <span style="color: #ce537a; font-weight: bold;">Point3D</span> <span style="color: #bc6ec5;">{</span>
+    <span style="color: #ce537a; font-weight: bold;">int</span> <span style="color: #7590db;">x</span>;
+    <span style="color: #ce537a; font-weight: bold;">int</span> <span style="color: #7590db;">y</span>;
+    <span style="color: #ce537a; font-weight: bold;">int</span> <span style="color: #7590db;">z</span>;
+  <span style="color: #bc6ec5;">}</span>;
 
-  <span style="color: #a020f0;">struct</span> <span style="color: #228b22;">Point3D</span> {
-    <span style="color: #228b22;">int</span> <span style="color: #a0522d;">x</span>;
-    <span style="color: #228b22;">int</span> <span style="color: #a0522d;">y</span>;
-    <span style="color: #228b22;">int</span> <span style="color: #a0522d;">z</span>;
-  };
+  <span style="color: #4f97d7; font-weight: bold;">struct</span> <span style="color: #ce537a; font-weight: bold;">Point3D</span> <span style="color: #7590db;">p1</span>;
+  p1.x = <span style="color: #a45bad;">0</span>;
+  p1.y = <span style="color: #a45bad;">0</span>;
+  p1.z = <span style="color: #a45bad;">0</span>;
 
-  <span style="color: #a020f0;">struct</span> <span style="color: #228b22;">Point3D</span> <span style="color: #a0522d;">p1</span>;
-  p1.x = 0;
-  p1.y = 0;
-  p1.z = 0;
+  <span style="color: #4f97d7; font-weight: bold;">struct</span> <span style="color: #ce537a; font-weight: bold;">Point3D</span> <span style="color: #7590db;">p2</span> = <span style="color: #bc6ec5;">{</span>.x=<span style="color: #a45bad;">1</span>, .y=<span style="color: #a45bad;">2</span>, .z=<span style="color: #a45bad;">3</span><span style="color: #bc6ec5;">}</span>;
 
-  <span style="color: #a020f0;">struct</span> <span style="color: #228b22;">Point3D</span> <span style="color: #a0522d;">p2</span> = {.x=1, .y=2, .z=3};
+  printf<span style="color: #bc6ec5;">(</span><span style="color: #2d9574;">"p1 = (%d,%d,%d) and p2 = (%d,%d,%d)\n"</span>, p1.x, p1.y, p1.z, p2.x, p2.y, p2.z<span style="color: #bc6ec5;">)</span>;
 
-  printf(<span style="color: #8b2252;">"p1 = (%d,%d,%d) and p2 = (%d,%d,%d)\n"</span>, p1.x, p1.y, p1.z, p2.x, p2.y, p2.z);
-
-  <span style="color: #a020f0;">return</span> 0;
-}
+  <span style="color: #4f97d7; font-weight: bold;">return</span> <span style="color: #a45bad;">0</span>;
+<span style="color: #4f97d7;">}</span>
 </pre>
 </div>
 
@@ -823,9 +895,9 @@ p1 = (0,0,0) and p2 = (1,2,3)
 </pre>
 </div>
 
-<div id="outline-container-orgheadline11" class="outline-3">
-<h3 id="orgheadline11">Using typedef to shorten structure declarations</h3>
-<div class="outline-text-3" id="text-orgheadline11">
+<div id="outline-container-orgb76e4e3" class="outline-3">
+<h3 id="orgb76e4e3">Using typedef to shorten structure declarations</h3>
+<div class="outline-text-3" id="text-orgb76e4e3">
 <p>
 We saw before how to use <code>typedef</code> to define new names for data
 types. We can take advantage of this trick to shorten how we declare
@@ -835,37 +907,36 @@ variable that is our structure type:
 </p>
 
 <div class="org-src-container">
+<pre class="src src-C"><span style="color: #bc6ec5;">#include</span> <span style="color: #4f97d7;">&lt;</span><span style="color: #2d9574;">stdio.h</span><span style="color: #4f97d7;">&gt;</span>
 
-<pre class="src src-C"><span style="color: #483d8b;">#include</span> <span style="color: #8b2252;">&lt;stdio.h&gt;</span>
+<span style="color: #ce537a; font-weight: bold;">int</span> <span style="color: #bc6ec5; font-weight: bold;">main</span> <span style="color: #4f97d7;">()</span>
+<span style="color: #4f97d7;">{</span>
 
-<span style="color: #228b22;">int</span> <span style="color: #0000ff;">main</span> ()
-{
+<span style="color: #4f97d7; font-weight: bold;">typedef</span> <span style="color: #4f97d7; font-weight: bold;">struct</span> <span style="color: #bc6ec5;">{</span>
+    <span style="color: #ce537a; font-weight: bold;">int</span> <span style="color: #7590db;">x</span>;
+    <span style="color: #ce537a; font-weight: bold;">int</span> <span style="color: #7590db;">y</span>;
+    <span style="color: #ce537a; font-weight: bold;">int</span> <span style="color: #7590db;">z</span>;
+  <span style="color: #bc6ec5;">}</span>  <span style="color: #ce537a; font-weight: bold;">Point3D</span>;
 
-<span style="color: #a020f0;">typedef</span> <span style="color: #a020f0;">struct</span> {
-    <span style="color: #228b22;">int</span> <span style="color: #a0522d;">x</span>;
-    <span style="color: #228b22;">int</span> <span style="color: #a0522d;">y</span>;
-    <span style="color: #228b22;">int</span> <span style="color: #a0522d;">z</span>;
-  }  <span style="color: #228b22;">Point3D</span>;
+  <span style="color: #ce537a; font-weight: bold;">Point3D</span> <span style="color: #7590db;">p1</span>;
+  p1.x = <span style="color: #a45bad;">0</span>;
+  p1.y = <span style="color: #a45bad;">0</span>;
+  p1.z = <span style="color: #a45bad;">0</span>;
 
-  <span style="color: #228b22;">Point3D</span> <span style="color: #a0522d;">p1</span>;
-  p1.x = 0;
-  p1.y = 0;
-  p1.z = 0;
+  <span style="color: #ce537a; font-weight: bold;">Point3D</span> <span style="color: #7590db;">p2</span> = <span style="color: #bc6ec5;">{</span>.x=<span style="color: #a45bad;">1</span>, .y=<span style="color: #a45bad;">2</span>, .z=<span style="color: #a45bad;">3</span><span style="color: #bc6ec5;">}</span>;
 
-  <span style="color: #228b22;">Point3D</span> <span style="color: #a0522d;">p2</span> = {.x=1, .y=2, .z=3};
+  printf<span style="color: #bc6ec5;">(</span><span style="color: #2d9574;">"p1 = (%d,%d,%d) and p2 = (%d,%d,%d)\n"</span>, p1.x, p1.y, p1.z, p2.x, p2.y, p2.z<span style="color: #bc6ec5;">)</span>;
 
-  printf(<span style="color: #8b2252;">"p1 = (%d,%d,%d) and p2 = (%d,%d,%d)\n"</span>, p1.x, p1.y, p1.z, p2.x, p2.y, p2.z);
-
-  <span style="color: #a020f0;">return</span> 0;
-}
+  <span style="color: #4f97d7; font-weight: bold;">return</span> <span style="color: #a45bad;">0</span>;
+<span style="color: #4f97d7;">}</span>
 </pre>
 </div>
 </div>
 </div>
 
-<div id="outline-container-orgheadline12" class="outline-3">
-<h3 id="orgheadline12">Structures Containing Arrays</h3>
-<div class="outline-text-3" id="text-orgheadline12">
+<div id="outline-container-org2d42bec" class="outline-3">
+<h3 id="org2d42bec">Structures Containing Arrays</h3>
+<div class="outline-text-3" id="text-org2d42bec">
 <p>
 As we have seen, structures can contain any combination of any data
 types you wish. Here is an example of a structure that contains a
@@ -873,38 +944,37 @@ couple of integers, and an array of floating-point values (doubles).
 </p>
 
 <div class="org-src-container">
+<pre class="src src-C"><span style="color: #bc6ec5;">#include</span> <span style="color: #4f97d7;">&lt;</span><span style="color: #2d9574;">stdio.h</span><span style="color: #4f97d7;">&gt;</span>
 
-<pre class="src src-C"><span style="color: #483d8b;">#include</span> <span style="color: #8b2252;">&lt;stdio.h&gt;</span>
+<span style="color: #ce537a; font-weight: bold;">int</span> <span style="color: #bc6ec5; font-weight: bold;">main</span> <span style="color: #4f97d7;">()</span>
+<span style="color: #4f97d7;">{</span>
 
-<span style="color: #228b22;">int</span> <span style="color: #0000ff;">main</span> ()
-{
+<span style="color: #4f97d7; font-weight: bold;">typedef</span> <span style="color: #4f97d7; font-weight: bold;">struct</span> <span style="color: #bc6ec5;">{</span>
+    <span style="color: #ce537a; font-weight: bold;">int</span> <span style="color: #7590db;">a</span>;
+    <span style="color: #ce537a; font-weight: bold;">int</span> <span style="color: #7590db;">b</span>;
+    <span style="color: #ce537a; font-weight: bold;">double</span> <span style="color: #7590db;">myVector</span><span style="color: #2d9574;">[</span><span style="color: #a45bad;">5</span><span style="color: #2d9574;">]</span>;
+  <span style="color: #bc6ec5;">}</span>  <span style="color: #ce537a; font-weight: bold;">myStruct</span>;
 
-<span style="color: #a020f0;">typedef</span> <span style="color: #a020f0;">struct</span> {
-    <span style="color: #228b22;">int</span> <span style="color: #a0522d;">a</span>;
-    <span style="color: #228b22;">int</span> <span style="color: #a0522d;">b</span>;
-    <span style="color: #228b22;">double</span> <span style="color: #a0522d;">myVector</span>[5];
-  }  <span style="color: #228b22;">myStruct</span>;
+ <span style="color: #ce537a; font-weight: bold;">myStruct</span> <span style="color: #7590db;">s1</span>;
 
- <span style="color: #228b22;">myStruct</span> <span style="color: #a0522d;">s1</span>;
+ s1.a = <span style="color: #a45bad;">10</span>;
+ s1.b = <span style="color: #a45bad;">20</span>;
+ <span style="color: #ce537a; font-weight: bold;">int</span> <span style="color: #7590db;">i</span>;
+ <span style="color: #4f97d7; font-weight: bold;">for</span> <span style="color: #bc6ec5;">(</span>i=<span style="color: #a45bad;">0</span>; i&lt;<span style="color: #a45bad;">5</span>; i++<span style="color: #bc6ec5;">)</span> <span style="color: #bc6ec5;">{</span>
+   s1.myVector<span style="color: #2d9574;">[</span>i<span style="color: #2d9574;">]</span> = i;
+ <span style="color: #bc6ec5;">}</span>
 
- s1.a = 10;
- s1.b = 20;
- <span style="color: #228b22;">int</span> <span style="color: #a0522d;">i</span>;
- <span style="color: #a020f0;">for</span> (i=0; i&lt;5; i++) {
-   s1.myVector[i] = i;
- }
-
- <span style="color: #a020f0;">return</span> 0;
-}
+ <span style="color: #4f97d7; font-weight: bold;">return</span> <span style="color: #a45bad;">0</span>;
+<span style="color: #4f97d7;">}</span>
 </pre>
 </div>
 </div>
 </div>
 
 
-<div id="outline-container-orgheadline13" class="outline-3">
-<h3 id="orgheadline13">Arrays of Structures</h3>
-<div class="outline-text-3" id="text-orgheadline13">
+<div id="outline-container-org89c8410" class="outline-3">
+<h3 id="org89c8410">Arrays of Structures</h3>
+<div class="outline-text-3" id="text-org89c8410">
 <p>
 We have seen how to use arrays to store numeric data types. Arrays can
 also be used to store structures. Here we use an array to store 10 of
@@ -912,28 +982,27 @@ our <code>Point3D</code> structure data types:
 </p>
 
 <div class="org-src-container">
+<pre class="src src-C"><span style="color: #bc6ec5;">#include</span> <span style="color: #4f97d7;">&lt;</span><span style="color: #2d9574;">stdio.h</span><span style="color: #4f97d7;">&gt;</span>
 
-<pre class="src src-C"><span style="color: #483d8b;">#include</span> <span style="color: #8b2252;">&lt;stdio.h&gt;</span>
+<span style="color: #ce537a; font-weight: bold;">int</span> <span style="color: #bc6ec5; font-weight: bold;">main</span> <span style="color: #4f97d7;">()</span>
+<span style="color: #4f97d7;">{</span>
 
-<span style="color: #228b22;">int</span> <span style="color: #0000ff;">main</span> ()
-{
+<span style="color: #4f97d7; font-weight: bold;">typedef</span> <span style="color: #4f97d7; font-weight: bold;">struct</span> <span style="color: #bc6ec5;">{</span>
+    <span style="color: #ce537a; font-weight: bold;">int</span> <span style="color: #7590db;">x</span>;
+    <span style="color: #ce537a; font-weight: bold;">int</span> <span style="color: #7590db;">y</span>;
+    <span style="color: #ce537a; font-weight: bold;">int</span> <span style="color: #7590db;">z</span>;
+  <span style="color: #bc6ec5;">}</span>  <span style="color: #ce537a; font-weight: bold;">Point3D</span>;
 
-<span style="color: #a020f0;">typedef</span> <span style="color: #a020f0;">struct</span> {
-    <span style="color: #228b22;">int</span> <span style="color: #a0522d;">x</span>;
-    <span style="color: #228b22;">int</span> <span style="color: #a0522d;">y</span>;
-    <span style="color: #228b22;">int</span> <span style="color: #a0522d;">z</span>;
-  }  <span style="color: #228b22;">Point3D</span>;
+  <span style="color: #ce537a; font-weight: bold;">Point3D</span> <span style="color: #7590db;">myPoints</span><span style="color: #bc6ec5;">[</span><span style="color: #a45bad;">10</span><span style="color: #bc6ec5;">]</span>;
+  <span style="color: #ce537a; font-weight: bold;">int</span> <span style="color: #7590db;">i</span>;
+  <span style="color: #4f97d7; font-weight: bold;">for</span> <span style="color: #bc6ec5;">(</span>i=<span style="color: #a45bad;">0</span>; i&lt;<span style="color: #a45bad;">10</span>; i++<span style="color: #bc6ec5;">)</span> <span style="color: #bc6ec5;">{</span>
+    myPoints<span style="color: #2d9574;">[</span>i<span style="color: #2d9574;">]</span>.x = i;
+    myPoints<span style="color: #2d9574;">[</span>i<span style="color: #2d9574;">]</span>.y = i;
+    myPoints<span style="color: #2d9574;">[</span>i<span style="color: #2d9574;">]</span>.z = i;
+  <span style="color: #bc6ec5;">}</span>
 
-  <span style="color: #228b22;">Point3D</span> <span style="color: #a0522d;">myPoints</span>[10];
-  <span style="color: #228b22;">int</span> <span style="color: #a0522d;">i</span>;
-  <span style="color: #a020f0;">for</span> (i=0; i&lt;10; i++) {
-    myPoints[i].x = i;
-    myPoints[i].y = i;
-    myPoints[i].z = i;
-  }
-
-  <span style="color: #a020f0;">return</span> 0;
-}
+  <span style="color: #4f97d7; font-weight: bold;">return</span> <span style="color: #a45bad;">0</span>;
+<span style="color: #4f97d7;">}</span>
 </pre>
 </div>
 </div>
@@ -941,9 +1010,9 @@ our <code>Point3D</code> structure data types:
 </div>
 
 
-<div id="outline-container-orgheadline14" class="outline-2">
-<h2 id="orgheadline14">Exercises</h2>
-<div class="outline-text-2" id="text-orgheadline14">
+<div id="outline-container-orgb8b7441" class="outline-2">
+<h2 id="orgb8b7441">Exercises</h2>
+<div class="outline-text-2" id="text-orgb8b7441">
 <ul class="org-ul">
 <li><p>
 1 Below is a program that uses a <code>struct</code> to encapsulate a two
@@ -962,57 +1031,56 @@ screen. A function skeleton is provided (<code>printmat()</code>).
 </ul>
 
 <div class="org-src-container">
+<pre class="src src-c"><span style="color: #2aa1ae; background-color: #292e34;">// </span><span style="color: #2aa1ae; background-color: #292e34;">gcc -Wall -o go 6_1_go.c</span>
 
-<pre class="src src-c"><span style="color: #b22222;">// </span><span style="color: #b22222;">gcc -Wall -o go 6_1_go.c</span>
+<span style="color: #bc6ec5;">#include</span> <span style="color: #4f97d7;">&lt;</span><span style="color: #2d9574;">stdio.h</span><span style="color: #4f97d7;">&gt;</span>
 
-<span style="color: #483d8b;">#include</span> <span style="color: #8b2252;">&lt;stdio.h&gt;</span>
+<span style="color: #bc6ec5;">#define</span> <span style="color: #7590db;">MAXDATA</span> <span style="color: #a45bad;">1024</span>
 
-<span style="color: #483d8b;">#define</span> <span style="color: #a0522d;">MAXDATA</span> 1024
+<span style="color: #4f97d7; font-weight: bold;">typedef</span> <span style="color: #4f97d7; font-weight: bold;">struct</span> <span style="color: #4f97d7;">{</span>
+  <span style="color: #ce537a; font-weight: bold;">double</span> <span style="color: #7590db;">data</span><span style="color: #bc6ec5;">[</span>MAXDATA<span style="color: #bc6ec5;">]</span>;
+  <span style="color: #ce537a; font-weight: bold;">int</span> <span style="color: #7590db;">nrows</span>;
+  <span style="color: #ce537a; font-weight: bold;">int</span> <span style="color: #7590db;">ncols</span>;
+<span style="color: #4f97d7;">}</span> <span style="color: #ce537a; font-weight: bold;">Matrix</span>;
 
-<span style="color: #a020f0;">typedef</span> <span style="color: #a020f0;">struct</span> {
-  <span style="color: #228b22;">double</span> <span style="color: #a0522d;">data</span>[MAXDATA];
-  <span style="color: #228b22;">int</span> <span style="color: #a0522d;">nrows</span>;
-  <span style="color: #228b22;">int</span> <span style="color: #a0522d;">ncols</span>;
-} <span style="color: #228b22;">Matrix</span>;
+<span style="color: #ce537a; font-weight: bold;">void</span> <span style="color: #bc6ec5; font-weight: bold;">printmat</span><span style="color: #4f97d7;">(</span><span style="color: #ce537a; font-weight: bold;">Matrix</span> <span style="color: #7590db;">M</span><span style="color: #4f97d7;">)</span>;
+<span style="color: #ce537a; font-weight: bold;">Matrix</span> <span style="color: #bc6ec5; font-weight: bold;">matrixmult</span><span style="color: #4f97d7;">(</span><span style="color: #ce537a; font-weight: bold;">Matrix</span> <span style="color: #7590db;">A</span>, <span style="color: #ce537a; font-weight: bold;">Matrix</span> <span style="color: #7590db;">B</span><span style="color: #4f97d7;">)</span>;
 
-<span style="color: #228b22;">void</span> <span style="color: #0000ff;">printmat</span>(<span style="color: #228b22;">Matrix</span> <span style="color: #a0522d;">M</span>);
-<span style="color: #228b22;">Matrix</span> <span style="color: #0000ff;">matrixmult</span>(<span style="color: #228b22;">Matrix</span> <span style="color: #a0522d;">A</span>, <span style="color: #228b22;">Matrix</span> <span style="color: #a0522d;">B</span>);
+<span style="color: #ce537a; font-weight: bold;">int</span> <span style="color: #bc6ec5; font-weight: bold;">main</span><span style="color: #4f97d7;">(</span><span style="color: #ce537a; font-weight: bold;">int</span> <span style="color: #7590db;">argc</span>, <span style="color: #ce537a; font-weight: bold;">char</span> *<span style="color: #7590db;">argv</span><span style="color: #bc6ec5;">[]</span><span style="color: #4f97d7;">)</span>
+<span style="color: #4f97d7;">{</span>
+  <span style="color: #ce537a; font-weight: bold;">Matrix</span> <span style="color: #7590db;">A</span> = <span style="color: #bc6ec5;">{</span> <span style="color: #2d9574;">{</span><span style="color: #a45bad;">1.2</span>, <span style="color: #a45bad;">2.3</span>,
+    <span style="color: #a45bad;">3.4</span>, <span style="color: #a45bad;">4.5</span>,
+    <span style="color: #a45bad;">5.6</span>, <span style="color: #a45bad;">6.7</span><span style="color: #2d9574;">}</span>,
+         <span style="color: #a45bad;">3</span>,
+         <span style="color: #a45bad;">2</span><span style="color: #bc6ec5;">}</span>;
+  <span style="color: #ce537a; font-weight: bold;">Matrix</span> <span style="color: #7590db;">B</span> = <span style="color: #bc6ec5;">{</span> <span style="color: #2d9574;">{</span><span style="color: #a45bad;">5.5</span>, <span style="color: #a45bad;">6.6</span>, <span style="color: #a45bad;">7.7</span>,
+    <span style="color: #a45bad;">1.2</span>, <span style="color: #a45bad;">2.1</span>, <span style="color: #a45bad;">3.3</span><span style="color: #2d9574;">}</span>,
+         <span style="color: #a45bad;">2</span>,
+         <span style="color: #a45bad;">3</span><span style="color: #bc6ec5;">}</span>; 
+  printmat<span style="color: #bc6ec5;">(</span>A<span style="color: #bc6ec5;">)</span>;
+  printmat<span style="color: #bc6ec5;">(</span>B<span style="color: #bc6ec5;">)</span>;
 
-<span style="color: #228b22;">int</span> <span style="color: #0000ff;">main</span>(<span style="color: #228b22;">int</span> <span style="color: #a0522d;">argc</span>, <span style="color: #228b22;">char</span> *<span style="color: #a0522d;">argv</span>[])
-{
-  <span style="color: #228b22;">Matrix</span> <span style="color: #a0522d;">A</span> = { {1.2, 2.3,
-                3.4, 4.5,
-                5.6, 6.7},
-               3,
-               2};
-  <span style="color: #228b22;">Matrix</span> <span style="color: #a0522d;">B</span> = { {5.5, 6.6, 7.7,
-                1.2, 2.1, 3.3},
-               2,
-               3}; 
-  printmat(A);
-  printmat(B);
+  <span style="color: #2aa1ae; background-color: #292e34;">//  </span><span style="color: #2aa1ae; background-color: #292e34;">Matrix C = matrixmult(A, B);</span>
+  <span style="color: #2aa1ae; background-color: #292e34;">//  </span><span style="color: #2aa1ae; background-color: #292e34;">printmat(C);</span>
 
-  <span style="color: #b22222;">//  </span><span style="color: #b22222;">Matrix C = matrixmult(A, B);</span>
-  <span style="color: #b22222;">//  </span><span style="color: #b22222;">printmat(C);</span>
+  <span style="color: #4f97d7; font-weight: bold;">return</span> <span style="color: #a45bad;">0</span>;
+<span style="color: #4f97d7;">}</span>
 
-  <span style="color: #a020f0;">return</span> 0;
-}
+<span style="color: #2aa1ae; background-color: #292e34;">// </span><span style="color: #2aa1ae; background-color: #292e34;">your code goes below...</span>
 
-<span style="color: #b22222;">// </span><span style="color: #b22222;">your code goes below...</span>
+<span style="color: #ce537a; font-weight: bold;">void</span> <span style="color: #bc6ec5; font-weight: bold;">printmat</span><span style="color: #4f97d7;">(</span><span style="color: #ce537a; font-weight: bold;">Matrix</span> <span style="color: #7590db;">M</span><span style="color: #4f97d7;">)</span>
+<span style="color: #4f97d7;">{</span>
+  <span style="color: #2aa1ae; background-color: #292e34;">// </span><span style="color: #2aa1ae; background-color: #292e34;">fill in the code here</span>
+  printf<span style="color: #bc6ec5;">(</span><span style="color: #2d9574;">"so far printmat does nothing\n"</span><span style="color: #bc6ec5;">)</span>;
+<span style="color: #4f97d7;">}</span>
 
-<span style="color: #228b22;">void</span> <span style="color: #0000ff;">printmat</span>(<span style="color: #228b22;">Matrix</span> <span style="color: #a0522d;">M</span>)
-{
-  <span style="color: #b22222;">// </span><span style="color: #b22222;">fill in the code here</span>
-  printf(<span style="color: #8b2252;">"so far printmat does nothing\n"</span>);
-}
-
-<span style="color: #228b22;">Matrix</span> <span style="color: #0000ff;">matrixmult</span>(<span style="color: #228b22;">Matrix</span> <span style="color: #a0522d;">A</span>, <span style="color: #228b22;">Matrix</span> <span style="color: #a0522d;">B</span>)
-{
-  <span style="color: #b22222;">// </span><span style="color: #b22222;">fill in the code here</span>
-  printf(<span style="color: #8b2252;">"so far matrixmult does nothing\n"</span>);
-  <span style="color: #228b22;">Matrix</span> <span style="color: #a0522d;">C</span>;
-  <span style="color: #a020f0;">return</span> C;
-}
+<span style="color: #ce537a; font-weight: bold;">Matrix</span> <span style="color: #bc6ec5; font-weight: bold;">matrixmult</span><span style="color: #4f97d7;">(</span><span style="color: #ce537a; font-weight: bold;">Matrix</span> <span style="color: #7590db;">A</span>, <span style="color: #ce537a; font-weight: bold;">Matrix</span> <span style="color: #7590db;">B</span><span style="color: #4f97d7;">)</span>
+<span style="color: #4f97d7;">{</span>
+  <span style="color: #2aa1ae; background-color: #292e34;">// </span><span style="color: #2aa1ae; background-color: #292e34;">fill in the code here</span>
+  printf<span style="color: #bc6ec5;">(</span><span style="color: #2d9574;">"so far matrixmult does nothing\n"</span><span style="color: #bc6ec5;">)</span>;
+  <span style="color: #ce537a; font-weight: bold;">Matrix</span> <span style="color: #7590db;">C</span>;
+  <span style="color: #4f97d7; font-weight: bold;">return</span> C;
+<span style="color: #4f97d7;">}</span>
 </pre>
 </div>
 
@@ -1072,9 +1140,9 @@ fib(12)=144
 </pre>
 </div>
 
-<div id="outline-container-orgheadline15" class="outline-3">
-<h3 id="orgheadline15">Solutions</h3>
-<div class="outline-text-3" id="text-orgheadline15">
+<div id="outline-container-org12808cf" class="outline-3">
+<h3 id="org12808cf">Solutions</h3>
+<div class="outline-text-3" id="text-org12808cf">
 <ul class="org-ul">
 <li><a href="code/exercises/6_1.c">1</a></li>
 <li><a href="code/exercises/6_2.c">2</a></li>

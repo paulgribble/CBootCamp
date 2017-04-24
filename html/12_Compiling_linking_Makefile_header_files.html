@@ -3,12 +3,12 @@
 "http://www.w3.org/TR/xhtml1/DTD/xhtml1-strict.dtd">
 <html xmlns="http://www.w3.org/1999/xhtml" lang="en" xml:lang="en">
 <head>
-<!-- 2016-09-22 Thu 08:27 -->
-<meta  http-equiv="Content-Type" content="text/html;charset=utf-8" />
-<meta  name="viewport" content="width=device-width, initial-scale=1" />
+<!-- 2017-04-24 Mon 07:07 -->
+<meta http-equiv="Content-Type" content="text/html;charset=utf-8" />
+<meta name="viewport" content="width=device-width, initial-scale=1" />
 <title>12. Compiling, linking, Makefile, header files</title>
-<meta  name="generator" content="Org-mode" />
-<meta  name="author" content="Paul Gribble" />
+<meta name="generator" content="Org mode" />
+<meta name="author" content="Paul Gribble" />
 <style type="text/css">
  <!--/*--><![CDATA[/*><!--*/
   .title  { text-align: center;
@@ -53,13 +53,97 @@
     border: 1px solid black;
   }
   pre.src:hover:before { display: inline;}
-  pre.src-sh:before    { content: 'sh'; }
-  pre.src-bash:before  { content: 'sh'; }
+  /* Languages per Org manual */
+  pre.src-asymptote:before { content: 'Asymptote'; }
+  pre.src-awk:before { content: 'Awk'; }
+  pre.src-C:before { content: 'C'; }
+  /* pre.src-C++ doesn't work in CSS */
+  pre.src-clojure:before { content: 'Clojure'; }
+  pre.src-css:before { content: 'CSS'; }
+  pre.src-D:before { content: 'D'; }
+  pre.src-ditaa:before { content: 'ditaa'; }
+  pre.src-dot:before { content: 'Graphviz'; }
+  pre.src-calc:before { content: 'Emacs Calc'; }
   pre.src-emacs-lisp:before { content: 'Emacs Lisp'; }
-  pre.src-R:before     { content: 'R'; }
-  pre.src-perl:before  { content: 'Perl'; }
-  pre.src-java:before  { content: 'Java'; }
-  pre.src-sql:before   { content: 'SQL'; }
+  pre.src-fortran:before { content: 'Fortran'; }
+  pre.src-gnuplot:before { content: 'gnuplot'; }
+  pre.src-haskell:before { content: 'Haskell'; }
+  pre.src-java:before { content: 'Java'; }
+  pre.src-js:before { content: 'Javascript'; }
+  pre.src-latex:before { content: 'LaTeX'; }
+  pre.src-ledger:before { content: 'Ledger'; }
+  pre.src-lisp:before { content: 'Lisp'; }
+  pre.src-lilypond:before { content: 'Lilypond'; }
+  pre.src-lua:before { content: 'Lua'; }
+  pre.src-matlab:before { content: 'MATLAB'; }
+  pre.src-mscgen:before { content: 'Mscgen'; }
+  pre.src-ocaml:before { content: 'Objective Caml'; }
+  pre.src-octave:before { content: 'Octave'; }
+  pre.src-org:before { content: 'Org mode'; }
+  pre.src-oz:before { content: 'OZ'; }
+  pre.src-plantuml:before { content: 'Plantuml'; }
+  pre.src-processing:before { content: 'Processing.js'; }
+  pre.src-python:before { content: 'Python'; }
+  pre.src-R:before { content: 'R'; }
+  pre.src-ruby:before { content: 'Ruby'; }
+  pre.src-sass:before { content: 'Sass'; }
+  pre.src-scheme:before { content: 'Scheme'; }
+  pre.src-screen:before { content: 'Gnu Screen'; }
+  pre.src-sed:before { content: 'Sed'; }
+  pre.src-sh:before { content: 'shell'; }
+  pre.src-sql:before { content: 'SQL'; }
+  pre.src-sqlite:before { content: 'SQLite'; }
+  /* additional languages in org.el's org-babel-load-languages alist */
+  pre.src-forth:before { content: 'Forth'; }
+  pre.src-io:before { content: 'IO'; }
+  pre.src-J:before { content: 'J'; }
+  pre.src-makefile:before { content: 'Makefile'; }
+  pre.src-maxima:before { content: 'Maxima'; }
+  pre.src-perl:before { content: 'Perl'; }
+  pre.src-picolisp:before { content: 'Pico Lisp'; }
+  pre.src-scala:before { content: 'Scala'; }
+  pre.src-shell:before { content: 'Shell Script'; }
+  pre.src-ebnf2ps:before { content: 'ebfn2ps'; }
+  /* additional language identifiers per "defun org-babel-execute"
+       in ob-*.el */
+  pre.src-cpp:before  { content: 'C++'; }
+  pre.src-abc:before  { content: 'ABC'; }
+  pre.src-coq:before  { content: 'Coq'; }
+  pre.src-groovy:before  { content: 'Groovy'; }
+  /* additional language identifiers from org-babel-shell-names in
+     ob-shell.el: ob-shell is the only babel language using a lambda to put
+     the execution function name together. */
+  pre.src-bash:before  { content: 'bash'; }
+  pre.src-csh:before  { content: 'csh'; }
+  pre.src-ash:before  { content: 'ash'; }
+  pre.src-dash:before  { content: 'dash'; }
+  pre.src-ksh:before  { content: 'ksh'; }
+  pre.src-mksh:before  { content: 'mksh'; }
+  pre.src-posh:before  { content: 'posh'; }
+  /* Additional Emacs modes also supported by the LaTeX listings package */
+  pre.src-ada:before { content: 'Ada'; }
+  pre.src-asm:before { content: 'Assembler'; }
+  pre.src-caml:before { content: 'Caml'; }
+  pre.src-delphi:before { content: 'Delphi'; }
+  pre.src-html:before { content: 'HTML'; }
+  pre.src-idl:before { content: 'IDL'; }
+  pre.src-mercury:before { content: 'Mercury'; }
+  pre.src-metapost:before { content: 'MetaPost'; }
+  pre.src-modula-2:before { content: 'Modula-2'; }
+  pre.src-pascal:before { content: 'Pascal'; }
+  pre.src-ps:before { content: 'PostScript'; }
+  pre.src-prolog:before { content: 'Prolog'; }
+  pre.src-simula:before { content: 'Simula'; }
+  pre.src-tcl:before { content: 'tcl'; }
+  pre.src-tex:before { content: 'TeX'; }
+  pre.src-plain-tex:before { content: 'Plain TeX'; }
+  pre.src-verilog:before { content: 'Verilog'; }
+  pre.src-vhdl:before { content: 'VHDL'; }
+  pre.src-xml:before { content: 'XML'; }
+  pre.src-nxml:before { content: 'XML'; }
+  /* add a generic configuration mode; LaTeX export needs an additional
+     (add-to-list 'org-latex-listings-langs '(conf " ")) in .emacs */
+  pre.src-conf:before { content: 'Configuration File'; }
 
   table { border-collapse:collapse; }
   caption.t-above { caption-side: top; }
@@ -92,6 +176,7 @@
     { font-size: 10px; font-weight: bold; white-space: nowrap; }
   .org-info-js_search-highlight
     { background-color: #ffff00; color: #000000; font-weight: bold; }
+  .org-svg { width: 90%; }
   /*]]>*/-->
 </style>
 <link rel="stylesheet" type="text/css" href="mystyle.css" /><script>(function(i,s,o,g,r,a,m){i['GoogleAnalyticsObject']=r;i[r]=i[r]||function(){(i[r].q=i[r].q||[]).push(arguments)},i[r].l=1*new Date();a=s.createElement(o),m=s.getElementsByTagName(o)[0];a.async=1;a.src=g;m.parentNode.insertBefore(a,m)})(window,document,'script','//www.google-analytics.com/analytics.js','ga');ga('create', 'UA-52544521-1', 'auto');ga('send', 'pageview');</script>
@@ -153,29 +238,29 @@ for the JavaScript code in this tag.
 <h2>Table of Contents</h2>
 <div id="text-table-of-contents">
 <ul>
-<li><a href="#orgheadline1">Splitting your program into multiple files</a>
+<li><a href="#orgb086cd6">Splitting your program into multiple files</a>
 <ul>
-<li><a href="#orgheadline2">Header files</a></li>
-<li><a href="#orgheadline3">An example</a></li>
-<li><a href="#orgheadline4">Another example</a></li>
-<li><a href="#orgheadline5">Search path</a></li>
-<li><a href="#orgheadline6">External variables</a></li>
+<li><a href="#org176ad7a">Header files</a></li>
+<li><a href="#orgb4481d6">An example</a></li>
+<li><a href="#orgcc2730c">Another example</a></li>
+<li><a href="#orge265b55">Search path</a></li>
+<li><a href="#org1da7877">External variables</a></li>
 </ul>
 </li>
-<li><a href="#orgheadline7">The GNU <code>make</code> utility and Makefiles</a>
+<li><a href="#org666f28d">The GNU <code>make</code> utility and Makefiles</a>
 <ul>
-<li><a href="#orgheadline8">Introducing more generalization to the Makefile</a></li>
+<li><a href="#orge9819e0">Introducing more generalization to the Makefile</a></li>
 </ul>
 </li>
-<li><a href="#orgheadline9">Links</a></li>
+<li><a href="#orgc9ceeaf">Links</a></li>
 </ul>
 </div>
 </div>
-<hr  />
+<hr />
 
-<div id="outline-container-orgheadline1" class="outline-2">
-<h2 id="orgheadline1">Splitting your program into multiple files</h2>
-<div class="outline-text-2" id="text-orgheadline1">
+<div id="outline-container-orgb086cd6" class="outline-2">
+<h2 id="orgb086cd6">Splitting your program into multiple files</h2>
+<div class="outline-text-2" id="text-orgb086cd6">
 <p>
 The programs we have seen so far have all been stored in a single
 source file. As your programs become larger, and as you start to deal
@@ -204,9 +289,9 @@ programs and change each one.
 </p>
 </div>
 
-<div id="outline-container-orgheadline2" class="outline-3">
-<h3 id="orgheadline2">Header files</h3>
-<div class="outline-text-3" id="text-orgheadline2">
+<div id="outline-container-org176ad7a" class="outline-3">
+<h3 id="org176ad7a">Header files</h3>
+<div class="outline-text-3" id="text-org176ad7a">
 <p>
 A common convention in C programs is to write a header file (with <b>.h</b>
 suffix) for each source file (<b>.c</b> suffix) that you link to your main
@@ -222,9 +307,9 @@ functions are defined, and what arguments they take (and return).
 </div>
 </div>
 
-<div id="outline-container-orgheadline3" class="outline-3">
-<h3 id="orgheadline3">An example</h3>
-<div class="outline-text-3" id="text-orgheadline3">
+<div id="outline-container-orgb4481d6" class="outline-3">
+<h3 id="orgb4481d6">An example</h3>
+<div class="outline-text-3" id="text-orgb4481d6">
 <p>
 Here is a program that computes the preferred direction of a neuron
 recorded in primary motor cortex of rhesus macaques, during a
@@ -261,48 +346,47 @@ Here is our main program which is called <a href="code/neurons/go.c">go.c</a>:
 </p>
 
 <div class="org-src-container">
+<pre class="src src-c"><span style="color: #2aa1ae; background-color: #292e34;">// </span><span style="color: #2aa1ae; background-color: #292e34;">gcc -std=c99 -o go go.c neuron.c -lm</span>
 
-<pre class="src src-c"><span style="color: #b22222;">// </span><span style="color: #b22222;">gcc -std=c99 -o go go.c neuron.c -lm</span>
+<span style="color: #bc6ec5;">#include</span> <span style="color: #4f97d7;">&lt;</span><span style="color: #2d9574;">stdio.h</span><span style="color: #4f97d7;">&gt;</span>
+<span style="color: #bc6ec5;">#include</span> <span style="color: #4f97d7;">&lt;</span><span style="color: #2d9574;">stdlib.h</span><span style="color: #4f97d7;">&gt;</span>
+<span style="color: #bc6ec5;">#include</span> <span style="color: #4f97d7;">&lt;</span><span style="color: #2d9574;">string.h</span><span style="color: #4f97d7;">&gt;</span>
+<span style="color: #bc6ec5;">#include</span> <span style="color: #2d9574;">"neuron.h"</span>
 
-<span style="color: #483d8b;">#include</span> <span style="color: #8b2252;">&lt;stdio.h&gt;</span>
-<span style="color: #483d8b;">#include</span> <span style="color: #8b2252;">&lt;stdlib.h&gt;</span>
-<span style="color: #483d8b;">#include</span> <span style="color: #8b2252;">&lt;string.h&gt;</span>
-<span style="color: #483d8b;">#include</span> <span style="color: #8b2252;">"neuron.h"</span>
+<span style="color: #ce537a; font-weight: bold;">int</span> <span style="color: #bc6ec5; font-weight: bold;">main</span><span style="color: #4f97d7;">(</span><span style="color: #ce537a; font-weight: bold;">int</span> <span style="color: #7590db;">argc</span>, <span style="color: #ce537a; font-weight: bold;">char</span> *<span style="color: #7590db;">argv</span><span style="color: #bc6ec5;">[]</span><span style="color: #4f97d7;">)</span> <span style="color: #4f97d7;">{</span>
 
-<span style="color: #228b22;">int</span> <span style="color: #0000ff;">main</span>(<span style="color: #228b22;">int</span> <span style="color: #a0522d;">argc</span>, <span style="color: #228b22;">char</span> *<span style="color: #a0522d;">argv</span>[]) {
+  <span style="color: #ce537a; font-weight: bold;">int</span> <span style="color: #7590db;">ncells</span> = <span style="color: #a45bad;">100</span>;                     <span style="color: #2aa1ae; background-color: #292e34;">// </span><span style="color: #2aa1ae; background-color: #292e34;"># cells to process</span>
+  <span style="color: #ce537a; font-weight: bold;">char</span> <span style="color: #7590db;">fnum</span><span style="color: #bc6ec5;">[</span><span style="color: #a45bad;">4</span><span style="color: #bc6ec5;">]</span>, <span style="color: #7590db;">fname</span><span style="color: #bc6ec5;">[</span><span style="color: #a45bad;">128</span><span style="color: #bc6ec5;">]</span>;              <span style="color: #2aa1ae; background-color: #292e34;">// </span><span style="color: #2aa1ae; background-color: #292e34;">filename strings</span>
+  <span style="color: #ce537a; font-weight: bold;">double</span> <span style="color: #7590db;">celldirs</span><span style="color: #bc6ec5;">[</span><span style="color: #a45bad;">40</span><span style="color: #bc6ec5;">]</span>, <span style="color: #7590db;">cellspks</span><span style="color: #bc6ec5;">[</span><span style="color: #a45bad;">40</span><span style="color: #bc6ec5;">]</span>;    <span style="color: #2aa1ae; background-color: #292e34;">// </span><span style="color: #2aa1ae; background-color: #292e34;">data for each cell</span>
+  <span style="color: #ce537a; font-weight: bold;">double</span> <span style="color: #7590db;">PD</span><span style="color: #bc6ec5;">[</span>ncells<span style="color: #bc6ec5;">]</span>, <span style="color: #7590db;">plate_out</span><span style="color: #bc6ec5;">[</span><span style="color: #a45bad;">9</span><span style="color: #bc6ec5;">]</span>;      <span style="color: #2aa1ae; background-color: #292e34;">// </span><span style="color: #2aa1ae; background-color: #292e34;">store cell PDs</span>
 
-  <span style="color: #228b22;">int</span> <span style="color: #a0522d;">ncells</span> = 100;                     <span style="color: #b22222;">// </span><span style="color: #b22222;"># cells to process</span>
-  <span style="color: #228b22;">char</span> <span style="color: #a0522d;">fnum</span>[4], <span style="color: #a0522d;">fname</span>[128];              <span style="color: #b22222;">// </span><span style="color: #b22222;">filename strings</span>
-  <span style="color: #228b22;">double</span> <span style="color: #a0522d;">celldirs</span>[40], <span style="color: #a0522d;">cellspks</span>[40];    <span style="color: #b22222;">// </span><span style="color: #b22222;">data for each cell</span>
-  <span style="color: #228b22;">double</span> <span style="color: #a0522d;">PD</span>[ncells], <span style="color: #a0522d;">plate_out</span>[9];      <span style="color: #b22222;">// </span><span style="color: #b22222;">store cell PDs</span>
+  <span style="color: #2aa1ae; background-color: #292e34;">// </span><span style="color: #2aa1ae; background-color: #292e34;">loop to process each cell</span>
+  <span style="color: #ce537a; font-weight: bold;">int</span> <span style="color: #7590db;">i</span>;
+  <span style="color: #4f97d7; font-weight: bold;">for</span> <span style="color: #bc6ec5;">(</span>i=<span style="color: #a45bad;">1</span>; i&lt;=ncells; i++<span style="color: #bc6ec5;">)</span> <span style="color: #bc6ec5;">{</span>
 
-  <span style="color: #b22222;">// </span><span style="color: #b22222;">loop to process each cell</span>
-  <span style="color: #228b22;">int</span> <span style="color: #a0522d;">i</span>;
-  <span style="color: #a020f0;">for</span> (i=1; i&lt;=ncells; i++) {
+    <span style="color: #2aa1ae; background-color: #292e34;">// </span><span style="color: #2aa1ae; background-color: #292e34;">construct the numeric part of the filename</span>
+    <span style="color: #4f97d7; font-weight: bold;">if</span> <span style="color: #2d9574;">(</span>i&lt;<span style="color: #a45bad;">10</span><span style="color: #2d9574;">)</span> sprintf<span style="color: #2d9574;">(</span>fnum, <span style="color: #2d9574;">"00%d"</span>, i<span style="color: #2d9574;">)</span>;
+    <span style="color: #4f97d7; font-weight: bold;">else</span> <span style="color: #4f97d7; font-weight: bold;">if</span> <span style="color: #2d9574;">(</span>i&lt;<span style="color: #a45bad;">100</span><span style="color: #2d9574;">)</span> sprintf<span style="color: #2d9574;">(</span>fnum, <span style="color: #2d9574;">"0%d"</span>, i<span style="color: #2d9574;">)</span>;
+    <span style="color: #4f97d7; font-weight: bold;">else</span> sprintf<span style="color: #2d9574;">(</span>fnum, <span style="color: #2d9574;">"%d"</span>, i<span style="color: #2d9574;">)</span>;
 
-    <span style="color: #b22222;">// </span><span style="color: #b22222;">construct the numeric part of the filename</span>
-    <span style="color: #a020f0;">if</span> (i&lt;10) sprintf(fnum, <span style="color: #8b2252;">"00%d"</span>, i);
-    <span style="color: #a020f0;">else</span> <span style="color: #a020f0;">if</span> (i&lt;100) sprintf(fnum, <span style="color: #8b2252;">"0%d"</span>, i);
-    <span style="color: #a020f0;">else</span> sprintf(fnum, <span style="color: #8b2252;">"%d"</span>, i);
+    <span style="color: #2aa1ae; background-color: #292e34;">// </span><span style="color: #2aa1ae; background-color: #292e34;">read in a dirs data file</span>
+    sprintf<span style="color: #2d9574;">(</span>fname, <span style="color: #2d9574;">"data/cell_dirs_%s.txt"</span>, fnum<span style="color: #2d9574;">)</span>;
+    readcell<span style="color: #2d9574;">(</span>fname, celldirs, <span style="color: #a45bad;">40</span>, <span style="color: #a45bad;">0</span><span style="color: #2d9574;">)</span>;
 
-    <span style="color: #b22222;">// </span><span style="color: #b22222;">read in a dirs data file</span>
-    sprintf(fname, <span style="color: #8b2252;">"data/cell_dirs_%s.txt"</span>, fnum);
-    readcell(fname, celldirs, 40, 0);
+    <span style="color: #2aa1ae; background-color: #292e34;">// </span><span style="color: #2aa1ae; background-color: #292e34;">read in a spks data file</span>
+    sprintf<span style="color: #2d9574;">(</span>fname, <span style="color: #2d9574;">"data/cell_spks_%s.txt"</span>, fnum<span style="color: #2d9574;">)</span>;
+    readcell<span style="color: #2d9574;">(</span>fname, cellspks, <span style="color: #a45bad;">40</span>, <span style="color: #a45bad;">0</span><span style="color: #2d9574;">)</span>;
 
-    <span style="color: #b22222;">// </span><span style="color: #b22222;">read in a spks data file</span>
-    sprintf(fname, <span style="color: #8b2252;">"data/cell_spks_%s.txt"</span>, fnum);
-    readcell(fname, cellspks, 40, 0);
+    <span style="color: #2aa1ae; background-color: #292e34;">// </span><span style="color: #2aa1ae; background-color: #292e34;">compute PD</span>
+    PD<span style="color: #2d9574;">[</span>i-<span style="color: #a45bad;">1</span><span style="color: #2d9574;">]</span> = compute_PD<span style="color: #2d9574;">(</span>celldirs, cellspks, <span style="color: #a45bad;">40</span><span style="color: #2d9574;">)</span>;
+  <span style="color: #bc6ec5;">}</span>
 
-    <span style="color: #b22222;">// </span><span style="color: #b22222;">compute PD</span>
-    PD[i-1] = compute_PD(celldirs, cellspks, 40);
-  }
+  <span style="color: #2aa1ae; background-color: #292e34;">// </span><span style="color: #2aa1ae; background-color: #292e34;">print vector of PDs to screen and write to a file</span>
+  show_double_vec<span style="color: #bc6ec5;">(</span>PD, ncells<span style="color: #bc6ec5;">)</span>;
+  write_double_vec<span style="color: #bc6ec5;">(</span>PD, ncells, <span style="color: #2d9574;">"PDs.txt"</span><span style="color: #bc6ec5;">)</span>;
 
-  <span style="color: #b22222;">// </span><span style="color: #b22222;">print vector of PDs to screen and write to a file</span>
-  show_double_vec(PD, ncells);
-  write_double_vec(PD, ncells, <span style="color: #8b2252;">"PDs.txt"</span>);
-
-  <span style="color: #a020f0;">return</span> 0;
-}
+  <span style="color: #4f97d7; font-weight: bold;">return</span> <span style="color: #a45bad;">0</span>;
+<span style="color: #4f97d7;">}</span>
 </pre>
 </div>
 
@@ -329,38 +413,37 @@ Here is the header file <a href="code/neurons/neuron.h">neuron.h</a>:
 </p>
 
 <div class="org-src-container">
+<pre class="src src-c"><span style="color: #bc6ec5;">#include</span> <span style="color: #4f97d7;">&lt;</span><span style="color: #2d9574;">stdlib.h</span><span style="color: #4f97d7;">&gt;</span>
+<span style="color: #bc6ec5;">#include</span> <span style="color: #4f97d7;">&lt;</span><span style="color: #2d9574;">stdio.h</span><span style="color: #4f97d7;">&gt;</span>
+<span style="color: #bc6ec5;">#include</span> <span style="color: #4f97d7;">&lt;</span><span style="color: #2d9574;">math.h</span><span style="color: #4f97d7;">&gt;</span>
 
-<pre class="src src-c"><span style="color: #483d8b;">#include</span> <span style="color: #8b2252;">&lt;stdlib.h&gt;</span>
-<span style="color: #483d8b;">#include</span> <span style="color: #8b2252;">&lt;stdio.h&gt;</span>
-<span style="color: #483d8b;">#include</span> <span style="color: #8b2252;">&lt;math.h&gt;</span>
+<span style="color: #bc6ec5;">#if</span><span style="color: #bc6ec5;">n</span><span style="color: #bc6ec5;">def</span> M_PI
+<span style="color: #bc6ec5;">#define</span> <span style="color: #7590db;">M_PI</span> <span style="color: #a45bad;">3.1415926535897932384626433832795</span>
+<span style="color: #bc6ec5;">#endif</span>
 
-<span style="color: #483d8b;">#if</span><span style="color: #483d8b;">n</span><span style="color: #483d8b;">def</span> M_PI
-<span style="color: #483d8b;">#define</span> <span style="color: #a0522d;">M_PI</span> 3.1415926535897932384626433832795
-<span style="color: #483d8b;">#endif</span>
+<span style="color: #ce537a; font-weight: bold;">void</span> <span style="color: #bc6ec5; font-weight: bold;">show_int_vec</span><span style="color: #4f97d7;">(</span><span style="color: #ce537a; font-weight: bold;">int</span> <span style="color: #7590db;">vec</span><span style="color: #bc6ec5;">[]</span>, <span style="color: #ce537a; font-weight: bold;">int</span> <span style="color: #7590db;">n</span><span style="color: #4f97d7;">)</span>;
 
-<span style="color: #228b22;">void</span> <span style="color: #0000ff;">show_int_vec</span>(<span style="color: #228b22;">int</span> <span style="color: #a0522d;">vec</span>[], <span style="color: #228b22;">int</span> <span style="color: #a0522d;">n</span>);
+<span style="color: #ce537a; font-weight: bold;">void</span> <span style="color: #bc6ec5; font-weight: bold;">show_double_vec</span><span style="color: #4f97d7;">(</span><span style="color: #ce537a; font-weight: bold;">double</span> <span style="color: #7590db;">vec</span><span style="color: #bc6ec5;">[]</span>, <span style="color: #ce537a; font-weight: bold;">int</span> <span style="color: #7590db;">n</span><span style="color: #4f97d7;">)</span>;
 
-<span style="color: #228b22;">void</span> <span style="color: #0000ff;">show_double_vec</span>(<span style="color: #228b22;">double</span> <span style="color: #a0522d;">vec</span>[], <span style="color: #228b22;">int</span> <span style="color: #a0522d;">n</span>);
+<span style="color: #ce537a; font-weight: bold;">void</span> <span style="color: #bc6ec5; font-weight: bold;">write_double_vec</span><span style="color: #4f97d7;">(</span><span style="color: #ce537a; font-weight: bold;">double</span> <span style="color: #7590db;">vec</span><span style="color: #bc6ec5;">[]</span>, <span style="color: #ce537a; font-weight: bold;">int</span> <span style="color: #7590db;">n</span>, <span style="color: #ce537a; font-weight: bold;">char</span> <span style="color: #7590db;">fname</span><span style="color: #bc6ec5;">[]</span><span style="color: #4f97d7;">)</span>;
 
-<span style="color: #228b22;">void</span> <span style="color: #0000ff;">write_double_vec</span>(<span style="color: #228b22;">double</span> <span style="color: #a0522d;">vec</span>[], <span style="color: #228b22;">int</span> <span style="color: #a0522d;">n</span>, <span style="color: #228b22;">char</span> <span style="color: #a0522d;">fname</span>[]);
+<span style="color: #ce537a; font-weight: bold;">void</span> <span style="color: #bc6ec5; font-weight: bold;">showmat</span><span style="color: #4f97d7;">(</span><span style="color: #ce537a; font-weight: bold;">double</span> <span style="color: #7590db;">mat</span><span style="color: #bc6ec5;">[]</span>, <span style="color: #ce537a; font-weight: bold;">int</span> <span style="color: #7590db;">nrows</span>, <span style="color: #ce537a; font-weight: bold;">int</span> <span style="color: #7590db;">ncols</span><span style="color: #4f97d7;">)</span>;
 
-<span style="color: #228b22;">void</span> <span style="color: #0000ff;">showmat</span>(<span style="color: #228b22;">double</span> <span style="color: #a0522d;">mat</span>[], <span style="color: #228b22;">int</span> <span style="color: #a0522d;">nrows</span>, <span style="color: #228b22;">int</span> <span style="color: #a0522d;">ncols</span>);
+<span style="color: #ce537a; font-weight: bold;">void</span> <span style="color: #bc6ec5; font-weight: bold;">readcell</span><span style="color: #4f97d7;">(</span><span style="color: #ce537a; font-weight: bold;">char</span> <span style="color: #7590db;">fname</span><span style="color: #bc6ec5;">[]</span>, <span style="color: #ce537a; font-weight: bold;">double</span> <span style="color: #7590db;">data</span><span style="color: #bc6ec5;">[]</span>, <span style="color: #ce537a; font-weight: bold;">int</span> <span style="color: #7590db;">n</span>, <span style="color: #ce537a; font-weight: bold;">int</span> <span style="color: #7590db;">msg</span><span style="color: #4f97d7;">)</span>;
 
-<span style="color: #228b22;">void</span> <span style="color: #0000ff;">readcell</span>(<span style="color: #228b22;">char</span> <span style="color: #a0522d;">fname</span>[], <span style="color: #228b22;">double</span> <span style="color: #a0522d;">data</span>[], <span style="color: #228b22;">int</span> <span style="color: #a0522d;">n</span>, <span style="color: #228b22;">int</span> <span style="color: #a0522d;">msg</span>);
+<span style="color: #ce537a; font-weight: bold;">void</span> <span style="color: #bc6ec5; font-weight: bold;">oneplate</span><span style="color: #4f97d7;">(</span><span style="color: #ce537a; font-weight: bold;">double</span> <span style="color: #7590db;">r1</span>, <span style="color: #ce537a; font-weight: bold;">double</span> <span style="color: #7590db;">r2</span>, <span style="color: #ce537a; font-weight: bold;">double</span> <span style="color: #7590db;">a1</span>, <span style="color: #ce537a; font-weight: bold;">double</span> <span style="color: #7590db;">a2</span>, <span style="color: #ce537a; font-weight: bold;">double</span> <span style="color: #7590db;">output</span><span style="color: #bc6ec5;">[</span><span style="color: #a45bad;">6</span><span style="color: #bc6ec5;">]</span><span style="color: #4f97d7;">)</span>;
 
-<span style="color: #228b22;">void</span> <span style="color: #0000ff;">oneplate</span>(<span style="color: #228b22;">double</span> <span style="color: #a0522d;">r1</span>, <span style="color: #228b22;">double</span> <span style="color: #a0522d;">r2</span>, <span style="color: #228b22;">double</span> <span style="color: #a0522d;">a1</span>, <span style="color: #228b22;">double</span> <span style="color: #a0522d;">a2</span>, <span style="color: #228b22;">double</span> <span style="color: #a0522d;">output</span>[6]);
+<span style="color: #ce537a; font-weight: bold;">void</span> <span style="color: #bc6ec5; font-weight: bold;">platemethod</span><span style="color: #4f97d7;">(</span><span style="color: #ce537a; font-weight: bold;">double</span> <span style="color: #7590db;">a</span><span style="color: #bc6ec5;">[]</span>, <span style="color: #ce537a; font-weight: bold;">double</span> <span style="color: #7590db;">r</span><span style="color: #bc6ec5;">[]</span>, <span style="color: #ce537a; font-weight: bold;">int</span> <span style="color: #7590db;">n</span>, <span style="color: #ce537a; font-weight: bold;">double</span> <span style="color: #7590db;">output</span><span style="color: #bc6ec5;">[</span><span style="color: #a45bad;">9</span><span style="color: #bc6ec5;">]</span><span style="color: #4f97d7;">)</span>;
 
-<span style="color: #228b22;">void</span> <span style="color: #0000ff;">platemethod</span>(<span style="color: #228b22;">double</span> <span style="color: #a0522d;">a</span>[], <span style="color: #228b22;">double</span> <span style="color: #a0522d;">r</span>[], <span style="color: #228b22;">int</span> <span style="color: #a0522d;">n</span>, <span style="color: #228b22;">double</span> <span style="color: #a0522d;">output</span>[9]);
+<span style="color: #ce537a; font-weight: bold;">int</span> <span style="color: #bc6ec5; font-weight: bold;">mycomp</span><span style="color: #4f97d7;">(</span><span style="color: #4f97d7; font-weight: bold;">const</span> <span style="color: #ce537a; font-weight: bold;">void</span> *<span style="color: #7590db;">a</span>, <span style="color: #4f97d7; font-weight: bold;">const</span> <span style="color: #ce537a; font-weight: bold;">void</span> *<span style="color: #7590db;">b</span><span style="color: #4f97d7;">)</span>;
 
-<span style="color: #228b22;">int</span> <span style="color: #0000ff;">mycomp</span>(<span style="color: #a020f0;">const</span> <span style="color: #228b22;">void</span> *<span style="color: #a0522d;">a</span>, <span style="color: #a020f0;">const</span> <span style="color: #228b22;">void</span> *<span style="color: #a0522d;">b</span>);
+<span style="color: #ce537a; font-weight: bold;">double</span> <span style="color: #bc6ec5; font-weight: bold;">getangle</span><span style="color: #4f97d7;">(</span><span style="color: #ce537a; font-weight: bold;">double</span> <span style="color: #7590db;">x</span>, <span style="color: #ce537a; font-weight: bold;">double</span> <span style="color: #7590db;">y</span><span style="color: #4f97d7;">)</span>;
 
-<span style="color: #228b22;">double</span> <span style="color: #0000ff;">getangle</span>(<span style="color: #228b22;">double</span> <span style="color: #a0522d;">x</span>, <span style="color: #228b22;">double</span> <span style="color: #a0522d;">y</span>);
+<span style="color: #ce537a; font-weight: bold;">int</span> <span style="color: #bc6ec5; font-weight: bold;">mycomp_struct</span><span style="color: #4f97d7;">(</span><span style="color: #4f97d7; font-weight: bold;">const</span> <span style="color: #ce537a; font-weight: bold;">void</span> *<span style="color: #7590db;">a</span>, <span style="color: #4f97d7; font-weight: bold;">const</span> <span style="color: #ce537a; font-weight: bold;">void</span> *<span style="color: #7590db;">b</span><span style="color: #4f97d7;">)</span>;
 
-<span style="color: #228b22;">int</span> <span style="color: #0000ff;">mycomp_struct</span>(<span style="color: #a020f0;">const</span> <span style="color: #228b22;">void</span> *<span style="color: #a0522d;">a</span>, <span style="color: #a020f0;">const</span> <span style="color: #228b22;">void</span> *<span style="color: #a0522d;">b</span>);
+<span style="color: #ce537a; font-weight: bold;">double</span> <span style="color: #bc6ec5; font-weight: bold;">compute_PDr</span><span style="color: #4f97d7;">(</span><span style="color: #ce537a; font-weight: bold;">double</span> <span style="color: #7590db;">celldirs</span><span style="color: #bc6ec5;">[]</span>, <span style="color: #ce537a; font-weight: bold;">double</span> <span style="color: #7590db;">cellspks</span><span style="color: #bc6ec5;">[]</span>, <span style="color: #ce537a; font-weight: bold;">int</span> <span style="color: #7590db;">ntrials</span>, <span style="color: #ce537a; font-weight: bold;">int</span> <span style="color: #7590db;">ndirs</span><span style="color: #4f97d7;">)</span>;
 
-<span style="color: #228b22;">double</span> <span style="color: #0000ff;">compute_PDr</span>(<span style="color: #228b22;">double</span> <span style="color: #a0522d;">celldirs</span>[], <span style="color: #228b22;">double</span> <span style="color: #a0522d;">cellspks</span>[], <span style="color: #228b22;">int</span> <span style="color: #a0522d;">ntrials</span>, <span style="color: #228b22;">int</span> <span style="color: #a0522d;">ndirs</span>);
-
-<span style="color: #228b22;">double</span> <span style="color: #0000ff;">compute_PD</span>(<span style="color: #228b22;">double</span> <span style="color: #a0522d;">celldirs</span>[], <span style="color: #228b22;">double</span> <span style="color: #a0522d;">cellspks</span>[], <span style="color: #228b22;">int</span> <span style="color: #a0522d;">ntrials</span>);
+<span style="color: #ce537a; font-weight: bold;">double</span> <span style="color: #bc6ec5; font-weight: bold;">compute_PD</span><span style="color: #4f97d7;">(</span><span style="color: #ce537a; font-weight: bold;">double</span> <span style="color: #7590db;">celldirs</span><span style="color: #bc6ec5;">[]</span>, <span style="color: #ce537a; font-weight: bold;">double</span> <span style="color: #7590db;">cellspks</span><span style="color: #bc6ec5;">[]</span>, <span style="color: #ce537a; font-weight: bold;">int</span> <span style="color: #7590db;">ntrials</span><span style="color: #4f97d7;">)</span>;
 </pre>
 </div>
 
@@ -397,9 +480,9 @@ To summarize then, in order to include external code in your C program
 </div>
 </div>
 
-<div id="outline-container-orgheadline4" class="outline-3">
-<h3 id="orgheadline4">Another example</h3>
-<div class="outline-text-3" id="text-orgheadline4">
+<div id="outline-container-orgcc2730c" class="outline-3">
+<h3 id="orgcc2730c">Another example</h3>
+<div class="outline-text-3" id="text-orgcc2730c">
 <p>
 Another small example: let's say you want to write a program that
 takes at the command-line one integer input, and determines whether
@@ -411,8 +494,7 @@ you a pair of files (<a href="code/primes/primes.h">primes.h</a> and <a href="co
 </p>
 
 <div class="org-src-container">
-
-<pre class="src src-c"><span style="color: #228b22;">int</span> <span style="color: #0000ff;">isPrime</span>(<span style="color: #228b22;">int</span> <span style="color: #a0522d;">n</span>); <span style="color: #b22222;">// </span><span style="color: #b22222;">returns 0 if n is not prime, 1 if n is prime</span>
+<pre class="src src-c"><span style="color: #ce537a; font-weight: bold;">int</span> <span style="color: #bc6ec5; font-weight: bold;">isPrime</span><span style="color: #4f97d7;">(</span><span style="color: #ce537a; font-weight: bold;">int</span> <span style="color: #7590db;">n</span><span style="color: #4f97d7;">)</span>; <span style="color: #2aa1ae; background-color: #292e34;">// </span><span style="color: #2aa1ae; background-color: #292e34;">returns 0 if n is not prime, 1 if n is prime</span>
 </pre>
 </div>
 
@@ -430,23 +512,22 @@ Here is what the <a href="code/primes/primes.c">primes.c</a> file look like:
 </p>
 
 <div class="org-src-container">
+<pre class="src src-c"><span style="color: #ce537a; font-weight: bold;">int</span> <span style="color: #bc6ec5; font-weight: bold;">isPrime</span><span style="color: #4f97d7;">(</span><span style="color: #ce537a; font-weight: bold;">int</span> <span style="color: #7590db;">n</span><span style="color: #4f97d7;">)</span> <span style="color: #4f97d7;">{</span>
 
-<pre class="src src-c"><span style="color: #228b22;">int</span> <span style="color: #0000ff;">isPrime</span>(<span style="color: #228b22;">int</span> <span style="color: #a0522d;">n</span>) {
+  <span style="color: #2aa1ae; background-color: #292e34;">// </span><span style="color: #2aa1ae; background-color: #292e34;">returns 0 if not prime, 1 if prime</span>
 
-  <span style="color: #b22222;">// </span><span style="color: #b22222;">returns 0 if not prime, 1 if prime</span>
+  <span style="color: #4f97d7; font-weight: bold;">if</span> <span style="color: #bc6ec5;">(</span>n&lt;<span style="color: #a45bad;">2</span><span style="color: #bc6ec5;">)</span> <span style="color: #4f97d7; font-weight: bold;">return</span> <span style="color: #a45bad;">0</span>;         <span style="color: #2aa1ae; background-color: #292e34;">// </span><span style="color: #2aa1ae; background-color: #292e34;">first prime number is 2</span>
+  <span style="color: #4f97d7; font-weight: bold;">if</span> <span style="color: #bc6ec5;">(</span>n==<span style="color: #a45bad;">2</span><span style="color: #bc6ec5;">)</span> <span style="color: #4f97d7; font-weight: bold;">return</span> <span style="color: #a45bad;">1</span>;        <span style="color: #2aa1ae; background-color: #292e34;">// </span><span style="color: #2aa1ae; background-color: #292e34;">ensure 2 is identified as a prime</span>
+  <span style="color: #4f97d7; font-weight: bold;">if</span> <span style="color: #bc6ec5;">(</span><span style="color: #2d9574;">(</span>n % <span style="color: #a45bad;">2</span><span style="color: #2d9574;">)</span>==<span style="color: #a45bad;">0</span><span style="color: #bc6ec5;">)</span> <span style="color: #4f97d7; font-weight: bold;">return</span> <span style="color: #a45bad;">0</span>;  <span style="color: #2aa1ae; background-color: #292e34;">// </span><span style="color: #2aa1ae; background-color: #292e34;">all even numbers above 2 are not prime</span>
 
-  <span style="color: #a020f0;">if</span> (n&lt;2) <span style="color: #a020f0;">return</span> 0;         <span style="color: #b22222;">// </span><span style="color: #b22222;">first prime number is 2</span>
-  <span style="color: #a020f0;">if</span> (n==2) <span style="color: #a020f0;">return</span> 1;        <span style="color: #b22222;">// </span><span style="color: #b22222;">ensure 2 is identified as a prime</span>
-  <span style="color: #a020f0;">if</span> ((n % 2)==0) <span style="color: #a020f0;">return</span> 0;  <span style="color: #b22222;">// </span><span style="color: #b22222;">all even numbers above 2 are not prime</span>
-
-  <span style="color: #228b22;">int</span> <span style="color: #a0522d;">i</span>;
-  <span style="color: #a020f0;">for</span> (i=3; i*i &lt; n; i++) {  <span style="color: #b22222;">// </span><span style="color: #b22222;">test divisibility up to sqrt(n)</span>
-    <span style="color: #a020f0;">if</span> ((n % i) == 0) {
-      <span style="color: #a020f0;">return</span> 0;
-    }
-  }
-  <span style="color: #a020f0;">return</span> 1;
-}
+  <span style="color: #ce537a; font-weight: bold;">int</span> <span style="color: #7590db;">i</span>;
+  <span style="color: #4f97d7; font-weight: bold;">for</span> <span style="color: #bc6ec5;">(</span>i=<span style="color: #a45bad;">3</span>; i*i &lt; n; i++<span style="color: #bc6ec5;">)</span> <span style="color: #bc6ec5;">{</span>  <span style="color: #2aa1ae; background-color: #292e34;">// </span><span style="color: #2aa1ae; background-color: #292e34;">test divisibility up to sqrt(n)</span>
+    <span style="color: #4f97d7; font-weight: bold;">if</span> <span style="color: #2d9574;">(</span><span style="color: #67b11d;">(</span>n % i<span style="color: #67b11d;">)</span> == <span style="color: #a45bad;">0</span><span style="color: #2d9574;">)</span> <span style="color: #2d9574;">{</span>
+      <span style="color: #4f97d7; font-weight: bold;">return</span> <span style="color: #a45bad;">0</span>;
+    <span style="color: #2d9574;">}</span>
+  <span style="color: #bc6ec5;">}</span>
+  <span style="color: #4f97d7; font-weight: bold;">return</span> <span style="color: #a45bad;">1</span>;
+<span style="color: #4f97d7;">}</span>
 </pre>
 </div>
 
@@ -455,30 +536,29 @@ Here is what our program <a href="code/primes/go.c">go.c</a> looks like:
 </p>
 
 <div class="org-src-container">
+<pre class="src src-c"><span style="color: #2aa1ae; background-color: #292e34;">/* </span><span style="color: #2aa1ae; background-color: #292e34;">go.c</span>
+<span style="color: #2aa1ae; background-color: #292e34;">   Takes one input argument from the command line, an integer,</span>
+<span style="color: #2aa1ae; background-color: #292e34;">   and returns 1 if the number is prime, and 0 if it is not.</span>
 
-<pre class="src src-c"><span style="color: #b22222;">/* </span><span style="color: #b22222;">go.c</span>
-<span style="color: #b22222;">   Takes one input argument from the command line, an integer,</span>
-<span style="color: #b22222;">   and returns 1 if the number is prime, and 0 if it is not.</span>
+<span style="color: #2aa1ae; background-color: #292e34;">   Compile with: gcc -o go go.c primes.c </span>
+<span style="color: #2aa1ae; background-color: #292e34;">*/</span>
 
-<span style="color: #b22222;">   Compile with: gcc -o go go.c primes.c </span>
-<span style="color: #b22222;">*/</span>
+<span style="color: #bc6ec5;">#include</span> <span style="color: #4f97d7;">&lt;</span><span style="color: #2d9574;">stdio.h</span><span style="color: #4f97d7;">&gt;</span>
+<span style="color: #bc6ec5;">#include</span> <span style="color: #4f97d7;">&lt;</span><span style="color: #2d9574;">stdlib.h</span><span style="color: #4f97d7;">&gt;</span>
+<span style="color: #bc6ec5;">#include</span> <span style="color: #2d9574;">"primes.h"</span>
 
-<span style="color: #483d8b;">#include</span> <span style="color: #8b2252;">&lt;stdio.h&gt;</span>
-<span style="color: #483d8b;">#include</span> <span style="color: #8b2252;">&lt;stdlib.h&gt;</span>
-<span style="color: #483d8b;">#include</span> <span style="color: #8b2252;">"primes.h"</span>
-
-<span style="color: #228b22;">int</span> <span style="color: #0000ff;">main</span>(<span style="color: #228b22;">int</span> <span style="color: #a0522d;">argc</span>, <span style="color: #228b22;">char</span> *<span style="color: #a0522d;">argv</span>[]) {
-  <span style="color: #a020f0;">if</span> (argc &lt; 2) {
-    printf(<span style="color: #8b2252;">"error: must provide a single integer value to test\n"</span>);
-    <span style="color: #a020f0;">return</span> 1;
-  }
-  <span style="color: #a020f0;">else</span> {
-    <span style="color: #228b22;">int</span> <span style="color: #a0522d;">n</span> = atoi(argv[1]);
-    <span style="color: #228b22;">int</span> <span style="color: #a0522d;">prime</span> = isPrime(n);
-    printf(<span style="color: #8b2252;">"isPrime(%d) = %d\n"</span>, n, prime);
-    <span style="color: #a020f0;">return</span> 0;
-  }
-}
+<span style="color: #ce537a; font-weight: bold;">int</span> <span style="color: #bc6ec5; font-weight: bold;">main</span><span style="color: #4f97d7;">(</span><span style="color: #ce537a; font-weight: bold;">int</span> <span style="color: #7590db;">argc</span>, <span style="color: #ce537a; font-weight: bold;">char</span> *<span style="color: #7590db;">argv</span><span style="color: #bc6ec5;">[]</span><span style="color: #4f97d7;">)</span> <span style="color: #4f97d7;">{</span>
+  <span style="color: #4f97d7; font-weight: bold;">if</span> <span style="color: #bc6ec5;">(</span>argc &lt; <span style="color: #a45bad;">2</span><span style="color: #bc6ec5;">)</span> <span style="color: #bc6ec5;">{</span>
+    printf<span style="color: #2d9574;">(</span><span style="color: #2d9574;">"error: must provide a single integer value to test\n"</span><span style="color: #2d9574;">)</span>;
+    <span style="color: #4f97d7; font-weight: bold;">return</span> <span style="color: #a45bad;">1</span>;
+  <span style="color: #bc6ec5;">}</span>
+  <span style="color: #4f97d7; font-weight: bold;">else</span> <span style="color: #bc6ec5;">{</span>
+    <span style="color: #ce537a; font-weight: bold;">int</span> <span style="color: #7590db;">n</span> = atoi<span style="color: #2d9574;">(</span>argv<span style="color: #67b11d;">[</span><span style="color: #a45bad;">1</span><span style="color: #67b11d;">]</span><span style="color: #2d9574;">)</span>;
+    <span style="color: #ce537a; font-weight: bold;">int</span> <span style="color: #7590db;">prime</span> = isPrime<span style="color: #2d9574;">(</span>n<span style="color: #2d9574;">)</span>;
+    printf<span style="color: #2d9574;">(</span><span style="color: #2d9574;">"isPrime(%d) = %d\n"</span>, n, prime<span style="color: #2d9574;">)</span>;
+    <span style="color: #4f97d7; font-weight: bold;">return</span> <span style="color: #a45bad;">0</span>;
+  <span style="color: #bc6ec5;">}</span>
+<span style="color: #4f97d7;">}</span>
 </pre>
 </div>
 
@@ -505,9 +585,9 @@ isPrime(12347) = 1
 </div>
 </div>
 
-<div id="outline-container-orgheadline5" class="outline-3">
-<h3 id="orgheadline5">Search path</h3>
-<div class="outline-text-3" id="text-orgheadline5">
+<div id="outline-container-orge265b55" class="outline-3">
+<h3 id="orge265b55">Search path</h3>
+<div class="outline-text-3" id="text-orge265b55">
 <p>
 The compiler will look in several places for header files that you
 include with the <code>#include</code> directive, depending on how you use it. If
@@ -525,9 +605,9 @@ locations.
 </div>
 </div>
 
-<div id="outline-container-orgheadline6" class="outline-3">
-<h3 id="orgheadline6">External variables</h3>
-<div class="outline-text-3" id="text-orgheadline6">
+<div id="outline-container-org1da7877" class="outline-3">
+<h3 id="org1da7877">External variables</h3>
+<div class="outline-text-3" id="text-org1da7877">
 <p>
 Just as we can include external code in our C programs, we can make a
 declaration in our C program that a variable exists and has been
@@ -539,9 +619,9 @@ using the <code>extern</code> keyword. See <a href="http://en.wikipedia.org/wiki
 </div>
 
 
-<div id="outline-container-orgheadline7" class="outline-2">
-<h2 id="orgheadline7">The GNU <code>make</code> utility and Makefiles</h2>
-<div class="outline-text-2" id="text-orgheadline7">
+<div id="outline-container-org666f28d" class="outline-2">
+<h2 id="org666f28d">The GNU <code>make</code> utility and Makefiles</h2>
+<div class="outline-text-2" id="text-org666f28d">
 <p>
 There is a UNIX tool called <code>make</code> that is commonly used to compile C
 programs that are made up of several files, and (sometimes) involve
@@ -564,9 +644,8 @@ this:
 </p>
 
 <div class="org-src-container">
-
 <pre class="src src-sh">go: go.c primes.c
-        gcc -o go go.c primes.c
+  gcc -o go go.c primes.c
 </pre>
 </div>
 
@@ -604,9 +683,9 @@ You can see the command (line 3) that ends up being executed by
 </p>
 </div>
 
-<div id="outline-container-orgheadline8" class="outline-3">
-<h3 id="orgheadline8">Introducing more generalization to the Makefile</h3>
-<div class="outline-text-3" id="text-orgheadline8">
+<div id="outline-container-orge9819e0" class="outline-3">
+<h3 id="orge9819e0">Introducing more generalization to the Makefile</h3>
+<div class="outline-text-3" id="text-orge9819e0">
 <p>
 There are a number of features of a Makefile we can utilize to make
 the whole idea more useful. We can introduce "macros" (like a
@@ -617,17 +696,16 @@ example from above:
 </p>
 
 <div class="org-src-container">
-
 <pre class="src src-sh">CC = gcc
 CFLAGS = -Wall
 DEPS = primes.h
 OBJ = go.o primes.o
 
-%.o: %.c $(<span style="color: #ff00ff;">DEPS</span>)
-        $(<span style="color: #ff00ff;">CC</span>) $(<span style="color: #ff00ff;">CFLAGS</span>) -c -o $<span style="color: #a0522d;">@</span> $&lt;
+%.o: %.c $<span style="color: #4f97d7;">(</span><span style="color: #fa8072;">DEPS</span><span style="color: #4f97d7;">)</span>
+  $<span style="color: #4f97d7;">(</span><span style="color: #fa8072;">CC</span><span style="color: #4f97d7;">)</span> $<span style="color: #4f97d7;">(</span><span style="color: #fa8072;">CFLAGS</span><span style="color: #4f97d7;">)</span> -c -o $<span style="color: #7590db;">@</span> $&lt;
 
-go: $(<span style="color: #ff00ff;">OBJ</span>)
-        gcc $(<span style="color: #ff00ff;">CFLAGS</span>) -o $<span style="color: #a0522d;">@</span> $^
+go: $<span style="color: #4f97d7;">(</span><span style="color: #fa8072;">OBJ</span><span style="color: #4f97d7;">)</span>
+  gcc $<span style="color: #4f97d7;">(</span><span style="color: #fa8072;">CFLAGS</span><span style="color: #4f97d7;">)</span> -o $<span style="color: #7590db;">@</span> $^
 </pre>
 </div>
 
@@ -708,9 +786,9 @@ can be used to your advantage.
 </div>
 
 
-<div id="outline-container-orgheadline9" class="outline-2">
-<h2 id="orgheadline9">Links</h2>
-<div class="outline-text-2" id="text-orgheadline9">
+<div id="outline-container-orgc9ceeaf" class="outline-2">
+<h2 id="orgc9ceeaf">Links</h2>
+<div class="outline-text-2" id="text-orgc9ceeaf">
 <ul class="org-ul">
 <li><a href="http://gcc.gnu.org/onlinedocs/cpp/Header-Files.html">GNU C Compiler (gcc): Header Files</a></li>
 <li><a href="http://gcc.gnu.org/onlinedocs/cpp/Search-Path.html#Search-Path">Wikipedia: Header Files</a></li>
