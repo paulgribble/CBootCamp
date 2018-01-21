@@ -97,7 +97,7 @@ To see hello world in a bunch of other languages, go here:
 ** Virtues of C
 
 - fast (it's a compiled language and so is close to the machine hardware)
-- portable (you can compile you program to run on just about any
+- portable (you can compile your program to run on just about any
   hardware platform out there)
 - the language is small (unlike C++ for example)
 - mature (a long history and lots of resources and experience available)

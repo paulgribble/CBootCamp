@@ -107,7 +107,7 @@ void writeMessage(void) {
 
 int main() {
 	writeMessage();
-        return 0;
+	return 0;
 }
 #+END_SRC
 
@@ -134,7 +134,7 @@ void writeMessage(char name[]) {
 int main() {
 	writeMessage("Dave");
 	writeMessage("Victoria");
-        return 0;
+	return 0;
 }
 #+END_SRC
 
@@ -158,7 +158,7 @@ void writeMessage(char name[], int n) {
 int main() {
 	writeMessage("Dave", 123);
 	writeMessage("Victoria", 444);
-        return 0;
+	return 0;
 }
 #+END_SRC
 
@@ -192,7 +192,7 @@ int main() {
 	int n = 10;
 	int Fn = Fibonacci(n);
 	printf("Fibonacci(%d) = %d\n", n, Fn);
-    return 0;
+	return 0;
 }
 #+END_SRC
 
@@ -249,7 +249,7 @@ seen by every function. In C, global variables are known as *external*
 variables (they are external to any function).
 
 For example in the following code, the varibale =myGlob= is declared
-outside of =main()= and outside of =myFunc()= and thus can be access
+outside of =main()= and outside of =myFunc()= and thus can be accessed
 by code within both. The variable =myInt= is declared within the
 function =myFunc()= and is thus *local* to =myFunc()= and cannot be
 accessed outside of =myFunc()= (for example within
