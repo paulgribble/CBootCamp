@@ -45,7 +45,7 @@ function, from a place in your program outside of that function
 (i.e. after that function has exited).
 
 Another feature of the stack to keep in mind, is that there is a limit
-(varies with OS) on the size of variables that can be store on the
+(varies with OS) on the size of variables that can be stored on the
 stack. This is not the case for variables allocated on the *heap*.
 
 To summarize the stack:

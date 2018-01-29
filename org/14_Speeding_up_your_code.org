@@ -131,7 +131,7 @@ There are some C functions that are known to be slow.
 ** Slow math functions
 
 =pow()=, =sqrt()=, and trigonometric functions (e.g. =sin()=, =cos()=,
-=tan()=, etc.
+=tan()=, etc.)
 
 When using =pow()= with integers, just use basic operators instead. For example instead of this:
 
