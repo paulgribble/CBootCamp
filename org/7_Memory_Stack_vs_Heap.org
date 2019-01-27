@@ -200,7 +200,7 @@ When should you use the heap, and when should you use the stack? If
 you need to allocate a large block of memory (e.g. a large array, or a
 big struct), and you need to keep that variable around a long time
 (like a global), then you should allocate it on the heap. If you are
-dealing with realtively small variables that only need to persist as
+dealing with relatively small variables that only need to persist as
 long as the function using them is alive, then you should use the
 stack, it's easier and faster. If you need variables like arrays and
 structs that can change size dynamically (e.g. arrays that can grow or
