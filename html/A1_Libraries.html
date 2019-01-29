@@ -3,7 +3,7 @@
 "http://www.w3.org/TR/xhtml1/DTD/xhtml1-strict.dtd">
 <html xmlns="http://www.w3.org/1999/xhtml" lang="en" xml:lang="en">
 <head>
-<!-- 2017-04-24 Mon 07:06 -->
+<!-- 2019-01-28 Mon 21:23 -->
 <meta http-equiv="Content-Type" content="text/html;charset=utf-8" />
 <meta name="viewport" content="width=device-width, initial-scale=1" />
 <title>A1. A Brief Tour of Some Other Useful C Libraries</title>
@@ -68,6 +68,7 @@
   pre.src-fortran:before { content: 'Fortran'; }
   pre.src-gnuplot:before { content: 'gnuplot'; }
   pre.src-haskell:before { content: 'Haskell'; }
+  pre.src-hledger:before { content: 'hledger'; }
   pre.src-java:before { content: 'Java'; }
   pre.src-js:before { content: 'Javascript'; }
   pre.src-latex:before { content: 'LaTeX'; }
@@ -185,7 +186,7 @@
 @licstart  The following is the entire license notice for the
 JavaScript code in this tag.
 
-Copyright (C) 2012-2013 Free Software Foundation, Inc.
+Copyright (C) 2012-2018 Free Software Foundation, Inc.
 
 The JavaScript code in this tag is free software: you can
 redistribute it and/or modify it under the terms of the GNU
@@ -247,7 +248,7 @@ for the JavaScript code in this tag.
 });
 </script>
 <script type="text/javascript"
-        src="http://cdn.mathjax.org/mathjax/latest/MathJax.js?config=TeX-AMS_HTML"></script>
+        src="https://cdnjs.cloudflare.com/ajax/libs/mathjax/2.7.0/MathJax.js?config=TeX-AMS_HTML"></script>
 </head>
 <body>
 <div id="org-div-home-and-up">
@@ -260,28 +261,28 @@ for the JavaScript code in this tag.
 <h2>Table of Contents</h2>
 <div id="text-table-of-contents">
 <ul>
-<li><a href="#orgcc8ed03">Introduction</a></li>
-<li><a href="#orgea42297">GLib</a></li>
-<li><a href="#org3e5da5e">GNU Scientific Library (GSL)</a>
+<li><a href="#orgaba11f3">Introduction</a></li>
+<li><a href="#orgd9ea6f9">GLib</a></li>
+<li><a href="#org6e85001">GNU Scientific Library (GSL)</a>
 <ul>
-<li><a href="#org4051b09">Linking to gsl</a></li>
+<li><a href="#orgb905b70">Linking to gsl</a></li>
 </ul>
 </li>
-<li><a href="#orgd423ec6">BLAS / LAPACK</a></li>
-<li><a href="#org309fc39">Apophenia</a>
+<li><a href="#org75a4a3a">BLAS / LAPACK</a></li>
+<li><a href="#orgfc904d5">Apophenia</a>
 <ul>
-<li><a href="#org452a0d0">Modeling with Data (book)</a></li>
+<li><a href="#orgada28a0">Modeling with Data (book)</a></li>
 </ul>
 </li>
-<li><a href="#org4504393">GNUplot</a></li>
+<li><a href="#orgccedce3">GNUplot</a></li>
 </ul>
 </div>
 </div>
 <hr />
 
-<div id="outline-container-orgcc8ed03" class="outline-2">
-<h2 id="orgcc8ed03">Introduction</h2>
-<div class="outline-text-2" id="text-orgcc8ed03">
+<div id="outline-container-orgaba11f3" class="outline-2">
+<h2 id="orgaba11f3">Introduction</h2>
+<div class="outline-text-2" id="text-orgaba11f3">
 <p>
 Since C is such a "small" language, you must typically rely on
 libraries and APIs for complex tasks (unless you code them up
@@ -292,9 +293,9 @@ might find useful.
 </div>
 
 
-<div id="outline-container-orgea42297" class="outline-2">
-<h2 id="orgea42297">GLib</h2>
-<div class="outline-text-2" id="text-orgea42297">
+<div id="outline-container-orgd9ea6f9" class="outline-2">
+<h2 id="orgd9ea6f9">GLib</h2>
+<div class="outline-text-2" id="text-orgd9ea6f9">
 <p>
 <a href="https://developer.gnome.org/glib/">GLib</a>
 </p>
@@ -319,9 +320,9 @@ to GLib at compile time.
 </div>
 
 
-<div id="outline-container-org3e5da5e" class="outline-2">
-<h2 id="org3e5da5e">GNU Scientific Library (GSL)</h2>
-<div class="outline-text-2" id="text-org3e5da5e">
+<div id="outline-container-org6e85001" class="outline-2">
+<h2 id="org6e85001">GNU Scientific Library (GSL)</h2>
+<div class="outline-text-2" id="text-org6e85001">
 <p>
 <a href="http://www.gnu.org/software/gsl/">gsl</a>
 </p>
@@ -355,9 +356,9 @@ interested are:
 </div>
 
 
-<div id="outline-container-org4051b09" class="outline-3">
-<h3 id="org4051b09">Linking to gsl</h3>
-<div class="outline-text-3" id="text-org4051b09">
+<div id="outline-container-orgb905b70" class="outline-3">
+<h3 id="orgb905b70">Linking to gsl</h3>
+<div class="outline-text-3" id="text-orgb905b70">
 <p>
 Of course before you can link to the gsl library, you have to make
 sure it is installed on your computer. See the gsl documentation for
@@ -382,43 +383,43 @@ uses linear algebra routines to solve a linear system \(Ax=b\):
 </pre>
 
 <div class="org-src-container">
-<pre class="src src-c"><span style="color: #2aa1ae; background-color: #292e34;">// </span><span style="color: #2aa1ae; background-color: #292e34;">gcc -o go go.c -lgsl -lgslcblas</span>
+<pre class="src src-c"><span style="color: #b22222;">// </span><span style="color: #b22222;">gcc -o go go.c -lgsl -lgslcblas</span>
 
-<span style="color: #bc6ec5;">#include</span> <span style="color: #4f97d7;">&lt;</span><span style="color: #2d9574;">stdio.h</span><span style="color: #4f97d7;">&gt;</span>
-<span style="color: #bc6ec5;">#include</span> <span style="color: #4f97d7;">&lt;</span><span style="color: #2d9574;">gsl/gsl_linalg.h</span><span style="color: #4f97d7;">&gt;</span>
+<span style="color: #483d8b;">#include</span> <span style="color: #8b2252;">&lt;stdio.h&gt;</span>
+<span style="color: #483d8b;">#include</span> <span style="color: #8b2252;">&lt;gsl/gsl_linalg.h&gt;</span>
 
-<span style="color: #ce537a; font-weight: bold;">int</span> <span style="color: #bc6ec5; font-weight: bold;">main</span> <span style="color: #4f97d7;">(</span><span style="color: #ce537a; font-weight: bold;">void</span><span style="color: #4f97d7;">)</span>
-<span style="color: #4f97d7;">{</span>
-  <span style="color: #ce537a; font-weight: bold;">double</span> <span style="color: #7590db;">a_data</span><span style="color: #bc6ec5;">[]</span> = <span style="color: #bc6ec5;">{</span> <span style="color: #a45bad;">0.18</span>, <span style="color: #a45bad;">0.60</span>, <span style="color: #a45bad;">0.57</span>, <span style="color: #a45bad;">0.96</span>,
-          <span style="color: #a45bad;">0.41</span>, <span style="color: #a45bad;">0.24</span>, <span style="color: #a45bad;">0.99</span>, <span style="color: #a45bad;">0.58</span>,
-          <span style="color: #a45bad;">0.14</span>, <span style="color: #a45bad;">0.30</span>, <span style="color: #a45bad;">0.97</span>, <span style="color: #a45bad;">0.66</span>,
-          <span style="color: #a45bad;">0.51</span>, <span style="color: #a45bad;">0.13</span>, <span style="color: #a45bad;">0.19</span>, <span style="color: #a45bad;">0.85</span> <span style="color: #bc6ec5;">}</span>;
+<span style="color: #228b22;">int</span> <span style="color: #0000ff;">main</span> (<span style="color: #228b22;">void</span>)
+{
+  <span style="color: #228b22;">double</span> <span style="color: #a0522d;">a_data</span>[] = { 0.18, 0.60, 0.57, 0.96,
+                      0.41, 0.24, 0.99, 0.58,
+                      0.14, 0.30, 0.97, 0.66,
+                      0.51, 0.13, 0.19, 0.85 };
 
-  <span style="color: #ce537a; font-weight: bold;">double</span> <span style="color: #7590db;">b_data</span><span style="color: #bc6ec5;">[]</span> = <span style="color: #bc6ec5;">{</span> <span style="color: #a45bad;">1.0</span>, <span style="color: #a45bad;">2.0</span>, <span style="color: #a45bad;">3.0</span>, <span style="color: #a45bad;">4.0</span> <span style="color: #bc6ec5;">}</span>;
+  <span style="color: #228b22;">double</span> <span style="color: #a0522d;">b_data</span>[] = { 1.0, 2.0, 3.0, 4.0 };
 
-  <span style="color: #ce537a; font-weight: bold;">gsl_matrix_view</span> <span style="color: #7590db;">m</span> 
-    = gsl_matrix_view_array <span style="color: #bc6ec5;">(</span>a_data, <span style="color: #a45bad;">4</span>, <span style="color: #a45bad;">4</span><span style="color: #bc6ec5;">)</span>;
+  <span style="color: #228b22;">gsl_matrix_view</span> <span style="color: #a0522d;">m</span> 
+    = gsl_matrix_view_array (a_data, 4, 4);
 
-  <span style="color: #ce537a; font-weight: bold;">gsl_vector_view</span> <span style="color: #7590db;">b</span>
-    = gsl_vector_view_array <span style="color: #bc6ec5;">(</span>b_data, <span style="color: #a45bad;">4</span><span style="color: #bc6ec5;">)</span>;
+  <span style="color: #228b22;">gsl_vector_view</span> <span style="color: #a0522d;">b</span>
+    = gsl_vector_view_array (b_data, 4);
 
-  <span style="color: #ce537a; font-weight: bold;">gsl_vector</span> *<span style="color: #7590db;">x</span> = gsl_vector_alloc <span style="color: #bc6ec5;">(</span><span style="color: #a45bad;">4</span><span style="color: #bc6ec5;">)</span>;
+  <span style="color: #228b22;">gsl_vector</span> *<span style="color: #a0522d;">x</span> = gsl_vector_alloc (4);
 
-  <span style="color: #ce537a; font-weight: bold;">int</span> <span style="color: #7590db;">s</span>;
+  <span style="color: #228b22;">int</span> <span style="color: #a0522d;">s</span>;
 
-  <span style="color: #ce537a; font-weight: bold;">gsl_permutation</span> * <span style="color: #7590db;">p</span> = gsl_permutation_alloc <span style="color: #bc6ec5;">(</span><span style="color: #a45bad;">4</span><span style="color: #bc6ec5;">)</span>;
+  <span style="color: #228b22;">gsl_permutation</span> * <span style="color: #a0522d;">p</span> = gsl_permutation_alloc (4);
 
-  gsl_linalg_LU_decomp <span style="color: #bc6ec5;">(</span>&amp;m.matrix, p, &amp;s<span style="color: #bc6ec5;">)</span>;
+  gsl_linalg_LU_decomp (&amp;m.matrix, p, &amp;s);
 
-  gsl_linalg_LU_solve <span style="color: #bc6ec5;">(</span>&amp;m.matrix, p, &amp;b.vector, x<span style="color: #bc6ec5;">)</span>;
+  gsl_linalg_LU_solve (&amp;m.matrix, p, &amp;b.vector, x);
 
-  printf <span style="color: #bc6ec5;">(</span><span style="color: #2d9574;">"x = \n"</span><span style="color: #bc6ec5;">)</span>;
-  gsl_vector_fprintf <span style="color: #bc6ec5;">(</span>stdout, x, <span style="color: #2d9574;">"%g"</span><span style="color: #bc6ec5;">)</span>;
+  printf (<span style="color: #8b2252;">"x = \n"</span>);
+  gsl_vector_fprintf (stdout, x, <span style="color: #8b2252;">"%g"</span>);
 
-  gsl_permutation_free <span style="color: #bc6ec5;">(</span>p<span style="color: #bc6ec5;">)</span>;
-  gsl_vector_free <span style="color: #bc6ec5;">(</span>x<span style="color: #bc6ec5;">)</span>;
-  <span style="color: #4f97d7; font-weight: bold;">return</span> <span style="color: #a45bad;">0</span>;
-<span style="color: #4f97d7;">}</span>
+  gsl_permutation_free (p);
+  gsl_vector_free (x);
+  <span style="color: #a020f0;">return</span> 0;
+}
 </pre>
 </div>
 
@@ -436,9 +437,9 @@ x =
 </div>
 
 
-<div id="outline-container-orgd423ec6" class="outline-2">
-<h2 id="orgd423ec6">BLAS / LAPACK</h2>
-<div class="outline-text-2" id="text-orgd423ec6">
+<div id="outline-container-org75a4a3a" class="outline-2">
+<h2 id="org75a4a3a">BLAS / LAPACK</h2>
+<div class="outline-text-2" id="text-org75a4a3a">
 <p>
 The <a href="http://www.netlib.org/blas/">blas</a> and <a href="http://www.netlib.org/lapack/">lapack</a> libraries are high-performance libraries for
 linear algebra. If you are dealing with large matrices and you have
@@ -449,9 +450,9 @@ LAPACK, it will probably be faster than GSL.
 </div>
 
 
-<div id="outline-container-org309fc39" class="outline-2">
-<h2 id="org309fc39">Apophenia</h2>
-<div class="outline-text-2" id="text-org309fc39">
+<div id="outline-container-orgfc904d5" class="outline-2">
+<h2 id="orgfc904d5">Apophenia</h2>
+<div class="outline-text-2" id="text-orgfc904d5">
 <p>
 The <a href="http://apophenia.sourceforge.net/">Apophenia</a> library is an open source library for working with data
 sets, statistics, and statistical models.
@@ -480,9 +481,9 @@ want to explore it in more detail.
 </p>
 </div>
 
-<div id="outline-container-org452a0d0" class="outline-3">
-<h3 id="org452a0d0">Modeling with Data (book)</h3>
-<div class="outline-text-3" id="text-org452a0d0">
+<div id="outline-container-orgada28a0" class="outline-3">
+<h3 id="orgada28a0">Modeling with Data (book)</h3>
+<div class="outline-text-3" id="text-orgada28a0">
 <p>
 Apophenia is maintained by Ben Klemens, who also wrote a book <a href="http://modelingwithdata.org/about_the_book.html">Modeling
 With Data</a> that makes use of Apophenia. You can buy the book or you can
@@ -503,9 +504,9 @@ speed). It's worth a read.
 </div>
 
 
-<div id="outline-container-org4504393" class="outline-2">
-<h2 id="org4504393">GNUplot</h2>
-<div class="outline-text-2" id="text-org4504393">
+<div id="outline-container-orgccedce3" class="outline-2">
+<h2 id="orgccedce3">GNUplot</h2>
+<div class="outline-text-2" id="text-orgccedce3">
 <p>
 <a href="http://www.gnuplot.info/">GNUplot</a>
 </p>

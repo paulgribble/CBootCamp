@@ -3,7 +3,7 @@
 "http://www.w3.org/TR/xhtml1/DTD/xhtml1-strict.dtd">
 <html xmlns="http://www.w3.org/1999/xhtml" lang="en" xml:lang="en">
 <head>
-<!-- 2017-04-24 Mon 07:07 -->
+<!-- 2019-01-28 Mon 21:23 -->
 <meta http-equiv="Content-Type" content="text/html;charset=utf-8" />
 <meta name="viewport" content="width=device-width, initial-scale=1" />
 <title>11. Macros and the C Preprocessor</title>
@@ -68,6 +68,7 @@
   pre.src-fortran:before { content: 'Fortran'; }
   pre.src-gnuplot:before { content: 'gnuplot'; }
   pre.src-haskell:before { content: 'Haskell'; }
+  pre.src-hledger:before { content: 'hledger'; }
   pre.src-java:before { content: 'Java'; }
   pre.src-js:before { content: 'Javascript'; }
   pre.src-latex:before { content: 'LaTeX'; }
@@ -185,7 +186,7 @@
 @licstart  The following is the entire license notice for the
 JavaScript code in this tag.
 
-Copyright (C) 2012-2013 Free Software Foundation, Inc.
+Copyright (C) 2012-2018 Free Software Foundation, Inc.
 
 The JavaScript code in this tag is free software: you can
 redistribute it and/or modify it under the terms of the GNU
@@ -238,15 +239,15 @@ for the JavaScript code in this tag.
 <h2>Table of Contents</h2>
 <div id="text-table-of-contents">
 <ul>
-<li><a href="#orga6c26b9">The <code>#define</code> statement</a></li>
-<li><a href="#orgdd81f68">Macros</a>
+<li><a href="#orgf9277ca">The <code>#define</code> statement</a></li>
+<li><a href="#org9757e79">Macros</a>
 <ul>
-<li><a href="#org643b61e">Variadic Macros</a></li>
+<li><a href="#org69c0cd5">Variadic Macros</a></li>
 </ul>
 </li>
-<li><a href="#org47ca81e">The <code>#include</code> statement</a></li>
-<li><a href="#orgd833d3d">Conditional compilation</a></li>
-<li><a href="#orga94ee16">Links</a></li>
+<li><a href="#orga80c4a4">The <code>#include</code> statement</a></li>
+<li><a href="#orgd4bc156">Conditional compilation</a></li>
+<li><a href="#orge6f423e">Links</a></li>
 </ul>
 </div>
 </div>
@@ -260,18 +261,18 @@ programs more efficient, more readable, and more portable to multiple
 systems.
 </p>
 
-<div id="outline-container-orga6c26b9" class="outline-2">
-<h2 id="orga6c26b9">The <code>#define</code> statement</h2>
-<div class="outline-text-2" id="text-orga6c26b9">
+<div id="outline-container-orgf9277ca" class="outline-2">
+<h2 id="orgf9277ca">The <code>#define</code> statement</h2>
+<div class="outline-text-2" id="text-orgf9277ca">
 <p>
 You can use <code>#define</code> statements to assign symbolic names to program
 constants. For example:
 </p>
 
 <div class="org-src-container">
-<pre class="src src-c"><span style="color: #bc6ec5;">#define</span> <span style="color: #7590db;">YES</span> <span style="color: #a45bad;">1</span>
-<span style="color: #bc6ec5;">#define</span> <span style="color: #7590db;">PI</span> <span style="color: #a45bad;">3.14</span>
-<span style="color: #bc6ec5;">#define</span> <span style="color: #7590db;">MYNAME</span> <span style="color: #2d9574;">"paul"</span>
+<pre class="src src-c"><span style="color: #483d8b;">#define</span> <span style="color: #a0522d;">YES</span> 1
+<span style="color: #483d8b;">#define</span> <span style="color: #a0522d;">PI</span> 3.14
+<span style="color: #483d8b;">#define</span> <span style="color: #a0522d;">MYNAME</span> <span style="color: #8b2252;">"paul"</span>
 </pre>
 </div>
 
@@ -293,9 +294,9 @@ common convention is to put them at the top of source code files.
 </div>
 </div>
 
-<div id="outline-container-orgdd81f68" class="outline-2">
-<h2 id="orgdd81f68">Macros</h2>
-<div class="outline-text-2" id="text-orgdd81f68">
+<div id="outline-container-org9757e79" class="outline-2">
+<h2 id="org9757e79">Macros</h2>
+<div class="outline-text-2" id="text-org9757e79">
 <p>
 You can use <code>#define</code> statements in more advanced ways, which are
 sometimes called <b>macros</b> (a macro is typically used to define
@@ -308,7 +309,7 @@ number like this:
 </p>
 
 <div class="org-src-container">
-<pre class="src src-c"><span style="color: #bc6ec5;">#define</span> <span style="color: #bc6ec5; font-weight: bold;">SQUARE</span><span style="color: #4f97d7;">(</span><span style="color: #7590db;">n</span><span style="color: #4f97d7;">)</span> n*n
+<pre class="src src-c"><span style="color: #483d8b;">#define</span> <span style="color: #0000ff;">SQUARE</span>(<span style="color: #a0522d;">n</span>) n*n
 </pre>
 </div>
 
@@ -317,8 +318,8 @@ Then you could use it in your code like this:
 </p>
 
 <div class="org-src-container">
-<pre class="src src-c"><span style="color: #ce537a; font-weight: bold;">int</span> <span style="color: #7590db;">x</span> = <span style="color: #a45bad;">3</span>;
-<span style="color: #ce537a; font-weight: bold;">int</span> <span style="color: #7590db;">y</span> = SQUARE<span style="color: #4f97d7;">(</span>x<span style="color: #4f97d7;">)</span>;
+<pre class="src src-c"><span style="color: #228b22;">int</span> <span style="color: #a0522d;">x</span> = 3;
+<span style="color: #228b22;">int</span> <span style="color: #a0522d;">y</span> = SQUARE(x);
 </pre>
 </div>
 
@@ -327,7 +328,7 @@ Another common example of macros is to define a macro to return the maximum valu
 </p>
 
 <div class="org-src-container">
-<pre class="src src-c"><span style="color: #bc6ec5;">#define</span> <span style="color: #bc6ec5; font-weight: bold;">MAX</span><span style="color: #4f97d7;">(</span><span style="color: #7590db;">a</span>,<span style="color: #7590db;">b</span><span style="color: #4f97d7;">)</span> <span style="color: #4f97d7;">(</span> <span style="color: #bc6ec5;">(</span><span style="color: #2d9574;">(</span>a<span style="color: #2d9574;">)</span> &gt; <span style="color: #2d9574;">(</span>b<span style="color: #2d9574;">)</span><span style="color: #bc6ec5;">)</span> ? <span style="color: #bc6ec5;">(</span>a<span style="color: #bc6ec5;">)</span> : <span style="color: #bc6ec5;">(</span>b<span style="color: #bc6ec5;">)</span> <span style="color: #4f97d7;">)</span>
+<pre class="src src-c"><span style="color: #483d8b;">#define</span> <span style="color: #0000ff;">MAX</span>(<span style="color: #a0522d;">a</span>,<span style="color: #a0522d;">b</span>) ( ((a) &gt; (b)) ? (a) : (b) )
 </pre>
 </div>
 
@@ -336,21 +337,21 @@ Another one is to determine if a character is lower-case:
 </p>
 
 <div class="org-src-container">
-<pre class="src src-c"><span style="color: #bc6ec5;">#define</span> <span style="color: #bc6ec5; font-weight: bold;">IS_LOWER_CASE</span><span style="color: #4f97d7;">(</span><span style="color: #7590db;">x</span><span style="color: #4f97d7;">)</span> <span style="color: #4f97d7;">(</span> <span style="color: #bc6ec5;">(</span><span style="color: #2d9574;">(</span>x<span style="color: #2d9574;">)</span> &gt;= <span style="color: #2d9574;">'a'</span><span style="color: #bc6ec5;">)</span> &amp;&amp; <span style="color: #bc6ec5;">(</span><span style="color: #2d9574;">(</span>x<span style="color: #2d9574;">)</span> &lt;= <span style="color: #2d9574;">'z'</span><span style="color: #bc6ec5;">)</span> <span style="color: #4f97d7;">)</span>
+<pre class="src src-c"><span style="color: #483d8b;">#define</span> <span style="color: #0000ff;">IS_LOWER_CASE</span>(<span style="color: #a0522d;">x</span>) ( ((x) &gt;= <span style="color: #8b2252;">'a'</span>) &amp;&amp; ((x) &lt;= <span style="color: #8b2252;">'z'</span>) )
 </pre>
 </div>
 </div>
 
-<div id="outline-container-org643b61e" class="outline-3">
-<h3 id="org643b61e">Variadic Macros</h3>
-<div class="outline-text-3" id="text-org643b61e">
+<div id="outline-container-org69c0cd5" class="outline-3">
+<h3 id="org69c0cd5">Variadic Macros</h3>
+<div class="outline-text-3" id="text-org69c0cd5">
 <p>
 A Variadic macro is one with a variable number of arguments (one can
 also write variadic functions in C). Here is an example:
 </p>
 
 <div class="org-src-container">
-<pre class="src src-c"><span style="color: #bc6ec5;">#define</span> <span style="color: #bc6ec5; font-weight: bold;">debugPrintf</span><span style="color: #4f97d7;">(</span>...<span style="color: #4f97d7;">)</span> printf<span style="color: #4f97d7;">(</span><span style="color: #2d9574;">"DEBUG: "</span> __VA_ARGS__<span style="color: #4f97d7;">)</span>;
+<pre class="src src-c"><span style="color: #483d8b;">#define</span> <span style="color: #0000ff;">debugPrintf</span>(...) printf(<span style="color: #8b2252;">"DEBUG: "</span> __VA_ARGS__);
 </pre>
 </div>
 
@@ -359,7 +360,7 @@ Now we could use this in the following way, either with one argument:
 </p>
 
 <div class="org-src-container">
-<pre class="src src-c">debugPrintf<span style="color: #4f97d7;">(</span><span style="color: #2d9574;">"Hello World!\n"</span><span style="color: #4f97d7;">)</span>;
+<pre class="src src-c">debugPrintf(<span style="color: #8b2252;">"Hello World!\n"</span>);
 </pre>
 </div>
 
@@ -372,9 +373,9 @@ or with multiple arguments:
 </p>
 
 <div class="org-src-container">
-<pre class="src src-c"><span style="color: #ce537a; font-weight: bold;">int</span> <span style="color: #7590db;">x</span>=<span style="color: #a45bad;">12</span>;
-<span style="color: #ce537a; font-weight: bold;">int</span> <span style="color: #7590db;">y</span>=<span style="color: #a45bad;">13</span>;
-debugPrintf<span style="color: #4f97d7;">(</span><span style="color: #2d9574;">"x=%d, y=%d\n"</span>, x, y<span style="color: #4f97d7;">)</span>;
+<pre class="src src-c"><span style="color: #228b22;">int</span> <span style="color: #a0522d;">x</span>=12;
+<span style="color: #228b22;">int</span> <span style="color: #a0522d;">y</span>=13;
+debugPrintf(<span style="color: #8b2252;">"x=%d, y=%d\n"</span>, x, y);
 </pre>
 </div>
 
@@ -391,9 +392,9 @@ macros. Here is a link to some examples: <a href="http://gcc.gnu.org/onlinedocs/
 </div>
 </div>
 
-<div id="outline-container-org47ca81e" class="outline-2">
-<h2 id="org47ca81e">The <code>#include</code> statement</h2>
-<div class="outline-text-2" id="text-org47ca81e">
+<div id="outline-container-orga80c4a4" class="outline-2">
+<h2 id="orga80c4a4">The <code>#include</code> statement</h2>
+<div class="outline-text-2" id="text-orga80c4a4">
 <p>
 We will be looking at this later, even though it is part of the
 preprocessor, when we talk about working with multiple files, and
@@ -402,9 +403,9 @@ linking to libraries, etc.
 </div>
 </div>
 
-<div id="outline-container-orgd833d3d" class="outline-2">
-<h2 id="orgd833d3d">Conditional compilation</h2>
-<div class="outline-text-2" id="text-orgd833d3d">
+<div id="outline-container-orgd4bc156" class="outline-2">
+<h2 id="orgd4bc156">Conditional compilation</h2>
+<div class="outline-text-2" id="text-orgd4bc156">
 <p>
 One can use <code>#ifdef</code>, <code>#endif</code>, <code>#else</code> and <code>#ifndef</code> statments to
 achieve conditional compilation, for example to create one program
@@ -417,9 +418,9 @@ look at some examples <a href="http://gcc.gnu.org/onlinedocs/gcc-3.0.1/cpp_4.htm
 </div>
 </div>
 
-<div id="outline-container-orga94ee16" class="outline-2">
-<h2 id="orga94ee16">Links</h2>
-<div class="outline-text-2" id="text-orga94ee16">
+<div id="outline-container-orge6f423e" class="outline-2">
+<h2 id="orge6f423e">Links</h2>
+<div class="outline-text-2" id="text-orge6f423e">
 <ul class="org-ul">
 <li><a href="http://en.wikipedia.org/wiki/C_preprocessor">C preprocessor</a></li>
 <li><a href="http://gcc.gnu.org/onlinedocs/cpp/Macros.html">Macros</a></li>

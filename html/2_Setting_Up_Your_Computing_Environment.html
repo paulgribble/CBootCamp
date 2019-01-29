@@ -3,7 +3,7 @@
 "http://www.w3.org/TR/xhtml1/DTD/xhtml1-strict.dtd">
 <html xmlns="http://www.w3.org/1999/xhtml" lang="en" xml:lang="en">
 <head>
-<!-- 2017-04-24 Mon 07:07 -->
+<!-- 2019-01-28 Mon 21:23 -->
 <meta http-equiv="Content-Type" content="text/html;charset=utf-8" />
 <meta name="viewport" content="width=device-width, initial-scale=1" />
 <title>2. Setting Up Your Computing Environment</title>
@@ -68,6 +68,7 @@
   pre.src-fortran:before { content: 'Fortran'; }
   pre.src-gnuplot:before { content: 'gnuplot'; }
   pre.src-haskell:before { content: 'Haskell'; }
+  pre.src-hledger:before { content: 'hledger'; }
   pre.src-java:before { content: 'Java'; }
   pre.src-js:before { content: 'Javascript'; }
   pre.src-latex:before { content: 'LaTeX'; }
@@ -185,7 +186,7 @@
 @licstart  The following is the entire license notice for the
 JavaScript code in this tag.
 
-Copyright (C) 2012-2013 Free Software Foundation, Inc.
+Copyright (C) 2012-2018 Free Software Foundation, Inc.
 
 The JavaScript code in this tag is free software: you can
 redistribute it and/or modify it under the terms of the GNU
@@ -238,33 +239,33 @@ for the JavaScript code in this tag.
 <h2>Table of Contents</h2>
 <div id="text-table-of-contents">
 <ul>
-<li><a href="#orgb3a0b45">Install some basic tools</a>
+<li><a href="#orga08ddf7">Install some basic tools</a>
 <ul>
-<li><a href="#org225290d">GNU/Linux</a>
+<li><a href="#org56c6261">GNU/Linux</a>
 <ul>
-<li><a href="#orge3b424f">Compiler</a></li>
-<li><a href="#orgf46056e">Source code editors</a></li>
+<li><a href="#org83a9ffe">Compiler</a></li>
+<li><a href="#orgd9b4382">Source code editors</a></li>
 </ul>
 </li>
-<li><a href="#orgb9c2c9a">Mac OS X</a>
+<li><a href="#org8af7392">Mac OS X</a>
 <ul>
-<li><a href="#org9adde6e">Compiler</a></li>
-<li><a href="#org01f7dc2">Source code editors</a></li>
+<li><a href="#orgcc082f2">Compiler</a></li>
+<li><a href="#org32b1dfb">Source code editors</a></li>
 </ul>
 </li>
-<li><a href="#orgc4a4d50">Windows</a></li>
-<li><a href="#org5f4852e">A note about IDEs</a></li>
+<li><a href="#org8712c1a">Windows</a></li>
+<li><a href="#orgbbc81bf">A note about IDEs</a></li>
 </ul>
 </li>
-<li><a href="#orgf09bdf0">Exercises</a></li>
+<li><a href="#org9499780">Exercises</a></li>
 </ul>
 </div>
 </div>
 <hr />
 
-<div id="outline-container-orgb3a0b45" class="outline-2">
-<h2 id="orgb3a0b45">Install some basic tools</h2>
-<div class="outline-text-2" id="text-orgb3a0b45">
+<div id="outline-container-orga08ddf7" class="outline-2">
+<h2 id="orga08ddf7">Install some basic tools</h2>
+<div class="outline-text-2" id="text-orga08ddf7">
 <p>
 No matter which operating system you are using (GNU/Linux, Mac,
 Windows), you will need at least two things:
@@ -276,9 +277,9 @@ Windows), you will need at least two things:
 </ol>
 </div>
 
-<div id="outline-container-org225290d" class="outline-3">
-<h3 id="org225290d">GNU/Linux</h3>
-<div class="outline-text-3" id="text-org225290d">
+<div id="outline-container-org56c6261" class="outline-3">
+<h3 id="org56c6261">GNU/Linux</h3>
+<div class="outline-text-3" id="text-org56c6261">
 <p>
 You have it easy. Most GNU/Linux distributions include a <b>package
 manager</b> that allows you to quickly and easily install software from
@@ -286,9 +287,9 @@ centralized, up-to-date repositories.
 </p>
 </div>
 
-<div id="outline-container-orge3b424f" class="outline-4">
-<h4 id="orge3b424f">Compiler</h4>
-<div class="outline-text-4" id="text-orge3b424f">
+<div id="outline-container-org83a9ffe" class="outline-4">
+<h4 id="org83a9ffe">Compiler</h4>
+<div class="outline-text-4" id="text-org83a9ffe">
 <p>
 If you are using <a href="http://www.ubuntu.com">Ubuntu</a>, just open up a <a href="https://help.ubuntu.com/community/UsingTheTerminal">Terminal</a> and type
 the following command to install the tools you will need:
@@ -310,9 +311,9 @@ gcc --version
 </div>
 </div>
 
-<div id="outline-container-orgf46056e" class="outline-4">
-<h4 id="orgf46056e">Source code editors</h4>
-<div class="outline-text-4" id="text-orgf46056e">
+<div id="outline-container-orgd9b4382" class="outline-4">
+<h4 id="orgd9b4382">Source code editors</h4>
+<div class="outline-text-4" id="text-orgd9b4382">
 <p>
 When you write C source code, you save it in one or more plain ascii
 <a href="https://en.wikipedia.org/wiki/Text_file">text files</a>. Any editor that is capable of reading and writing plain
@@ -349,12 +350,13 @@ C). Check it out.
 </div>
 </div>
 
-<div id="outline-container-orgb9c2c9a" class="outline-3">
-<h3 id="orgb9c2c9a">Mac OS X</h3>
-<div class="outline-text-3" id="text-orgb9c2c9a">
-</div><div id="outline-container-org9adde6e" class="outline-4">
-<h4 id="org9adde6e">Compiler</h4>
-<div class="outline-text-4" id="text-org9adde6e">
+<div id="outline-container-org8af7392" class="outline-3">
+<h3 id="org8af7392">Mac OS X</h3>
+<div class="outline-text-3" id="text-org8af7392">
+</div>
+<div id="outline-container-orgcc082f2" class="outline-4">
+<h4 id="orgcc082f2">Compiler</h4>
+<div class="outline-text-4" id="text-orgcc082f2">
 <p>
 One the Mac, the standard way of obtaining the required developer
 tools is to download Apple's <a href="https://developer.apple.com/xcode/">Xcode</a> software. You can either download
@@ -383,9 +385,9 @@ gcc --version
 </div>
 </div>
 
-<div id="outline-container-org01f7dc2" class="outline-4">
-<h4 id="org01f7dc2">Source code editors</h4>
-<div class="outline-text-4" id="text-org01f7dc2">
+<div id="outline-container-org32b1dfb" class="outline-4">
+<h4 id="org32b1dfb">Source code editors</h4>
+<div class="outline-text-4" id="text-org32b1dfb">
 <p>
 On the mac there are a host of editors to choose from. OS X comes with
 <a href="https://en.wikipedia.org/wiki/TextEdit">TextEdit</a>, which can read/write rich-text format (rtf) as well as plain
@@ -419,9 +421,9 @@ edit -&gt; compile -&gt; run workflow.
 </div>
 </div>
 
-<div id="outline-container-orgc4a4d50" class="outline-3">
-<h3 id="orgc4a4d50">Windows</h3>
-<div class="outline-text-3" id="text-orgc4a4d50">
+<div id="outline-container-org8712c1a" class="outline-3">
+<h3 id="org8712c1a">Windows</h3>
+<div class="outline-text-3" id="text-org8712c1a">
 <p>
 If you are using Windows, one option is to install and use <a href="http://cygwin.com/">Cygwin</a>,
 which is a collection of tools that provide unix-like funcionality
@@ -445,9 +447,9 @@ tutorial, which will be run using examples in GNU/Linux.
 </div>
 </div>
 
-<div id="outline-container-org5f4852e" class="outline-3">
-<h3 id="org5f4852e">A note about IDEs</h3>
-<div class="outline-text-3" id="text-org5f4852e">
+<div id="outline-container-orgbbc81bf" class="outline-3">
+<h3 id="orgbbc81bf">A note about IDEs</h3>
+<div class="outline-text-3" id="text-orgbbc81bf">
 <p>
 IDEs (<a href="https://en.wikipedia.org/wiki/Integrated_development_environment">Integrated Development Environments</a>) are programs that combine
 several development tools together into one unified environment. IDEs
@@ -473,9 +475,9 @@ suggest using an IDE unless you are already familiar with one.
 </div>
 </div>
 
-<div id="outline-container-orgf09bdf0" class="outline-2">
-<h2 id="orgf09bdf0">Exercises</h2>
-<div class="outline-text-2" id="text-orgf09bdf0">
+<div id="outline-container-org9499780" class="outline-2">
+<h2 id="org9499780">Exercises</h2>
+<div class="outline-text-2" id="text-org9499780">
 <ul class="org-ul">
 <li>1 Test your environment</li>
 </ul>
@@ -486,12 +488,12 @@ to a file called <code>hello.c</code>:
 </p>
 
 <div class="org-src-container">
-<pre class="src src-c"><span style="color: #bc6ec5;">#include</span> <span style="color: #4f97d7;">&lt;</span><span style="color: #2d9574;">stdio.h</span><span style="color: #4f97d7;">&gt;</span>
+<pre class="src src-c"><span style="color: #483d8b;">#include</span> <span style="color: #8b2252;">&lt;stdio.h&gt;</span>
 
-<span style="color: #ce537a; font-weight: bold;">int</span> <span style="color: #bc6ec5; font-weight: bold;">main</span><span style="color: #4f97d7;">()</span> <span style="color: #4f97d7;">{</span>
-  printf<span style="color: #bc6ec5;">(</span><span style="color: #2d9574;">"hello world!\n"</span><span style="color: #bc6ec5;">)</span>;
-  <span style="color: #4f97d7; font-weight: bold;">return</span> <span style="color: #a45bad;">0</span>;
-<span style="color: #4f97d7;">}</span>
+<span style="color: #228b22;">int</span> <span style="color: #0000ff;">main</span>() {
+  printf(<span style="color: #8b2252;">"hello world!\n"</span>);
+  <span style="color: #a020f0;">return</span> 0;
+}
 </pre>
 </div>
 

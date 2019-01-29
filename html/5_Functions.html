@@ -3,12 +3,12 @@
 "http://www.w3.org/TR/xhtml1/DTD/xhtml1-strict.dtd">
 <html xmlns="http://www.w3.org/1999/xhtml" lang="en" xml:lang="en">
 <head>
-<!-- 2018-01-29 Mon 13:02 -->
-<meta  http-equiv="Content-Type" content="text/html;charset=utf-8" />
-<meta  name="viewport" content="width=device-width, initial-scale=1" />
+<!-- 2019-01-28 Mon 21:23 -->
+<meta http-equiv="Content-Type" content="text/html;charset=utf-8" />
+<meta name="viewport" content="width=device-width, initial-scale=1" />
 <title>5. Functions</title>
-<meta  name="generator" content="Org-mode" />
-<meta  name="author" content="Paul Gribble" />
+<meta name="generator" content="Org mode" />
+<meta name="author" content="Paul Gribble" />
 <style type="text/css">
  <!--/*--><![CDATA[/*><!--*/
   .title  { text-align: center;
@@ -53,13 +53,98 @@
     border: 1px solid black;
   }
   pre.src:hover:before { display: inline;}
-  pre.src-sh:before    { content: 'sh'; }
-  pre.src-bash:before  { content: 'sh'; }
+  /* Languages per Org manual */
+  pre.src-asymptote:before { content: 'Asymptote'; }
+  pre.src-awk:before { content: 'Awk'; }
+  pre.src-C:before { content: 'C'; }
+  /* pre.src-C++ doesn't work in CSS */
+  pre.src-clojure:before { content: 'Clojure'; }
+  pre.src-css:before { content: 'CSS'; }
+  pre.src-D:before { content: 'D'; }
+  pre.src-ditaa:before { content: 'ditaa'; }
+  pre.src-dot:before { content: 'Graphviz'; }
+  pre.src-calc:before { content: 'Emacs Calc'; }
   pre.src-emacs-lisp:before { content: 'Emacs Lisp'; }
-  pre.src-R:before     { content: 'R'; }
-  pre.src-perl:before  { content: 'Perl'; }
-  pre.src-java:before  { content: 'Java'; }
-  pre.src-sql:before   { content: 'SQL'; }
+  pre.src-fortran:before { content: 'Fortran'; }
+  pre.src-gnuplot:before { content: 'gnuplot'; }
+  pre.src-haskell:before { content: 'Haskell'; }
+  pre.src-hledger:before { content: 'hledger'; }
+  pre.src-java:before { content: 'Java'; }
+  pre.src-js:before { content: 'Javascript'; }
+  pre.src-latex:before { content: 'LaTeX'; }
+  pre.src-ledger:before { content: 'Ledger'; }
+  pre.src-lisp:before { content: 'Lisp'; }
+  pre.src-lilypond:before { content: 'Lilypond'; }
+  pre.src-lua:before { content: 'Lua'; }
+  pre.src-matlab:before { content: 'MATLAB'; }
+  pre.src-mscgen:before { content: 'Mscgen'; }
+  pre.src-ocaml:before { content: 'Objective Caml'; }
+  pre.src-octave:before { content: 'Octave'; }
+  pre.src-org:before { content: 'Org mode'; }
+  pre.src-oz:before { content: 'OZ'; }
+  pre.src-plantuml:before { content: 'Plantuml'; }
+  pre.src-processing:before { content: 'Processing.js'; }
+  pre.src-python:before { content: 'Python'; }
+  pre.src-R:before { content: 'R'; }
+  pre.src-ruby:before { content: 'Ruby'; }
+  pre.src-sass:before { content: 'Sass'; }
+  pre.src-scheme:before { content: 'Scheme'; }
+  pre.src-screen:before { content: 'Gnu Screen'; }
+  pre.src-sed:before { content: 'Sed'; }
+  pre.src-sh:before { content: 'shell'; }
+  pre.src-sql:before { content: 'SQL'; }
+  pre.src-sqlite:before { content: 'SQLite'; }
+  /* additional languages in org.el's org-babel-load-languages alist */
+  pre.src-forth:before { content: 'Forth'; }
+  pre.src-io:before { content: 'IO'; }
+  pre.src-J:before { content: 'J'; }
+  pre.src-makefile:before { content: 'Makefile'; }
+  pre.src-maxima:before { content: 'Maxima'; }
+  pre.src-perl:before { content: 'Perl'; }
+  pre.src-picolisp:before { content: 'Pico Lisp'; }
+  pre.src-scala:before { content: 'Scala'; }
+  pre.src-shell:before { content: 'Shell Script'; }
+  pre.src-ebnf2ps:before { content: 'ebfn2ps'; }
+  /* additional language identifiers per "defun org-babel-execute"
+       in ob-*.el */
+  pre.src-cpp:before  { content: 'C++'; }
+  pre.src-abc:before  { content: 'ABC'; }
+  pre.src-coq:before  { content: 'Coq'; }
+  pre.src-groovy:before  { content: 'Groovy'; }
+  /* additional language identifiers from org-babel-shell-names in
+     ob-shell.el: ob-shell is the only babel language using a lambda to put
+     the execution function name together. */
+  pre.src-bash:before  { content: 'bash'; }
+  pre.src-csh:before  { content: 'csh'; }
+  pre.src-ash:before  { content: 'ash'; }
+  pre.src-dash:before  { content: 'dash'; }
+  pre.src-ksh:before  { content: 'ksh'; }
+  pre.src-mksh:before  { content: 'mksh'; }
+  pre.src-posh:before  { content: 'posh'; }
+  /* Additional Emacs modes also supported by the LaTeX listings package */
+  pre.src-ada:before { content: 'Ada'; }
+  pre.src-asm:before { content: 'Assembler'; }
+  pre.src-caml:before { content: 'Caml'; }
+  pre.src-delphi:before { content: 'Delphi'; }
+  pre.src-html:before { content: 'HTML'; }
+  pre.src-idl:before { content: 'IDL'; }
+  pre.src-mercury:before { content: 'Mercury'; }
+  pre.src-metapost:before { content: 'MetaPost'; }
+  pre.src-modula-2:before { content: 'Modula-2'; }
+  pre.src-pascal:before { content: 'Pascal'; }
+  pre.src-ps:before { content: 'PostScript'; }
+  pre.src-prolog:before { content: 'Prolog'; }
+  pre.src-simula:before { content: 'Simula'; }
+  pre.src-tcl:before { content: 'tcl'; }
+  pre.src-tex:before { content: 'TeX'; }
+  pre.src-plain-tex:before { content: 'Plain TeX'; }
+  pre.src-verilog:before { content: 'Verilog'; }
+  pre.src-vhdl:before { content: 'VHDL'; }
+  pre.src-xml:before { content: 'XML'; }
+  pre.src-nxml:before { content: 'XML'; }
+  /* add a generic configuration mode; LaTeX export needs an additional
+     (add-to-list 'org-latex-listings-langs '(conf " ")) in .emacs */
+  pre.src-conf:before { content: 'Configuration File'; }
 
   table { border-collapse:collapse; }
   caption.t-above { caption-side: top; }
@@ -92,6 +177,7 @@
     { font-size: 10px; font-weight: bold; white-space: nowrap; }
   .org-info-js_search-highlight
     { background-color: #ffff00; color: #000000; font-weight: bold; }
+  .org-svg { width: 90%; }
   /*]]>*/-->
 </style>
 <link rel="stylesheet" type="text/css" href="mystyle.css" /><script>(function(i,s,o,g,r,a,m){i['GoogleAnalyticsObject']=r;i[r]=i[r]||function(){(i[r].q=i[r].q||[]).push(arguments)},i[r].l=1*new Date();a=s.createElement(o),m=s.getElementsByTagName(o)[0];a.async=1;a.src=g;m.parentNode.insertBefore(a,m)})(window,document,'script','//www.google-analytics.com/analytics.js','ga');ga('create', 'UA-52544521-1', 'auto');ga('send', 'pageview');</script>
@@ -100,7 +186,7 @@
 @licstart  The following is the entire license notice for the
 JavaScript code in this tag.
 
-Copyright (C) 2012-2013 Free Software Foundation, Inc.
+Copyright (C) 2012-2018 Free Software Foundation, Inc.
 
 The JavaScript code in this tag is free software: you can
 redistribute it and/or modify it under the terms of the GNU
@@ -162,7 +248,7 @@ for the JavaScript code in this tag.
 });
 </script>
 <script type="text/javascript"
-        src="http://cdn.mathjax.org/mathjax/latest/MathJax.js?config=TeX-AMS_HTML"></script>
+        src="https://cdnjs.cloudflare.com/ajax/libs/mathjax/2.7.0/MathJax.js?config=TeX-AMS_HTML"></script>
 </head>
 <body>
 <div id="org-div-home-and-up">
@@ -175,35 +261,35 @@ for the JavaScript code in this tag.
 <h2>Table of Contents</h2>
 <div id="text-table-of-contents">
 <ul>
-<li><a href="#orgheadline1">Rationale</a>
+<li><a href="#orgd144073">Rationale</a>
 <ul>
-<li><a href="#orgheadline2">Abstraction</a></li>
+<li><a href="#org0f0cb34">Abstraction</a></li>
 </ul>
 </li>
-<li><a href="#orgheadline3">Defining a Function</a></li>
-<li><a href="#orgheadline4">Input Arguments</a></li>
-<li><a href="#orgheadline5">Return Value</a>
+<li><a href="#org422f1a0">Defining a Function</a></li>
+<li><a href="#org813d811">Input Arguments</a></li>
+<li><a href="#org00d4750">Return Value</a>
 <ul>
-<li><a href="#orgheadline6">Recursion</a></li>
+<li><a href="#org6e6eba0">Recursion</a></li>
 </ul>
 </li>
-<li><a href="#orgheadline7">Argument Checking</a></li>
-<li><a href="#orgheadline8">Variable Scope</a></li>
-<li><a href="#orgheadline9">Automatic vs Static Variables</a></li>
-<li><a href="#orgheadline10">Variadic Functions</a></li>
-<li><a href="#orgheadline11">Exercises</a>
+<li><a href="#orgbb5590e">Argument Checking</a></li>
+<li><a href="#org4462642">Variable Scope</a></li>
+<li><a href="#org33019b5">Automatic vs Static Variables</a></li>
+<li><a href="#org77482ed">Variadic Functions</a></li>
+<li><a href="#orgf83ea88">Exercises</a>
 <ul>
-<li><a href="#orgheadline12">Solutions</a></li>
+<li><a href="#orge66e72d">Solutions</a></li>
 </ul>
 </li>
 </ul>
 </div>
 </div>
-<hr  />
+<hr />
 
-<div id="outline-container-orgheadline1" class="outline-2">
-<h2 id="orgheadline1">Rationale</h2>
-<div class="outline-text-2" id="text-orgheadline1">
+<div id="outline-container-orgd144073" class="outline-2">
+<h2 id="orgd144073">Rationale</h2>
+<div class="outline-text-2" id="text-orgd144073">
 <p>
 Breaking your code down into discrete functions allows you to re-use
 code in intelligent ways, and to make your code more efficient
@@ -220,7 +306,6 @@ look like this:
 </p>
 
 <div class="org-src-container">
-
 <pre class="src src-c"><span style="color: #483d8b;">#include</span> <span style="color: #8b2252;">&lt;stdio.h&gt;</span>
 
 <span style="color: #228b22;">int</span> <span style="color: #0000ff;">main</span>() {
@@ -244,9 +329,9 @@ steps we wish to.
 </p>
 </div>
 
-<div id="outline-container-orgheadline2" class="outline-3">
-<h3 id="orgheadline2">Abstraction</h3>
-<div class="outline-text-3" id="text-orgheadline2">
+<div id="outline-container-org0f0cb34" class="outline-3">
+<h3 id="org0f0cb34">Abstraction</h3>
+<div class="outline-text-3" id="text-org0f0cb34">
 <p>
 Using functions to abstract away the details also means that as long
 as the function inputs and outputs are known, then the user doesn't
@@ -269,15 +354,14 @@ perhaps get faster (or more accurate, for example) functionality
 </div>
 </div>
 
-<div id="outline-container-orgheadline3" class="outline-2">
-<h2 id="orgheadline3">Defining a Function</h2>
-<div class="outline-text-2" id="text-orgheadline3">
+<div id="outline-container-org422f1a0" class="outline-2">
+<h2 id="org422f1a0">Defining a Function</h2>
+<div class="outline-text-2" id="text-org422f1a0">
 <p>
 A function must be defined in the following way:
 </p>
 
 <div class="org-src-container">
-
 <pre class="src src-c"><span style="color: #228b22;">returnType</span> <span style="color: #0000ff;">functionName</span> (<span style="color: #228b22;">arg1Type</span> <span style="color: #a0522d;">arg1Name</span>, <span style="color: #228b22;">arg2Type</span> <span style="color: #a0522d;">arg2Name</span>) {
    function_statement;
    function_statement;
@@ -306,7 +390,6 @@ that writes a message to the screen, "Hello, Paul":
 </p>
 
 <div class="org-src-container">
-
 <pre class="src src-c"><span style="color: #228b22;">void</span> <span style="color: #0000ff;">writeMessage</span>(<span style="color: #228b22;">void</span>) {
    printf(<span style="color: #8b2252;">"Hello, Paul\n"</span>);
 }
@@ -320,7 +403,6 @@ expect any inputs. We can call the function in a program like this:
 </p>
 
 <div class="org-src-container">
-
 <pre class="src src-c"><span style="color: #483d8b;">#include</span> <span style="color: #8b2252;">&lt;stdio.h&gt;</span>
 
 <span style="color: #228b22;">void</span> <span style="color: #0000ff;">writeMessage</span>(<span style="color: #228b22;">void</span>) {
@@ -340,9 +422,9 @@ Hello, Paul
 </div>
 </div>
 
-<div id="outline-container-orgheadline4" class="outline-2">
-<h2 id="orgheadline4">Input Arguments</h2>
-<div class="outline-text-2" id="text-orgheadline4">
+<div id="outline-container-org813d811" class="outline-2">
+<h2 id="org813d811">Input Arguments</h2>
+<div class="outline-text-2" id="text-org813d811">
 <p>
 Now let's modify our function so that it accepts one input argument,
 which is a string containing the name we want to say hello to. So for
@@ -353,7 +435,6 @@ Victoria</code>, etc:
 </p>
 
 <div class="org-src-container">
-
 <pre class="src src-C"><span style="color: #483d8b;">#include</span> <span style="color: #8b2252;">&lt;stdio.h&gt;</span>
 
 <span style="color: #228b22;">void</span> <span style="color: #0000ff;">writeMessage</span>(<span style="color: #228b22;">char</span> <span style="color: #a0522d;">name</span>[]) {
@@ -383,7 +464,6 @@ Let's give our function two input arguments now, just to see how this is done:
 </p>
 
 <div class="org-src-container">
-
 <pre class="src src-C"><span style="color: #483d8b;">#include</span> <span style="color: #8b2252;">&lt;stdio.h&gt;</span>
 
 <span style="color: #228b22;">void</span> <span style="color: #0000ff;">writeMessage</span>(<span style="color: #228b22;">char</span> <span style="color: #a0522d;">name</span>[], <span style="color: #228b22;">int</span> <span style="color: #a0522d;">n</span>) {
@@ -405,9 +485,9 @@ Hello, Victoria 444
 </div>
 </div>
 
-<div id="outline-container-orgheadline5" class="outline-2">
-<h2 id="orgheadline5">Return Value</h2>
-<div class="outline-text-2" id="text-orgheadline5">
+<div id="outline-container-org00d4750" class="outline-2">
+<h2 id="org00d4750">Return Value</h2>
+<div class="outline-text-2" id="text-org00d4750">
 <p>
 Let's consider another example, one where we want our function to
 return a value. Let's write a function to compute Fibonacci numbers
@@ -423,7 +503,6 @@ where \(F_{0}=0\) and \(F_{1}=1\).
 </p>
 
 <div class="org-src-container">
-
 <pre class="src src-c"><span style="color: #483d8b;">#include</span> <span style="color: #8b2252;">&lt;stdio.h&gt;</span>
 
 <span style="color: #228b22;">int</span> <span style="color: #0000ff;">Fibonacci</span>(<span style="color: #228b22;">int</span> <span style="color: #a0522d;">n</span>) {
@@ -461,9 +540,9 @@ data types in the next section.
 </p>
 </div>
 
-<div id="outline-container-orgheadline6" class="outline-3">
-<h3 id="orgheadline6">Recursion</h3>
-<div class="outline-text-3" id="text-orgheadline6">
+<div id="outline-container-org6e6eba0" class="outline-3">
+<h3 id="org6e6eba0">Recursion</h3>
+<div class="outline-text-3" id="text-org6e6eba0">
 <p>
 Note in the Fibonacci example above, that in the body of our function,
 if the value of the input argument <code>n</code> is not <code>0</code> or <code>1</code>, then the
@@ -484,9 +563,9 @@ function using a loop instead of recursion. Another thing to try is
 </div>
 </div>
 
-<div id="outline-container-orgheadline7" class="outline-2">
-<h2 id="orgheadline7">Argument Checking</h2>
-<div class="outline-text-2" id="text-orgheadline7">
+<div id="outline-container-orgbb5590e" class="outline-2">
+<h2 id="orgbb5590e">Argument Checking</h2>
+<div class="outline-text-2" id="text-orgbb5590e">
 <p>
 Note that if we pass an argument of the wrong type to a function, the
 program may still compile, and even run, and it will simply spit out
@@ -497,9 +576,9 @@ the output values you receive from functions, are what is expected.
 </div>
 </div>
 
-<div id="outline-container-orgheadline8" class="outline-2">
-<h2 id="orgheadline8">Variable Scope</h2>
-<div class="outline-text-2" id="text-orgheadline8">
+<div id="outline-container-org4462642" class="outline-2">
+<h2 id="org4462642">Variable Scope</h2>
+<div class="outline-text-2" id="text-org4462642">
 <p>
 Any variables declared inside a function, are <b>local to that
 function</b>, and are not accessible outside of the function. Similarly,
@@ -523,7 +602,6 @@ accessed outside of <code>myFunc()</code> (for example within
 </p>
 
 <div class="org-src-container">
-
 <pre class="src src-c"><span style="color: #483d8b;">#include</span> <span style="color: #8b2252;">&lt;stdio.h&gt;</span>
 
 <span style="color: #228b22;">float</span> <span style="color: #a0522d;">myGlob</span> = 3.14;
@@ -555,9 +633,9 @@ my favourite float is 3.14
 </div>
 </div>
 
-<div id="outline-container-orgheadline9" class="outline-2">
-<h2 id="orgheadline9">Automatic vs Static Variables</h2>
-<div class="outline-text-2" id="text-orgheadline9">
+<div id="outline-container-org33019b5" class="outline-2">
+<h2 id="org33019b5">Automatic vs Static Variables</h2>
+<div class="outline-text-2" id="text-org33019b5">
 <p>
 We talked about variable <b>scope</b> and the idea that variables declared
 within a function are <b>local</b> to that function. What actually happens
@@ -587,7 +665,6 @@ of times the function <code>myFun()</code> has been called.
 </p>
 
 <div class="org-src-container">
-
 <pre class="src src-c"><span style="color: #483d8b;">#include</span> <span style="color: #8b2252;">&lt;stdio.h&gt;</span>
 
 <span style="color: #228b22;">void</span> <span style="color: #0000ff;">myFunc</span>(<span style="color: #228b22;">void</span>) {
@@ -624,9 +701,9 @@ created and initialized only once.
 </div>
 </div>
 
-<div id="outline-container-orgheadline10" class="outline-2">
-<h2 id="orgheadline10">Variadic Functions</h2>
-<div class="outline-text-2" id="text-orgheadline10">
+<div id="outline-container-org77482ed" class="outline-2">
+<h2 id="org77482ed">Variadic Functions</h2>
+<div class="outline-text-2" id="text-org77482ed">
 <p>
 A <a href="http://en.wikipedia.org/wiki/Variadic_function">variadic function</a> is one which accepts a variable number of input
 arguments. In C we can write functions that are variadic. Sometimes
@@ -639,7 +716,6 @@ Here is a simple example of how one would do this, taken from
 </p>
 
 <div class="org-src-container">
-
 <pre class="src src-c"><span style="color: #483d8b;">#include</span> <span style="color: #8b2252;">&lt;stdarg.h&gt;</span>
 <span style="color: #483d8b;">#include</span> <span style="color: #8b2252;">&lt;stdio.h&gt;</span>
 
@@ -692,9 +768,9 @@ input arguments when the program is started at the command line.
 </div>
 
 
-<div id="outline-container-orgheadline11" class="outline-2">
-<h2 id="orgheadline11">Exercises</h2>
-<div class="outline-text-2" id="text-orgheadline11">
+<div id="outline-container-orgf83ea88" class="outline-2">
+<h2 id="orgf83ea88">Exercises</h2>
+<div class="outline-text-2" id="text-orgf83ea88">
 <ul class="org-ul">
 <li>1 Write a function that computes the nth <a href="http://en.wikipedia.org/wiki/Fibonacci_number">Fibonacci number</a>. Your</li>
 </ul>
@@ -715,7 +791,6 @@ program [ <a href="code/exercises/5_1_go.c">code</a> ] and it should run:
 </p>
 
 <div class="org-src-container">
-
 <pre class="src src-c"><span style="color: #b22222;">// </span><span style="color: #b22222;">gcc -Wall -o go 5_1_go.c</span>
 
 <span style="color: #483d8b;">#include</span> <span style="color: #8b2252;">&lt;stdio.h&gt;</span>
@@ -754,7 +829,6 @@ program [ <a href="code/exercises/5_2_go.c">code</a> ] and it should run:
 </p>
 
 <div class="org-src-container">
-
 <pre class="src src-c"><span style="color: #b22222;">// </span><span style="color: #b22222;">gcc -Wall -o go 5_2_go.c</span>
 
 <span style="color: #483d8b;">#include</span> <span style="color: #8b2252;">&lt;stdio.h&gt;</span>
@@ -803,9 +877,9 @@ can find a list to verify the correctness of your program <a href="http://primes
 </pre>
 </div>
 
-<div id="outline-container-orgheadline12" class="outline-3">
-<h3 id="orgheadline12">Solutions</h3>
-<div class="outline-text-3" id="text-orgheadline12">
+<div id="outline-container-orge66e72d" class="outline-3">
+<h3 id="orge66e72d">Solutions</h3>
+<div class="outline-text-3" id="text-orge66e72d">
 <ul class="org-ul">
 <li><a href="code/exercises/5_1.c">1</a></li>
 <li><a href="code/exercises/5_2.c">2</a></li>

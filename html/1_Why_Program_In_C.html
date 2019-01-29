@@ -3,12 +3,12 @@
 "http://www.w3.org/TR/xhtml1/DTD/xhtml1-strict.dtd">
 <html xmlns="http://www.w3.org/1999/xhtml" lang="en" xml:lang="en">
 <head>
-<!-- 2018-01-29 Mon 13:02 -->
-<meta  http-equiv="Content-Type" content="text/html;charset=utf-8" />
-<meta  name="viewport" content="width=device-width, initial-scale=1" />
+<!-- 2019-01-28 Mon 21:23 -->
+<meta http-equiv="Content-Type" content="text/html;charset=utf-8" />
+<meta name="viewport" content="width=device-width, initial-scale=1" />
 <title>1. Why Program in C?</title>
-<meta  name="generator" content="Org-mode" />
-<meta  name="author" content="Paul Gribble" />
+<meta name="generator" content="Org mode" />
+<meta name="author" content="Paul Gribble" />
 <style type="text/css">
  <!--/*--><![CDATA[/*><!--*/
   .title  { text-align: center;
@@ -53,13 +53,98 @@
     border: 1px solid black;
   }
   pre.src:hover:before { display: inline;}
-  pre.src-sh:before    { content: 'sh'; }
-  pre.src-bash:before  { content: 'sh'; }
+  /* Languages per Org manual */
+  pre.src-asymptote:before { content: 'Asymptote'; }
+  pre.src-awk:before { content: 'Awk'; }
+  pre.src-C:before { content: 'C'; }
+  /* pre.src-C++ doesn't work in CSS */
+  pre.src-clojure:before { content: 'Clojure'; }
+  pre.src-css:before { content: 'CSS'; }
+  pre.src-D:before { content: 'D'; }
+  pre.src-ditaa:before { content: 'ditaa'; }
+  pre.src-dot:before { content: 'Graphviz'; }
+  pre.src-calc:before { content: 'Emacs Calc'; }
   pre.src-emacs-lisp:before { content: 'Emacs Lisp'; }
-  pre.src-R:before     { content: 'R'; }
-  pre.src-perl:before  { content: 'Perl'; }
-  pre.src-java:before  { content: 'Java'; }
-  pre.src-sql:before   { content: 'SQL'; }
+  pre.src-fortran:before { content: 'Fortran'; }
+  pre.src-gnuplot:before { content: 'gnuplot'; }
+  pre.src-haskell:before { content: 'Haskell'; }
+  pre.src-hledger:before { content: 'hledger'; }
+  pre.src-java:before { content: 'Java'; }
+  pre.src-js:before { content: 'Javascript'; }
+  pre.src-latex:before { content: 'LaTeX'; }
+  pre.src-ledger:before { content: 'Ledger'; }
+  pre.src-lisp:before { content: 'Lisp'; }
+  pre.src-lilypond:before { content: 'Lilypond'; }
+  pre.src-lua:before { content: 'Lua'; }
+  pre.src-matlab:before { content: 'MATLAB'; }
+  pre.src-mscgen:before { content: 'Mscgen'; }
+  pre.src-ocaml:before { content: 'Objective Caml'; }
+  pre.src-octave:before { content: 'Octave'; }
+  pre.src-org:before { content: 'Org mode'; }
+  pre.src-oz:before { content: 'OZ'; }
+  pre.src-plantuml:before { content: 'Plantuml'; }
+  pre.src-processing:before { content: 'Processing.js'; }
+  pre.src-python:before { content: 'Python'; }
+  pre.src-R:before { content: 'R'; }
+  pre.src-ruby:before { content: 'Ruby'; }
+  pre.src-sass:before { content: 'Sass'; }
+  pre.src-scheme:before { content: 'Scheme'; }
+  pre.src-screen:before { content: 'Gnu Screen'; }
+  pre.src-sed:before { content: 'Sed'; }
+  pre.src-sh:before { content: 'shell'; }
+  pre.src-sql:before { content: 'SQL'; }
+  pre.src-sqlite:before { content: 'SQLite'; }
+  /* additional languages in org.el's org-babel-load-languages alist */
+  pre.src-forth:before { content: 'Forth'; }
+  pre.src-io:before { content: 'IO'; }
+  pre.src-J:before { content: 'J'; }
+  pre.src-makefile:before { content: 'Makefile'; }
+  pre.src-maxima:before { content: 'Maxima'; }
+  pre.src-perl:before { content: 'Perl'; }
+  pre.src-picolisp:before { content: 'Pico Lisp'; }
+  pre.src-scala:before { content: 'Scala'; }
+  pre.src-shell:before { content: 'Shell Script'; }
+  pre.src-ebnf2ps:before { content: 'ebfn2ps'; }
+  /* additional language identifiers per "defun org-babel-execute"
+       in ob-*.el */
+  pre.src-cpp:before  { content: 'C++'; }
+  pre.src-abc:before  { content: 'ABC'; }
+  pre.src-coq:before  { content: 'Coq'; }
+  pre.src-groovy:before  { content: 'Groovy'; }
+  /* additional language identifiers from org-babel-shell-names in
+     ob-shell.el: ob-shell is the only babel language using a lambda to put
+     the execution function name together. */
+  pre.src-bash:before  { content: 'bash'; }
+  pre.src-csh:before  { content: 'csh'; }
+  pre.src-ash:before  { content: 'ash'; }
+  pre.src-dash:before  { content: 'dash'; }
+  pre.src-ksh:before  { content: 'ksh'; }
+  pre.src-mksh:before  { content: 'mksh'; }
+  pre.src-posh:before  { content: 'posh'; }
+  /* Additional Emacs modes also supported by the LaTeX listings package */
+  pre.src-ada:before { content: 'Ada'; }
+  pre.src-asm:before { content: 'Assembler'; }
+  pre.src-caml:before { content: 'Caml'; }
+  pre.src-delphi:before { content: 'Delphi'; }
+  pre.src-html:before { content: 'HTML'; }
+  pre.src-idl:before { content: 'IDL'; }
+  pre.src-mercury:before { content: 'Mercury'; }
+  pre.src-metapost:before { content: 'MetaPost'; }
+  pre.src-modula-2:before { content: 'Modula-2'; }
+  pre.src-pascal:before { content: 'Pascal'; }
+  pre.src-ps:before { content: 'PostScript'; }
+  pre.src-prolog:before { content: 'Prolog'; }
+  pre.src-simula:before { content: 'Simula'; }
+  pre.src-tcl:before { content: 'tcl'; }
+  pre.src-tex:before { content: 'TeX'; }
+  pre.src-plain-tex:before { content: 'Plain TeX'; }
+  pre.src-verilog:before { content: 'Verilog'; }
+  pre.src-vhdl:before { content: 'VHDL'; }
+  pre.src-xml:before { content: 'XML'; }
+  pre.src-nxml:before { content: 'XML'; }
+  /* add a generic configuration mode; LaTeX export needs an additional
+     (add-to-list 'org-latex-listings-langs '(conf " ")) in .emacs */
+  pre.src-conf:before { content: 'Configuration File'; }
 
   table { border-collapse:collapse; }
   caption.t-above { caption-side: top; }
@@ -92,6 +177,7 @@
     { font-size: 10px; font-weight: bold; white-space: nowrap; }
   .org-info-js_search-highlight
     { background-color: #ffff00; color: #000000; font-weight: bold; }
+  .org-svg { width: 90%; }
   /*]]>*/-->
 </style>
 <link rel="stylesheet" type="text/css" href="mystyle.css" /><script>(function(i,s,o,g,r,a,m){i['GoogleAnalyticsObject']=r;i[r]=i[r]||function(){(i[r].q=i[r].q||[]).push(arguments)},i[r].l=1*new Date();a=s.createElement(o),m=s.getElementsByTagName(o)[0];a.async=1;a.src=g;m.parentNode.insertBefore(a,m)})(window,document,'script','//www.google-analytics.com/analytics.js','ga');ga('create', 'UA-52544521-1', 'auto');ga('send', 'pageview');</script>
@@ -100,7 +186,7 @@
 @licstart  The following is the entire license notice for the
 JavaScript code in this tag.
 
-Copyright (C) 2012-2013 Free Software Foundation, Inc.
+Copyright (C) 2012-2018 Free Software Foundation, Inc.
 
 The JavaScript code in this tag is free software: you can
 redistribute it and/or modify it under the terms of the GNU
@@ -153,32 +239,32 @@ for the JavaScript code in this tag.
 <h2>Table of Contents</h2>
 <div id="text-table-of-contents">
 <ul>
-<li><a href="#orgheadline1">What is C?</a>
+<li><a href="#org34b2815">What is C?</a>
 <ul>
-<li><a href="#orgheadline2">Example Code</a></li>
+<li><a href="#org27cd5d3">Example Code</a></li>
 </ul>
 </li>
-<li><a href="#orgheadline5">Virtues and Challenges</a>
+<li><a href="#org5b21001">Virtues and Challenges</a>
 <ul>
-<li><a href="#orgheadline3">Virtues of C</a></li>
-<li><a href="#orgheadline4">Challenges of using C</a></li>
+<li><a href="#orgc226c15">Virtues of C</a></li>
+<li><a href="#org7604d45">Challenges of using C</a></li>
 </ul>
 </li>
-<li><a href="#orgheadline6">When should I use C?</a>
+<li><a href="#orgb2a5dae">When should I use C?</a>
 <ul>
-<li><a href="#orgheadline7">An Example</a></li>
+<li><a href="#org1390314">An Example</a></li>
 </ul>
 </li>
-<li><a href="#orgheadline8">The Bottom Line</a></li>
-<li><a href="#orgheadline9">References</a></li>
+<li><a href="#org9a1e4cc">The Bottom Line</a></li>
+<li><a href="#org61b0d54">References</a></li>
 </ul>
 </div>
 </div>
-<hr  />
+<hr />
 
-<div id="outline-container-orgheadline1" class="outline-2">
-<h2 id="orgheadline1">What is C?</h2>
-<div class="outline-text-2" id="text-orgheadline1">
+<div id="outline-container-org34b2815" class="outline-2">
+<h2 id="org34b2815">What is C?</h2>
+<div class="outline-text-2" id="text-org34b2815">
 <p>
 C is a high-level programming language that was first developed by
 Dennis Ritchie at Bell Labs in the early 1970s. Unix was one of the
@@ -194,11 +280,10 @@ Currently (as of July, 2012) C is #1 in popularity according to the
 </p>
 </div>
 
-<div id="outline-container-orgheadline2" class="outline-3">
-<h3 id="orgheadline2">Example Code</h3>
-<div class="outline-text-3" id="text-orgheadline2">
+<div id="outline-container-org27cd5d3" class="outline-3">
+<h3 id="org27cd5d3">Example Code</h3>
+<div class="outline-text-3" id="text-org27cd5d3">
 <div class="org-src-container">
-
 <pre class="src src-c"><span style="color: #483d8b;">#include</span> <span style="color: #8b2252;">&lt;stdio.h&gt;</span>
 
 <span style="color: #228b22;">int</span> <span style="color: #0000ff;">main</span>(<span style="color: #228b22;">int</span> <span style="color: #a0522d;">argc</span>, <span style="color: #228b22;">char</span> *<span style="color: #a0522d;">argv</span>[]) {
@@ -234,7 +319,6 @@ As a comparison here is a similar program in Python:
 </p>
 
 <div class="org-src-container">
-
 <pre class="src src-Python">print "hello world"
 </pre>
 </div>
@@ -244,7 +328,6 @@ Here it is in R:
 </p>
 
 <div class="org-src-container">
-
 <pre class="src src-R">cat(<span style="color: #8b2252;">"hello world\n"</span>)
 </pre>
 </div>
@@ -254,7 +337,6 @@ and Matlab / Octave:
 </p>
 
 <div class="org-src-container">
-
 <pre class="src src-octave">disp(<span style="color: #8b2252;">'hello world'</span>)
 </pre>
 </div>
@@ -297,12 +379,13 @@ To see hello world in a bunch of other languages, go here:
 </div>
 </div>
 
-<div id="outline-container-orgheadline5" class="outline-2">
-<h2 id="orgheadline5">Virtues and Challenges</h2>
-<div class="outline-text-2" id="text-orgheadline5">
-</div><div id="outline-container-orgheadline3" class="outline-3">
-<h3 id="orgheadline3">Virtues of C</h3>
-<div class="outline-text-3" id="text-orgheadline3">
+<div id="outline-container-org5b21001" class="outline-2">
+<h2 id="org5b21001">Virtues and Challenges</h2>
+<div class="outline-text-2" id="text-org5b21001">
+</div>
+<div id="outline-container-orgc226c15" class="outline-3">
+<h3 id="orgc226c15">Virtues of C</h3>
+<div class="outline-text-3" id="text-orgc226c15">
 <ul class="org-ul">
 <li>fast (it's a compiled language and so is close to the machine hardware)</li>
 <li>portable (you can compile your program to run on just about any
@@ -316,9 +399,9 @@ hardware platform out there)</li>
 </div>
 </div>
 
-<div id="outline-container-orgheadline4" class="outline-3">
-<h3 id="orgheadline4">Challenges of using C</h3>
-<div class="outline-text-3" id="text-orgheadline4">
+<div id="outline-container-org7604d45" class="outline-3">
+<h3 id="org7604d45">Challenges of using C</h3>
+<div class="outline-text-3" id="text-org7604d45">
 <ul class="org-ul">
 <li>the language is small (but there are many APIs)</li>
 <li>it's easy to get into trouble, e.g. with direct memory access &amp; pointers</li>
@@ -330,9 +413,9 @@ hardware platform out there)</li>
 </div>
 </div>
 
-<div id="outline-container-orgheadline6" class="outline-2">
-<h2 id="orgheadline6">When should I use C?</h2>
-<div class="outline-text-2" id="text-orgheadline6">
+<div id="outline-container-orgb2a5dae" class="outline-2">
+<h2 id="orgb2a5dae">When should I use C?</h2>
+<div class="outline-text-2" id="text-orgb2a5dae">
 <p>
 My own take on scientific programming, is that I think of C as one of
 many tools in my toolkit for performing computational tasks in my
@@ -383,9 +466,9 @@ on your data once.
 </p>
 </div>
 
-<div id="outline-container-orgheadline7" class="outline-3">
-<h3 id="orgheadline7">An Example</h3>
-<div class="outline-text-3" id="text-orgheadline7">
+<div id="outline-container-org1390314" class="outline-3">
+<h3 id="org1390314">An Example</h3>
+<div class="outline-text-3" id="text-org1390314">
 <p>
 Imagine you write some Matlab code to read in data from one subject,
 process that data, and write the result to a file, and that operation
@@ -412,9 +495,9 @@ than listening to Stairway to Heaven).
 </div>
 </div>
 
-<div id="outline-container-orgheadline8" class="outline-2">
-<h2 id="orgheadline8">The Bottom Line</h2>
-<div class="outline-text-2" id="text-orgheadline8">
+<div id="outline-container-org9a1e4cc" class="outline-2">
+<h2 id="org9a1e4cc">The Bottom Line</h2>
+<div class="outline-text-2" id="text-org9a1e4cc">
 <p>
 My own approach is to use interpreted languages like Python, R,
 Octave/Matlab, etc, for prototyping &#x2014; that is, for exploring small
@@ -425,13 +508,13 @@ time-consuming, I think about implementing them in C. Interpreted
 languages for <b>prototyping</b>, and C for <b>performance</b>.
 </p>
 
-<hr  />
+<hr />
 </div>
 </div>
 
-<div id="outline-container-orgheadline9" class="outline-2">
-<h2 id="orgheadline9">References</h2>
-<div class="outline-text-2" id="text-orgheadline9">
+<div id="outline-container-org61b0d54" class="outline-2">
+<h2 id="org61b0d54">References</h2>
+<div class="outline-text-2" id="text-org61b0d54">
 <ul class="org-ul">
 <li>A classic reference book: <a href="https://en.wikipedia.org/wiki/The_C_Programming_Language_(book)">The C Programming Language</a> by Kernighan &amp; Ritchie</li>
 <li><a href="http://radar.oreilly.com/2012/06/why-learn-c.html">Why learn C?</a> (<a href="http://youtu.be/hHySVnJzADM">YouTube interview</a>)</li>

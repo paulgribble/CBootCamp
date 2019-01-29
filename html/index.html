@@ -3,7 +3,7 @@
 "http://www.w3.org/TR/xhtml1/DTD/xhtml1-strict.dtd">
 <html xmlns="http://www.w3.org/1999/xhtml" lang="en" xml:lang="en">
 <head>
-<!-- 2017-04-24 Mon 07:06 -->
+<!-- 2019-01-28 Mon 21:23 -->
 <meta http-equiv="Content-Type" content="text/html;charset=utf-8" />
 <meta name="viewport" content="width=device-width, initial-scale=1" />
 <title>C Programming Boot Camp</title>
@@ -68,6 +68,7 @@
   pre.src-fortran:before { content: 'Fortran'; }
   pre.src-gnuplot:before { content: 'gnuplot'; }
   pre.src-haskell:before { content: 'Haskell'; }
+  pre.src-hledger:before { content: 'hledger'; }
   pre.src-java:before { content: 'Java'; }
   pre.src-js:before { content: 'Javascript'; }
   pre.src-latex:before { content: 'LaTeX'; }
@@ -185,7 +186,7 @@
 @licstart  The following is the entire license notice for the
 JavaScript code in this tag.
 
-Copyright (C) 2012-2013 Free Software Foundation, Inc.
+Copyright (C) 2012-2018 Free Software Foundation, Inc.
 
 The JavaScript code in this tag is free software: you can
 redistribute it and/or modify it under the terms of the GNU
@@ -237,20 +238,20 @@ for the JavaScript code in this tag.
 &nbsp;
 
 <div class="org-src-container">
-<pre class="src src-c"><span style="color: #bc6ec5;">#include</span> <span style="color: #4f97d7;">&lt;</span><span style="color: #2d9574;">stdio.h</span><span style="color: #4f97d7;">&gt;</span>
+<pre class="src src-c"><span style="color: #483d8b;">#include</span> <span style="color: #8b2252;">&lt;stdio.h&gt;</span>
 
-<span style="color: #ce537a; font-weight: bold;">int</span> <span style="color: #bc6ec5; font-weight: bold;">main</span><span style="color: #4f97d7;">(</span><span style="color: #ce537a; font-weight: bold;">int</span> <span style="color: #7590db;">argc</span>, <span style="color: #ce537a; font-weight: bold;">char</span> *<span style="color: #7590db;">argv</span><span style="color: #bc6ec5;">[]</span><span style="color: #4f97d7;">)</span> <span style="color: #4f97d7;">{</span>
-  printf<span style="color: #bc6ec5;">(</span><span style="color: #2d9574;">"hello world\n"</span><span style="color: #bc6ec5;">)</span>;
-  <span style="color: #4f97d7; font-weight: bold;">return</span> <span style="color: #a45bad;">0</span>;
-<span style="color: #4f97d7;">}</span>
+<span style="color: #228b22;">int</span> <span style="color: #0000ff;">main</span>(<span style="color: #228b22;">int</span> <span style="color: #a0522d;">argc</span>, <span style="color: #228b22;">char</span> *<span style="color: #a0522d;">argv</span>[]) {
+  printf(<span style="color: #8b2252;">"hello world\n"</span>);
+  <span style="color: #a020f0;">return</span> 0;
+}
 </pre>
 </div>
 
 &nbsp;
 
-<div id="outline-container-org03cd735" class="outline-2">
-<h2 id="org03cd735">Fundamentals</h2>
-<div class="outline-text-2" id="text-org03cd735">
+<div id="outline-container-org026b29d" class="outline-2">
+<h2 id="org026b29d">Fundamentals</h2>
+<div class="outline-text-2" id="text-org026b29d">
 <ol class="org-ol">
 <li><a href="1_Why_Program_In_C.html">Why program in C?</a></li>
 <li><a href="2_Setting_Up_Your_Computing_Environment.html">Setting up your computing environment</a></li>
@@ -270,9 +271,9 @@ for the JavaScript code in this tag.
 </div>
 </div>
 
-<div id="outline-container-org35b8713" class="outline-2">
-<h2 id="org35b8713">Advanced Topics</h2>
-<div class="outline-text-2" id="text-org35b8713">
+<div id="outline-container-orge44f7f1" class="outline-2">
+<h2 id="orge44f7f1">Advanced Topics</h2>
+<div class="outline-text-2" id="text-orge44f7f1">
 <ol class="org-ol">
 <li><a href="A1_Libraries.html">A brief tour of some other useful C Libraries</a>: { <a href="https://developer.gnome.org/glib/">GLib</a>, <a href="http://www.gnu.org/software/gsl/">GSL</a>, <a href="http://www.netlib.org/blas/">BLAS</a> /
 <a href="http://www.netlib.org/lapack/">LAPACK</a>, <a href="http://apophenia.sourceforge.net/">Apophenia</a>, <a href="http://www.gnuplot.info/">GNUplot</a> }</li>
@@ -281,18 +282,18 @@ for the JavaScript code in this tag.
 </div>
 </div>
 
-<div id="outline-container-org2f4eb9c" class="outline-2">
-<h2 id="org2f4eb9c">Example Code</h2>
-<div class="outline-text-2" id="text-org2f4eb9c">
+<div id="outline-container-org991f2ae" class="outline-2">
+<h2 id="org991f2ae">Example Code</h2>
+<div class="outline-text-2" id="text-org991f2ae">
 <ul class="org-ul">
 <li><a href="https://github.com/paulgribble/psychometric">psychometric</a>: estimating psychometric functions in C (aka logistic regression)</li>
 </ul>
 </div>
 </div>
 
-<div id="outline-container-orga63d717" class="outline-2">
-<h2 id="orga63d717">Topics Not Covered Here (yet)</h2>
-<div class="outline-text-2" id="text-orga63d717">
+<div id="outline-container-orgccf2342" class="outline-2">
+<h2 id="orgccf2342">Topics Not Covered Here (yet)</h2>
+<div class="outline-text-2" id="text-orgccf2342">
 <ul class="org-ul">
 <li>UNIX tools</li>
 <li>IDEs (Integrated Development Environments, e.g. Xcode, Eclipse, etc)</li>
@@ -305,9 +306,9 @@ for the JavaScript code in this tag.
 </div>
 </div>
 
-<div id="outline-container-orgac8348d" class="outline-2">
-<h2 id="orgac8348d">Links</h2>
-<div class="outline-text-2" id="text-orgac8348d">
+<div id="outline-container-orge7ca5d6" class="outline-2">
+<h2 id="orge7ca5d6">Links</h2>
+<div class="outline-text-2" id="text-orge7ca5d6">
 <ul class="org-ul">
 <li><a href="http://c-faq.com/index.html">comp.lang.c FAQs</a></li>
 <li><a href="http://cslibrary.stanford.edu/101/">Essential C</a> (Stanford)</li>
@@ -316,18 +317,18 @@ for the JavaScript code in this tag.
 </div>
 </div>
 
-<div id="outline-container-org494cc8f" class="outline-2">
-<h2 id="org494cc8f">These notes</h2>
-<div class="outline-text-2" id="text-org494cc8f">
+<div id="outline-container-orgf639a31" class="outline-2">
+<h2 id="orgf639a31">These notes</h2>
+<div class="outline-text-2" id="text-orgf639a31">
 <p>
 These notes can be viewed (and downloaded) in their entirety from a
 <a href="https://github.com">github</a> repository here: <a href="https://github.com/paulgribble/CBootCamp">CBootCamp</a>
 </p>
 </div>
 
-<div id="outline-container-org6df91bd" class="outline-3">
-<h3 id="org6df91bd">Ideas?</h3>
-<div class="outline-text-3" id="text-org6df91bd">
+<div id="outline-container-org254b286" class="outline-3">
+<h3 id="org254b286">Ideas?</h3>
+<div class="outline-text-3" id="text-org254b286">
 <p>
 Do you have ideas about how to improve this? Please get in touch, send
 me an email at <b>paul [at] gribblelab [dot] org</b>

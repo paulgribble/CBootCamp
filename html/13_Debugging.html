@@ -3,7 +3,7 @@
 "http://www.w3.org/TR/xhtml1/DTD/xhtml1-strict.dtd">
 <html xmlns="http://www.w3.org/1999/xhtml" lang="en" xml:lang="en">
 <head>
-<!-- 2017-04-24 Mon 07:07 -->
+<!-- 2019-01-28 Mon 21:23 -->
 <meta http-equiv="Content-Type" content="text/html;charset=utf-8" />
 <meta name="viewport" content="width=device-width, initial-scale=1" />
 <title>13. Debugging</title>
@@ -68,6 +68,7 @@
   pre.src-fortran:before { content: 'Fortran'; }
   pre.src-gnuplot:before { content: 'gnuplot'; }
   pre.src-haskell:before { content: 'Haskell'; }
+  pre.src-hledger:before { content: 'hledger'; }
   pre.src-java:before { content: 'Java'; }
   pre.src-js:before { content: 'Javascript'; }
   pre.src-latex:before { content: 'LaTeX'; }
@@ -185,7 +186,7 @@
 @licstart  The following is the entire license notice for the
 JavaScript code in this tag.
 
-Copyright (C) 2012-2013 Free Software Foundation, Inc.
+Copyright (C) 2012-2018 Free Software Foundation, Inc.
 
 The JavaScript code in this tag is free software: you can
 redistribute it and/or modify it under the terms of the GNU
@@ -238,45 +239,46 @@ for the JavaScript code in this tag.
 <h2>Table of Contents</h2>
 <div id="text-table-of-contents">
 <ul>
-<li><a href="#org3593778">the GNU Project Debugger gdb</a>
+<li><a href="#org2ac07fb">the GNU Project Debugger gdb</a>
 <ul>
-<li><a href="#org603109d">What is a symbolic debugger?</a>
+<li><a href="#orgb76612b">What is a symbolic debugger?</a>
 <ul>
-<li><a href="#org314d279">Why not use printf()?</a></li>
+<li><a href="#org56c9030">Why not use printf()?</a></li>
 </ul>
 </li>
-<li><a href="#orgce96356">Compiling your program for gdb</a></li>
-<li><a href="#org4bf1ede">Stack frames</a>
+<li><a href="#orgcc506bb">Compiling your program for gdb</a></li>
+<li><a href="#org7d3aa20">Stack frames</a>
 <ul>
-<li><a href="#org701aec1">Inspecting the stack using gdb</a></li>
+<li><a href="#orgad9a99f">Inspecting the stack using gdb</a></li>
 </ul>
 </li>
-<li><a href="#org070d574">Breakpoints</a></li>
-<li><a href="#org3ba8554">Inspecting a variable with the gdb print command</a></li>
-<li><a href="#orgd66cac0">Stepping</a></li>
-<li><a href="#org79535dc">More breakpoints</a></li>
+<li><a href="#orga1b4234">Breakpoints</a></li>
+<li><a href="#org1f6e876">Inspecting a variable with the gdb print command</a></li>
+<li><a href="#org5d25b21">Stepping</a></li>
+<li><a href="#orgc080f50">More breakpoints</a></li>
 </ul>
 </li>
-<li><a href="#orgc9bb17c">Gotchas</a>
+<li><a href="#org0c64980">Gotchas</a>
 <ul>
-<li><a href="#org3221daf">Integer Math</a></li>
-<li><a href="#org015f1fc">Floating-point Math</a></li>
-<li><a href="#orgc753d92">Out of Bounds Array Indexing</a></li>
+<li><a href="#orgf039f23">Integer Math</a></li>
+<li><a href="#org4920b5c">Floating-point Math</a></li>
+<li><a href="#orgb9f90bc">Out of Bounds Array Indexing</a></li>
 </ul>
 </li>
-<li><a href="#org5d69143">Tricky Code</a></li>
-<li><a href="#orge205dd1">Links</a></li>
+<li><a href="#orga431f4c">Tricky Code</a></li>
+<li><a href="#orgf718776">Links</a></li>
 </ul>
 </div>
 </div>
 <hr />
 
-<div id="outline-container-org3593778" class="outline-2">
-<h2 id="org3593778">the GNU Project Debugger gdb</h2>
-<div class="outline-text-2" id="text-org3593778">
-</div><div id="outline-container-org603109d" class="outline-3">
-<h3 id="org603109d">What is a symbolic debugger?</h3>
-<div class="outline-text-3" id="text-org603109d">
+<div id="outline-container-org2ac07fb" class="outline-2">
+<h2 id="org2ac07fb">the GNU Project Debugger gdb</h2>
+<div class="outline-text-2" id="text-org2ac07fb">
+</div>
+<div id="outline-container-orgb76612b" class="outline-3">
+<h3 id="orgb76612b">What is a symbolic debugger?</h3>
+<div class="outline-text-3" id="text-orgb76612b">
 <p>
 A debugger is a program that runs other programs, and provides the
 ability to control the execution of that program, for example stepping
@@ -287,9 +289,9 @@ message, a debugger will help you figure out where it is crashing, and
 </p>
 </div>
 
-<div id="outline-container-org314d279" class="outline-4">
-<h4 id="org314d279">Why not use printf()?</h4>
-<div class="outline-text-4" id="text-org314d279">
+<div id="outline-container-org56c9030" class="outline-4">
+<h4 id="org56c9030">Why not use printf()?</h4>
+<div class="outline-text-4" id="text-org56c9030">
 <p>
 A quick and easy method of debugging that doesn't require a separate
 debugger program, is to sprinkle your code with <code>printf()</code> statements
@@ -316,9 +318,9 @@ the program of the crash, etc).
 </div>
 </div>
 
-<div id="outline-container-orgce96356" class="outline-3">
-<h3 id="orgce96356">Compiling your program for gdb</h3>
-<div class="outline-text-3" id="text-orgce96356">
+<div id="outline-container-orgcc506bb" class="outline-3">
+<h3 id="orgcc506bb">Compiling your program for gdb</h3>
+<div class="outline-text-3" id="text-orgcc506bb">
 <p>
 To allow gdb to run your program, you must compile your program with a
 special compiler flag, <code>-g</code>. Here is a simple example of a program we
@@ -327,60 +329,60 @@ will use to illustrate the gdb debugger, you can download it here:
 </p>
 
 <div class="org-src-container">
-<pre class="src src-c"><span style="color: #bc6ec5;">#include</span> <span style="color: #4f97d7;">&lt;</span><span style="color: #2d9574;">stdio.h</span><span style="color: #4f97d7;">&gt;</span>
-<span style="color: #bc6ec5;">#include</span> <span style="color: #4f97d7;">&lt;</span><span style="color: #2d9574;">stdlib.h</span><span style="color: #4f97d7;">&gt;</span>
+<pre class="src src-c"><span style="color: #483d8b;">#include</span> <span style="color: #8b2252;">&lt;stdio.h&gt;</span>
+<span style="color: #483d8b;">#include</span> <span style="color: #8b2252;">&lt;stdlib.h&gt;</span>
 
-<span style="color: #ce537a; font-weight: bold;">char</span> *<span style="color: #bc6ec5; font-weight: bold;">getWord</span><span style="color: #4f97d7;">(</span><span style="color: #ce537a; font-weight: bold;">int</span> <span style="color: #7590db;">maxsize</span><span style="color: #4f97d7;">)</span>
-<span style="color: #4f97d7;">{</span>
-  <span style="color: #ce537a; font-weight: bold;">char</span> *<span style="color: #7590db;">s</span>;
-  s = calloc<span style="color: #bc6ec5;">(</span><span style="color: #4f97d7; font-weight: bold;">sizeof</span><span style="color: #2d9574;">(</span><span style="color: #ce537a; font-weight: bold;">char</span><span style="color: #2d9574;">)</span>, maxsize<span style="color: #bc6ec5;">)</span>;
-  printf<span style="color: #bc6ec5;">(</span><span style="color: #2d9574;">"enter a string (max %d chars): "</span>, maxsize<span style="color: #bc6ec5;">)</span>;
-  scanf<span style="color: #bc6ec5;">(</span><span style="color: #2d9574;">"%s"</span>, s<span style="color: #bc6ec5;">)</span>;
-  <span style="color: #4f97d7; font-weight: bold;">return</span> s;
-<span style="color: #4f97d7;">}</span>
+<span style="color: #228b22;">char</span> *<span style="color: #0000ff;">getWord</span>(<span style="color: #228b22;">int</span> <span style="color: #a0522d;">maxsize</span>)
+{
+  <span style="color: #228b22;">char</span> *<span style="color: #a0522d;">s</span>;
+  s = calloc(<span style="color: #a020f0;">sizeof</span>(<span style="color: #228b22;">char</span>), maxsize);
+  printf(<span style="color: #8b2252;">"enter a string (max %d chars): "</span>, maxsize);
+  scanf(<span style="color: #8b2252;">"%s"</span>, s);
+  <span style="color: #a020f0;">return</span> s;
+}
 
-<span style="color: #ce537a; font-weight: bold;">void</span> <span style="color: #bc6ec5; font-weight: bold;">repeatWord</span><span style="color: #4f97d7;">(</span><span style="color: #ce537a; font-weight: bold;">char</span> *<span style="color: #7590db;">s</span>, <span style="color: #ce537a; font-weight: bold;">int</span> <span style="color: #7590db;">n</span><span style="color: #4f97d7;">)</span>
-<span style="color: #4f97d7;">{</span>
-  <span style="color: #ce537a; font-weight: bold;">int</span> <span style="color: #7590db;">i</span>;
-  <span style="color: #4f97d7; font-weight: bold;">for</span> <span style="color: #bc6ec5;">(</span>i=<span style="color: #a45bad;">0</span>; i&lt;n; i++<span style="color: #bc6ec5;">)</span> <span style="color: #bc6ec5;">{</span>
-    printf<span style="color: #2d9574;">(</span><span style="color: #2d9574;">"%s\n"</span>, s<span style="color: #2d9574;">)</span>;
-  <span style="color: #bc6ec5;">}</span>
-<span style="color: #4f97d7;">}</span>
+<span style="color: #228b22;">void</span> <span style="color: #0000ff;">repeatWord</span>(<span style="color: #228b22;">char</span> *<span style="color: #a0522d;">s</span>, <span style="color: #228b22;">int</span> <span style="color: #a0522d;">n</span>)
+{
+  <span style="color: #228b22;">int</span> <span style="color: #a0522d;">i</span>;
+  <span style="color: #a020f0;">for</span> (i=0; i&lt;n; i++) {
+    printf(<span style="color: #8b2252;">"%s\n"</span>, s);
+  }
+}
 
-<span style="color: #ce537a; font-weight: bold;">int</span> *<span style="color: #bc6ec5; font-weight: bold;">getVec</span><span style="color: #4f97d7;">(</span><span style="color: #ce537a; font-weight: bold;">int</span> <span style="color: #7590db;">vecsize</span><span style="color: #4f97d7;">)</span>
-<span style="color: #4f97d7;">{</span>
-  <span style="color: #ce537a; font-weight: bold;">int</span> *<span style="color: #7590db;">vec</span> = malloc<span style="color: #bc6ec5;">(</span><span style="color: #4f97d7; font-weight: bold;">sizeof</span><span style="color: #2d9574;">(</span><span style="color: #ce537a; font-weight: bold;">int</span><span style="color: #2d9574;">)</span>*vecsize<span style="color: #bc6ec5;">)</span>;
-  <span style="color: #ce537a; font-weight: bold;">int</span> <span style="color: #7590db;">i</span>;
-  <span style="color: #4f97d7; font-weight: bold;">for</span> <span style="color: #bc6ec5;">(</span>i=<span style="color: #a45bad;">0</span>; i&lt;vecsize; i++<span style="color: #bc6ec5;">)</span> <span style="color: #bc6ec5;">{</span>
-    printf<span style="color: #2d9574;">(</span><span style="color: #2d9574;">"enter value of vec[%d]:"</span>, i<span style="color: #2d9574;">)</span>;
-    scanf<span style="color: #2d9574;">(</span><span style="color: #2d9574;">"%d"</span>, &amp;vec<span style="color: #67b11d;">[</span>i<span style="color: #67b11d;">]</span><span style="color: #2d9574;">)</span>;
-  <span style="color: #bc6ec5;">}</span>
-  <span style="color: #4f97d7; font-weight: bold;">return</span> vec;
-<span style="color: #4f97d7;">}</span>
+<span style="color: #228b22;">int</span> *<span style="color: #0000ff;">getVec</span>(<span style="color: #228b22;">int</span> <span style="color: #a0522d;">vecsize</span>)
+{
+  <span style="color: #228b22;">int</span> *<span style="color: #a0522d;">vec</span> = malloc(<span style="color: #a020f0;">sizeof</span>(<span style="color: #228b22;">int</span>)*vecsize);
+  <span style="color: #228b22;">int</span> <span style="color: #a0522d;">i</span>;
+  <span style="color: #a020f0;">for</span> (i=0; i&lt;vecsize; i++) {
+    printf(<span style="color: #8b2252;">"enter value of vec[%d]:"</span>, i);
+    scanf(<span style="color: #8b2252;">"%d"</span>, &amp;vec[i]);
+  }
+  <span style="color: #a020f0;">return</span> vec;
+}
 
-<span style="color: #ce537a; font-weight: bold;">void</span> <span style="color: #bc6ec5; font-weight: bold;">printVec</span><span style="color: #4f97d7;">(</span><span style="color: #ce537a; font-weight: bold;">int</span> *<span style="color: #7590db;">vec</span>, <span style="color: #ce537a; font-weight: bold;">int</span> <span style="color: #7590db;">size</span><span style="color: #4f97d7;">)</span>
-<span style="color: #4f97d7;">{</span>
-  <span style="color: #ce537a; font-weight: bold;">int</span> <span style="color: #7590db;">i</span>;
-  printf<span style="color: #bc6ec5;">(</span><span style="color: #2d9574;">"vec = {"</span><span style="color: #bc6ec5;">)</span>;
-  <span style="color: #4f97d7; font-weight: bold;">for</span> <span style="color: #bc6ec5;">(</span>i=<span style="color: #a45bad;">0</span>; i&lt;size-<span style="color: #a45bad;">1</span>; i++<span style="color: #bc6ec5;">)</span> <span style="color: #bc6ec5;">{</span>
-    printf<span style="color: #2d9574;">(</span><span style="color: #2d9574;">"%d,"</span>, vec<span style="color: #67b11d;">[</span>i<span style="color: #67b11d;">]</span><span style="color: #2d9574;">)</span>;
-  <span style="color: #bc6ec5;">}</span>
-  printf<span style="color: #bc6ec5;">(</span><span style="color: #2d9574;">"%d}\n"</span>, vec<span style="color: #2d9574;">[</span>size-<span style="color: #a45bad;">1</span><span style="color: #2d9574;">]</span><span style="color: #bc6ec5;">)</span>;
-<span style="color: #4f97d7;">}</span>
+<span style="color: #228b22;">void</span> <span style="color: #0000ff;">printVec</span>(<span style="color: #228b22;">int</span> *<span style="color: #a0522d;">vec</span>, <span style="color: #228b22;">int</span> <span style="color: #a0522d;">size</span>)
+{
+  <span style="color: #228b22;">int</span> <span style="color: #a0522d;">i</span>;
+  printf(<span style="color: #8b2252;">"vec = {"</span>);
+  <span style="color: #a020f0;">for</span> (i=0; i&lt;size-1; i++) {
+    printf(<span style="color: #8b2252;">"%d,"</span>, vec[i]);
+  }
+  printf(<span style="color: #8b2252;">"%d}\n"</span>, vec[size-1]);
+}
 
-<span style="color: #ce537a; font-weight: bold;">int</span> <span style="color: #bc6ec5; font-weight: bold;">main</span><span style="color: #4f97d7;">(</span><span style="color: #ce537a; font-weight: bold;">int</span> <span style="color: #7590db;">argc</span>, <span style="color: #ce537a; font-weight: bold;">char</span> *<span style="color: #7590db;">argv</span><span style="color: #bc6ec5;">[]</span><span style="color: #4f97d7;">)</span>
-<span style="color: #4f97d7;">{</span>  
-  <span style="color: #ce537a; font-weight: bold;">char</span> *<span style="color: #7590db;">myWord</span> = getWord<span style="color: #bc6ec5;">(</span><span style="color: #a45bad;">256</span><span style="color: #bc6ec5;">)</span>;
-  repeatWord<span style="color: #bc6ec5;">(</span>myWord, <span style="color: #a45bad;">3</span><span style="color: #bc6ec5;">)</span>;
+<span style="color: #228b22;">int</span> <span style="color: #0000ff;">main</span>(<span style="color: #228b22;">int</span> <span style="color: #a0522d;">argc</span>, <span style="color: #228b22;">char</span> *<span style="color: #a0522d;">argv</span>[])
+{  
+  <span style="color: #228b22;">char</span> *<span style="color: #a0522d;">myWord</span> = getWord(256);
+  repeatWord(myWord, 3);
 
-  <span style="color: #ce537a; font-weight: bold;">int</span> *<span style="color: #7590db;">myVec</span> = getVec<span style="color: #bc6ec5;">(</span><span style="color: #a45bad;">5</span><span style="color: #bc6ec5;">)</span>;
-  printVec<span style="color: #bc6ec5;">(</span>myVec, <span style="color: #a45bad;">5</span><span style="color: #bc6ec5;">)</span>;
+  <span style="color: #228b22;">int</span> *<span style="color: #a0522d;">myVec</span> = getVec(5);
+  printVec(myVec, 5);
 
-  free<span style="color: #bc6ec5;">(</span>myWord<span style="color: #bc6ec5;">)</span>;
-  free<span style="color: #bc6ec5;">(</span>myVec<span style="color: #bc6ec5;">)</span>;
+  free(myWord);
+  free(myVec);
 
-  <span style="color: #4f97d7; font-weight: bold;">return</span> <span style="color: #a45bad;">0</span>;
-<span style="color: #4f97d7;">}</span>
+  <span style="color: #a020f0;">return</span> 0;
+}
 </pre>
 </div>
 
@@ -411,9 +413,9 @@ it to be used by the <code>gdb</code> debugger.
 </div>
 
 
-<div id="outline-container-org4bf1ede" class="outline-3">
-<h3 id="org4bf1ede">Stack frames</h3>
-<div class="outline-text-3" id="text-org4bf1ede">
+<div id="outline-container-org7d3aa20" class="outline-3">
+<h3 id="org7d3aa20">Stack frames</h3>
+<div class="outline-text-3" id="text-org7d3aa20">
 <p>
 We've already talked about the <b>stack</b> when we talked about how
 variables can be allocated in C. This concept comes into play again,
@@ -447,15 +449,15 @@ of what stack frames are on the stack.
 </p>
 </div>
 
-<div id="outline-container-org701aec1" class="outline-4">
-<h4 id="org701aec1">Inspecting the stack using gdb</h4>
-<div class="outline-text-4" id="text-org701aec1">
+<div id="outline-container-orgad9a99f" class="outline-4">
+<h4 id="orgad9a99f">Inspecting the stack using gdb</h4>
+<div class="outline-text-4" id="text-orgad9a99f">
 <p>
 As an example, let's change the code above to introduce a bug that causes the program to crash. Let's comment out line 7:
 </p>
 
 <div class="org-src-container">
-<pre class="src src-c"><span style="color: #2aa1ae; background-color: #292e34;">//  </span><span style="color: #2aa1ae; background-color: #292e34;">s = calloc(sizeof(char), maxsize);</span>
+<pre class="src src-c"><span style="color: #b22222;">//  </span><span style="color: #b22222;">s = calloc(sizeof(char), maxsize);</span>
 </pre>
 </div>
 
@@ -494,7 +496,7 @@ Program received signal SIGSEGV, Segmentation fault.
 _IO_vfscanf_internal (s=&lt;optimized out&gt;, format=&lt;optimized out&gt;, 
     argptr=0x7fffffffe048, errp=0x0) at vfscanf.c:1095
 1095	vfscanf.c: No such file or directory.
-(gdb)
+(gdb) 
 </pre>
 
 <p>
@@ -512,7 +514,7 @@ get a list of the stack frames:
     at isoc99_scanf.c:37
 #2  0x000000000040067f in getWord (maxsize=256) at go.c:9
 #3  0x00000000004007cc in main (argc=1, argv=0x7fffffffe258) at go.c:44
-(gdb)
+(gdb) 
 </pre>
 
 <p>
@@ -543,9 +545,9 @@ fine ("%s") and so what we can do now is inspect the buffer using the <code>gdb<
 </div>
 </div>
 
-<div id="outline-container-org070d574" class="outline-3">
-<h3 id="org070d574">Breakpoints</h3>
-<div class="outline-text-3" id="text-org070d574">
+<div id="outline-container-orga1b4234" class="outline-3">
+<h3 id="orga1b4234">Breakpoints</h3>
+<div class="outline-text-3" id="text-orga1b4234">
 <p>
 The <code>print</code> command will print out the value of a variable that is
 defined in the current stack. Let's try to print the <code>s</code> variable
@@ -577,7 +579,7 @@ Starting program: /home/plg/Desktop/CBootCamp/code/debug/go
 
 Breakpoint 1, getWord (maxsize=256) at go.c:9
 9	  scanf("%s", s);
-(gdb)
+(gdb) 
 </pre>
 
 <p>
@@ -588,9 +590,9 @@ let's look at our character buffer <code>s</code>.
 </div>
 </div>
 
-<div id="outline-container-org3ba8554" class="outline-3">
-<h3 id="org3ba8554">Inspecting a variable with the gdb print command</h3>
-<div class="outline-text-3" id="text-org3ba8554">
+<div id="outline-container-org1f6e876" class="outline-3">
+<h3 id="org1f6e876">Inspecting a variable with the gdb print command</h3>
+<div class="outline-text-3" id="text-org1f6e876">
 <p>
 We can use the <code>gdb</code> <code>print</code> command to inspect the value of a variable on the stack:
 </p>
@@ -598,7 +600,7 @@ We can use the <code>gdb</code> <code>print</code> command to inspect the value 
 <pre class="example">
 (gdb) print s
 $1 = 0x400865 "H\205\355t\034\061\333\017\037@"
-(gdb)
+(gdb) 
 </pre>
 
 <p>
@@ -640,7 +642,7 @@ Breakpoint 1, getWord (maxsize=256) at go.c:9
 9	  scanf("%s", s);
 (gdb) print s
 $1 = 0x602010 ""
-(gdb)
+(gdb) 
 </pre>
 
 <p>
@@ -658,7 +660,7 @@ Breakpoint 2, getWord (maxsize=256) at go.c:10
 10	  return s;
 (gdb) print s
 $2 = 0x602010 "TheDudeAbides"
-(gdb)
+(gdb) 
 </pre>
 
 <p>
@@ -670,9 +672,9 @@ string. Good.
 </div>
 </div>
 
-<div id="outline-container-orgd66cac0" class="outline-3">
-<h3 id="orgd66cac0">Stepping</h3>
-<div class="outline-text-3" id="text-orgd66cac0">
+<div id="outline-container-org5d25b21" class="outline-3">
+<h3 id="org5d25b21">Stepping</h3>
+<div class="outline-text-3" id="text-org5d25b21">
 <p>
 Above we used the <code>continue</code> command to continue execution of our
 program. One can also take individual steps, line by line, using the
@@ -681,9 +683,9 @@ program. One can also take individual steps, line by line, using the
 </div>
 </div>
 
-<div id="outline-container-org79535dc" class="outline-3">
-<h3 id="org79535dc">More breakpoints</h3>
-<div class="outline-text-3" id="text-org79535dc">
+<div id="outline-container-orgc080f50" class="outline-3">
+<h3 id="orgc080f50">More breakpoints</h3>
+<div class="outline-text-3" id="text-orgc080f50">
 <p>
 We can list the current breakpoints with the <code>info breakpoints</code> command. Here's what we get if we do that with the code that we have been working with above:
 </p>
@@ -695,7 +697,7 @@ Num     Type           Disp Enb Address            What
 	breakpoint already hit 1 time
 2       breakpoint     keep y   0x00000000004006d5 in getWord at go.c:10
 	breakpoint already hit 1 time
-(gdb)
+(gdb) 
 </pre>
 
 <p>
@@ -716,9 +718,9 @@ breakpoints by location like this: <code>clear go.c:10</code>
 </div>
 
 
-<div id="outline-container-orgc9bb17c" class="outline-2">
-<h2 id="orgc9bb17c">Gotchas</h2>
-<div class="outline-text-2" id="text-orgc9bb17c">
+<div id="outline-container-org0c64980" class="outline-2">
+<h2 id="org0c64980">Gotchas</h2>
+<div class="outline-text-2" id="text-org0c64980">
 <p>
 There are a number of classic <b>gotchas</b> in C to watch out for when
 trying to figure out why your program is not running as expected (or
@@ -727,9 +729,9 @@ common.
 </p>
 </div>
 
-<div id="outline-container-org3221daf" class="outline-3">
-<h3 id="org3221daf">Integer Math</h3>
-<div class="outline-text-3" id="text-org3221daf">
+<div id="outline-container-orgf039f23" class="outline-3">
+<h3 id="orgf039f23">Integer Math</h3>
+<div class="outline-text-3" id="text-orgf039f23">
 <p>
 Like Python, in C when you write mathematical expressions, be sure to
 <b>include decimal places for all numbers</b> (that is, unless you actually
@@ -738,16 +740,16 @@ following code will print to the screen?
 </p>
 
 <div class="org-src-container">
-<pre class="src src-C"><span style="color: #bc6ec5;">#include</span> <span style="color: #4f97d7;">&lt;</span><span style="color: #2d9574;">stdio.h</span><span style="color: #4f97d7;">&gt;</span>
+<pre class="src src-C"><span style="color: #483d8b;">#include</span> <span style="color: #8b2252;">&lt;stdio.h&gt;</span>
 
-<span style="color: #ce537a; font-weight: bold;">int</span> <span style="color: #bc6ec5; font-weight: bold;">main</span> <span style="color: #4f97d7;">()</span>
-<span style="color: #4f97d7;">{</span>
-  <span style="color: #ce537a; font-weight: bold;">double</span> <span style="color: #7590db;">mass</span> = <span style="color: #a45bad;">2.5</span>;
-  <span style="color: #ce537a; font-weight: bold;">double</span> <span style="color: #7590db;">velocity</span> = <span style="color: #a45bad;">4.5</span>;
-  <span style="color: #ce537a; font-weight: bold;">double</span> <span style="color: #7590db;">kinetic_energy</span> = <span style="color: #bc6ec5;">(</span><span style="color: #a45bad;">1</span>/<span style="color: #a45bad;">2</span><span style="color: #bc6ec5;">)</span> * mass * velocity * velocity;
-  printf<span style="color: #bc6ec5;">(</span><span style="color: #2d9574;">"kinetic energy = %.3f\n"</span>, kinetic_energy<span style="color: #bc6ec5;">)</span>;
-  <span style="color: #4f97d7; font-weight: bold;">return</span> <span style="color: #a45bad;">0</span>;
-<span style="color: #4f97d7;">}</span>
+<span style="color: #228b22;">int</span> <span style="color: #0000ff;">main</span> ()
+{
+  <span style="color: #228b22;">double</span> <span style="color: #a0522d;">mass</span> = 2.5;
+  <span style="color: #228b22;">double</span> <span style="color: #a0522d;">velocity</span> = 4.5;
+  <span style="color: #228b22;">double</span> <span style="color: #a0522d;">kinetic_energy</span> = (1/2) * mass * velocity * velocity;
+  printf(<span style="color: #8b2252;">"kinetic energy = %.3f\n"</span>, kinetic_energy);
+  <span style="color: #a020f0;">return</span> 0;
+}
 </pre>
 </div>
 
@@ -768,16 +770,16 @@ all numbers</b>:
 </p>
 
 <div class="org-src-container">
-<pre class="src src-C"><span style="color: #bc6ec5;">#include</span> <span style="color: #4f97d7;">&lt;</span><span style="color: #2d9574;">stdio.h</span><span style="color: #4f97d7;">&gt;</span>
+<pre class="src src-C"><span style="color: #483d8b;">#include</span> <span style="color: #8b2252;">&lt;stdio.h&gt;</span>
 
-<span style="color: #ce537a; font-weight: bold;">int</span> <span style="color: #bc6ec5; font-weight: bold;">main</span> <span style="color: #4f97d7;">()</span>
-<span style="color: #4f97d7;">{</span>
-  <span style="color: #ce537a; font-weight: bold;">double</span> <span style="color: #7590db;">mass</span> = <span style="color: #a45bad;">2.5</span>;
-  <span style="color: #ce537a; font-weight: bold;">double</span> <span style="color: #7590db;">velocity</span> = <span style="color: #a45bad;">4.5</span>;
-  <span style="color: #ce537a; font-weight: bold;">double</span> <span style="color: #7590db;">kinetic_energy</span> = <span style="color: #bc6ec5;">(</span><span style="color: #a45bad;">1.0</span>/<span style="color: #a45bad;">2.0</span><span style="color: #bc6ec5;">)</span> * mass * velocity * velocity;
-  printf<span style="color: #bc6ec5;">(</span><span style="color: #2d9574;">"kinetic energy = %.3f\n"</span>, kinetic_energy<span style="color: #bc6ec5;">)</span>;
-  <span style="color: #4f97d7; font-weight: bold;">return</span> <span style="color: #a45bad;">0</span>;
-<span style="color: #4f97d7;">}</span>
+<span style="color: #228b22;">int</span> <span style="color: #0000ff;">main</span> ()
+{
+  <span style="color: #228b22;">double</span> <span style="color: #a0522d;">mass</span> = 2.5;
+  <span style="color: #228b22;">double</span> <span style="color: #a0522d;">velocity</span> = 4.5;
+  <span style="color: #228b22;">double</span> <span style="color: #a0522d;">kinetic_energy</span> = (1.0/2.0) * mass * velocity * velocity;
+  printf(<span style="color: #8b2252;">"kinetic energy = %.3f\n"</span>, kinetic_energy);
+  <span style="color: #a020f0;">return</span> 0;
+}
 </pre>
 </div>
 
@@ -792,9 +794,9 @@ code.
 </div>
 </div>
 
-<div id="outline-container-org015f1fc" class="outline-3">
-<h3 id="org015f1fc">Floating-point Math</h3>
-<div class="outline-text-3" id="text-org015f1fc">
+<div id="outline-container-org4920b5c" class="outline-3">
+<h3 id="org4920b5c">Floating-point Math</h3>
+<div class="outline-text-3" id="text-org4920b5c">
 <p>
 Computers use bits (0s and 1s) to represent data, including
 floating-point numbers. This means numbers that we typically represent
@@ -831,15 +833,15 @@ expressions. Here is an example of how you might be led astray. What is the outp
 </p>
 
 <div class="org-src-container">
-<pre class="src src-C"><span style="color: #bc6ec5;">#include</span> <span style="color: #4f97d7;">&lt;</span><span style="color: #2d9574;">stdio.h</span><span style="color: #4f97d7;">&gt;</span>
+<pre class="src src-C"><span style="color: #483d8b;">#include</span> <span style="color: #8b2252;">&lt;stdio.h&gt;</span>
 
-<span style="color: #ce537a; font-weight: bold;">int</span> <span style="color: #bc6ec5; font-weight: bold;">main</span> <span style="color: #4f97d7;">()</span> <span style="color: #4f97d7;">{</span>
-  <span style="color: #ce537a; font-weight: bold;">double</span> <span style="color: #7590db;">x</span> = <span style="color: #a45bad;">0.1</span>;
-  <span style="color: #ce537a; font-weight: bold;">double</span> <span style="color: #7590db;">y</span> = <span style="color: #a45bad;">0.2</span>;
-  <span style="color: #4f97d7; font-weight: bold;">if</span> <span style="color: #bc6ec5;">(</span><span style="color: #2d9574;">(</span>x + y<span style="color: #2d9574;">)</span> == <span style="color: #a45bad;">0.3</span><span style="color: #bc6ec5;">)</span> printf<span style="color: #bc6ec5;">(</span><span style="color: #2d9574;">"TRUE\n"</span><span style="color: #bc6ec5;">)</span>; <span style="color: #4f97d7; font-weight: bold;">else</span> printf<span style="color: #bc6ec5;">(</span><span style="color: #2d9574;">"FALSE\n"</span><span style="color: #bc6ec5;">)</span>;
-  printf<span style="color: #bc6ec5;">(</span><span style="color: #2d9574;">"x + y = %.20f\n"</span>, x+y<span style="color: #bc6ec5;">)</span>;
-  <span style="color: #4f97d7; font-weight: bold;">return</span> <span style="color: #a45bad;">0</span>;
-<span style="color: #4f97d7;">}</span>
+<span style="color: #228b22;">int</span> <span style="color: #0000ff;">main</span> () {
+  <span style="color: #228b22;">double</span> <span style="color: #a0522d;">x</span> = 0.1;
+  <span style="color: #228b22;">double</span> <span style="color: #a0522d;">y</span> = 0.2;
+  <span style="color: #a020f0;">if</span> ((x + y) == 0.3) printf(<span style="color: #8b2252;">"TRUE\n"</span>); <span style="color: #a020f0;">else</span> printf(<span style="color: #8b2252;">"FALSE\n"</span>);
+  printf(<span style="color: #8b2252;">"x + y = %.20f\n"</span>, x+y);
+  <span style="color: #a020f0;">return</span> 0;
+}
 </pre>
 </div>
 
@@ -896,9 +898,9 @@ real-world examples involving a stock market, a rocket, and a missle:
 </div>
 </div>
 
-<div id="outline-container-orgc753d92" class="outline-3">
-<h3 id="orgc753d92">Out of Bounds Array Indexing</h3>
-<div class="outline-text-3" id="text-orgc753d92">
+<div id="outline-container-orgb9f90bc" class="outline-3">
+<h3 id="orgb9f90bc">Out of Bounds Array Indexing</h3>
+<div class="outline-text-3" id="text-orgb9f90bc">
 <p>
 x
 </p>
@@ -907,9 +909,9 @@ x
 </div>
 
 
-<div id="outline-container-org5d69143" class="outline-2">
-<h2 id="org5d69143">Tricky Code</h2>
-<div class="outline-text-2" id="text-org5d69143">
+<div id="outline-container-orga431f4c" class="outline-2">
+<h2 id="orga431f4c">Tricky Code</h2>
+<div class="outline-text-2" id="text-orga431f4c">
 <p>
 As a general rule I prefer explicit code to using "tricks" to make
 code extremely short. There is a trade-off, of course. Short, tricky
@@ -928,28 +930,28 @@ entry called <a href="http://www.ioccc.org/years.html#2011_eastman">eastman</a> 
 </p>
 
 <div class="org-src-container">
-<pre class="src src-c"><span style="color: #bc6ec5;">#include</span> <span style="color: #4f97d7;">&lt;</span><span style="color: #2d9574;">stdio.h</span><span style="color: #4f97d7;">&gt;</span>
-<span style="color: #bc6ec5;">#include</span> <span style="color: #4f97d7;">&lt;</span><span style="color: #2d9574;">math.h</span><span style="color: #4f97d7;">&gt;</span>
-<span style="color: #bc6ec5;">#include</span> <span style="color: #4f97d7;">&lt;</span><span style="color: #2d9574;">unistd.h</span><span style="color: #4f97d7;">&gt;</span>
-<span style="color: #bc6ec5;">#include</span> <span style="color: #4f97d7;">&lt;</span><span style="color: #2d9574;">sys/ioctl.h</span><span style="color: #4f97d7;">&gt;</span>
-             <span style="color: #bc6ec5; font-weight: bold;">main</span><span style="color: #4f97d7;">()</span> <span style="color: #4f97d7;">{</span>
-         <span style="color: #ce537a; font-weight: bold;">short</span> <span style="color: #7590db;">a</span><span style="color: #bc6ec5;">[</span><span style="color: #a45bad;">4</span><span style="color: #bc6ec5;">]</span>;ioctl
-      <span style="color: #bc6ec5;">(</span><span style="color: #a45bad;">0</span>,TIOCGWINSZ,&amp;a<span style="color: #bc6ec5;">)</span>;<span style="color: #ce537a; font-weight: bold;">int</span>
-    <span style="color: #7590db;">b</span>,<span style="color: #7590db;">c</span>,<span style="color: #7590db;">d</span>=*a,<span style="color: #7590db;">e</span>=a<span style="color: #bc6ec5;">[</span><span style="color: #a45bad;">1</span><span style="color: #bc6ec5;">]</span>;<span style="color: #ce537a; font-weight: bold;">float</span> <span style="color: #7590db;">f</span>,<span style="color: #7590db;">g</span>,
-  <span style="color: #7590db;">h</span>,<span style="color: #7590db;">i</span>=d/<span style="color: #a45bad;">2</span>+d%<span style="color: #a45bad;">2</span>+<span style="color: #a45bad;">1</span>,<span style="color: #7590db;">j</span>=d/<span style="color: #a45bad;">5</span>-<span style="color: #a45bad;">1</span>,<span style="color: #7590db;">k</span>=<span style="color: #a45bad;">0</span>,<span style="color: #7590db;">l</span>=e/
- <span style="color: #a45bad;">2</span>,<span style="color: #7590db;">m</span>=d/<span style="color: #a45bad;">4</span>,<span style="color: #7590db;">n</span>=.<span style="color: #a45bad;">01</span>*e,<span style="color: #7590db;">o</span>=<span style="color: #a45bad;">0</span>,<span style="color: #7590db;">p</span>=.<span style="color: #a45bad;">1</span>;<span style="color: #4f97d7; font-weight: bold;">while</span> <span style="color: #bc6ec5;">(</span>
-printf<span style="color: #2d9574;">(</span><span style="color: #2d9574;">"\x1b[H\x1B[?25l"</span><span style="color: #2d9574;">)</span>,<span style="color: #a45bad;">!</span>usleep<span style="color: #2d9574;">(</span>
-<span style="color: #a45bad;">79383</span><span style="color: #2d9574;">)</span><span style="color: #bc6ec5;">){</span><span style="color: #4f97d7; font-weight: bold;">for</span> <span style="color: #2d9574;">(</span>b=c=<span style="color: #a45bad;">0</span>;h=<span style="color: #a45bad;">2</span>*<span style="color: #67b11d;">(</span>m-c<span style="color: #67b11d;">)</span>/i,f=-
-.<span style="color: #a45bad;">3</span>*<span style="color: #67b11d;">(</span>g=<span style="color: #b1951d;">(</span>l-b<span style="color: #b1951d;">)</span>/i<span style="color: #67b11d;">)</span>+.<span style="color: #a45bad;">954</span>*h,c&lt;d;c+=<span style="color: #67b11d;">(</span>b=++
-b%e<span style="color: #67b11d;">)</span>==<span style="color: #a45bad;">0</span><span style="color: #2d9574;">)</span>printf<span style="color: #2d9574;">(</span><span style="color: #2d9574;">"\x1B[%dm "</span>,g*g&gt;<span style="color: #a45bad;">1</span>-h
-*h?c&gt;d-j?b&lt;d-c||d-c&gt;e-b?<span style="color: #a45bad;">40</span>:<span style="color: #a45bad;">100</span>:b&lt;j
-||b&gt;e-j?<span style="color: #a45bad;">40</span>:g*<span style="color: #67b11d;">(</span>g+.<span style="color: #a45bad;">6</span><span style="color: #67b11d;">)</span>+.<span style="color: #a45bad;">09</span>+h*h&lt;<span style="color: #a45bad;">1</span>?<span style="color: #a45bad;">100</span>:
- <span style="color: #a45bad;">47</span>:<span style="color: #67b11d;">(</span><span style="color: #b1951d;">(</span><span style="color: #ce537a; font-weight: bold;">int</span><span style="color: #b1951d;">)(</span><span style="color: #a45bad;">9</span>-k+<span style="color: #4f97d7;">(</span>.<span style="color: #a45bad;">954</span>*g+.<span style="color: #a45bad;">3</span>*h<span style="color: #4f97d7;">)</span>/sqrt
-  <span style="color: #4f97d7;">(</span><span style="color: #a45bad;">1</span>-f*f<span style="color: #4f97d7;">)</span><span style="color: #b1951d;">)</span>+<span style="color: #b1951d;">(</span><span style="color: #ce537a; font-weight: bold;">int</span><span style="color: #b1951d;">)(</span><span style="color: #a45bad;">2</span>+f*<span style="color: #a45bad;">2</span><span style="color: #b1951d;">)</span><span style="color: #67b11d;">)</span>%<span style="color: #a45bad;">2</span>==<span style="color: #a45bad;">0</span>?<span style="color: #a45bad;">107</span>
-    :<span style="color: #a45bad;">101</span><span style="color: #2d9574;">)</span>;k+=p,m+=o,o=m&gt;d-<span style="color: #a45bad;">2</span>*j?
-      -.<span style="color: #a45bad;">04</span>*d:o+.<span style="color: #a45bad;">002</span>*d;n=<span style="color: #2d9574;">(</span>l+=
-         n<span style="color: #2d9574;">)</span>&lt;i||l&gt;e-i?p=-p
-             ,-n:n;<span style="color: #bc6ec5;">}</span><span style="color: #4f97d7;">}</span>
+<pre class="src src-c"><span style="color: #483d8b;">#include</span> <span style="color: #8b2252;">&lt;stdio.h&gt;</span>
+<span style="color: #483d8b;">#include</span> <span style="color: #8b2252;">&lt;math.h&gt;</span>
+<span style="color: #483d8b;">#include</span> <span style="color: #8b2252;">&lt;unistd.h&gt;</span>
+<span style="color: #483d8b;">#include</span> <span style="color: #8b2252;">&lt;sys/ioctl.h&gt;</span>
+             <span style="color: #0000ff;">main</span>() {
+         <span style="color: #228b22;">short</span> <span style="color: #a0522d;">a</span>[4];ioctl
+      (0,TIOCGWINSZ,&amp;a);<span style="color: #228b22;">int</span>
+    <span style="color: #a0522d;">b</span>,<span style="color: #a0522d;">c</span>,<span style="color: #a0522d;">d</span>=*a,<span style="color: #a0522d;">e</span>=a[1];<span style="color: #228b22;">float</span> <span style="color: #a0522d;">f</span>,<span style="color: #a0522d;">g</span>,
+  <span style="color: #a0522d;">h</span>,<span style="color: #a0522d;">i</span>=d/2+d%2+1,<span style="color: #a0522d;">j</span>=d/5-1,<span style="color: #a0522d;">k</span>=0,<span style="color: #a0522d;">l</span>=e/
+ 2,<span style="color: #a0522d;">m</span>=d/4,<span style="color: #a0522d;">n</span>=.01*e,<span style="color: #a0522d;">o</span>=0,<span style="color: #a0522d;">p</span>=.1;<span style="color: #a020f0;">while</span> (
+printf(<span style="color: #8b2252;">"\x1b[H\x1B[?25l"</span>),!usleep(
+79383)){<span style="color: #a020f0;">for</span> (b=c=0;h=2*(m-c)/i,f=-
+.3*(g=(l-b)/i)+.954*h,c&lt;d;c+=(b=++
+b%e)==0)printf(<span style="color: #8b2252;">"\x1B[%dm "</span>,g*g&gt;1-h
+*h?c&gt;d-j?b&lt;d-c||d-c&gt;e-b?40:100:b&lt;j
+||b&gt;e-j?40:g*(g+.6)+.09+h*h&lt;1?100:
+ 47:((<span style="color: #228b22;">int</span>)(9-k+(.954*g+.3*h)/sqrt
+  (1-f*f))+(<span style="color: #228b22;">int</span>)(2+f*2))%2==0?107
+    :101);k+=p,m+=o,o=m&gt;d-2*j?
+      -.04*d:o+.002*d;n=(l+=
+         n)&lt;i||l&gt;e-i?p=-p
+             ,-n:n;}}
 </pre>
 </div>
 
@@ -965,9 +967,9 @@ gcc -lm eastman.c -o eastman
 </div>
 
 
-<div id="outline-container-orge205dd1" class="outline-2">
-<h2 id="orge205dd1">Links</h2>
-<div class="outline-text-2" id="text-orge205dd1">
+<div id="outline-container-orgf718776" class="outline-2">
+<h2 id="orgf718776">Links</h2>
+<div class="outline-text-2" id="text-orgf718776">
 <ul class="org-ul">
 <li><a href="http://www.unknownroad.com/rtfm/gdbtut/gdbtoc.html">RMS's gdb Debugger Tutorial</a></li>
 <li><a href="http://www.dirac.org/linux/gdb/">Using GNU's GDB Debugger</a></li>
