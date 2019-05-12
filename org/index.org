@@ -2,7 +2,7 @@
 
 #+TITLE:     C Programming Boot Camp
 #+AUTHOR:    Paul Gribble
-#+EMAIL:     paul@gribblelab.org
+#+EMAIL:     pgribble@uwo.ca
 #+DATE:      Summer 2012
 #+OPTIONS: toc:nil
 #+HTML_LINK_UP: http://www.gribblelab.org/teaching.html
@@ -72,5 +72,5 @@ These notes can be viewed (and downloaded) in their entirety from a
 ** Ideas?
 
 Do you have ideas about how to improve this? Please get in touch, send
-me an email at *paul [at] gribblelab [dot] org*
+me an email at *pgribble [at] uwo [dot] ca*
 
