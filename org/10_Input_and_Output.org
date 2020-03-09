@@ -110,7 +110,7 @@ Consult a reference manual (or a website like [[http://www.acm.uiuc.edu/webmonke
 *** The =scanf()= function
 
 To read formatted data in from standard input we can use the
-=fscanf()= function. Just like =printf()=, it takes as a first
+=scanf()= function. Just like =printf()=, it takes as a first
 argument a format string, followed by other arguments specifying the
 destination of each argument. Unlike =printf()=, the =scanf()=
 function requires that these destination arguments be *addresses* of
